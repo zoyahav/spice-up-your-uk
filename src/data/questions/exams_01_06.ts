@@ -25,7 +25,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
       'The rule of law',
       'Compulsory membership of a trade union',
     ],
-    correctIndices: [0-2],
+    correctIndices: [0, 2],
     explanation:
       'The five fundamental principles of British life are democracy, the rule of law, individual liberty, tolerance of those with different faiths and beliefs, and participation in community life.',
     memoryHook:
@@ -295,7 +295,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
       'Great Expectations',
       'Treasure Island',
     ],
-    correctIndices: [0-1],
+    correctIndices: [0, 1],
     explanation:
       'Jane Austen (1775–1817) is one of England’s finest novelists; her famous works concerning marriage and family relationships include Pride and Prejudice and Sense and Sensibility.',
     memoryHook:
@@ -401,7 +401,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
       'All United States citizens',
       'Irish citizens',
     ],
-    correctIndices: [1-3],
+    correctIndices: [1, 3],
     explanation:
       'Adult (18+) UK citizens, together with qualifying Commonwealth citizens and Irish citizens who are resident in the UK and on the electoral register, can vote in all UK public elections.',
     memoryHook:
@@ -460,7 +460,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
       'Look after the area in which you live and the environment',
       'Attend church services every Sunday',
     ],
-    correctIndices: [1-2],
+    correctIndices: [1, 2],
     explanation:
       'If you wish to be a permanent resident or citizen of the UK, you should: respect and obey the law, respect the rights of others (including their opinions), treat others with fairness, look after yourself and your family, and look after the area in which you live and the environment.',
     memoryHook:
@@ -490,7 +490,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     prompt:
       'Alongside the Cross of St George (England), which TWO other patron saints’ crosses are combined to make the Union Flag? (Choose TWO)',
     options: ['St Andrew', 'St David', 'St Patrick', 'St Columba'],
-    correctIndices: [0-2],
+    correctIndices: [0, 2],
     explanation:
       'The Union Flag (Union Jack) combines three crosses: St George (England), St Andrew (Scotland), and St Patrick (Ireland). St David’s cross is not part of the flag.',
     memoryHook:
@@ -727,7 +727,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
       'Oliver Twist',
       'Great Expectations',
     ],
-    correctIndices: [2-3],
+    correctIndices: [2, 3],
     explanation:
       'Charles Dickens (1812–1870) wrote celebrated Victorian novels including Oliver Twist and Great Expectations, creating characters like Scrooge and Mr Micawber that are still referenced in everyday English.',
     memoryHook:
@@ -1118,7 +1118,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     prompt:
       'Which TWO universities compete against each other in the famous annual Boat Race along the River Thames in London? (Choose TWO)',
     options: ['University of Oxford', 'University of Cambridge', 'University of Edinburgh', 'Durham University'],
-    correctIndices: [0-1],
+    correctIndices: [0, 1],
     explanation:
       'The Boat Race is a famous annual rowing race on the River Thames in London between crews from the Universities of Oxford and Cambridge.',
     memoryHook:
@@ -1138,7 +1138,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
       'The Strange Case of Dr Jekyll and Mr Hyde',
       'Sense and Sensibility',
     ],
-    correctIndices: [1-2],
+    correctIndices: [1, 2],
     explanation:
       'Robert Louis Stevenson (1850–1894) wrote books that are still read by adults and children today, most famously Treasure Island, Kidnapped, and The Strange Case of Dr Jekyll and Mr Hyde.',
     memoryHook:
@@ -1254,7 +1254,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
       'Housing disputes between landlords and tenants',
       'Employment disputes such as unfair dismissal',
     ],
-    correctIndices: [2-3],
+    correctIndices: [2, 3],
     explanation:
       'Civil law settles disputes between individuals or groups: including housing law (landlord/tenant), consumer rights, employment law (unfair dismissal/discrimination), and debt: whereas weapons offences and theft are criminal offences.',
     memoryHook:
@@ -1315,7 +1315,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
       'A right to a fair trial',
       'Guaranteed election to Parliament',
     ],
-    correctIndices: [0-2],
+    correctIndices: [0, 2],
     explanation:
       'In return for fulfilling civic responsibilities, the UK offers: freedom of belief and religion, freedom of speech, freedom from unfair discrimination, a right to a fair trial, and a right to join in the election of a government.',
     memoryHook:
@@ -1361,7 +1361,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     prompt:
       'Which TWO nations of the UK have an official bank holiday for their patron saint’s day? (Choose TWO)',
     options: ['England', 'Scotland', 'Wales', 'Northern Ireland'],
-    correctIndices: [1-3],
+    correctIndices: [1, 3],
     explanation:
       'Although all four nations celebrate their patron saints’ days, only Scotland (St Andrew’s Day, 30 November) and Northern Ireland (St Patrick’s Day, 17 March) have official public holidays for them.',
     memoryHook:
@@ -1393,7 +1393,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     prompt:
       'Which TWO Roman forts along Hadrian’s Wall can still be visited today as part of a UNESCO World Heritage Site? (Choose TWO)',
     options: ['Maiden Castle', 'Housesteads', 'Conwy', 'Vindolanda'],
-    correctIndices: [1-3],
+    correctIndices: [1, 3],
     explanation:
       'Parts of Hadrian’s Wall: including the Roman forts of Housesteads and Vindolanda, can still be seen today and are a popular walking area and UNESCO World Heritage Site.',
     memoryHook:
@@ -1409,11 +1409,11 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     prompt:
       'Where did the Vikings come from when they first visited Britain in AD 789 to raid coastal towns? (Choose TWO)',
     options: ['Denmark', 'Italy', 'Spain', 'Norway'],
-    correctIndices: [0-3],
+    correctIndices: [0, 3],
     explanation:
       'The Vikings came from Denmark and Norway. They first raided coastal towns and monasteries in AD 789 before staying to form their own communities in eastern England and Scotland.',
     memoryHook:
-      '🌶️ Spice Hook: "Scandi Raiders = Denmark & Norway in AD 7-8-9 (count 7-8, 9)!"',
+      '🌶️ Spice Hook: "Scandi Raiders = Denmark & Norway in AD 7-8-9 (count 7, 8, 9)!"',
     visualId: 'history-timeline',
   },
   {
@@ -1851,7 +1851,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     prompt:
       'Alongside the Jutes, which TWO other tribes from northern Europe invaded and settled in Britain after the Romans left in AD 410? (Choose TWO)',
     options: ['The Angles', 'The Picts', 'The Normans', 'The Saxons'],
-    correctIndices: [0-3],
+    correctIndices: [0, 3],
     explanation:
       'After the Roman army left in AD 410, Britain was invaded by tribes from northern Europe: the Jutes, the Angles, and the Saxons. Their languages formed the basis of modern English, and kingdoms were established by about AD 600.',
     memoryHook:
@@ -1888,7 +1888,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     prompt:
       'Which TWO huge Welsh castles were built by King Edward I to maintain his power after annexing Wales in 1284? (Choose TWO)',
     options: ['Edinburgh Castle', 'Conwy Castle', 'Caernarfon Castle', 'Windsor Castle'],
-    correctIndices: [1-2],
+    correctIndices: [1, 2],
     explanation:
       'After introducing the Statute of Rhuddlan in 1284, Edward I built huge castles to maintain his power in Wales, including Conwy and Caernarfon, many of which are still standing today.',
     memoryHook:
@@ -1946,7 +1946,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
       'The House of Windsor',
       'The House of York',
     ],
-    correctIndices: [0-3],
+    correctIndices: [0, 3],
     explanation:
       'The Wars of the Roses (1455–1485) was fought between the supporters of two families: the House of Lancaster (symbolised by a red rose) and the House of York (symbolised by a white rose).',
     memoryHook:
@@ -1976,7 +1976,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     prompt:
       'Alongside England, Scotland, Wales, and Ireland, which TWO other European countries compete in the annual Six Nations Rugby Championship? (Choose TWO)',
     options: ['Spain', 'France', 'Germany', 'Italy'],
-    correctIndices: [1-3],
+    correctIndices: [1, 3],
     explanation:
       'The most famous rugby union competition is the Six Nations Championship between England, Ireland, Scotland, Wales, France, and Italy.',
     memoryHook:
@@ -2016,7 +2016,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
       'Macbeth',
       'Pygmalion',
     ],
-    correctIndices: [0-2],
+    correctIndices: [0, 2],
     explanation:
       'Shakespeare’s most famous plays include A Midsummer Night’s Dream, Hamlet, Macbeth, and Romeo and Juliet (whereas Agatha Christie wrote The Mousetrap and George Bernard Shaw wrote Pygmalion).',
     memoryHook:
@@ -2092,7 +2092,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
       '26 senior bishops of the Church of England',
       'Members of the Scottish Youth Parliament',
     ],
-    correctIndices: [0-2],
+    correctIndices: [0, 2],
     explanation:
       'The House of Lords comprises life peers (appointed for their lifetime for achievements and expertise), 26 senior bishops of the Church of England, and a small number of hereditary peers.',
     memoryHook:
@@ -2153,7 +2153,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
       'Faulty goods bought online from a shop',
       'Selling tobacco to anyone under the age of 18',
     ],
-    correctIndices: [0-3],
+    correctIndices: [0, 3],
     explanation:
       'Carrying a weapon, selling tobacco or alcohol to someone under 18, smoking in enclosed public places, and drinking and driving are criminal offences. Debt and faulty consumer goods are civil law matters.',
     memoryHook:
@@ -2193,7 +2193,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
       'Anglesey',
       'The Isle of Man',
     ],
-    correctIndices: [0-3],
+    correctIndices: [0, 3],
     explanation:
       'In the Channel Islands (Jersey and Guernsey) and the Isle of Man, local questions supplement the UK Life in the UK Test. (Note: the Isle of Wight and Anglesey are ordinary parts of England and Wales!).',
     memoryHook:
@@ -2208,7 +2208,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     type: 'multiple',
     prompt: 'Which TWO of the following are major cities in Scotland? (Choose TWO)',
     options: ['Swansea', 'Glasgow', 'Bristol', 'Aberdeen'],
-    correctIndices: [1-3],
+    correctIndices: [1, 3],
     explanation:
       'Major cities in Scotland include Edinburgh (the capital), Glasgow, Aberdeen, and Dundee. Swansea is in Wales, and Bristol is in south-west England.',
     memoryHook:
@@ -2360,7 +2360,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
       'New social classes appeared, including owners of large areas of land called the gentry',
       'Everyone abandoned towns permanently and returned to hunter-gathering',
     ],
-    correctIndices: [0-2],
+    correctIndices: [0, 2],
     explanation:
       'After one third of the population died in 1348, the smaller population meant less need to grow cereal crops and severe labour shortages: peasants could demand higher wages, feudalism declined, people moved to towns, and new classes like the gentry emerged.',
     memoryHook:

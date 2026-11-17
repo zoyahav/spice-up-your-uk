@@ -1,5 +1,5 @@
 /**
- * Built-in SM-2 Flashcard Deck: Chapters 1-2, 4 & 5
+ * Built-in SM-2 Flashcard Deck: Chapters 1, 2, 4 & 5
  * 100% original phrasing, updated for 2026 UK facts (King Charles III, God Save the King, Lottery 18+).
  */
 

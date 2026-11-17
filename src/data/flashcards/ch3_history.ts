@@ -658,7 +658,7 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     subtopicId: 'ch3-empire-industry',
     visualId: 'history-timeline',
     front: 'Exam Favourite: Distinguish the 1807 Slave Trade Act from the 1833 Emancipation Act.',
-    back: '• 1807: It became illegal to trade slaves in British ships or from British ports (and the Royal Navy patrolled to stop slave ships from other nations).\n• 1833: The Emancipation Act abolished slavery itself throughout the entire British Empire! (After 1833-2 million Indian and Chinese workers were employed to replace freed slaves on plantations).',
+    back: '• 1807: It became illegal to trade slaves in British ships or from British ports (and the Royal Navy patrolled to stop slave ships from other nations).\n• 1833: The Emancipation Act abolished slavery itself throughout the entire British Empire! (After 1833, 2 million Indian and Chinese workers were employed to replace freed slaves on plantations).',
     memoryHook:
       '⛓️🚫 "1807 = Stop the Ships (Trade banned); 1833 = Set Everyone Free (Slavery abolished across the Empire)!"',
   },
@@ -1100,7 +1100,7 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     subtopicId: 'ch3-modern-britain',
     visualId: 'history-timeline',
     front: 'What global sporting celebration did London host in 2012, and where was the main Olympic Park built?',
-    back: 'In 2012, the UK hosted the London 2012 Olympic and Paralympic Games (making London the first city to host the modern Summer Olympics three times: 1908-1948, and 2012!), with the main Olympic site regenerating Stratford in East London and Team GB finishing 3rd in the Olympic medal table.',
+    back: 'In 2012, the UK hosted the London 2012 Olympic and Paralympic Games (making London the first city to host the modern Summer Olympics three times: 1908, 1948, and 2012!), with the main Olympic site regenerating Stratford in East London and Team GB finishing 3rd in the Olympic medal table.',
     memoryHook:
       '🥇🔥 London 2012 in Stratford = Britain’s golden summer of Olympics & Paralympics!',
   },
@@ -1192,7 +1192,7 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     chapterId: 'ch3',
     subtopicId: 'ch3-middle-ages',
     visualId: 'history-timeline',
-    front: 'Quick Timeline Check (Medieval Big 5): Match 1215-1284-1314-1348, and 1415 to their landmark events!',
+    front: 'Quick Timeline Check (Medieval Big 5): Match 1215, 1284, 1314, 1348, and 1415 to their landmark events!',
     back: '• 1215: Magna Carta (King John)\n• 1284: Statute of Rhuddlan (Edward I annexes Wales)\n• 1314: Battle of Bannockburn (Robert the Bruce wins for Scotland)\n• 1348: The Black Death arrives in Britain (1/3 die)\n• 1415: Battle of Agincourt (Henry V defeats French)',
     memoryHook:
       '⏳🌶️ Medieval Spice Ladder: 1215 Law → 1284 Wales → 1314 Bruce → 1348 Plague → 1415 Henry V (then 1485 Bosworth)!',

@@ -47,7 +47,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
       'Being aged 65 or over at the time of application',
       'Owning a motor vehicle registered in Great Britain',
     ],
-    correctIndices: [0-2],
+    correctIndices: [0, 2],
     explanation:
       'Applicants are normally required to prove English at CEFR level B1, unless exempt, for example, citizens of majority English-speaking countries, holders of a qualifying degree taught or researched in English, or applicants aged 65 or over (or with a qualifying long-term physical or mental condition).',
     memoryHook:
@@ -108,7 +108,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
       'The Isle of Wight',
       'The Isle of Man',
     ],
-    correctIndices: [0-3],
+    correctIndices: [0, 3],
     explanation:
       'The Channel Islands and the Isle of Man are Crown Dependencies closely linked to the Crown with their own legislatures and tax systems; unlike the Isle of Wight or Orkney, they are not part of the UK.',
     memoryHook:
@@ -357,7 +357,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
       'William Blake',
       'Siegfried Sassoon',
     ],
-    correctIndices: [0-3],
+    correctIndices: [0, 3],
     explanation:
       'Wilfred Owen (who wrote Anthem for Doomed Youth) and Siegfried Sassoon were both First World War soldiers whose poetry vividly portrayed the human cost of the trenches, whereas Blake and Byron lived a century earlier.',
     memoryHook:
@@ -397,7 +397,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
       'Local hospital management',
       'Foreign affairs',
     ],
-    correctIndices: [0-3],
+    correctIndices: [0, 3],
     explanation:
       'Policy and laws governing defence, foreign affairs, immigration, taxation, and social security remain under central UK Parliament control, whereas education and health are devolved.',
     memoryHook:
@@ -491,7 +491,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
       'Female genital mutilation (FGM)',
       'Choosing to affirm rather than swear in court',
     ],
-    correctIndices: [0-2],
+    correctIndices: [0, 2],
     explanation:
       'Forced marriage (where one or both parties do not or cannot consent) and female genital mutilation (FGM, including taking a girl abroad for FGM) are completely unacceptable and are criminal offences in the UK.',
     memoryHook:
@@ -545,7 +545,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
       'Dundee',
       'Lisburn',
     ],
-    correctIndices: [1-2],
+    correctIndices: [1, 2],
     explanation:
       'Edinburgh (the capital), Glasgow, Aberdeen, and Dundee are major cities in Scotland. Swansea is in Wales, and Lisburn is in Northern Ireland.',
     memoryHook:
@@ -585,7 +585,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
       'Anne of Cleves',
       'Catherine Howard',
     ],
-    correctIndices: [1-3],
+    correctIndices: [1, 3],
     explanation:
       'Henry VIII’s second wife, Anne Boleyn (mother of Elizabeth I), and his fifth wife, Catherine Howard (Anne Boleyn’s cousin), were both accused of treasonous adultery and executed.',
     memoryHook:
@@ -928,7 +928,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
       'Japan',
       'France',
     ],
-    correctIndices: [1-3],
+    correctIndices: [1, 3],
     explanation:
       'The UN Security Council recommends action during international crises and crises threatening peace. There are 15 members in total, including five permanent members: the UK, the USA, France, Russia, and China.',
     memoryHook:
@@ -1019,7 +1019,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
       'Newport',
       'Southampton',
     ],
-    correctIndices: [0-2],
+    correctIndices: [0, 2],
     explanation:
       'Cardiff, Swansea, and Newport are key cities in south Wales. Dundee is in Scotland, and Southampton is on the south coast of England.',
     memoryHook:
@@ -1078,7 +1078,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
       'Macbeth',
       'Pride and Prejudice',
     ],
-    correctIndices: [0-2],
+    correctIndices: [0, 2],
     explanation:
       'Playwright and poet William Shakespeare (1564–1616) wrote A Midsummer Night’s Dream, Macbeth, Hamlet, and Romeo and Juliet. Pride and Prejudice is by Jane Austen, and The Hound of the Baskervilles is by Sir Arthur Conan Doyle.',
     memoryHook:
@@ -1397,7 +1397,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
       'A Scottish jury can return a third verdict of "not proven" alongside "guilty" and "not guilty"',
       'Defendants in Scotland are not allowed legal representation',
     ],
-    correctIndices: [0-2],
+    correctIndices: [0, 2],
     explanation:
       'In England, Wales, and Northern Ireland, a criminal jury has 12 members and two verdicts (guilty or not guilty). In Scotland, a jury has 15 members and three possible verdicts: guilty, not guilty, and "not proven".',
     memoryHook:
@@ -1457,7 +1457,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
       'St Helena',
       'Anglesey',
     ],
-    correctIndices: [0-2],
+    correctIndices: [0, 2],
     explanation:
       'Gibraltar (at the southern tip of Spain) and St Helena (in the South Atlantic) are British Overseas Territories. Jersey is a Crown Dependency, and Anglesey is an island county in Wales.',
     memoryHook:
@@ -1577,7 +1577,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
       'Naseby',
       'Waterloo',
     ],
-    correctIndices: [0-2],
+    correctIndices: [0, 2],
     explanation:
       'King Charles I’s Cavalier army was defeated by Parliament’s Roundhead army at the Battles of Marston Moor (1644) and Naseby (1645); by 1646 it was clear that Parliament had won the war.',
     memoryHook:
@@ -1618,7 +1618,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
       'The Great Western Railway (running from Paddington to the south-west and Wales)',
       'The Thames Barrier at Woolwich',
     ],
-    correctIndices: [0-2],
+    correctIndices: [0, 2],
     explanation:
       'Isambard Kingdom Brunel built tunnels, bridges, railway lines, and ships, including the Great Western Railway (from London Paddington to the south-west and Wales) and the iconic Clifton Suspension Bridge in Bristol.',
     memoryHook:
@@ -1651,7 +1651,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     subtopicId: 'ch3-empire-industry',
     type: 'boolean',
     prompt:
-      'In 1776-13 British colonies in North America declared their independence, stating that people had a right to establish their own governments after clashing with Britain over taxation.',
+      'In 1776, 13 British colonies in North America declared their independence, stating that people had a right to establish their own governments after clashing with Britain over taxation.',
     options: ['True', 'False'],
     correctIndices: [0],
     explanation:
@@ -1712,7 +1712,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     ],
     correctIndices: [0],
     explanation:
-      'Sir Chris Hoy is a Scottish track cyclist who won six Olympic gold medals and one silver medal across the 2000-2004-2008, and 2012 Olympic Games.',
+      'Sir Chris Hoy is a Scottish track cyclist who won six Olympic gold medals and one silver medal across the 2000, 2004, 2008, and 2012 Olympic Games.',
     memoryHook:
       '🌶️ Spice Hook: "Hoy! Six cycling golds for Scotland’s velodrome boy!"',
   },
@@ -1810,7 +1810,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
       'Qualifying Commonwealth citizens resident in the UK',
       'Any adult living anywhere in North or South America',
     ],
-    correctIndices: [0-2],
+    correctIndices: [0, 2],
     explanation:
       'Adult British citizens, together with qualifying citizens of the Commonwealth and citizens of the Republic of Ireland who are resident in the UK and aged 18 or over on the electoral register, can vote in all public UK elections.',
     memoryHook:
@@ -1911,7 +1911,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
       'To observe the UK’s laws faithfully and fulfil their duties and obligations as a British citizen',
       'To surrender any foreign university qualifications',
     ],
-    correctIndices: [0-2],
+    correctIndices: [0, 2],
     explanation:
       'The Citizenship Pledge states: "I will give my loyalty to the United Kingdom and respect its rights and freedoms. I will uphold its democratic values. I will observe its laws faithfully and fulfil my duties and obligations as a British citizen."',
     memoryHook:
@@ -1934,7 +1934,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     explanation:
       'Standard UK banknotes are issued in denominations of £5, £10, £20, and £50, while £1 and £2 are coins (though some Scottish/NI banks also print £1 or £100 notes locally, the four standard UK denominations are £5, £10, £20, and £50).',
     memoryHook:
-      '🌶️ Spice Hook: Coins stop at £2; Notes run "5-10-20-50!"',
+      '🌶️ Spice Hook: Coins stop at £2; Notes run "5, 10, 20, 50!"',
   },
   {
     id: 'q-ex11-04',
@@ -1970,7 +1970,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
       'Wales (St David’s Day, 1 March)',
       'Northern Ireland (St Patrick’s Day, 17 March)',
     ],
-    correctIndices: [1-3],
+    correctIndices: [1, 3],
     explanation:
       'Only Scotland (30 November, St Andrew’s Day) and Northern Ireland (17 March, St Patrick’s Day) have official public holidays for their patron saints’ days (though in Scotland not all businesses close).',
     memoryHook:
@@ -2167,7 +2167,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
       'Lord Byron',
       'Dylan Thomas',
     ],
-    correctIndices: [0-2],
+    correctIndices: [0, 2],
     explanation:
       'Artist and poet William Blake wrote The Tyger (and the lines that became the hymn Jerusalem), while Romantic poet Lord Byron wrote She Walks in Beauty and Childe Harold’s Pilgrimage.',
     memoryHook:
@@ -2207,9 +2207,9 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
       'Ellie Simmonds',
       'Jayne Torvill',
     ],
-    correctIndices: [0-2],
+    correctIndices: [0, 2],
     explanation:
-      'David Weir won six gold medals across two Paralympic Games (including four at London 2012) and won the London Marathon six times; Ellie Simmonds is a Paralympian swimmer who won gold medals at the 2008-2012, and 2016 Games (becoming the youngest Briton to win gold in 2008).',
+      'David Weir won six gold medals across two Paralympic Games (including four at London 2012) and won the London Marathon six times; Ellie Simmonds is a Paralympian swimmer who won gold medals at the 2008, 2012, and 2016 Games (becoming the youngest Briton to win gold in 2008).',
     memoryHook:
       '🌶️ Spice Hook: Paralympic Icons = "Weir on Wheels & Simmonds in the Swim!"',
   },
@@ -2297,7 +2297,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
       'Civil servants',
       'Shop owners and company directors',
     ],
-    correctIndices: [0-2],
+    correctIndices: [0, 2],
     explanation:
       'Members of the armed forces, civil servants, and people found guilty of certain criminal offences (as well as peers sitting in the House of Lords and certain judges/police officers) cannot stand for election as an MP in the House of Commons.',
     memoryHook:
@@ -2610,7 +2610,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
       'Boxing Day is a public holiday celebrated on 26 December, the day after Christmas Day',
       'Bonfire Night is celebrated on 11 November with a two-minute silence',
     ],
-    correctIndices: [0-2],
+    correctIndices: [0, 2],
     explanation:
       'Halloween falls on 31 October and Boxing Day is on 26 December. Valentine’s Day is on 14 February (not March), and Bonfire Night is on 5 November (11 November is Remembrance Day).',
     memoryHook:
@@ -2650,7 +2650,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
       'Lewis Hamilton',
       'Bobby Moore',
     ],
-    correctIndices: [0-2],
+    correctIndices: [0, 2],
     explanation:
       'Recent British winners of the Formula 1 World Championship include Damon Hill, Lewis Hamilton, and Jenson Button (following earlier three-time champion Sir Jackie Stewart). Wiggins is a cyclist and Moore captained the 1966 England football team.',
     memoryHook:
@@ -2670,7 +2670,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
       'J.K. Rowling',
       'John Constable',
     ],
-    correctIndices: [0-2],
+    correctIndices: [0, 2],
     explanation:
       'Ian Fleming introduced James Bond ("007") in 1952/1953, while J.K. Rowling wrote the hugely successful Harry Potter series of books for children and adults.',
     memoryHook:
@@ -2690,7 +2690,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
       'Graham Greene',
       'Sir Frank Whittle',
     ],
-    correctIndices: [0-2],
+    correctIndices: [0, 2],
     explanation:
       'Kingsley Amis (author of Lucky Jim) and Graham Greene (whose thrillers and novels such as Brighton Rock and The Heart of the Matter were often influenced by his religious and moral discoveries) are major 20th-century British novelists. Capability Brown was an 18th-century garden designer, and Frank Whittle invented the jet engine.',
     memoryHook:
@@ -2710,7 +2710,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
       'Education and health services in Scotland',
       'UK immigration and asylum borders',
     ],
-    correctIndices: [0-2],
+    correctIndices: [0, 2],
     explanation:
       'The Scottish Parliament can legislate on anything not specifically reserved to the UK Parliament, including civil and criminal law, health, education, planning, and additional tax-raising powers, while defence and immigration are reserved to Westminster.',
     memoryHook:

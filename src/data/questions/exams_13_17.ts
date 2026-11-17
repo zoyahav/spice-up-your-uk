@@ -54,7 +54,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     prompt:
       'Which TWO parts of the United Kingdom have an official public bank holiday on their patron saint’s day? (Choose TWO)',
     options: ['Scotland', 'Northern Ireland', 'England', 'Wales'],
-    correctIndices: [0-1],
+    correctIndices: [0, 1],
     explanation:
       'Although all four nations celebrate their patron saints, only Scotland (St Andrew’s Day on 30 November) and Northern Ireland (St Patrick’s Day on 17 March) have an official bank holiday for the occasion (though not every business closes in Scotland). England (St George’s Day) and Wales (St David’s Day) do not.',
     memoryHook:
@@ -210,7 +210,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     prompt:
       'Which TWO of the following were among the "Five Giant Evils" identified in William Beveridge’s famous 1942 report on welfare reform? (Choose TWO)',
     options: ['Want', 'Inflation', 'Squalor', 'Taxation'],
-    correctIndices: [0-2],
+    correctIndices: [0, 2],
     explanation:
       'Economist William Beveridge’s 1942 report (Social Insurance and Allied Services) recommended that the government fight Five Giant Evils: Want, Disease, Ignorance, Squalor, and Idleness. It became the blueprint for Britain’s post-1945 welfare state.',
     memoryHook:
@@ -301,7 +301,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
       'Pomp and Circumstance Marches',
       'Messiah',
     ],
-    correctIndices: [0-3],
+    correctIndices: [0, 3],
     explanation:
       'George Frideric Handel (1695–1759) settled in Britain, became a British citizen in 1727, and wrote Water Music for King George I, Music for the Royal Fireworks for George II, and the choral masterpiece Messiah. (Gustav Holst wrote The Planets, and Sir Edward Elgar wrote the Pomp and Circumstance Marches.)',
     memoryHook:
@@ -424,7 +424,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
       'National Insurance contributions',
       'Vehicle Excise Duty (road tax)',
     ],
-    correctIndices: [1-2],
+    correctIndices: [1, 2],
     explanation:
       'Under PAYE (Pay As You Earn), employers automatically deduct Income Tax and National Insurance contributions from employees’ pay and send them directly to HM Revenue & Customs (HMRC). Self-employed people pay via Self Assessment.',
     memoryHook:
@@ -463,7 +463,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
       'Making a non-religious affirmation in court',
       'Female genital mutilation (FGM)',
     ],
-    correctIndices: [1-3],
+    correctIndices: [1, 3],
     explanation:
       'Forced marriage (forcing someone to marry against their will, distinguishable from a consensual arranged marriage) and female genital mutilation (FGM: or taking someone abroad for FGM) are severe criminal offences carrying prison sentences in the UK.',
     memoryHook:
@@ -530,7 +530,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     prompt:
       'Which TWO of the following are British Overseas Territories rather than Crown Dependencies? (Choose TWO)',
     options: ['The Isle of Man', 'Guernsey', 'St Helena', 'Gibraltar'],
-    correctIndices: [2-3],
+    correctIndices: [2, 3],
     explanation:
       'St Helena (in the South Atlantic), Gibraltar (at the southern tip of Spain), and the Falkland Islands are British Overseas Territories linked to the UK, whereas the Isle of Man and Guernsey (Channel Islands) are Crown Dependencies.',
     memoryHook:
@@ -572,7 +572,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
       'It resulted in the immediate independence of India in 1856',
       'It was the first war in which RAF Spitfire fighter aircraft were used',
     ],
-    correctIndices: [0-1],
+    correctIndices: [0, 1],
     explanation:
       'The Crimean War (1853–56) was the first war extensively documented by newspaper correspondents and photographers, and during it Queen Victoria instituted the Victoria Cross (still Britain’s highest military honour for valour).',
     memoryHook:
@@ -648,7 +648,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
       'The Hurricane',
       'The Harrier Jump Jet',
     ],
-    correctIndices: [0-2],
+    correctIndices: [0, 2],
     explanation:
       'In the crucial aerial battle against the German Luftwaffe in the summer of 1940: the Battle of Britain, the Royal Air Force prevented a German invasion using British-built fighter planes: the Hawker Hurricane and the Supermarine Spitfire.',
     memoryHook:
@@ -769,7 +769,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
       'Robert Adam',
       'Augustus Pugin',
     ],
-    correctIndices: [0-3],
+    correctIndices: [0, 3],
     explanation:
       'In the 19th century, medieval Gothic style revived ("Gothic Revival"). Architect Sir Charles Barry won the competition to rebuild the Houses of Parliament after the 1834 fire, while Augustus Pugin designed its famous Gothic interiors, wallpaper, furniture, and the Elizabeth Tower clock face. (Wren built St Paul’s; Robert Adam was 18th-century neoclassical.)',
     memoryHook:
@@ -931,7 +931,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
       'Citizens of recognised majority English-speaking countries (or holders of a recognised degree taught in English)',
       'Anyone who holds a full UK driving licence',
     ],
-    correctIndices: [1-2],
+    correctIndices: [1, 2],
     explanation:
       'Applicants usually demonstrate English at CEFR level B1 (ESOL Entry Level 3), unless exempt: notably applicants aged 65+ (or with a qualifying long-term physical/mental condition), nationals of majority English-speaking countries, or those holding an approved academic degree taught or researched in English.',
     memoryHook:
@@ -981,7 +981,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
       'The Cenotaph on Whitehall',
       'The Clifton Suspension Bridge spanning the Avon Gorge in Bristol',
     ],
-    correctIndices: [1-3],
+    correctIndices: [1, 3],
     explanation:
       'Isambard Kingdom Brunel (1806–1859) engineered tunnels, bridges, ships (such as the iron-hulled SS Great Britain), the Great Western Railway, and the iconic Clifton Suspension Bridge across the Avon Gorge in Bristol.',
     memoryHook:
@@ -1306,7 +1306,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
       'Disputes between landlords and tenants over a housing lease',
       'Claims of unfair dismissal or discrimination in the workplace',
     ],
-    correctIndices: [2-3],
+    correctIndices: [2, 3],
     explanation:
       'Civil law settles disputes between individuals or groups: including housing law (landlord/tenant disputes), consumer rights, employment law (unfair dismissal), debt, and family law. Carrying weapons and underage sales of tobacco/alcohol are criminal offences prosecuted by the state.',
     memoryHook:
@@ -1326,7 +1326,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
       'Listening exclusively to FM or digital radio stations in your car',
       'Playing offline video games on a television monitor',
     ],
-    correctIndices: [0-1],
+    correctIndices: [0, 1],
     explanation:
       'By law, a household needs a TV Licence (which funds the BBC) to watch or record programmes as they are being shown live on TV or an online TV service on any device (TV, laptop, phone), OR to download/watch any content on BBC iPlayer. Watching without a licence is a criminal offence carrying a fine up to £1,000.',
     memoryHook:
@@ -1569,7 +1569,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     prompt:
       'In 1947, independence was granted to nine colonies/territories: most famously including which TWO new independent South Asian nations? (Choose TWO)',
     options: ['India', 'Australia', 'Pakistan', 'Canada'],
-    correctIndices: [0-2],
+    correctIndices: [0, 2],
     explanation:
       'Under Clement Attlee’s post-war government, decolonisation accelerated: in 1947 independence was granted to India and Pakistan (with Ceylon, now Sri Lanka: following in 1948), beginning a peaceful transition from Empire to Commonwealth.',
     memoryHook:
@@ -1610,7 +1610,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
       'Discovering the circulation of blood by William Harvey',
       'Cloning the first mammal from an adult cell: Dolly the sheep, led by Sir Ian Wilmut and Keith Campbell',
     ],
-    correctIndices: [0-3],
+    correctIndices: [0, 3],
     explanation:
       'Gynaecologist Patrick Steptoe and physiologist Sir Robert Edwards pioneered IVF therapy, leading to the world’s first "test-tube baby" (Louise Brown) in Oldham in 1978. In 1996 at the Roslin Institute in Scotland, Sir Ian Wilmut and Keith Campbell cloned Dolly the sheep, the first mammal cloned from an adult somatic cell.',
     memoryHook:
@@ -1670,7 +1670,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
       'The Laurence Olivier Awards',
       'The BAFTA Awards',
     ],
-    correctIndices: [1-2],
+    correctIndices: [1, 2],
     explanation:
       'Established in 1984 and named after painter Joseph Turner, the Turner Prize celebrates contemporary art (shortlisted works exhibited at Tate Britain). Named after legendary actor Lord Olivier, the Laurence Olivier Awards honour professional London/West End theatre. (Mercury & BRITs are for music; BAFTAs are for film and TV.)',
     memoryHook:
@@ -1787,7 +1787,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
       'BBC television channels via the TV Licence',
       'The National Health Service (NHS)',
     ],
-    correctIndices: [1-3],
+    correctIndices: [1, 3],
     explanation:
       'Money raised from National Insurance contributions pays for contributory state benefits: notably the State Pension, jobseeker/sickness/maternity support, and helps fund the National Health Service (NHS).',
     memoryHook:
@@ -1807,7 +1807,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
       'School governors (in England, Wales, and Northern Ireland)',
       'Parent Councils / school boards (in Scotland)',
     ],
-    correctIndices: [2-3],
+    correctIndices: [2, 3],
     explanation:
       'Volunteering in local schools is a vital form of community participation: people aged 18+ can serve as school governors (raising standards, setting strategic direction, holding the headteacher to account) in England, Wales, and Northern Ireland, or join Parent Councils in Scotland.',
     memoryHook:
@@ -1831,7 +1831,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
       'Exemption from paying Income Tax for the first five years',
       'Guaranteed election as a Member of Parliament',
     ],
-    correctIndices: [0-1],
+    correctIndices: [0, 1],
     explanation:
       'The official handbook highlights five core freedoms offered by the UK: freedom of belief and religion, freedom of speech, freedom from unfair discrimination, a right to a fair trial, and a right to join in the election of a government.',
     memoryHook:
@@ -1882,7 +1882,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     prompt:
       'Alongside the capital city Cardiff, which TWO of the following cities are located in Wales? (Choose TWO)',
     options: ['Swansea', 'Aberdeen', 'Newport', 'Lisburn'],
-    correctIndices: [0-2],
+    correctIndices: [0, 2],
     explanation:
       'Cardiff, Swansea, and Newport (along with Wrexham, Bangor, St Davids, and St Asaph) are cities in Wales. Aberdeen is in Scotland, and Lisburn is in Northern Ireland.',
     memoryHook:
@@ -1929,7 +1929,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     prompt:
       'During "the Blitz" in 1940–1941, German bombers mounted sustained night-time raids on British cities. Which TWO cities are specifically highlighted in the handbook for suffering massive destruction (including the near-total destruction of one city’s cathedral)? (Choose TWO)',
     options: ['London', 'St Andrews', 'Inverness', 'Coventry'],
-    correctIndices: [0-3],
+    correctIndices: [0, 3],
     explanation:
       'After losing the daylight Battle of Britain, the Luftwaffe bombed British cities by night ("the Blitz"). London suffered massive damage (especially the East End Docks), and Coventry was almost totally destroyed in a single devastating raid in November 1940, including its medieval cathedral.',
     memoryHook:
@@ -1990,7 +1990,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
       'Britain and France jointly developing Concorde, the world’s only commercial supersonic passenger airliner (alongside Germany in wider aerospace)',
       'Introducing the penny black postage stamp under Rowland Hill',
     ],
-    correctIndices: [1-2],
+    correctIndices: [1, 2],
     explanation:
       'The 1960s saw vibrant social and technological change: fashion icons like Mary Quant transformed style, British bands conquered the globe, social laws on divorce and abortion were liberalised, and Britain and France jointly developed Concorde (which first flew in 1969 and entered commercial passenger service in 1976).',
     memoryHook:
@@ -2033,7 +2033,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     ],
     correctIndices: [3],
     explanation:
-      'Queen Elizabeth II reigned from 1952 to September 2022, celebrating her Silver (1977-25 yrs), Golden (2002-50 yrs), Diamond (2012-60 yrs), and unprecedented Platinum Jubilee (2022-70 yrs). Upon her passing in September 2022, her eldest son became King Charles III.',
+      'Queen Elizabeth II reigned from 1952 to September 2022, celebrating her Silver (1977, 25 yrs), Golden (2002, 50 yrs), Diamond (2012, 60 yrs), and unprecedented Platinum Jubilee (2022, 70 yrs). Upon her passing in September 2022, her eldest son became King Charles III.',
     memoryHook:
       '🌶️ Spice Hook: Jubilee Metals = "25 Silver, 50 Gold, 60 Diamond (2012), 70 PLATINUM (2022) → King Charles III!"',
   },
@@ -2051,7 +2051,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
       'Inventing the hovercraft cushion-of-air skirt',
       'Co-discovering insulin to treat diabetes',
     ],
-    correctIndices: [1-3],
+    correctIndices: [1, 3],
     explanation:
       'In 1953, British biophysicist Francis Crick (working at Cambridge with James Watson, alongside Maurice Wilkins and Rosalind Franklin at King’s College London) discovered the double-helix structure of DNA. Earlier, Scottish physiologist John Macleod (1876–1935) co-discovered insulin, saving millions of lives from diabetes.',
     memoryHook:
@@ -2178,7 +2178,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     prompt:
       'Which TWO telephone numbers can be dialled free of charge from any phone in the UK to reach emergency services (police, fire, ambulance, or coastguard)? (Choose TWO)',
     options: ['999', '101', '112', '118'],
-    correctIndices: [0-2],
+    correctIndices: [0, 2],
     explanation:
       'Both 999 (the traditional UK emergency number) and 112 (the pan-European/international emergency number) work free of charge anywhere in the UK to reach emergency services immediately. (101 is for non-emergency police calls.)',
     memoryHook:
