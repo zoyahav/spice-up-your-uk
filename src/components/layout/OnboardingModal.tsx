@@ -13,6 +13,8 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) 
   const [myName, setMyName] = useState('');
   const [partnerName, setPartnerName] = useState('');
   const [myAvatar, setMyAvatar] = useState('🐰');
+  const [partnerAvatar, setPartnerAvatar] = useState('😎');
+  const [editingBadgeFor, setEditingBadgeFor] = useState<'me' | 'partner'>('me');
   const [examDate, setExamDate] = useState('');
   const [saving, setSaving] = useState(false);
 
@@ -25,12 +27,11 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) 
         displayName: myName.trim() || (mySlot === 'partner_a' ? 'Player 1 (Cuppa)' : 'Player 2 (Biscuit)'),
         avatarEmoji: myAvatar,
       });
-      if (partnerName.trim()) {
-        await updateUserProfile(otherSlot, {
-          displayName: partnerName.trim(),
-          avatarEmoji: myAvatar === '🐰' ? '😎' : '🐰',
-        });
-      }
+      await updateUserProfile(otherSlot, {
+        displayName:
+          partnerName.trim() || (otherSlot === 'partner_a' ? 'Player 1 (Cuppa)' : 'Player 2 (Biscuit)'),
+        avatarEmoji: partnerAvatar,
+      });
       await updateAppSettings({
         onboarded: true,
         activeProfileId: mySlot,
@@ -118,22 +119,57 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) 
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-slate-300">Pick Your Badge</label>
-            <div className="mt-1.5 grid grid-cols-8 gap-1.5">
-              {AVATAR_EMOJIS.map((emoji) => (
-                <button
-                  key={emoji}
-                  type="button"
-                  onClick={() => setMyAvatar(emoji)}
-                  className={`flex h-10 items-center justify-center rounded-xl border text-xl transition ${
-                    myAvatar === emoji
-                      ? 'border-pink-500 bg-pink-500/25 scale-105'
-                      : 'border-slate-700 bg-slate-800/70'
-                  }`}
-                >
-                  {emoji}
-                </button>
-              ))}
+            <div className="flex items-center justify-between">
+              <label className="block text-xs font-bold text-slate-300">
+                Player Avatars <span className="font-normal text-slate-400">(1 per player)</span>
+              </label>
+            </div>
+            <div className="mt-1.5 grid grid-cols-2 gap-2">
+              <button
+                type="button"
+                onClick={() => setEditingBadgeFor('me')}
+                className={`flex items-center justify-center gap-1.5 rounded-xl border px-2.5 py-1.5 text-xs font-bold transition ${
+                  editingBadgeFor === 'me'
+                    ? 'border-pink-500 bg-pink-600/20 text-pink-200'
+                    : 'border-slate-700 bg-slate-800/60 text-slate-400'
+                }`}
+              >
+                <span className="text-base">{myAvatar}</span>
+                <span className="truncate">Yours ({myName.trim() || 'You'})</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setEditingBadgeFor('partner')}
+                className={`flex items-center justify-center gap-1.5 rounded-xl border px-2.5 py-1.5 text-xs font-bold transition ${
+                  editingBadgeFor === 'partner'
+                    ? 'border-indigo-500 bg-indigo-600/20 text-indigo-200'
+                    : 'border-slate-700 bg-slate-800/60 text-slate-400'
+                }`}
+              >
+                <span className="text-base">{partnerAvatar}</span>
+                <span className="truncate">Theirs ({partnerName.trim() || 'Player 2'})</span>
+              </button>
+            </div>
+            <div className="mt-2 grid grid-cols-8 gap-1.5">
+              {AVATAR_EMOJIS.map((emoji) => {
+                const activeEmoji = editingBadgeFor === 'me' ? myAvatar : partnerAvatar;
+                return (
+                  <button
+                    key={emoji}
+                    type="button"
+                    onClick={() =>
+                      editingBadgeFor === 'me' ? setMyAvatar(emoji) : setPartnerAvatar(emoji)
+                    }
+                    className={`flex h-10 items-center justify-center rounded-xl border text-xl transition ${
+                      activeEmoji === emoji
+                        ? 'border-pink-500 bg-pink-500/25 scale-105'
+                        : 'border-slate-700 bg-slate-800/70'
+                    }`}
+                  >
+                    {emoji}
+                  </button>
+                );
+              })}
             </div>
           </div>
 

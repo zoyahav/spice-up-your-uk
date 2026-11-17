@@ -665,7 +665,9 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
         </div>
 
         <div>
-          <p className="mb-1.5 text-[11px] font-bold text-slate-400">Your Badge:</p>
+          <p className="mb-1.5 text-[11px] font-bold text-slate-400">
+            Avatar for {activeProfile.displayName} (1 per player):
+          </p>
           <div className="grid grid-cols-8 gap-1.5">
             {AVATAR_EMOJIS.map((emoji) => (
               <button
