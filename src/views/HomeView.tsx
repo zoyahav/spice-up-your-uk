@@ -72,7 +72,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
   onQuickStartMistakes,
 }) => {
   const rank = useMemo(() => getRankForXp(myTotalXp), [myTotalXp]);
-  const { canInstall, isStandalone, swReady, promptInstall } = usePwaInstall();
+  const { canInstall, isStandalone, isMobile, swReady, promptInstall } = usePwaInstall();
   const [bannerDismissed, setBannerDismissed] = useState<boolean>(() => {
     try {
       return sessionStorage.getItem('spiceupuk_banner_dismissed') === '1';
@@ -156,7 +156,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
         </div>
       </section>
 
-      {!isStandalone && !bannerDismissed && (
+      {isMobile && !isStandalone && !bannerDismissed && (
         <section className="rounded-2xl border border-emerald-500/35 bg-emerald-950/40 p-3 text-xs text-emerald-100">
           <div className="flex items-start justify-between gap-2.5">
             <div className="min-w-0 flex-1">

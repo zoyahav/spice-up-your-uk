@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { AlertTriangle, X } from 'lucide-react';
 import { AppShell, type NavTab } from './components/layout/AppShell';
 import { InstallAppModal } from './components/layout/InstallAppModal';
-import { isRunningStandalone } from './hooks/usePwaInstall';
+import { isMobileDevice, isRunningStandalone } from './hooks/usePwaInstall';
 import { OnboardingModal } from './components/layout/OnboardingModal';
 import { useAppData } from './hooks/useAppData';
 import { updateAppSettings } from './db/repository';
@@ -60,6 +60,7 @@ export const App: React.FC = () => {
 
   const shouldShowInstallPopup =
     data.settings.onboarded &&
+    isMobileDevice() &&
     !installModalDismissedSession &&
     !isRunningStandalone();
 

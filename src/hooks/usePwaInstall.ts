@@ -25,6 +25,16 @@ if (typeof window !== 'undefined') {
   });
 }
 
+export function isMobileDevice(): boolean {
+  if (typeof navigator === 'undefined') return false;
+  const ua = navigator.userAgent || '';
+  if (/Android|iPhone|iPad|iPod|Mobile/i.test(ua)) return true;
+  if (typeof window !== 'undefined' && window.matchMedia?.('(pointer: coarse)')?.matches) {
+    return (navigator.maxTouchPoints ?? 0) > 0;
+  }
+  return false;
+}
+
 export function isRunningStandalone(): boolean {
   if (typeof window === 'undefined') return false;
   const standaloneMq = window.matchMedia?.('(display-mode: standalone)')?.matches ?? false;
@@ -37,6 +47,7 @@ export function isRunningStandalone(): boolean {
 export function usePwaInstall() {
   const [hasPrompt, setHasPrompt] = useState<boolean>(() => cachedInstallPrompt !== null);
   const [isStandalone, setIsStandalone] = useState<boolean>(() => isRunningStandalone());
+  const [isMobile] = useState<boolean>(() => isMobileDevice());
   const [swReady, setSwReady] = useState<boolean>(false);
 
   useEffect(() => {
@@ -74,8 +85,9 @@ export function usePwaInstall() {
   }, []);
 
   return {
-    canInstall: hasPrompt && !isStandalone,
+    canInstall: hasPrompt && !isStandalone && isMobile,
     isStandalone,
+    isMobile,
     swReady,
     promptInstall,
   };

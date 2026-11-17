@@ -94,7 +94,7 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
   const [remoteJsonUrl, setRemoteJsonUrl] = useState('');
   const [rawImportText, setRawImportText] = useState('');
   const [importBusy, setImportBusy] = useState(false);
-  const { canInstall, isStandalone, swReady, promptInstall } = usePwaInstall();
+  const { canInstall, isStandalone, isMobile, swReady, promptInstall } = usePwaInstall();
 
   useEffect(() => {
     setScriptUrlInput(settings.scriptUrl);
@@ -658,52 +658,54 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
           </span>
         </div>
 
-        {/* App Installation Status Check */}
-        <div className="rounded-2xl border border-slate-800 bg-slate-950/55 p-3 text-xs">
-          <div className="flex items-center justify-between gap-2">
-            <div className="flex items-center gap-2">
-              <Smartphone className="h-4 w-4 text-sky-400" />
-              <span className="font-bold">App Status</span>
+        {/* App Installation Status Check (mobile only) */}
+        {isMobile && (
+          <div className="rounded-2xl border border-slate-800 bg-slate-950/55 p-3 text-xs">
+            <div className="flex items-center justify-between gap-2">
+              <div className="flex items-center gap-2">
+                <Smartphone className="h-4 w-4 text-sky-400" />
+                <span className="font-bold">App Status</span>
+              </div>
+              <span
+                className={`rounded-full px-2.5 py-0.5 text-[10px] font-extrabold ${
+                  isStandalone
+                    ? 'bg-emerald-500/20 text-emerald-300'
+                    : 'bg-amber-500/20 text-amber-300'
+                }`}
+              >
+                {isStandalone ? 'Installed App (Offline Ready)' : 'Running in Browser Tab'}
+              </span>
             </div>
-            <span
-              className={`rounded-full px-2.5 py-0.5 text-[10px] font-extrabold ${
-                isStandalone
-                  ? 'bg-emerald-500/20 text-emerald-300'
-                  : 'bg-amber-500/20 text-amber-300'
-              }`}
-            >
-              {isStandalone ? 'Installed App (Offline Ready)' : 'Running in Browser Tab'}
-            </span>
-          </div>
 
-          {!isStandalone && (
-            <div className="mt-2.5 space-y-2">
-              {canInstall ? (
-                <>
-                  <Button
-                    variant="emerald"
-                    size="sm"
-                    fullWidth
-                    onClick={() => void promptInstall()}
-                  >
-                    <Download className="h-3.5 w-3.5" />
-                    <span>Install SpiceUpUK App</span>
-                  </Button>
-                  <p className="text-[11px] text-slate-400">
-                    {swReady ? 'Offline cache ready. ' : ''}Tap <strong>Install</strong> (not{' '}
-                    <em>Create shortcut</em>) and wait ~10 seconds.
+            {!isStandalone && (
+              <div className="mt-2.5 space-y-2">
+                {canInstall ? (
+                  <>
+                    <Button
+                      variant="emerald"
+                      size="sm"
+                      fullWidth
+                      onClick={() => void promptInstall()}
+                    >
+                      <Download className="h-3.5 w-3.5" />
+                      <span>Install SpiceUpUK App</span>
+                    </Button>
+                    <p className="text-[11px] text-slate-400">
+                      {swReady ? 'Offline cache ready. ' : ''}Tap <strong>Install</strong> (not{' '}
+                      <em>Create shortcut</em>) and wait ~10 seconds.
+                    </p>
+                  </>
+                ) : (
+                  <p className="text-[11px] leading-relaxed text-slate-400">
+                    To install offline: tap Chrome <code>⋮</code> -&gt;{' '}
+                    <strong>Add to home screen</strong> -&gt; <strong>Install</strong> (or Safari{' '}
+                    <strong>Share</strong> -&gt; <strong>Add to Home Screen</strong>).
                   </p>
-                </>
-              ) : (
-                <p className="text-[11px] leading-relaxed text-slate-400">
-                  To install offline: tap Chrome <code>⋮</code> -&gt; <strong>Add to home screen</strong>{' '}
-                  -&gt; <strong>Install</strong> (or Safari <strong>Share</strong> -&gt;{' '}
-                  <strong>Add to Home Screen</strong>).
-                </p>
-              )}
-            </div>
-          )}
-        </div>
+                )}
+              </div>
+            )}
+          </div>
+        )}
 
         <div>
           <p className="mb-1.5 text-[11px] font-bold text-slate-400">
