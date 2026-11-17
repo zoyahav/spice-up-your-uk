@@ -23,6 +23,9 @@ export interface PairingPayload {
   readonly passcode: string;
   readonly partnerAName?: string;
   readonly partnerBName?: string;
+  readonly partnerAAvatar?: string;
+  readonly partnerBAvatar?: string;
+  readonly examDate?: string | null;
   readonly suggestedProfile?: ProfileId;
 }
 

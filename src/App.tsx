@@ -44,7 +44,7 @@ export const App: React.FC = () => {
   return (
     <>
       {!data.settings.onboarded && (
-        <OnboardingModal onComplete={() => setActiveTab('home')} />
+        <OnboardingModal onComplete={(targetTab) => setActiveTab(targetTab)} />
       )}
 
       <AppShell

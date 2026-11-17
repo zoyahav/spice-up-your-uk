@@ -3,18 +3,21 @@ import { Button } from '../ui/Button';
 import { AVATAR_EMOJIS } from '../ui/ProfileAvatar';
 import type { ProfileId } from '../../types/domain';
 import { updateAppSettings, updateUserProfile } from '../../db/repository';
+import type { NavTab } from './AppShell';
+
+type DeviceRole = 'partner_a' | 'partner_b' | 'laptop';
 
 interface OnboardingModalProps {
-  onComplete: () => void;
+  onComplete: (targetTab: NavTab) => void;
 }
 
 export const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) => {
-  const [mySlot, setMySlot] = useState<ProfileId>('partner_a');
-  const [myName, setMyName] = useState('');
-  const [partnerName, setPartnerName] = useState('');
-  const [myAvatar, setMyAvatar] = useState('🐰');
-  const [partnerAvatar, setPartnerAvatar] = useState('😎');
-  const [editingBadgeFor, setEditingBadgeFor] = useState<'me' | 'partner'>('me');
+  const [deviceRole, setDeviceRole] = useState<DeviceRole>('laptop');
+  const [player1Name, setPlayer1Name] = useState('');
+  const [player2Name, setPlayer2Name] = useState('');
+  const [player1Avatar, setPlayer1Avatar] = useState('🐰');
+  const [player2Avatar, setPlayer2Avatar] = useState('😎');
+  const [editingAvatarFor, setEditingAvatarFor] = useState<ProfileId>('partner_a');
   const [examDate, setExamDate] = useState('');
   const [saving, setSaving] = useState(false);
 
@@ -22,35 +25,35 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) 
     e.preventDefault();
     setSaving(true);
     try {
-      const otherSlot: ProfileId = mySlot === 'partner_a' ? 'partner_b' : 'partner_a';
-      await updateUserProfile(mySlot, {
-        displayName: myName.trim() || (mySlot === 'partner_a' ? 'Player 1 (Cuppa)' : 'Player 2 (Biscuit)'),
-        avatarEmoji: myAvatar,
+      await updateUserProfile('partner_a', {
+        displayName: player1Name.trim() || 'Player 1 (Cuppa)',
+        avatarEmoji: player1Avatar,
       });
-      await updateUserProfile(otherSlot, {
-        displayName:
-          partnerName.trim() || (otherSlot === 'partner_a' ? 'Player 1 (Cuppa)' : 'Player 2 (Biscuit)'),
-        avatarEmoji: partnerAvatar,
+      await updateUserProfile('partner_b', {
+        displayName: player2Name.trim() || 'Player 2 (Biscuit)',
+        avatarEmoji: player2Avatar,
       });
+      const activeProfileId: ProfileId =
+        deviceRole === 'partner_b' ? 'partner_b' : 'partner_a';
       await updateAppSettings({
         onboarded: true,
-        activeProfileId: mySlot,
+        activeProfileId,
         examDate: examDate || null,
       });
-      onComplete();
+      onComplete(deviceRole === 'laptop' ? 'us' : 'home');
     } finally {
       setSaving(false);
     }
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/90 p-4 backdrop-blur-md">
-      <div className="w-full max-w-md rounded-3xl border border-pink-500/30 bg-slate-900 p-6 text-slate-100 shadow-2xl">
+    <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-slate-950/90 p-4 backdrop-blur-md">
+      <div className="my-auto w-full max-w-md rounded-3xl border border-pink-500/30 bg-slate-900 p-5 text-slate-100 shadow-2xl">
         <div className="text-center">
           <img
             src="./icons/brand-logo.png"
             alt="Spice Up Your UK"
-            className="mx-auto mb-3 h-20 w-20 rounded-2xl shadow-lg ring-2 ring-pink-500/40"
+            className="mx-auto mb-2.5 h-16 w-16 rounded-2xl shadow-lg ring-2 ring-pink-500/40"
           />
           <h1 className="text-2xl font-black tracking-tight text-white">
             Spice Up Your UK!
@@ -61,29 +64,36 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) 
           </p>
         </div>
 
-        <form onSubmit={handleStart} className="mt-5 space-y-4">
+        <form onSubmit={handleStart} className="mt-4 space-y-3.5">
           <div>
             <label className="block text-xs font-bold text-slate-300">
-              Which player is on THIS device?
+              Where are you opening this right now?
             </label>
-            <div className="mt-1.5 grid grid-cols-2 gap-2">
+            <div className="mt-1.5 grid grid-cols-3 gap-1.5">
               {(
                 [
-                  ['partner_a', 'Player 1 (Cuppa 🫖)'],
-                  ['partner_b', 'Player 2 (Biscuit 🍪)'],
+                  ['laptop', '💻 Laptop Setup', 'Generate phone QRs'],
+                  ['partner_a', '📱 Player 1 Phone', 'Cuppa 🫖'],
+                  ['partner_b', '📱 Player 2 Phone', 'Biscuit 🍪'],
                 ] as const
-              ).map(([id, label]) => (
+              ).map(([role, title, sub]) => (
                 <button
-                  key={id}
+                  key={role}
                   type="button"
-                  onClick={() => setMySlot(id)}
-                  className={`rounded-xl border px-3 py-2 text-xs font-bold transition ${
-                    mySlot === id
+                  onClick={() => {
+                    setDeviceRole(role);
+                    if (role === 'partner_a' || role === 'partner_b') {
+                      setEditingAvatarFor(role);
+                    }
+                  }}
+                  className={`rounded-xl border px-2 py-2 text-center transition ${
+                    deviceRole === role
                       ? 'border-pink-500 bg-pink-600/20 text-pink-200'
                       : 'border-slate-700 bg-slate-800/70 text-slate-400'
                   }`}
                 >
-                  {label}
+                  <p className="text-[11px] font-extrabold">{title}</p>
+                  <p className="text-[10px] opacity-80">{sub}</p>
                 </button>
               ))}
             </div>
@@ -92,12 +102,12 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) 
           <div className="grid grid-cols-2 gap-2.5">
             <div>
               <label className="block text-xs font-bold text-slate-300">
-                Your Nickname
+                Player 1 Name
               </label>
               <input
                 type="text"
-                value={myName}
-                onChange={(e) => setMyName(e.target.value)}
+                value={player1Name}
+                onChange={(e) => setPlayer1Name(e.target.value)}
                 placeholder="e.g. Ginger"
                 maxLength={24}
                 className="mt-1 w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-white placeholder-slate-500 focus:border-pink-500 focus:outline-none"
@@ -105,12 +115,12 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) 
             </div>
             <div>
               <label className="block text-xs font-bold text-slate-300">
-                Partner’s Nickname
+                Player 2 Name
               </label>
               <input
                 type="text"
-                value={partnerName}
-                onChange={(e) => setPartnerName(e.target.value)}
+                value={player2Name}
+                onChange={(e) => setPlayer2Name(e.target.value)}
                 placeholder="e.g. Posh"
                 maxLength={24}
                 className="mt-1 w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-white placeholder-slate-500 focus:border-pink-500 focus:outline-none"
@@ -119,48 +129,49 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) 
           </div>
 
           <div>
-            <div className="flex items-center justify-between">
-              <label className="block text-xs font-bold text-slate-300">
-                Player Avatars <span className="font-normal text-slate-400">(1 per player)</span>
-              </label>
-            </div>
+            <label className="block text-xs font-bold text-slate-300">
+              Player Avatars <span className="font-normal text-slate-400">(tap player, then pick emoji)</span>
+            </label>
             <div className="mt-1.5 grid grid-cols-2 gap-2">
               <button
                 type="button"
-                onClick={() => setEditingBadgeFor('me')}
+                onClick={() => setEditingAvatarFor('partner_a')}
                 className={`flex items-center justify-center gap-1.5 rounded-xl border px-2.5 py-1.5 text-xs font-bold transition ${
-                  editingBadgeFor === 'me'
+                  editingAvatarFor === 'partner_a'
                     ? 'border-pink-500 bg-pink-600/20 text-pink-200'
                     : 'border-slate-700 bg-slate-800/60 text-slate-400'
                 }`}
               >
-                <span className="text-base">{myAvatar}</span>
-                <span className="truncate">Yours ({myName.trim() || 'You'})</span>
+                <span className="text-base">{player1Avatar}</span>
+                <span className="truncate">{player1Name.trim() || 'Player 1'}</span>
               </button>
               <button
                 type="button"
-                onClick={() => setEditingBadgeFor('partner')}
+                onClick={() => setEditingAvatarFor('partner_b')}
                 className={`flex items-center justify-center gap-1.5 rounded-xl border px-2.5 py-1.5 text-xs font-bold transition ${
-                  editingBadgeFor === 'partner'
+                  editingAvatarFor === 'partner_b'
                     ? 'border-indigo-500 bg-indigo-600/20 text-indigo-200'
                     : 'border-slate-700 bg-slate-800/60 text-slate-400'
                 }`}
               >
-                <span className="text-base">{partnerAvatar}</span>
-                <span className="truncate">Theirs ({partnerName.trim() || 'Player 2'})</span>
+                <span className="text-base">{player2Avatar}</span>
+                <span className="truncate">{player2Name.trim() || 'Player 2'}</span>
               </button>
             </div>
             <div className="mt-2 grid grid-cols-8 gap-1.5">
               {AVATAR_EMOJIS.map((emoji) => {
-                const activeEmoji = editingBadgeFor === 'me' ? myAvatar : partnerAvatar;
+                const activeEmoji =
+                  editingAvatarFor === 'partner_a' ? player1Avatar : player2Avatar;
                 return (
                   <button
                     key={emoji}
                     type="button"
                     onClick={() =>
-                      editingBadgeFor === 'me' ? setMyAvatar(emoji) : setPartnerAvatar(emoji)
+                      editingAvatarFor === 'partner_a'
+                        ? setPlayer1Avatar(emoji)
+                        : setPlayer2Avatar(emoji)
                     }
-                    className={`flex h-10 items-center justify-center rounded-xl border text-xl transition ${
+                    className={`flex h-9 items-center justify-center rounded-xl border text-xl transition ${
                       activeEmoji === emoji
                         ? 'border-pink-500 bg-pink-500/25 scale-105'
                         : 'border-slate-700 bg-slate-800/70'
@@ -186,13 +197,14 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) 
           </div>
 
           <p className="rounded-xl border border-slate-800 bg-slate-950/70 p-2.5 text-[11px] leading-relaxed text-slate-400">
-            🔒 <strong>100% Private Local Storage:</strong> Nicknames and Google Sheet sync keys
-            stay strictly on your phone (never in GitHub). You can link your shared Google Sheet
-            anytime in the <strong>Us</strong> tab!
+            🔒 <strong>Private Local Storage:</strong> Names, avatars, and Google Sheet sync keys
+            are encoded directly into your QR codes and never stored in GitHub.
           </p>
 
           <Button type="submit" fullWidth size="lg" disabled={saving}>
-            Let’s Spice Up Our UK! 🚀
+            {deviceRole === 'laptop'
+              ? 'Next: Connect Google Sheet & Get Phone QRs →'
+              : 'Let’s Spice Up Our UK! 🚀'}
           </Button>
         </form>
       </div>

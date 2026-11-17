@@ -70,17 +70,19 @@ export function useAppData() {
         if (payload) {
           const nowIso = new Date().toISOString();
           const nextProfiles = { ...current.profiles };
-          if (payload.partnerAName) {
+          if (payload.partnerAName || payload.partnerAAvatar) {
             nextProfiles.partner_a = {
               ...nextProfiles.partner_a,
-              displayName: payload.partnerAName,
+              ...(payload.partnerAName ? { displayName: payload.partnerAName } : {}),
+              ...(payload.partnerAAvatar ? { avatarEmoji: payload.partnerAAvatar } : {}),
               updatedAt: nowIso,
             };
           }
-          if (payload.partnerBName) {
+          if (payload.partnerBName || payload.partnerBAvatar) {
             nextProfiles.partner_b = {
               ...nextProfiles.partner_b,
-              displayName: payload.partnerBName,
+              ...(payload.partnerBName ? { displayName: payload.partnerBName } : {}),
+              ...(payload.partnerBAvatar ? { avatarEmoji: payload.partnerBAvatar } : {}),
               updatedAt: nowIso,
             };
           }
@@ -89,6 +91,7 @@ export function useAppData() {
             scriptUrl: payload.scriptUrl,
             passcode: payload.passcode,
             activeProfileId: payload.suggestedProfile ?? 'partner_b',
+            examDate: payload.examDate ?? current.examDate,
             profiles: nextProfiles,
           });
           setPairingNotice('Paired with your shared Google Sheet! Syncing now...');

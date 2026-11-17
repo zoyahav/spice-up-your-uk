@@ -118,6 +118,9 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
       passcode: passcodeInput.trim(),
       partnerAName: partnerANameInput.trim() || settings.profiles.partner_a.displayName,
       partnerBName: partnerBNameInput.trim() || settings.profiles.partner_b.displayName,
+      partnerAAvatar: settings.profiles.partner_a.avatarEmoji,
+      partnerBAvatar: settings.profiles.partner_b.avatarEmoji,
+      examDate: settings.examDate,
       suggestedProfile: forProfile,
     });
   };
