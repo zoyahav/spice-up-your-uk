@@ -20,7 +20,7 @@ export default defineConfig({
         'icons/icon-maskable-512.png',
       ],
       manifest: {
-        name: 'Spice Up Your UK — Life in the UK Prep',
+        name: 'Spice Up Your UK: Life in the UK Prep',
         short_name: 'SpiceUpUK',
         description:
           'Offline-ready Life in the UK study companion with flashcards, 17 mock exams, visual aids, streaks, and couple sync.',

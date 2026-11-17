@@ -29,7 +29,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     ],
     correctIndices: [1],
     explanation:
-      'Everyone living in the UK shares the responsibility to respect the rights of others—including their opinions and faiths—and to treat fellow residents with fairness to maintain community harmony.',
+      'Everyone living in the UK shares the responsibility to respect the rights of others, including their opinions and faiths, and to treat fellow residents with fairness to maintain community harmony.',
     memoryHook:
       '🌶️ Spice Hook: "Say You’ll Be Fair!" Different views on your street? Respect & fairness keep harmony sweet!',
   },
@@ -47,9 +47,9 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
       'Being aged 65 or over at the time of application',
       'Owning a motor vehicle registered in Great Britain',
     ],
-    correctIndices: [0, 2],
+    correctIndices: [0-2],
     explanation:
-      'Applicants are normally required to prove English at CEFR level B1, unless exempt—for example, citizens of majority English-speaking countries, holders of a qualifying degree taught or researched in English, or applicants aged 65 or over (or with a qualifying long-term physical or mental condition).',
+      'Applicants are normally required to prove English at CEFR level B1, unless exempt, for example, citizens of majority English-speaking countries, holders of a qualifying degree taught or researched in English, or applicants aged 65 or over (or with a qualifying long-term physical or mental condition).',
     memoryHook:
       '🌶️ Spice Hook: "English degree or 65+, your separate B1 test is waived alive!"',
   },
@@ -108,7 +108,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
       'The Isle of Wight',
       'The Isle of Man',
     ],
-    correctIndices: [0, 3],
+    correctIndices: [0-3],
     explanation:
       'The Channel Islands and the Isle of Man are Crown Dependencies closely linked to the Crown with their own legislatures and tax systems; unlike the Isle of Wight or Orkney, they are not part of the UK.',
     memoryHook:
@@ -169,9 +169,9 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     ],
     correctIndices: [1],
     explanation:
-      'In 1588, Protestant England under Elizabeth I defeated the Spanish Armada—a large fleet of ships sent by Catholic Spain to invade England and restore Catholicism.',
+      'In 1588, Protestant England under Elizabeth I defeated the Spanish Armada, a large fleet of ships sent by Catholic Spain to invade England and restore Catholicism.',
     memoryHook:
-      '🌶️ Spice Hook: "1588 — the Spanish Armada sealed its fate!" Ultimate Elizabethan Girl Power!',
+      '🌶️ Spice Hook: "1588, the Spanish Armada sealed its fate!" Ultimate Elizabethan Girl Power!',
     visualId: 'history-timeline',
   },
   {
@@ -185,7 +185,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     options: ['True', 'False'],
     correctIndices: [1],
     explanation:
-      '1603 was the "Union of the Crowns"—one monarch ruled both realms, but Scotland and England remained separate countries with their own parliaments for another 104 years until the 1707 Act of Union.',
+      '1603 was the "Union of the Crowns": one monarch ruled both realms, but Scotland and England remained separate countries with their own parliaments for another 104 years until the 1707 Act of Union.',
     memoryHook:
       '🌶️ Spice Hook: "1603 = One Crown, Two Countries!" Only in 1707 did "2 Become 1" Kingdom of Great Britain!',
   },
@@ -207,7 +207,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     explanation:
       'Queen Anne had no surviving children, creating uncertainty over the succession in Scotland and England. During her reign, the Act of Union in 1707 created the Kingdom of Great Britain.',
     memoryHook:
-      '🌶️ Spice Hook: "Queen Anne had a 1707 plan — uniting Scot and Englishman!"',
+      '🌶️ Spice Hook: "Queen Anne had a 1707 plan, uniting Scot and Englishman!"',
     visualId: 'history-timeline',
   },
   {
@@ -265,9 +265,9 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     ],
     correctIndices: [1],
     explanation:
-      'Sake Dean Mahomed came to Britain in 1782 and in 1810 opened the Hindoostane Coffee House on George Street, London—the very first curry house in Britain.',
+      'Sake Dean Mahomed came to Britain in 1782 and in 1810 opened the Hindoostane Coffee House on George Street, London, the very first curry house in Britain.',
     memoryHook:
-      '🌶️ Spice Hook: Literal "Spice Up Your UK!" — Sake Dean Mahomed opened Britain’s FIRST curry house in 1810!',
+      '🌶️ Spice Hook: Literal "Spice Up Your UK!", Sake Dean Mahomed opened Britain’s FIRST curry house in 1810!',
   },
   {
     id: 'q-ex07-14',
@@ -357,7 +357,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
       'William Blake',
       'Siegfried Sassoon',
     ],
-    correctIndices: [0, 3],
+    correctIndices: [0-3],
     explanation:
       'Wilfred Owen (who wrote Anthem for Doomed Youth) and Siegfried Sassoon were both First World War soldiers whose poetry vividly portrayed the human cost of the trenches, whereas Blake and Byron lived a century earlier.',
     memoryHook:
@@ -397,7 +397,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
       'Local hospital management',
       'Foreign affairs',
     ],
-    correctIndices: [0, 3],
+    correctIndices: [0-3],
     explanation:
       'Policy and laws governing defence, foreign affairs, immigration, taxation, and social security remain under central UK Parliament control, whereas education and health are devolved.',
     memoryHook:
@@ -456,7 +456,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     explanation:
       'The Commonwealth is a voluntary association of 56 independent states (mostly former territories of the British Empire), and His Majesty King Charles III serves as its ceremonial Head.',
     memoryHook:
-      '🌶️ Spice Hook: "King Charles III wears the Commonwealth crown — 56 nations around!"',
+      '🌶️ Spice Hook: "King Charles III wears the Commonwealth crown, 56 nations around!"',
   },
   {
     id: 'q-ex07-24',
@@ -471,7 +471,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     explanation:
       'You must be aged 18 or over to participate in the National Lottery (including Lotto tickets and scratchcards) in the UK; those under 18 are barred from gambling products.',
     memoryHook:
-      '🌶️ Spice Hook: Updated 2026 trap! "No Lotto till you’re 18 — same age as voting!"',
+      '🌶️ Spice Hook: Updated 2026 trap! "No Lotto till you’re 18, same age as voting!"',
   },
 
   // ============================================================================
@@ -491,11 +491,11 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
       'Female genital mutilation (FGM)',
       'Choosing to affirm rather than swear in court',
     ],
-    correctIndices: [0, 2],
+    correctIndices: [0-2],
     explanation:
       'Forced marriage (where one or both parties do not or cannot consent) and female genital mutilation (FGM, including taking a girl abroad for FGM) are completely unacceptable and are criminal offences in the UK.',
     memoryHook:
-      '🌶️ Spice Hook: Free consent is the law — Forced marriage & FGM carry criminal prosecution!',
+      '🌶️ Spice Hook: Free consent is the law, Forced marriage & FGM carry criminal prosecution!',
   },
   {
     id: 'q-ex08-02',
@@ -530,7 +530,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     explanation:
       'Certain banks in Scotland and Northern Ireland issue their own Pound Sterling banknotes. They are valid currency across the UK, even though shops and businesses do not have a strict legal obligation to accept them.',
     memoryHook:
-      '🌶️ Spice Hook: Scottish & NI notes are real £ Sterling everywhere — even if a corner shop raises an eyebrow!',
+      '🌶️ Spice Hook: Scottish & NI notes are real £ Sterling everywhere, even if a corner shop raises an eyebrow!',
   },
   {
     id: 'q-ex08-04',
@@ -545,7 +545,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
       'Dundee',
       'Lisburn',
     ],
-    correctIndices: [1, 2],
+    correctIndices: [1-2],
     explanation:
       'Edinburgh (the capital), Glasgow, Aberdeen, and Dundee are major cities in Scotland. Swansea is in Wales, and Lisburn is in Northern Ireland.',
     memoryHook:
@@ -585,11 +585,11 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
       'Anne of Cleves',
       'Catherine Howard',
     ],
-    correctIndices: [1, 3],
+    correctIndices: [1-3],
     explanation:
       'Henry VIII’s second wife, Anne Boleyn (mother of Elizabeth I), and his fifth wife, Catherine Howard (Anne Boleyn’s cousin), were both accused of treasonous adultery and executed.',
     memoryHook:
-      '🌶️ Spice Hook: Wives #2 and #5 lost their heads — Cousins Anne Boleyn & Catherine Howard!',
+      '🌶️ Spice Hook: Wives #2 and #5 lost their heads, Cousins Anne Boleyn & Catherine Howard!',
   },
   {
     id: 'q-ex08-07',
@@ -609,7 +609,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     explanation:
       'During Henry VIII’s reign, Wales became formally united with England under the Acts for the Government of Wales; the Welsh sent representatives to the House of Commons and the Welsh legal system was reformed.',
     memoryHook:
-      '🌶️ Spice Hook: Tudor family roots were Welsh — Henry VIII passed the Acts uniting Wales with England!',
+      '🌶️ Spice Hook: Tudor family roots were Welsh, Henry VIII passed the Acts uniting Wales with England!',
   },
   {
     id: 'q-ex08-08',
@@ -648,7 +648,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     explanation:
       'In 1605, a group of Catholics led by Guy Fawkes failed in their secret plan to blow up the Protestant King James I and the Houses of Parliament with barrels of gunpowder.',
     memoryHook:
-      '🌶️ Spice Hook: "Remember, remember the 5th of November — 1605, James I stayed alive!"',
+      '🌶️ Spice Hook: "Remember, remember the 5th of November, 1605, James I stayed alive!"',
     visualId: 'history-timeline',
   },
   {
@@ -669,7 +669,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     explanation:
       'In 1745 there was another attempt to put a Stuart king back on the throne; Charles Edward Stuart (Bonnie Prince Charlie) was defeated by George II’s army at the Battle of Culloden in 1746 and fled to Europe.',
     memoryHook:
-      '🌶️ Spice Hook: "1746 Culloden — Bonnie Prince Charlie’s comeback was broken!"',
+      '🌶️ Spice Hook: "1746 Culloden, Bonnie Prince Charlie’s comeback was broken!"',
     visualId: 'history-timeline',
   },
   {
@@ -690,7 +690,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     explanation:
       'James Watt’s work on steam power during the 18th-century Scottish Enlightenment accelerated the Industrial Revolution by providing reliable power for factories, mines, and later transport.',
     memoryHook:
-      '🌶️ Spice Hook: Look at your lightbulb’s "Watts" of power — James Watt supercharged steam power!',
+      '🌶️ Spice Hook: Look at your lightbulb’s "Watts" of power, James Watt supercharged steam power!',
   },
   {
     id: 'q-ex08-12',
@@ -718,7 +718,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     subtopicId: 'ch3-empire-industry',
     type: 'boolean',
     prompt:
-      'Alongside opening Britain’s first curry house, Sake Dean Mahomed and his Irish wife Jane Daly introduced "shampooing"—the Indian art of head massage—to Britain.',
+      'Alongside opening Britain’s first curry house, Sake Dean Mahomed and his Irish wife Jane Daly introduced "shampooing": the Indian art of head massage, to Britain.',
     options: ['True', 'False'],
     correctIndices: [0],
     explanation:
@@ -780,7 +780,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     ],
     correctIndices: [2],
     explanation:
-      'Dame Kelly Holmes won two Olympic gold medals for middle-distance running—in both the 800 metres and 1,500 metres—at the 2004 Athens Olympic Games.',
+      'Dame Kelly Holmes won two Olympic gold medals for middle-distance running, in both the 800 metres and 1,500 metres, at the 2004 Athens Olympic Games.',
     memoryHook:
       '🌶️ Spice Hook: Sporty Spice Double Gold! "Kelly Holmes ran 800 & 1500 all the way home in 2004!"',
   },
@@ -801,7 +801,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     explanation:
       'In 2012, cyclist Sir Bradley Wiggins became the very first Briton to win the gruelling Tour de France road race, as well as winning Olympic time-trial gold at London 2012.',
     memoryHook:
-      '🌶️ Spice Hook: "Wiggins on Wheels — first Brit in yellow at the Tour de France (2012)!"',
+      '🌶️ Spice Hook: "Wiggins on Wheels, first Brit in yellow at the Tour de France (2012)!"',
   },
   {
     id: 'q-ex08-18',
@@ -821,7 +821,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     explanation:
       'Swansea-born Welsh poet Dylan Thomas (1914–1953) often read and performed his work in public; among his most famous works are Under Milk Wood (first performed after his death in 1954) and Do Not Go Gentle into That Good Night.',
     memoryHook:
-      '🌶️ Spice Hook: "Dylan Thomas from Wales — Under Milk Wood tales!"',
+      '🌶️ Spice Hook: "Dylan Thomas from Wales, Under Milk Wood tales!"',
   },
   {
     id: 'q-ex08-19',
@@ -895,7 +895,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     ],
     correctIndices: [2],
     explanation:
-      'Civil servants in the UK are appointed on merit, are politically neutral, and are bound by core values of integrity, honesty, objectivity, and impartiality—continuing to carry out government policy regardless of which party is elected.',
+      'Civil servants in the UK are appointed on merit, are politically neutral, and are bound by core values of integrity, honesty, objectivity, and impartiality, continuing to carry out government policy regardless of which party is elected.',
     memoryHook:
       '🌶️ Spice Hook: Politicians come and go, but neutral Civil Servants keep the ship steady below!',
   },
@@ -928,7 +928,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
       'Japan',
       'France',
     ],
-    correctIndices: [1, 3],
+    correctIndices: [1-3],
     explanation:
       'The UN Security Council recommends action during international crises and crises threatening peace. There are 15 members in total, including five permanent members: the UK, the USA, France, Russia, and China.',
     memoryHook:
@@ -979,7 +979,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     subtopicId: 'ch2-nations',
     type: 'boolean',
     prompt:
-      'In Wales, many people speak Welsh—a completely different Celtic language from English—which is taught in schools and universities and appears alongside English on road signs and official documents.',
+      'In Wales, many people speak Welsh, a completely different Celtic language from English, which is taught in schools and universities and appears alongside English on road signs and official documents.',
     options: ['True', 'False'],
     correctIndices: [0],
     explanation:
@@ -1019,7 +1019,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
       'Newport',
       'Southampton',
     ],
-    correctIndices: [0, 2],
+    correctIndices: [0-2],
     explanation:
       'Cardiff, Swansea, and Newport are key cities in south Wales. Dundee is in Scotland, and Southampton is on the south coast of England.',
     memoryHook:
@@ -1042,7 +1042,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     ],
     correctIndices: [1],
     explanation:
-      'Edward VI was strongly Protestant; during his short reign, Archbishop Thomas Cranmer wrote the Book of Common Prayer to be used in English church services—a version of which is still used in some churches today.',
+      'Edward VI was strongly Protestant; during his short reign, Archbishop Thomas Cranmer wrote the Book of Common Prayer to be used in English church services, a version of which is still used in some churches today.',
     memoryHook:
       '🌶️ Spice Hook: Boy-King Edward VI put English prayers in every pew = Book of Common Prayer!',
   },
@@ -1078,7 +1078,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
       'Macbeth',
       'Pride and Prejudice',
     ],
-    correctIndices: [0, 2],
+    correctIndices: [0-2],
     explanation:
       'Playwright and poet William Shakespeare (1564–1616) wrote A Midsummer Night’s Dream, Macbeth, Hamlet, and Romeo and Juliet. Pride and Prejudice is by Jane Austen, and The Hound of the Baskervilles is by Sir Arthur Conan Doyle.',
     memoryHook:
@@ -1114,7 +1114,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     prompt:
       'What area of thought was Scottish Enlightenment figure David Hume especially famous for?',
     options: [
-      'Philosophy—particularly ideas about human nature',
+      'Philosophy, particularly ideas about human nature',
       'Designing suspension bridges and ocean steamships',
       'Discovering penicillin mould in London',
       'Writing operas for King George I on the River Thames',
@@ -1143,7 +1143,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     explanation:
       'Richard Arkwright began working in textiles when wigs went out of fashion; he improved the carding machine (preparing fibres for spinning), used horse and then steam power in mills, and is remembered for efficient, profitable factory management.',
     memoryHook:
-      '🌶️ Spice Hook: "Arkwright went from wigs to mills — king of cotton-factory skills!"',
+      '🌶️ Spice Hook: "Arkwright went from wigs to mills, king of cotton-factory skills!"',
   },
   {
     id: 'q-ex09-12',
@@ -1162,7 +1162,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     explanation:
       'Following decades of campaigning by Quakers and William Wilberforce, the Emancipation Act of 1833 abolished slavery throughout the British Empire, and the Royal Navy patrolled the seas to stop slave ships from other nations.',
     memoryHook:
-      '🌶️ Spice Hook: "1833 — three-three sets the whole Empire FREE!"',
+      '🌶️ Spice Hook: "1833, three-three sets the whole Empire FREE!"',
     visualId: 'history-timeline',
   },
   {
@@ -1183,7 +1183,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     explanation:
       'In 1801, Ireland became unified with England, Scotland, and Wales under the Act of Union of 1800, creating the United Kingdom of Great Britain and Ireland.',
     memoryHook:
-      '🌶️ Spice Hook: "1801 — Great Britain + Ireland = 2 Become 1 United Kingdom!"',
+      '🌶️ Spice Hook: "1801, Great Britain + Ireland = 2 Become 1 United Kingdom!"',
     visualId: 'history-timeline',
   },
   {
@@ -1239,7 +1239,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     explanation:
       'Baroness Tanni Grey-Thompson is an athlete who uses a wheelchair; she won 16 Paralympic medals, including 11 gold medals, in wheelchair racing across five Paralympic Games and won the London Marathon six times.',
     memoryHook:
-      '🌶️ Spice Hook: "Tanni’s 11 Paralympic Golds — Queen of the wheelchair track & 6 London Marathons!"',
+      '🌶️ Spice Hook: "Tanni’s 11 Paralympic Golds, Queen of the wheelchair track & 6 London Marathons!"',
   },
   {
     id: 'q-ex09-17',
@@ -1257,9 +1257,9 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     ],
     correctIndices: [0],
     explanation:
-      'Sir Mo Farah is a British distance runner born in Somalia who won gold in both the 5,000m and 10,000m at the 2012 London Olympics—the first Briton ever to win Olympic gold in those events.',
+      'Sir Mo Farah is a British distance runner born in Somalia who won gold in both the 5,000m and 10,000m at the 2012 London Olympics, the first Briton ever to win Olympic gold in those events.',
     memoryHook:
-      '🌶️ Spice Hook: Do the Mobot! "Mo ran Far-ah — 5,000m + 10,000m double gold!"',
+      '🌶️ Spice Hook: Do the Mobot! "Mo ran Far-ah, 5,000m + 10,000m double gold!"',
   },
   {
     id: 'q-ex09-18',
@@ -1279,7 +1279,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     explanation:
       'J.R.R. Tolkien wrote The Lord of the Rings, which topped the BBC’s nationwide poll in 2003 as the country’s best-loved novel.',
     memoryHook:
-      '🌶️ Spice Hook: One Ring to top the 2003 poll — J.R.R. Tolkien!',
+      '🌶️ Spice Hook: One Ring to top the 2003 poll, J.R.R. Tolkien!',
   },
   {
     id: 'q-ex09-19',
@@ -1320,7 +1320,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     explanation:
       'Immigration, defence, foreign affairs, and social security remain reserved to the central UK Parliament at Westminster, while Scotland legislates on health, education, planning, and Scots civil and criminal law.',
     memoryHook:
-      '🌶️ Spice Hook: Passports & Immigration apply to the WHOLE UK — reserved at Westminster!',
+      '🌶️ Spice Hook: Passports & Immigration apply to the WHOLE UK, reserved at Westminster!',
     visualId: 'parliament-courts',
   },
   {
@@ -1397,7 +1397,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
       'A Scottish jury can return a third verdict of "not proven" alongside "guilty" and "not guilty"',
       'Defendants in Scotland are not allowed legal representation',
     ],
-    correctIndices: [0, 2],
+    correctIndices: [0-2],
     explanation:
       'In England, Wales, and Northern Ireland, a criminal jury has 12 members and two verdicts (guilty or not guilty). In Scotland, a jury has 15 members and three possible verdicts: guilty, not guilty, and "not proven".',
     memoryHook:
@@ -1419,9 +1419,9 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     options: ['True', 'False'],
     correctIndices: [1],
     explanation:
-      'Brutality and violence in the home are serious crimes in the UK. Anyone who is violent towards their partner—whether they are a man or a woman, married or living together—can be prosecuted.',
+      'Brutality and violence in the home are serious crimes in the UK. Anyone who is violent towards their partner, whether they are a man or a woman, married or living together, can be prosecuted.',
     memoryHook:
-      '🌶️ Spice Hook: Marriage is never above the law — domestic abuse is prosecuted as a serious crime!',
+      '🌶️ Spice Hook: Marriage is never above the law, domestic abuse is prosecuted as a serious crime!',
   },
   {
     id: 'q-ex10-02',
@@ -1457,7 +1457,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
       'St Helena',
       'Anglesey',
     ],
-    correctIndices: [0, 2],
+    correctIndices: [0-2],
     explanation:
       'Gibraltar (at the southern tip of Spain) and St Helena (in the South Atlantic) are British Overseas Territories. Jersey is a Crown Dependency, and Anglesey is an island county in Wales.',
     memoryHook:
@@ -1501,7 +1501,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     explanation:
       'When the first Union Flag was created in 1606 from the flags of Scotland and England, the Principality of Wales was already united with England; therefore the Welsh dragon does not appear on the Union Flag.',
     memoryHook:
-      '🌶️ Spice Hook: By 1606, Wales & England were already legally wed — so no separate dragon on Geri’s Union Jack dress!',
+      '🌶️ Spice Hook: By 1606, Wales & England were already legally wed, so no separate dragon on Geri’s Union Jack dress!',
     visualId: 'union-jack',
   },
   {
@@ -1522,7 +1522,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     explanation:
       'Born in Stratford-upon-Avon in 1564, William Shakespeare worked in London as an actor and playwright, where many of his plays were performed at the open-air Globe Theatre (a modern reconstruction stands near the original site today).',
     memoryHook:
-      '🌶️ Spice Hook: "Born in Stratford, staged at the Globe — all the world’s a stage!"',
+      '🌶️ Spice Hook: "Born in Stratford, staged at the Globe, all the world’s a stage!"',
   },
   {
     id: 'q-ex10-07',
@@ -1539,7 +1539,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     ],
     correctIndices: [0],
     explanation:
-      'One major achievement of King James’s reign was a new translation of the Bible into English—known as the "King James Version" or "Authorised Version"—notable as a Protestant translation rather than a Roman Catholic one, and still used in many Protestant churches today.',
+      'One major achievement of King James’s reign was a new translation of the Bible into English, known as the "King James Version" or "Authorised Version": notable as a Protestant translation rather than a Roman Catholic one, and still used in many Protestant churches today.',
     memoryHook:
       '🌶️ Spice Hook: "King James I = King James Bible!"',
   },
@@ -1561,7 +1561,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     explanation:
       'Charles I believed kings were appointed directly by God ("Divine Right of Kings") and should be able to act without seeking Parliament’s approval; when Parliament challenged his religious and foreign policies, he ruled for 11 years without calling Parliament.',
     memoryHook:
-      '🌶️ Spice Hook: Charles I thought "God picked me, who needs MPs?" — 11 solo years sparked the 1642 Civil War!',
+      '🌶️ Spice Hook: Charles I thought "God picked me, who needs MPs?", 11 solo years sparked the 1642 Civil War!',
   },
   {
     id: 'q-ex10-09',
@@ -1577,11 +1577,11 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
       'Naseby',
       'Waterloo',
     ],
-    correctIndices: [0, 2],
+    correctIndices: [0-2],
     explanation:
       'King Charles I’s Cavalier army was defeated by Parliament’s Roundhead army at the Battles of Marston Moor (1644) and Naseby (1645); by 1646 it was clear that Parliament had won the war.',
     memoryHook:
-      '🌶️ Spice Hook: "Marston Moor & Naseby — Roundheads routed Royalty!"',
+      '🌶️ Spice Hook: "Marston Moor & Naseby, Roundheads routed Royalty!"',
     visualId: 'history-timeline',
   },
   {
@@ -1600,7 +1600,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     ],
     correctIndices: [2],
     explanation:
-      'George and Robert Stephenson pioneered the steam railway locomotive—most famously Stephenson’s Rocket—ushering in a major expansion of railway building across the Victorian Empire.',
+      'George and Robert Stephenson pioneered the steam railway locomotive, most famously Stephenson’s Rocket, ushering in a major expansion of railway building across the Victorian Empire.',
     memoryHook:
       '🌶️ Spice Hook: "Stephensons launched the railway ROCKET!"',
   },
@@ -1618,9 +1618,9 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
       'The Great Western Railway (running from Paddington to the south-west and Wales)',
       'The Thames Barrier at Woolwich',
     ],
-    correctIndices: [0, 2],
+    correctIndices: [0-2],
     explanation:
-      'Isambard Kingdom Brunel built tunnels, bridges, railway lines, and ships—including the Great Western Railway (from London Paddington to the south-west and Wales) and the iconic Clifton Suspension Bridge in Bristol.',
+      'Isambard Kingdom Brunel built tunnels, bridges, railway lines, and ships, including the Great Western Railway (from London Paddington to the south-west and Wales) and the iconic Clifton Suspension Bridge in Bristol.',
     memoryHook:
       '🌶️ Spice Hook: Tall top hat, giant projects! "Brunel = Bristol’s Clifton Bridge + Great Western Railway!"',
   },
@@ -1651,7 +1651,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     subtopicId: 'ch3-empire-industry',
     type: 'boolean',
     prompt:
-      'In 1776, 13 British colonies in North America declared their independence, stating that people had a right to establish their own governments after clashing with Britain over taxation.',
+      'In 1776-13 British colonies in North America declared their independence, stating that people had a right to establish their own governments after clashing with Britain over taxation.',
     options: ['True', 'False'],
     correctIndices: [0],
     explanation:
@@ -1693,7 +1693,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     ],
     correctIndices: [3],
     explanation:
-      'New Year’s Eve on 31 December is called Hogmanay in Scotland, where New Year is often an even bigger celebration than Christmas—and 2 January is also a public bank holiday in Scotland.',
+      'New Year’s Eve on 31 December is called Hogmanay in Scotland, where New Year is often an even bigger celebration than Christmas, and 2 January is also a public bank holiday in Scotland.',
     memoryHook:
       '🌶️ Spice Hook: "Scottish New Year’s Eve = Hogmanay, with an extra bank holiday on 2nd Jan hooray!"',
   },
@@ -1712,7 +1712,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     ],
     correctIndices: [0],
     explanation:
-      'Sir Chris Hoy is a Scottish track cyclist who won six Olympic gold medals and one silver medal across the 2000, 2004, 2008, and 2012 Olympic Games.',
+      'Sir Chris Hoy is a Scottish track cyclist who won six Olympic gold medals and one silver medal across the 2000-2004-2008, and 2012 Olympic Games.',
     memoryHook:
       '🌶️ Spice Hook: "Hoy! Six cycling golds for Scotland’s velodrome boy!"',
   },
@@ -1774,7 +1774,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     explanation:
       'Established after the 1998 Belfast (Good Friday) Agreement, the Northern Ireland Assembly operates with a power-sharing executive distributing ministerial posts among the main parties; the UK Government can suspend the Assembly if leaders no longer work together.',
     memoryHook:
-      '🌶️ Spice Hook: Stormont runs on Power-Sharing — if sharing stops, Westminster can hit pause (suspend)!',
+      '🌶️ Spice Hook: Stormont runs on Power-Sharing, if sharing stops, Westminster can hit pause (suspend)!',
     visualId: 'parliament-courts',
   },
   {
@@ -1792,7 +1792,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     ],
     correctIndices: [1],
     explanation:
-      'The Commonwealth is based on core values of democracy, good government, and rule of law, but it has no legal power over its member states—although it can suspend a country’s membership for serious violations.',
+      'The Commonwealth is based on core values of democracy, good government, and rule of law, but it has no legal power over its member states, although it can suspend a country’s membership for serious violations.',
     memoryHook:
       '🌶️ Spice Hook: "Commonwealth = Voluntary Club! Zero law-making power, but you CAN get suspended!"',
   },
@@ -1810,7 +1810,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
       'Qualifying Commonwealth citizens resident in the UK',
       'Any adult living anywhere in North or South America',
     ],
-    correctIndices: [0, 2],
+    correctIndices: [0-2],
     explanation:
       'Adult British citizens, together with qualifying citizens of the Commonwealth and citizens of the Republic of Ireland who are resident in the UK and aged 18 or over on the electoral register, can vote in all public UK elections.',
     memoryHook:
@@ -1828,7 +1828,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     options: ['True', 'False'],
     correctIndices: [1],
     explanation:
-      'In the UK’s constitutional monarchy, the King opens each parliamentary session and delivers the King’s Speech, which outlines the legislative plans written by the elected Government—not personal political policies of the Monarch.',
+      'In the UK’s constitutional monarchy, the King opens each parliamentary session and delivers the King’s Speech, which outlines the legislative plans written by the elected Government, not personal political policies of the Monarch.',
     memoryHook:
       '🌶️ Spice Hook: "The King reads the speech, the Prime Minister’s Government writes the script!"',
     visualId: 'parliament-courts',
@@ -1893,9 +1893,9 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     ],
     correctIndices: [1],
     explanation:
-      'Everyone living in the UK has a shared responsibility to look after the area in which they live and the environment—including disposing of litter responsibly and respecting public spaces.',
+      'Everyone living in the UK has a shared responsibility to look after the area in which they live and the environment, including disposing of litter responsibly and respecting public spaces.',
     memoryHook:
-      '🌶️ Spice Hook: Love your street, keep Britain neat — looking after your area & environment is a core duty!',
+      '🌶️ Spice Hook: Love your street, keep Britain neat, looking after your area & environment is a core duty!',
   },
   {
     id: 'q-ex11-02',
@@ -1911,7 +1911,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
       'To observe the UK’s laws faithfully and fulfil their duties and obligations as a British citizen',
       'To surrender any foreign university qualifications',
     ],
-    correctIndices: [0, 2],
+    correctIndices: [0-2],
     explanation:
       'The Citizenship Pledge states: "I will give my loyalty to the United Kingdom and respect its rights and freedoms. I will uphold its democratic values. I will observe its laws faithfully and fulfil my duties and obligations as a British citizen."',
     memoryHook:
@@ -1934,7 +1934,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     explanation:
       'Standard UK banknotes are issued in denominations of £5, £10, £20, and £50, while £1 and £2 are coins (though some Scottish/NI banks also print £1 or £100 notes locally, the four standard UK denominations are £5, £10, £20, and £50).',
     memoryHook:
-      '🌶️ Spice Hook: Coins stop at £2; Notes run "5, 10, 20, 50!"',
+      '🌶️ Spice Hook: Coins stop at £2; Notes run "5-10-20-50!"',
   },
   {
     id: 'q-ex11-04',
@@ -1953,7 +1953,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     explanation:
       'While Great Britain is about 870 miles long from John O’Groats to Land’s End, its widest distance from the east coast to the west coast is about 300 miles.',
     memoryHook:
-      '🌶️ Spice Hook: "870 tall, 300 wide — Britain’s slim from tide to tide!"',
+      '🌶️ Spice Hook: "870 tall, 300 wide, Britain’s slim from tide to tide!"',
     visualId: 'uk-map',
   },
   {
@@ -1970,7 +1970,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
       'Wales (St David’s Day, 1 March)',
       'Northern Ireland (St Patrick’s Day, 17 March)',
     ],
-    correctIndices: [1, 3],
+    correctIndices: [1-3],
     explanation:
       'Only Scotland (30 November, St Andrew’s Day) and Northern Ireland (17 March, St Patrick’s Day) have official public holidays for their patron saints’ days (though in Scotland not all businesses close).',
     memoryHook:
@@ -2015,7 +2015,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     explanation:
       'Following Charles I’s execution in 1649 and Cromwell’s military campaigns in Ireland and Scotland, Oliver Cromwell was given the title of Lord Protector in the 1650s and ruled until his death in 1658.',
     memoryHook:
-      '🌶️ Spice Hook: "1649 no more King — Cromwell ruled as Lord Protector!"',
+      '🌶️ Spice Hook: "1649 no more King, Cromwell ruled as Lord Protector!"',
     visualId: 'history-timeline',
   },
   {
@@ -2057,7 +2057,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     explanation:
       'In 1665 London suffered the Great Plague, and in 1666 a great fire destroyed much of the city, including the original St Paul’s Cathedral. London was rebuilt with a magnificent new St Paul’s designed by Sir Christopher Wren.',
     memoryHook:
-      '🌶️ Spice Hook: "1666 blazing bricks — Christopher Wren built St Paul’s dome again!"',
+      '🌶️ Spice Hook: "1666 blazing bricks, Christopher Wren built St Paul’s dome again!"',
   },
   {
     id: 'q-ex11-10',
@@ -2167,7 +2167,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
       'Lord Byron',
       'Dylan Thomas',
     ],
-    correctIndices: [0, 2],
+    correctIndices: [0-2],
     explanation:
       'Artist and poet William Blake wrote The Tyger (and the lines that became the hymn Jerusalem), while Romantic poet Lord Byron wrote She Walks in Beauty and Childe Harold’s Pilgrimage.',
     memoryHook:
@@ -2189,7 +2189,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     ],
     correctIndices: [1],
     explanation:
-      'Sir Andy Murray won the Men’s Singles at the 2012 US Open—becoming the first British man since 1936 to win a Grand Slam singles title—won Olympic gold and silver in 2012, and went on to win Wimbledon Men’s Singles in 2013 and 2016.',
+      'Sir Andy Murray won the Men’s Singles at the 2012 US Open, becoming the first British man since 1936 to win a Grand Slam singles title, won Olympic gold and silver in 2012, and went on to win Wimbledon Men’s Singles in 2013 and 2016.',
     memoryHook:
       '🌶️ Spice Hook: "76-year wait since 1936 ended by Andy Murray!"',
   },
@@ -2200,16 +2200,16 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     subtopicId: 'ch4-sports',
     type: 'multiple',
     prompt:
-      'Which TWO athletes are celebrated British Paralympic multi-gold medallists—one in wheelchair track/marathon racing and the other in Paralympic swimming? (Choose TWO)',
+      'Which TWO athletes are celebrated British Paralympic multi-gold medallists, one in wheelchair track/marathon racing and the other in Paralympic swimming? (Choose TWO)',
     options: [
       'David Weir',
       'Lewis Hamilton',
       'Ellie Simmonds',
       'Jayne Torvill',
     ],
-    correctIndices: [0, 2],
+    correctIndices: [0-2],
     explanation:
-      'David Weir won six gold medals across two Paralympic Games (including four at London 2012) and won the London Marathon six times; Ellie Simmonds is a Paralympian swimmer who won gold medals at the 2008, 2012, and 2016 Games (becoming the youngest Briton to win gold in 2008).',
+      'David Weir won six gold medals across two Paralympic Games (including four at London 2012) and won the London Marathon six times; Ellie Simmonds is a Paralympian swimmer who won gold medals at the 2008-2012, and 2016 Games (becoming the youngest Briton to win gold in 2008).',
     memoryHook:
       '🌶️ Spice Hook: Paralympic Icons = "Weir on Wheels & Simmonds in the Swim!"',
   },
@@ -2240,7 +2240,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     subtopicId: 'ch5-devolution',
     type: 'boolean',
     prompt:
-      'Since 2011, Senedd Cymru (the Welsh Parliament) has been able to pass laws on devolved Welsh matters—such as education, health, and the Welsh language—without needing prior agreement from the UK Parliament.',
+      'Since 2011, Senedd Cymru (the Welsh Parliament) has been able to pass laws on devolved Welsh matters, such as education, health, and the Welsh language, without needing prior agreement from the UK Parliament.',
     options: ['True', 'False'],
     correctIndices: [0],
     explanation:
@@ -2297,7 +2297,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
       'Civil servants',
       'Shop owners and company directors',
     ],
-    correctIndices: [0, 2],
+    correctIndices: [0-2],
     explanation:
       'Members of the armed forces, civil servants, and people found guilty of certain criminal offences (as well as peers sitting in the House of Lords and certain judges/police officers) cannot stand for election as an MP in the House of Commons.',
     memoryHook:
@@ -2340,7 +2340,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     ],
     correctIndices: [1],
     explanation:
-      'Voters in England and Wales directly elect Police and Crime Commissioners (PCCs) to hold the police accountable, set local police priorities, and set the local policing budget—while operational policing remains independent under the Chief Constable.',
+      'Voters in England and Wales directly elect Police and Crime Commissioners (PCCs) to hold the police accountable, set local police priorities, and set the local policing budget, while operational policing remains independent under the Chief Constable.',
     memoryHook:
       '🌶️ Spice Hook: "PCC = Priorities & Cash Control for local policing!"',
     visualId: 'parliament-courts',
@@ -2367,7 +2367,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     explanation:
       'In return for residents respecting laws and shared responsibilities, the UK offers freedom of belief and religion, freedom of speech, freedom from unfair discrimination, a right to a fair trial, and a right to join in electing a government. UK equality law prohibits unfair discrimination based on age, disability, sex, marital status, pregnancy, race, religion, or sexual orientation.',
     memoryHook:
-      '🌶️ Spice Hook: Fair shot for every applicant — UK law protects freedom from unfair discrimination!',
+      '🌶️ Spice Hook: Fair shot for every applicant, UK law protects freedom from unfair discrimination!',
   },
   {
     id: 'q-ex12-02',
@@ -2402,7 +2402,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     explanation:
       'Jersey and Guernsey are self-governing Crown Dependencies with their own island legislatures and tax systems; because they are not part of the UK, they do not elect MPs to the Westminster House of Commons.',
     memoryHook:
-      '🌶️ Spice Hook: Crown Dependencies govern themselves — zero Channel Island seats in Westminster’s 650!',
+      '🌶️ Spice Hook: Crown Dependencies govern themselves, zero Channel Island seats in Westminster’s 650!',
   },
   {
     id: 'q-ex12-04',
@@ -2442,7 +2442,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     explanation:
       'Following the Act of Union with Ireland taking effect in 1801, the Irish cross of St Patrick (a diagonal red cross on a white ground) was combined with the crosses of St George (England) and St Andrew (Scotland) to form today’s Union Flag.',
     memoryHook:
-      '🌶️ Spice Hook: "1801 Ireland joined the pack — St Patrick’s red diagonal completed the Union Jack!"',
+      '🌶️ Spice Hook: "1801 Ireland joined the pack, St Patrick’s red diagonal completed the Union Jack!"',
     visualId: 'union-jack',
   },
   {
@@ -2483,7 +2483,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     explanation:
       'In 1688, important Protestants in England invited William of Orange (married to James II’s Protestant daughter Mary) to proclaim himself king. James II fled to France; because there was no fighting in England and it permanently guaranteed Parliament’s power, it was called the "Glorious Revolution".',
     memoryHook:
-      '🌶️ Spice Hook: "1688 Glorious Gate — zero bloodshed in England, Parliament’s power sealed!"',
+      '🌶️ Spice Hook: "1688 Glorious Gate, zero bloodshed in England, Parliament’s power sealed!"',
     visualId: 'history-timeline',
   },
   {
@@ -2497,7 +2497,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     options: ['True', 'False'],
     correctIndices: [0],
     explanation:
-      'At the coronation of William III and Mary II, the Declaration of Rights was read and confirmed by the Bill of Rights 1689—ending any claim that a monarch could rule or raise taxes/an army without Parliament and requiring the sovereign to be Protestant.',
+      'At the coronation of William III and Mary II, the Declaration of Rights was read and confirmed by the Bill of Rights 1689, ending any claim that a monarch could rule or raise taxes/an army without Parliament and requiring the sovereign to be Protestant.',
     memoryHook:
       '🌶️ Spice Hook: "1688 Glorious Revolution -> 1689 Bill of Rights locks in Constitutional Monarchy!"',
     visualId: 'history-timeline',
@@ -2518,7 +2518,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     ],
     correctIndices: [2],
     explanation:
-      'Naval administrator Samuel Pepys wrote an eyewitness diary of 1660s Restoration London—vividly recording both the Great Plague of 1665 and the Great Fire of London in 1666—which is still read today.',
+      'Naval administrator Samuel Pepys wrote an eyewitness diary of 1660s Restoration London, vividly recording both the Great Plague of 1665 and the Great Fire of London in 1666, which is still read today.',
     memoryHook:
       '🌶️ Spice Hook: "Samuel Pepys took a PEEP at 1665 Plague & 1666 Fire in his diary!"',
   },
@@ -2610,7 +2610,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
       'Boxing Day is a public holiday celebrated on 26 December, the day after Christmas Day',
       'Bonfire Night is celebrated on 11 November with a two-minute silence',
     ],
-    correctIndices: [0, 2],
+    correctIndices: [0-2],
     explanation:
       'Halloween falls on 31 October and Boxing Day is on 26 December. Valentine’s Day is on 14 February (not March), and Bonfire Night is on 5 November (11 November is Remembrance Day).',
     memoryHook:
@@ -2634,7 +2634,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     explanation:
       'Remembrance Day (11 November) commemorates those who died fighting for the UK and its allies. Wreaths are laid at the Cenotaph in Whitehall, London, designed by architect Sir Edwin Lutyens and unveiled in 1920.',
     memoryHook:
-      '🌶️ Spice Hook: "11am on 11/11 — red poppies & wreaths at Lutyens’s Cenotaph in Whitehall!"',
+      '🌶️ Spice Hook: "11am on 11/11, red poppies & wreaths at Lutyens’s Cenotaph in Whitehall!"',
   },
   {
     id: 'q-ex12-16',
@@ -2650,7 +2650,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
       'Lewis Hamilton',
       'Bobby Moore',
     ],
-    correctIndices: [0, 2],
+    correctIndices: [0-2],
     explanation:
       'Recent British winners of the Formula 1 World Championship include Damon Hill, Lewis Hamilton, and Jenson Button (following earlier three-time champion Sir Jackie Stewart). Wiggins is a cyclist and Moore captained the 1966 England football team.',
     memoryHook:
@@ -2663,14 +2663,14 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     subtopicId: 'ch4-arts-culture',
     type: 'multiple',
     prompt:
-      'Which TWO authors created two of Britain’s most famous modern fictional characters—secret agent James Bond and young wizard Harry Potter? (Choose TWO)',
+      'Which TWO authors created two of Britain’s most famous modern fictional characters, secret agent James Bond and young wizard Harry Potter? (Choose TWO)',
     options: [
       'Ian Fleming',
       'Thomas Hardy',
       'J.K. Rowling',
       'John Constable',
     ],
-    correctIndices: [0, 2],
+    correctIndices: [0-2],
     explanation:
       'Ian Fleming introduced James Bond ("007") in 1952/1953, while J.K. Rowling wrote the hugely successful Harry Potter series of books for children and adults.',
     memoryHook:
@@ -2690,7 +2690,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
       'Graham Greene',
       'Sir Frank Whittle',
     ],
-    correctIndices: [0, 2],
+    correctIndices: [0-2],
     explanation:
       'Kingsley Amis (author of Lucky Jim) and Graham Greene (whose thrillers and novels such as Brighton Rock and The Heart of the Matter were often influenced by his religious and moral discoveries) are major 20th-century British novelists. Capability Brown was an 18th-century garden designer, and Frank Whittle invented the jet engine.',
     memoryHook:
@@ -2710,9 +2710,9 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
       'Education and health services in Scotland',
       'UK immigration and asylum borders',
     ],
-    correctIndices: [0, 2],
+    correctIndices: [0-2],
     explanation:
-      'The Scottish Parliament can legislate on anything not specifically reserved to the UK Parliament—including civil and criminal law, health, education, planning, and additional tax-raising powers—while defence and immigration are reserved to Westminster.',
+      'The Scottish Parliament can legislate on anything not specifically reserved to the UK Parliament, including civil and criminal law, health, education, planning, and additional tax-raising powers, while defence and immigration are reserved to Westminster.',
     memoryHook:
       '🌶️ Spice Hook: Holyrood handles Scots Courts, Schools & Hospitals; Westminster handles Defence & Borders!',
     visualId: 'parliament-courts',
@@ -2733,7 +2733,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     ],
     correctIndices: [2],
     explanation:
-      'Among the core rights in the European Convention on Human Rights are the right to life, prohibition of torture, prohibition of slavery and forced labour, right to liberty and security, right to a fair trial, and freedoms of thought, religion, and expression—not free university tuition.',
+      'Among the core rights in the European Convention on Human Rights are the right to life, prohibition of torture, prohibition of slavery and forced labour, right to liberty and security, right to a fair trial, and freedoms of thought, religion, and expression, not free university tuition.',
     memoryHook:
       '🌶️ Spice Hook: ECHR protects core human liberties (Life, No Torture/Slavery, Fair Trial, Speech/Belief), not free uni!',
   },
@@ -2789,7 +2789,7 @@ export const QUESTIONS_EXAMS_07_12: readonly PracticeQuestion[] = [
     ],
     correctIndices: [1],
     explanation:
-      'The Council of Europe (of which the UK is a member alongside around 46 European states) is separate from the EU; it has no power to make binding laws directly, but draws up conventions and charters—most famously the European Convention on Human Rights.',
+      'The Council of Europe (of which the UK is a member alongside around 46 European states) is separate from the EU; it has no power to make binding laws directly, but draws up conventions and charters, most famously the European Convention on Human Rights.',
     memoryHook:
       '🌶️ Spice Hook: "Council of Europe = Human Rights Charters, ZERO law-making power, separate from the EU!"',
   },

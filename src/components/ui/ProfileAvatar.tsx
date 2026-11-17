@@ -1,7 +1,7 @@
 import React from 'react';
 
 /**
- * Pure Unicode emoji badge options — fun faces, glasses, women dancing, animals & Spice classics!
+ * Pure Unicode emoji badge options: fun faces, glasses, women dancing, animals & Spice classics!
  */
 export const AVATAR_EMOJIS: readonly string[] = [
   '🐰',

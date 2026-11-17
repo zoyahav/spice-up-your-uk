@@ -25,11 +25,11 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
       'The rule of law',
       'Compulsory membership of a trade union',
     ],
-    correctIndices: [0, 2],
+    correctIndices: [0-2],
     explanation:
       'The five fundamental principles of British life are democracy, the rule of law, individual liberty, tolerance of those with different faiths and beliefs, and participation in community life.',
     memoryHook:
-      '🌶️ Spice Hook: Remember "DR. LIT" — Democracy, Rule of law, Liberty, Inclusion in community, Tolerance! ("Stop right now" at free car traps!)',
+      '🌶️ Spice Hook: Remember "DR. LIT", Democracy, Rule of law, Liberty, Inclusion in community, Tolerance! ("Stop right now" at free car traps!)',
   },
   {
     id: 'q-ex01-02',
@@ -61,7 +61,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     ],
     correctIndices: [0],
     explanation:
-      'At a citizenship ceremony, new British citizens swear or affirm allegiance to the reigning Monarch — His Majesty King Charles III, His Heirs and Successors — according to law.',
+      'At a citizenship ceremony, new British citizens swear or affirm allegiance to the reigning Monarch: His Majesty King Charles III, His Heirs and Successors, according to law.',
     memoryHook:
       '🌶️ Spice Hook: Oath = Crown! You swear allegiance to King Charles III (never to politicians who come and go!).',
   },
@@ -138,7 +138,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     explanation:
       'Skara Brae on Orkney, off the north coast of Scotland, is the best-preserved prehistoric Stone Age village in northern Europe, helping archaeologists understand how people lived near the end of the Stone Age.',
     memoryHook:
-      '🌶️ Spice Hook: "Skara Brae = Scottish Bay!" (Brae is a Scots word — straight up to Orkney off north Scotland!).',
+      '🌶️ Spice Hook: "Skara Brae = Scottish Bay!" (Brae is a Scots word, straight up to Orkney off north Scotland!).',
     visualId: 'history-timeline',
   },
   {
@@ -185,7 +185,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     explanation:
       'William, Duke of Normandy, defeated the Saxon King Harold at the Battle of Hastings in 1066. It remains the last successful foreign military invasion of England.',
     memoryHook:
-      '🌶️ Spice Hook: "1066 — Nobody’s invaded England since William’s Norman tricks!"',
+      '🌶️ Spice Hook: "1066, Nobody’s invaded England since William’s Norman tricks!"',
     visualId: 'history-timeline',
   },
   {
@@ -249,9 +249,9 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     ],
     correctIndices: [2],
     explanation:
-      'In England, the Church of England (Anglican Church) is the official established state church, and the reigning Monarch — King Charles III — is its Supreme Governor, while the Archbishop of Canterbury is its spiritual leader.',
+      'In England, the Church of England (Anglican Church) is the official established state church, and the reigning Monarch: King Charles III, is its Supreme Governor, while the Archbishop of Canterbury is its spiritual leader.',
     memoryHook:
-      '🌶️ Spice Hook: Ever since Henry VIII, the Crown wears the Church of England hat — King Charles III is Supreme Governor!',
+      '🌶️ Spice Hook: Ever since Henry VIII, the Crown wears the Church of England hat, King Charles III is Supreme Governor!',
   },
   {
     id: 'q-ex01-15',
@@ -265,7 +265,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     explanation:
       'Bobby Moore captained the England football team when England hosted and won the World Cup in 1966.',
     memoryHook:
-      '🌶️ Spice Hook: Sporty Spice salutes "Bobby Moore — ’66 World Cup Score!"',
+      '🌶️ Spice Hook: Sporty Spice salutes "Bobby Moore, ’66 World Cup Score!"',
   },
   {
     id: 'q-ex01-16',
@@ -295,11 +295,11 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
       'Great Expectations',
       'Treasure Island',
     ],
-    correctIndices: [0, 1],
+    correctIndices: [0-1],
     explanation:
       'Jane Austen (1775–1817) is one of England’s finest novelists; her famous works concerning marriage and family relationships include Pride and Prejudice and Sense and Sensibility.',
     memoryHook:
-      '🌶️ Spice Hook: Posh Spice loves manners & romance — Jane Austen wrote "Pride & Sense" (Pride and Prejudice + Sense and Sensibility)!',
+      '🌶️ Spice Hook: Posh Spice loves manners & romance, Jane Austen wrote "Pride & Sense" (Pride and Prejudice + Sense and Sensibility)!',
   },
   {
     id: 'q-ex01-18',
@@ -348,7 +348,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     explanation:
       'With His Majesty King Charles III as the reigning Monarch, the UK National Anthem is "God Save the King", sung at major national occasions and sporting events.',
     memoryHook:
-      '🌶️ Spice Hook: 2026 check — King Charles III wears the Crown, so we sing "God Save the King"!',
+      '🌶️ Spice Hook: 2026 check, King Charles III wears the Crown, so we sing "God Save the King"!',
     visualId: 'parliament-courts',
   },
   {
@@ -401,7 +401,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
       'All United States citizens',
       'Irish citizens',
     ],
-    correctIndices: [1, 3],
+    correctIndices: [1-3],
     explanation:
       'Adult (18+) UK citizens, together with qualifying Commonwealth citizens and Irish citizens who are resident in the UK and on the electoral register, can vote in all UK public elections.',
     memoryHook:
@@ -442,9 +442,9 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     ],
     correctIndices: [2],
     explanation:
-      'Candidates must answer at least 18 out of 24 questions correctly — a pass mark of 75% — within 45 minutes.',
+      'Candidates must answer at least 18 out of 24 questions correctly: a pass mark of 75%, within 45 minutes.',
     memoryHook:
-      '🌶️ Spice Hook: "Three quarters of the pie — 75% (18/24) makes your citizenship fly!"',
+      '🌶️ Spice Hook: "Three quarters of the pie, 75% (18/24) makes your citizenship fly!"',
   },
   {
     id: 'q-ex02-02',
@@ -460,7 +460,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
       'Look after the area in which you live and the environment',
       'Attend church services every Sunday',
     ],
-    correctIndices: [1, 2],
+    correctIndices: [1-2],
     explanation:
       'If you wish to be a permanent resident or citizen of the UK, you should: respect and obey the law, respect the rights of others (including their opinions), treat others with fairness, look after yourself and your family, and look after the area in which you live and the environment.',
     memoryHook:
@@ -490,11 +490,11 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     prompt:
       'Alongside the Cross of St George (England), which TWO other patron saints’ crosses are combined to make the Union Flag? (Choose TWO)',
     options: ['St Andrew', 'St David', 'St Patrick', 'St Columba'],
-    correctIndices: [0, 2],
+    correctIndices: [0-2],
     explanation:
       'The Union Flag (Union Jack) combines three crosses: St George (England), St Andrew (Scotland), and St Patrick (Ireland). St David’s cross is not part of the flag.',
     memoryHook:
-      '🌶️ Spice Hook: Geri’s Union Jack dress rocks GAP — George, Andrew, Patrick (no David)!',
+      '🌶️ Spice Hook: Geri’s Union Jack dress rocks GAP, George, Andrew, Patrick (no David)!',
     visualId: 'union-jack',
   },
   {
@@ -509,7 +509,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     explanation:
       'St David’s Day (Wales) is celebrated on 1 March. St Patrick’s Day is 17 March, St George’s Day is 23 April, and St Andrew’s Day is 30 November.',
     memoryHook:
-      '🌶️ Spice Hook: Yellow Welsh daffodils bloom FIRST in spring — 1 March = St David’s Day!',
+      '🌶️ Spice Hook: Yellow Welsh daffodils bloom FIRST in spring, 1 March = St David’s Day!',
     visualId: 'national-emblems',
   },
   {
@@ -540,7 +540,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     explanation:
       'Stonehenge still stands in what is now the English county of Wiltshire and was probably a special gathering place for seasonal ceremonies.',
     memoryHook:
-      '🌶️ Spice Hook: "Stonehenge Will Never Wilt — it’s in Wiltshire!"',
+      '🌶️ Spice Hook: "Stonehenge Will Never Wilt, it’s in Wiltshire!"',
     visualId: 'history-timeline',
   },
   {
@@ -626,7 +626,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     options: ['One tenth', 'One quarter', 'One third', 'Three quarters'],
     correctIndices: [2],
     explanation:
-      'In 1348, the Black Death killed one third of the population in England, with similar proportions in Wales and Scotland — one of the worst disasters ever to strike Britain.',
+      'In 1348, the Black Death killed one third of the population in England, with similar proportions in Wales and Scotland: one of the worst disasters ever to strike Britain.',
     memoryHook:
       '🌶️ Spice Hook: "1348 starts with 1-3 → 1/3 (one third) of Britain perished in the Black Death!"',
     visualId: 'history-timeline',
@@ -692,7 +692,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     explanation:
       'The Wimbledon Championships, held every year at the All England Croquet and Lawn Tennis Club, is the oldest tennis tournament in the world and the only Grand Slam event played on grass.',
     memoryHook:
-      '🌶️ Spice Hook: Strawberries, cream, and green grass — Wimbledon is #1 oldest tennis slam!',
+      '🌶️ Spice Hook: Strawberries, cream, and green grass, Wimbledon is #1 oldest tennis slam!',
   },
   {
     id: 'q-ex02-17',
@@ -727,11 +727,11 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
       'Oliver Twist',
       'Great Expectations',
     ],
-    correctIndices: [2, 3],
+    correctIndices: [2-3],
     explanation:
       'Charles Dickens (1812–1870) wrote celebrated Victorian novels including Oliver Twist and Great Expectations, creating characters like Scrooge and Mr Micawber that are still referenced in everyday English.',
     memoryHook:
-      '🌶️ Spice Hook: "Please sir, I want Great Expectations!" — Oliver Twist + Great Expectations = Dickens!',
+      '🌶️ Spice Hook: "Please sir, I want Great Expectations!", Oliver Twist + Great Expectations = Dickens!',
   },
   {
     id: 'q-ex02-19',
@@ -771,7 +771,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     explanation:
       'MPs are elected to the House of Commons through the "First Past the Post" system: in each constituency, the candidate who receives the most votes wins the seat.',
     memoryHook:
-      '🌶️ Spice Hook: Like a horse race to the finish post — Westminster MPs win by "First Past the Post"!',
+      '🌶️ Spice Hook: Like a horse race to the finish post, Westminster MPs win by "First Past the Post"!',
     visualId: 'parliament-courts',
   },
   {
@@ -787,7 +787,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     explanation:
       'Debates in the House of Commons are chaired by the Speaker, who is the chief officer of the House of Commons, remains politically neutral, and keeps order during debates.',
     memoryHook:
-      '🌶️ Spice Hook: "Order! Order!" — The Speaker runs the Commons mic and stays 100% neutral!',
+      '🌶️ Spice Hook: "Order! Order!", The Speaker runs the Commons mic and stays 100% neutral!',
     visualId: 'parliament-courts',
   },
   {
@@ -859,7 +859,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     explanation:
       'Candidates have 45 minutes to answer the 24 multiple-choice questions in the official Life in the UK Test.',
     memoryHook:
-      '🌶️ Spice Hook: Like a classic 45 RPM Spice Girls single — you get 45 minutes on the clock!',
+      '🌶️ Spice Hook: Like a classic 45 RPM Spice Girls single, you get 45 minutes on the clock!',
   },
   {
     id: 'q-ex03-02',
@@ -878,7 +878,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     explanation:
       'Freedom of religion (including having no religion) and tolerance of different faiths and beliefs are core British principles; nobody is required to belong to a state church.',
     memoryHook:
-      '🌶️ Spice Hook: Britain champions freedom of belief — compulsory church membership is NEVER required!',
+      '🌶️ Spice Hook: Britain champions freedom of belief, compulsory church membership is NEVER required!',
   },
   {
     id: 'q-ex03-03',
@@ -893,7 +893,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     explanation:
       'Those who do not wish to swear a religious Oath ("I swear by Almighty God...") can make a solemn non-religious Affirmation of Allegiance ("I do solemnly, sincerely and truly declare and affirm...") to King Charles III.',
     memoryHook:
-      '🌶️ Spice Hook: Religious = Oath; Non-religious = Affirmation — everyone is welcome under the Union Jack!',
+      '🌶️ Spice Hook: Religious = Oath; Non-religious = Affirmation, everyone is welcome under the Union Jack!',
   },
   {
     id: 'q-ex03-04',
@@ -1107,7 +1107,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     explanation:
       'Sir Jackie Stewart (born 1939) is a Scottish former racing driver who won the Formula 1 World Championship three times.',
     memoryHook:
-      '🌶️ Spice Hook: "Tartan Turbo — Scottish Jackie Stewart won 3 F1 crowns!"',
+      '🌶️ Spice Hook: "Tartan Turbo, Scottish Jackie Stewart won 3 F1 crowns!"',
   },
   {
     id: 'q-ex03-16',
@@ -1118,7 +1118,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     prompt:
       'Which TWO universities compete against each other in the famous annual Boat Race along the River Thames in London? (Choose TWO)',
     options: ['University of Oxford', 'University of Cambridge', 'University of Edinburgh', 'Durham University'],
-    correctIndices: [0, 1],
+    correctIndices: [0-1],
     explanation:
       'The Boat Race is a famous annual rowing race on the River Thames in London between crews from the Universities of Oxford and Cambridge.',
     memoryHook:
@@ -1138,7 +1138,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
       'The Strange Case of Dr Jekyll and Mr Hyde',
       'Sense and Sensibility',
     ],
-    correctIndices: [1, 2],
+    correctIndices: [1-2],
     explanation:
       'Robert Louis Stevenson (1850–1894) wrote books that are still read by adults and children today, most famously Treasure Island, Kidnapped, and The Strange Case of Dr Jekyll and Mr Hyde.',
     memoryHook:
@@ -1217,7 +1217,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     explanation:
       'The Opposition and MPs question the Prime Minister in the House of Commons every week (on Wednesdays) during Prime Minister’s Questions (PMQs) while Parliament is sitting.',
     memoryHook:
-      '🌶️ Spice Hook: Every Wednesday at noon, the PM faces the music — PMQs is ONCE A WEEK!',
+      '🌶️ Spice Hook: Every Wednesday at noon, the PM faces the music, PMQs is ONCE A WEEK!',
     visualId: 'parliament-courts',
   },
   {
@@ -1237,7 +1237,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     explanation:
       'Proceedings in Parliament are broadcast on television and published in official reports known as Hansard, which are freely available in large libraries and online.',
     memoryHook:
-      '🌶️ Spice Hook: "Hansard heard every word!" — Parliament’s official word-for-word transcript!',
+      '🌶️ Spice Hook: "Hansard heard every word!", Parliament’s official word-for-word transcript!',
     visualId: 'parliament-courts',
   },
   {
@@ -1254,9 +1254,9 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
       'Housing disputes between landlords and tenants',
       'Employment disputes such as unfair dismissal',
     ],
-    correctIndices: [2, 3],
+    correctIndices: [2-3],
     explanation:
-      'Civil law settles disputes between individuals or groups — including housing law (landlord/tenant), consumer rights, employment law (unfair dismissal/discrimination), and debt — whereas weapons offences and theft are criminal offences.',
+      'Civil law settles disputes between individuals or groups: including housing law (landlord/tenant), consumer rights, employment law (unfair dismissal/discrimination), and debt: whereas weapons offences and theft are criminal offences.',
     memoryHook:
       '🌶️ Spice Hook: Civil = Citizen-vs-Citizen disputes (rent, work, contracts, debt); Criminal = Crime & Police!',
     visualId: 'parliament-courts',
@@ -1315,11 +1315,11 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
       'A right to a fair trial',
       'Guaranteed election to Parliament',
     ],
-    correctIndices: [0, 2],
+    correctIndices: [0-2],
     explanation:
       'In return for fulfilling civic responsibilities, the UK offers: freedom of belief and religion, freedom of speech, freedom from unfair discrimination, a right to a fair trial, and a right to join in the election of a government.',
     memoryHook:
-      '🌶️ Spice Hook: "Tell me what you want!" — Free speech + Fair trial + Free belief + Fair vote!',
+      '🌶️ Spice Hook: "Tell me what you want!", Free speech + Fair trial + Free belief + Fair vote!',
   },
   {
     id: 'q-ex04-03',
@@ -1332,7 +1332,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     options: ['Yes', 'No'],
     correctIndices: [1],
     explanation:
-      'No. The Channel Islands and the Isle of Man are "Crown Dependencies" — they are closely linked to the Crown and British Isles, have their own governments, and are NOT part of the UK.',
+      'No. The Channel Islands and the Isle of Man are "Crown Dependencies": they are closely linked to the Crown and British Isles, have their own governments, and are NOT part of the UK.',
     memoryHook:
       '🌶️ Spice Hook: Huge exam favourite! Channel Islands + Isle of Man = Crown Dependencies (NOT part of the UK)!',
     visualId: 'uk-map',
@@ -1347,7 +1347,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     options: ['The Thistle', 'The Daffodil', 'The Shamrock', 'The Rose'],
     correctIndices: [0],
     explanation:
-      'The national flower of Scotland is the Thistle — a prickly-leaved purple flower originally used as a defensive symbol.',
+      'The national flower of Scotland is the Thistle: a prickly-leaved purple flower originally used as a defensive symbol.',
     memoryHook:
       '🌶️ Spice Hook: "Prickly purple power in the Highlands = Scottish Thistle!"',
     visualId: 'national-emblems',
@@ -1361,11 +1361,11 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     prompt:
       'Which TWO nations of the UK have an official bank holiday for their patron saint’s day? (Choose TWO)',
     options: ['England', 'Scotland', 'Wales', 'Northern Ireland'],
-    correctIndices: [1, 3],
+    correctIndices: [1-3],
     explanation:
       'Although all four nations celebrate their patron saints’ days, only Scotland (St Andrew’s Day, 30 November) and Northern Ireland (St Patrick’s Day, 17 March) have official public holidays for them.',
     memoryHook:
-      '🌶️ Spice Hook: "North & North-West get the day off!" — Only Scotland & Northern Ireland have patron saint bank holidays!',
+      '🌶️ Spice Hook: "North & North-West get the day off!", Only Scotland & Northern Ireland have patron saint bank holidays!',
     visualId: 'national-emblems',
   },
   {
@@ -1381,7 +1381,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     explanation:
       'During the Iron Age, people often defended sites called hill forts. A very impressive hill fort can still be seen today at Maiden Castle, in the English county of Dorset.',
     memoryHook:
-      '🌶️ Spice Hook: Iron Age Girl Power — "Maiden Castle stands tall on a Dorset hill!"',
+      '🌶️ Spice Hook: Iron Age Girl Power, "Maiden Castle stands tall on a Dorset hill!"',
     visualId: 'history-timeline',
   },
   {
@@ -1393,9 +1393,9 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     prompt:
       'Which TWO Roman forts along Hadrian’s Wall can still be visited today as part of a UNESCO World Heritage Site? (Choose TWO)',
     options: ['Maiden Castle', 'Housesteads', 'Conwy', 'Vindolanda'],
-    correctIndices: [1, 3],
+    correctIndices: [1-3],
     explanation:
-      'Parts of Hadrian’s Wall — including the Roman forts of Housesteads and Vindolanda — can still be seen today and are a popular walking area and UNESCO World Heritage Site.',
+      'Parts of Hadrian’s Wall: including the Roman forts of Housesteads and Vindolanda, can still be seen today and are a popular walking area and UNESCO World Heritage Site.',
     memoryHook:
       '🌶️ Spice Hook: "Roman soldiers lived in Houses (Housesteads) and drank Vino (Vindolanda) on Hadrian’s Wall!"',
     visualId: 'history-timeline',
@@ -1409,11 +1409,11 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     prompt:
       'Where did the Vikings come from when they first visited Britain in AD 789 to raid coastal towns? (Choose TWO)',
     options: ['Denmark', 'Italy', 'Spain', 'Norway'],
-    correctIndices: [0, 3],
+    correctIndices: [0-3],
     explanation:
       'The Vikings came from Denmark and Norway. They first raided coastal towns and monasteries in AD 789 before staying to form their own communities in eastern England and Scotland.',
     memoryHook:
-      '🌶️ Spice Hook: "Scandi Raiders = Denmark & Norway in AD 7-8-9 (count 7, 8, 9)!"',
+      '🌶️ Spice Hook: "Scandi Raiders = Denmark & Norway in AD 7-8-9 (count 7-8, 9)!"',
     visualId: 'history-timeline',
   },
   {
@@ -1427,7 +1427,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     options: ['The Pale', 'The Danelaw', 'Wessex', 'Caledonia'],
     correctIndices: [1],
     explanation:
-      'Many Viking invaders stayed in Britain — especially in the east and north of England, in an area known as the Danelaw (giving rise to place names like Grimsby and Scunthorpe).',
+      'Many Viking invaders stayed in Britain: especially in the east and north of England, in an area known as the Danelaw (giving rise to place names like Grimsby and Scunthorpe).',
     memoryHook:
       '🌶️ Spice Hook: "Danes + Law = The Danelaw" (east & north England)!',
     visualId: 'history-timeline',
@@ -1450,7 +1450,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     explanation:
       'The Battle of Hastings is commemorated in a great piece of embroidery known as the Bayeux Tapestry, which is nearly 70 metres (230 feet) long and can still be seen in France today.',
     memoryHook:
-      '🌶️ Spice Hook: Posh couture of 1066 — 70 metres of battle stitches on the Bayeux Tapestry!',
+      '🌶️ Spice Hook: Posh couture of 1066, 70 metres of battle stitches on the Bayeux Tapestry!',
     visualId: 'history-timeline',
   },
   {
@@ -1470,7 +1470,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     explanation:
       'The Magna Carta ("Charter of Liberties") established the idea that even the king was subject to the law. It protected the rights of the nobility and restricted the king’s power to collect taxes or make/change laws without consulting his nobles.',
     memoryHook:
-      '🌶️ Spice Hook: Magna Carta = "Nobody — not even the King — is above the law!"',
+      '🌶️ Spice Hook: Magna Carta = "Nobody, not even the King, is above the law!"',
     visualId: 'history-timeline',
   },
   {
@@ -1541,7 +1541,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     explanation:
       'Jayne Torvill and Christopher Dean won gold medals for ice dancing at the Olympic Games in 1984 (skating to Ravel’s Bolero) and in four consecutive world championships.',
     memoryHook:
-      '🌶️ Spice Hook: "2 Become 1 on Ice!" — Torvill & Dean danced to 1984 Olympic ice-dancing gold!',
+      '🌶️ Spice Hook: "2 Become 1 on Ice!", Torvill & Dean danced to 1984 Olympic ice-dancing gold!',
   },
   {
     id: 'q-ex04-16',
@@ -1580,7 +1580,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     explanation:
       'Thomas Hardy (1840–1928) was an author and poet whose best-known novels focus on rural society in south-west England, including Far from the Madding Crowd and Jude the Obscure.',
     memoryHook:
-      '🌶️ Spice Hook: "Country life is Hard(y)!" — Thomas Hardy wrote rural classics Far from the Madding Crowd & Jude the Obscure!',
+      '🌶️ Spice Hook: "Country life is Hard(y)!", Thomas Hardy wrote rural classics Far from the Madding Crowd & Jude the Obscure!',
   },
   {
     id: 'q-ex04-18',
@@ -1595,7 +1595,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     explanation:
       'The Tower of London was first built by William the Conqueror after he became king in 1066. Today visitors can tour the fortress, meet Yeoman Warders ("Beefeaters"), and view the Crown Jewels.',
     memoryHook:
-      '🌶️ Spice Hook: 1066 Conqueror built the White Tower — and today it guards the Crown’s bling!',
+      '🌶️ Spice Hook: 1066 Conqueror built the White Tower, and today it guards the Crown’s bling!',
     visualId: 'uk-map',
   },
   {
@@ -1616,7 +1616,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     explanation:
       'In the UK’s constitutional monarchy, once both Houses of Parliament pass a Bill, the Monarch formally agrees to make it an Act of Parliament by granting Royal Assent.',
     memoryHook:
-      '🌶️ Spice Hook: "Say You’ll Be Law!" — Crown sign-off on a Bill is called Royal Assent!',
+      '🌶️ Spice Hook: "Say You’ll Be Law!", Crown sign-off on a Bill is called Royal Assent!',
     visualId: 'parliament-courts',
   },
   {
@@ -1656,7 +1656,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     explanation:
       'The Speaker is an MP elected by other MPs in a secret ballot to chair debates impartially in the House of Commons.',
     memoryHook:
-      '🌶️ Spice Hook: MPs pick their own referee — Speaker is chosen by MPs via SECRET BALLOT!',
+      '🌶️ Spice Hook: MPs pick their own referee, Speaker is chosen by MPs via SECRET BALLOT!',
     visualId: 'parliament-courts',
   },
   {
@@ -1677,7 +1677,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     explanation:
       'The Foreign Secretary (Secretary of State for Foreign, Commonwealth and Development Affairs) is responsible for managing relationships with foreign countries and British diplomacy abroad.',
     memoryHook:
-      '🌶️ Spice Hook: "Spice Up Your World!" — Foreign affairs = Foreign Secretary!',
+      '🌶️ Spice Hook: "Spice Up Your World!", Foreign affairs = Foreign Secretary!',
     visualId: 'parliament-courts',
   },
   {
@@ -1733,7 +1733,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     explanation:
       'Applicants aged 65 or over (as well as those under 18, or with certain permanent physical or mental conditions) are exempt from taking the Life in the UK Test and proving B1 English.',
     memoryHook:
-      '🌶️ Spice Hook: "At 65, relax & thrive — no test required!"',
+      '🌶️ Spice Hook: "At 65, relax & thrive, no test required!"',
   },
   {
     id: 'q-ex05-02',
@@ -1748,7 +1748,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     explanation:
       'Forced marriage (forcing someone to marry against their will), FGM (including taking a girl abroad for FGM), and domestic violence are serious criminal offences in the UK.',
     memoryHook:
-      '🌶️ Spice Hook: Individual liberty & safety are non-negotiable — forced marriage & FGM are strictly ILLEGAL crimes!',
+      '🌶️ Spice Hook: Individual liberty & safety are non-negotiable, forced marriage & FGM are strictly ILLEGAL crimes!',
   },
   {
     id: 'q-ex05-03',
@@ -1822,9 +1822,9 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     ],
     correctIndices: [3],
     explanation:
-      'During the Iron Age, people made the first coins to be minted in Britain, some inscribed with the names of Iron Age kings — marking the beginnings of British history.',
+      'During the Iron Age, people made the first coins to be minted in Britain, some inscribed with the names of Iron Age kings: marking the beginnings of British history.',
     memoryHook:
-      '🌶️ Spice Hook: Iron Age bling — first British coins stamped with Iron Age KINGS’ names!',
+      '🌶️ Spice Hook: Iron Age bling, first British coins stamped with Iron Age KINGS’ names!',
     visualId: 'history-timeline',
   },
   {
@@ -1837,7 +1837,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     options: ['Yes', 'No'],
     correctIndices: [1],
     explanation:
-      'No. Although the Romans occupied almost all of Britain after AD 43, areas of what is now Scotland were never conquered by the Romans — which is why Emperor Hadrian built Hadrian’s Wall.',
+      'No. Although the Romans occupied almost all of Britain after AD 43, areas of what is now Scotland were never conquered by the Romans: which is why Emperor Hadrian built Hadrian’s Wall.',
     memoryHook:
       '🌶️ Spice Hook: Highland fierce! Rome NEVER conquered Scotland!',
     visualId: 'history-timeline',
@@ -1851,11 +1851,11 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     prompt:
       'Alongside the Jutes, which TWO other tribes from northern Europe invaded and settled in Britain after the Romans left in AD 410? (Choose TWO)',
     options: ['The Angles', 'The Picts', 'The Normans', 'The Saxons'],
-    correctIndices: [0, 3],
+    correctIndices: [0-3],
     explanation:
       'After the Roman army left in AD 410, Britain was invaded by tribes from northern Europe: the Jutes, the Angles, and the Saxons. Their languages formed the basis of modern English, and kingdoms were established by about AD 600.',
     memoryHook:
-      '🌶️ Spice Hook: It’s literally in the name "Anglo-Saxon" — Angles + Saxons (+ Jutes)!',
+      '🌶️ Spice Hook: It’s literally in the name "Anglo-Saxon", Angles + Saxons (+ Jutes)!',
     visualId: 'history-timeline',
   },
   {
@@ -1888,7 +1888,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     prompt:
       'Which TWO huge Welsh castles were built by King Edward I to maintain his power after annexing Wales in 1284? (Choose TWO)',
     options: ['Edinburgh Castle', 'Conwy Castle', 'Caernarfon Castle', 'Windsor Castle'],
-    correctIndices: [1, 2],
+    correctIndices: [1-2],
     explanation:
       'After introducing the Statute of Rhuddlan in 1284, Edward I built huge castles to maintain his power in Wales, including Conwy and Caernarfon, many of which are still standing today.',
     memoryHook:
@@ -1946,11 +1946,11 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
       'The House of Windsor',
       'The House of York',
     ],
-    correctIndices: [0, 3],
+    correctIndices: [0-3],
     explanation:
       'The Wars of the Roses (1455–1485) was fought between the supporters of two families: the House of Lancaster (symbolised by a red rose) and the House of York (symbolised by a white rose).',
     memoryHook:
-      '🌶️ Spice Hook: "Lancaster Red vs York White — 30 years of Rose-war fight!" (Remember: L-R = Lancaster Red!).',
+      '🌶️ Spice Hook: "Lancaster Red vs York White, 30 years of Rose-war fight!" (Remember: L-R = Lancaster Red!).',
     visualId: 'history-timeline',
   },
   {
@@ -1965,7 +1965,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     explanation:
       'No. There is no established church in Wales or Northern Ireland (unlike England with the Church of England, and Scotland with its national Presbyterian Church of Scotland).',
     memoryHook:
-      '🌶️ Spice Hook: Wales & Northern Ireland are solo stars — ZERO established state church!',
+      '🌶️ Spice Hook: Wales & Northern Ireland are solo stars, ZERO established state church!',
   },
   {
     id: 'q-ex05-15',
@@ -1976,7 +1976,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     prompt:
       'Alongside England, Scotland, Wales, and Ireland, which TWO other European countries compete in the annual Six Nations Rugby Championship? (Choose TWO)',
     options: ['Spain', 'France', 'Germany', 'Italy'],
-    correctIndices: [1, 3],
+    correctIndices: [1-3],
     explanation:
       'The most famous rugby union competition is the Six Nations Championship between England, Ireland, Scotland, Wales, France, and Italy.',
     memoryHook:
@@ -2000,7 +2000,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     explanation:
       'The Open Championship is the only golf "Major" tournament held outside the United States and is hosted by a different British golf course every year.',
     memoryHook:
-      '🌶️ Spice Hook: Only ONE golf Major lives outside the USA — Britain’s "The Open Championship"!',
+      '🌶️ Spice Hook: Only ONE golf Major lives outside the USA, Britain’s "The Open Championship"!',
   },
   {
     id: 'q-ex05-17',
@@ -2016,11 +2016,11 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
       'Macbeth',
       'Pygmalion',
     ],
-    correctIndices: [0, 2],
+    correctIndices: [0-2],
     explanation:
       'Shakespeare’s most famous plays include A Midsummer Night’s Dream, Hamlet, Macbeth, and Romeo and Juliet (whereas Agatha Christie wrote The Mousetrap and George Bernard Shaw wrote Pygmalion).',
     memoryHook:
-      '🌶️ Spice Hook: Fairies & Scottish Kings — Midsummer Night’s Dream + Macbeth = Pure Shakespeare!',
+      '🌶️ Spice Hook: Fairies & Scottish Kings, Midsummer Night’s Dream + Macbeth = Pure Shakespeare!',
   },
   {
     id: 'q-ex05-18',
@@ -2035,7 +2035,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     explanation:
       'Robert Burns (1759–1796), known in Scotland as "The Bard", wrote in Scots and English; his best-known work is Auld Lang Syne (sung at New Year), and Scots celebrate Burns Night every 25 January.',
     memoryHook:
-      '🌶️ Spice Hook: Raise a glass on 25 Jan (Burns Night) — Robert Burns wrote Auld Lang Syne!',
+      '🌶️ Spice Hook: Raise a glass on 25 Jan (Burns Night), Robert Burns wrote Auld Lang Syne!',
   },
   {
     id: 'q-ex05-19',
@@ -2073,7 +2073,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     ],
     correctIndices: [0],
     explanation:
-      'Each MP represents a parliamentary constituency (a small geographical area of the country) and has a duty to represent EVERYONE in their constituency — whether they voted for that MP or not!',
+      'Each MP represents a parliamentary constituency (a small geographical area of the country) and has a duty to represent EVERYONE in their constituency: whether they voted for that MP or not!',
     memoryHook:
       '🌶️ Spice Hook: 650 MPs = 650 constituencies, and your MP represents ALL residents in your postcode!',
     visualId: 'parliament-courts',
@@ -2092,7 +2092,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
       '26 senior bishops of the Church of England',
       'Members of the Scottish Youth Parliament',
     ],
-    correctIndices: [0, 2],
+    correctIndices: [0-2],
     explanation:
       'The House of Lords comprises life peers (appointed for their lifetime for achievements and expertise), 26 senior bishops of the Church of England, and a small number of hereditary peers.',
     memoryHook:
@@ -2116,7 +2116,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     explanation:
       'Both the government and opposition parties appoint MPs and peers called "Whips" to maintain discipline within their party and ensure members attend key parliamentary votes.',
     memoryHook:
-      '🌶️ Spice Hook: "Whip the party into line!" — Whips make sure MPs show up and vote on cue!',
+      '🌶️ Spice Hook: "Whip the party into line!", Whips make sure MPs show up and vote on cue!',
     visualId: 'parliament-courts',
   },
   {
@@ -2136,7 +2136,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     explanation:
       'The second-largest party in the House of Commons is called the Opposition. The Leader of the Opposition leads the party, points out what they see as the government’s failures, and appoints senior opposition MPs to the "Shadow Cabinet".',
     memoryHook:
-      '🌶️ Spice Hook: Shadow Cabinet "shadows" the real Cabinet — ready to step into power after the next election!',
+      '🌶️ Spice Hook: Shadow Cabinet "shadows" the real Cabinet, ready to step into power after the next election!',
     visualId: 'parliament-courts',
   },
   {
@@ -2153,7 +2153,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
       'Faulty goods bought online from a shop',
       'Selling tobacco to anyone under the age of 18',
     ],
-    correctIndices: [0, 3],
+    correctIndices: [0-3],
     explanation:
       'Carrying a weapon, selling tobacco or alcohol to someone under 18, smoking in enclosed public places, and drinking and driving are criminal offences. Debt and faulty consumer goods are civil law matters.',
     memoryHook:
@@ -2177,7 +2177,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     explanation:
       'True! UK law protects equal rights for men and women and prohibits unfair discrimination based on sex, age, race, religion, disability, marital status, or sexual orientation.',
     memoryHook:
-      '🌶️ Spice Hook: 100% Girl Power & Equal Rights — equality under the law is a bedrock of modern Britain!',
+      '🌶️ Spice Hook: 100% Girl Power & Equal Rights, equality under the law is a bedrock of modern Britain!',
   },
   {
     id: 'q-ex06-02',
@@ -2193,7 +2193,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
       'Anglesey',
       'The Isle of Man',
     ],
-    correctIndices: [0, 3],
+    correctIndices: [0-3],
     explanation:
       'In the Channel Islands (Jersey and Guernsey) and the Isle of Man, local questions supplement the UK Life in the UK Test. (Note: the Isle of Wight and Anglesey are ordinary parts of England and Wales!).',
     memoryHook:
@@ -2208,11 +2208,11 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     type: 'multiple',
     prompt: 'Which TWO of the following are major cities in Scotland? (Choose TWO)',
     options: ['Swansea', 'Glasgow', 'Bristol', 'Aberdeen'],
-    correctIndices: [1, 3],
+    correctIndices: [1-3],
     explanation:
       'Major cities in Scotland include Edinburgh (the capital), Glasgow, Aberdeen, and Dundee. Swansea is in Wales, and Bristol is in south-west England.',
     memoryHook:
-      '🌶️ Spice Hook: "Edin, Glas, Aber, Dun" — Edinburgh, Glasgow, Aberdeen, Dundee are Scotland’s fab four!',
+      '🌶️ Spice Hook: "Edin, Glas, Aber, Dun", Edinburgh, Glasgow, Aberdeen, Dundee are Scotland’s fab four!',
     visualId: 'uk-map',
   },
   {
@@ -2231,7 +2231,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     ],
     correctIndices: [0],
     explanation:
-      'The Saltire — the cross of St Andrew, patron saint of Scotland — is a diagonal white cross on a blue ground. (St George is an upright red cross on white; St Patrick is a diagonal red cross on white).',
+      'The Saltire: the cross of St Andrew, patron saint of Scotland, is a diagonal white cross on a blue ground. (St George is an upright red cross on white; St Patrick is a diagonal red cross on white).',
     memoryHook:
       '🌶️ Spice Hook: Picture snowy Scottish mountains against a blue sky → White diagonal X on Blue = St Andrew!',
     visualId: 'union-jack',
@@ -2288,7 +2288,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     ],
     correctIndices: [2],
     explanation:
-      'It was during the 3rd and 4th centuries AD — while Britain was part of the Roman Empire — that the first Christian communities began to appear in Britain.',
+      'It was during the 3rd and 4th centuries AD: while Britain was part of the Roman Empire, that the first Christian communities began to appear in Britain.',
     memoryHook:
       '🌶️ Spice Hook: Before Rome left in 410, first British Christians appeared in the 3rd & 4th centuries AD!',
     visualId: 'history-timeline',
@@ -2360,9 +2360,9 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
       'New social classes appeared, including owners of large areas of land called the gentry',
       'Everyone abandoned towns permanently and returned to hunter-gathering',
     ],
-    correctIndices: [0, 2],
+    correctIndices: [0-2],
     explanation:
-      'After one third of the population died in 1348, the smaller population meant less need to grow cereal crops and severe labour shortages — peasants could demand higher wages, feudalism declined, people moved to towns, and new classes like the gentry emerged.',
+      'After one third of the population died in 1348, the smaller population meant less need to grow cereal crops and severe labour shortages: peasants could demand higher wages, feudalism declined, people moved to towns, and new classes like the gentry emerged.',
     memoryHook:
       '🌶️ Spice Hook: Fewer workers after 1348 = Higher peasant wages + Rise of the Gentry!',
     visualId: 'history-timeline',
@@ -2399,7 +2399,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     ],
     correctIndices: [0],
     explanation:
-      'After defeating Richard III in 1485, Henry Tudor (House of Lancaster — red rose) became King Henry VII and married Elizabeth of York (House of York — white rose), uniting the two families under the red-and-white Tudor rose.',
+      'After defeating Richard III in 1485, Henry Tudor (House of Lancaster: red rose) became King Henry VII and married Elizabeth of York (House of York: white rose), uniting the two families under the red-and-white Tudor rose.',
     memoryHook:
       '🌶️ Spice Hook: Ultimate "2 Become 1"! Lancaster Red + York White = Tudor Rose wedding of 1485!',
     visualId: 'national-emblems',
@@ -2432,7 +2432,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     explanation:
       'Rugby originated in England in the early 19th century at Rugby School (in Warwickshire) and is very popular throughout the UK today in two codes with different rules: Rugby Union and Rugby League.',
     memoryHook:
-      '🌶️ Spice Hook: Easiest giveaway ever — Rugby started at RUGBY School!',
+      '🌶️ Spice Hook: Easiest giveaway ever, Rugby started at RUGBY School!',
   },
   {
     id: 'q-ex06-16',
@@ -2481,7 +2481,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     subtopicId: 'ch4-arts-culture',
     type: 'single',
     prompt:
-      'Several medieval British cathedrals — such as York Minster — are famous for intricate windows made with which craft to tell stories about the Bible and Christian saints?',
+      'Several medieval British cathedrals: such as York Minster, are famous for intricate windows made with which craft to tell stories about the Bible and Christian saints?',
     options: [
       'Stained glass',
       'Bronze sculpture',
@@ -2490,7 +2490,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     ],
     correctIndices: [0],
     explanation:
-      'During the Middle Ages, cathedrals such as Lincoln and York Minster were built, and several had windows of stained glass telling stories about the Bible and Christian saints — the glass in York Minster is a famous example.',
+      'During the Middle Ages, cathedrals such as Lincoln and York Minster were built, and several had windows of stained glass telling stories about the Bible and Christian saints: the glass in York Minster is a famous example.',
     memoryHook:
       '🌶️ Spice Hook: Medieval York Minster glows with colourful Biblical STAINED GLASS!',
   },
@@ -2507,7 +2507,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     explanation:
       'No. King Charles III has important ceremonial and constitutional roles, represents the UK internationally, and serves as a focus for national identity and unity, remaining strictly politically neutral above party politics.',
     memoryHook:
-      '🌶️ Spice Hook: Crown stays above the fray — the Monarch NEVER campaigns in party politics!',
+      '🌶️ Spice Hook: Crown stays above the fray, the Monarch NEVER campaigns in party politics!',
     visualId: 'parliament-courts',
   },
   {
@@ -2521,7 +2521,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     options: ['Every morning', 'Once a week', 'Once every six months', 'Only after a General Election'],
     correctIndices: [1],
     explanation:
-      'The Monarch has regular meetings with the Prime Minister — normally once a week — and can advise, warn, and encourage the government in strict confidence while all policy decisions are made by the PM and Cabinet.',
+      'The Monarch has regular meetings with the Prime Minister: normally once a week, and can advise, warn, and encourage the government in strict confidence while all policy decisions are made by the PM and Cabinet.',
     memoryHook:
       '🌶️ Spice Hook: Weekly tea at the Palace! PM + King Charles III meet ONCE A WEEK!',
     visualId: 'parliament-courts',
@@ -2564,7 +2564,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     explanation:
       'To be able to vote in a parliamentary, devolved, or local election, you must have your name on the electoral register (maintained by your local council electoral registration office and updated every autumn).',
     memoryHook:
-      '🌶️ Spice Hook: "No register, no ballot!" — Get on the Electoral Register to make your voice heard!',
+      '🌶️ Spice Hook: "No register, no ballot!", Get on the Electoral Register to make your voice heard!',
     visualId: 'parliament-courts',
   },
   {
@@ -2580,7 +2580,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     explanation:
       'No! Voting in the UK is strictly by secret ballot in a private polling booth; no one has the right to know or force you to say how you voted, and you must cast your own vote personally (unless you have arranged a postal or proxy vote).',
     memoryHook:
-      '🌶️ Spice Hook: Behind the curtain, your X is your secret — UK elections = 100% Secret Ballot!',
+      '🌶️ Spice Hook: Behind the curtain, your X is your secret, UK elections = 100% Secret Ballot!',
     visualId: 'parliament-courts',
   },
   {
@@ -2598,7 +2598,7 @@ export const QUESTIONS_EXAMS_01_06: readonly PracticeQuestion[] = [
     ],
     correctIndices: [2],
     explanation:
-      'Civil law is used to settle disputes between individuals or groups — covering housing law, consumer rights, employment law, family law, and debt claims.',
+      'Civil law is used to settle disputes between individuals or groups: covering housing law, consumer rights, employment law, family law, and debt claims.',
     memoryHook:
       '🌶️ Spice Hook: Keep it civil! Disputes between people or companies = Civil Law!',
     visualId: 'parliament-courts',

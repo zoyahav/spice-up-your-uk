@@ -1,5 +1,5 @@
 /**
- * Built-in SM-2 Flashcard Deck: Chapters 1, 2, 4 & 5
+ * Built-in SM-2 Flashcard Deck: Chapters 1-2, 4 & 5
  * 100% original phrasing, updated for 2026 UK facts (King Charles III, God Save the King, Lottery 18+).
  */
 
@@ -16,7 +16,7 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     front: 'What are the 5 fundamental principles of British life?',
     back: '1. Democracy\n2. The rule of law\n3. Individual liberty\n4. Tolerance of those with different faiths and beliefs\n5. Participation in community life',
     memoryHook:
-      '🌶️ Think "DR. LIT" — Democracy, Rule of law, Liberty, Inclusion (community participation), Tolerance! Tell me what you want, what you really really want: those exact 5!',
+      '🌶️ Think "DR. LIT": Democracy, Rule of law, Liberty, Inclusion (community participation), Tolerance! Tell me what you want, what you really really want: those exact 5!',
   },
   {
     id: 'fc-ch1-002',
@@ -34,7 +34,7 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     front: 'What 5 core freedoms and rights does the UK offer in return for respecting its responsibilities?',
     back: '1. Freedom of belief and religion\n2. Freedom of speech\n3. Freedom from unfair discrimination\n4. A right to a fair trial\n5. A right to join in the election of a government',
     memoryHook:
-      '🗽 "Speak, Pray, Vote, Fair Trial, No Unfair Bias" — 5 duties you give, 5 freedoms you get!',
+      '🗽 "Speak, Pray, Vote, Fair Trial, No Unfair Bias": 5 duties you give, 5 freedoms you get!',
   },
   {
     id: 'fc-ch1-004',
@@ -43,7 +43,7 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     front: 'What is British society’s stance on extremism and intolerance?',
     back: 'There is NO place in British society for extremism or intolerance of any kind.',
     memoryHook:
-      '🛑 "Stop right now, thank you very much!" — Zero room for extremism or intolerance in the UK.',
+      '🛑 "Stop right now, thank you very much!": Zero room for extremism or intolerance in the UK.',
   },
   {
     id: 'fc-ch1-005',
@@ -61,7 +61,7 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     front: 'What is the UK legal status of Female Genital Mutilation (FGM), including taking a girl abroad for the procedure?',
     back: 'Both practising FGM in the UK and taking a girl or woman abroad for FGM are illegal and serious criminal offences.',
     memoryHook:
-      '⚖️ Inside Britain OR across the border — FGM is strictly a serious crime either way.',
+      '⚖️ Inside Britain OR across the border: FGM is strictly a serious crime either way.',
   },
   {
     id: 'fc-ch1-007',
@@ -70,7 +70,7 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     front: 'How does UK law treat domestic violence and non-consensual sex within marriage?',
     back: 'Domestic violence and abuse of any kind are serious crimes in the UK; anyone violent towards a partner or family member can be prosecuted, and a husband forcing his wife to have sex can be charged with rape.',
     memoryHook:
-      '🏠 A wedding ring is NEVER a legal shield — violence or rape inside marriage is prosecuted just like anywhere else.',
+      '🏠 A wedding ring is NEVER a legal shield: violence or rape inside marriage is prosecuted just like anywhere else.',
   },
   {
     id: 'fc-ch1-008',
@@ -79,7 +79,7 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     front: 'On what grounds does UK law protect individuals against unfair discrimination?',
     back: 'UK laws prohibit unfair discrimination based on age, disability, sex, pregnancy and maternity, race, religion or belief, sexuality, and marital or civil partnership status.',
     memoryHook:
-      '🌈 Equal opportunity for every Spice in the lineup — nobody gets sidelined for who they are, who they love, or how they pray!',
+      '🌈 Equal opportunity for every Spice in the lineup: nobody gets sidelined for who they are, who they love, or how they pray!',
   },
   {
     id: 'fc-ch1-009',
@@ -88,7 +88,7 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     front: 'Exam Trap: Are "buying property", "driving a car", or "free shopping" part of the fundamental principles of British life?',
     back: 'No! Exam distractors love listing lifestyle perks, whereas the fundamental principles are strictly Democracy, Rule of Law, Individual Liberty, Tolerance, and Community Participation.',
     memoryHook:
-      '🚗 Posh Spice might love a sports car, but "owning a car" is NOT in the constitution — stick to DR. LIT!',
+      '🚗 Posh Spice might love a sports car, but "owning a car" is NOT in the constitution: stick to DR. LIT!',
   },
   {
     id: 'fc-ch1-010',
@@ -106,7 +106,7 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     front: 'Which edition of the official handbook are all Life in the UK Test questions drawn from?',
     back: 'Life in the United Kingdom: A Guide for New Residents (3rd Edition).',
     memoryHook:
-      '📘 "Third time’s the charm!" — Everything tested comes from the 3rd Edition handbook.',
+      '📘 "Third time’s the charm!": Everything tested comes from the 3rd Edition handbook.',
   },
   {
     id: 'fc-ch1-012',
@@ -158,16 +158,16 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     chapterId: 'ch1',
     subtopicId: 'ch1-citizenship',
     front: 'What is another official term for becoming a "permanent resident" in the UK?',
-    back: 'Settlement — often granted as Indefinite Leave to Remain (ILR), allowing you to live and work in the UK without time limits.',
+    back: 'Settlement, often granted as Indefinite Leave to Remain (ILR), allowing you to live and work in the UK without time limits.',
     memoryHook:
-      '🏡 ILR = "I Live Right here indefinitely!" — Settlement first, citizenship ceremony next.',
+      '🏡 ILR = "I Live Right here indefinitely!": Settlement first, citizenship ceremony next.',
   },
   {
     id: 'fc-ch1-018',
     chapterId: 'ch1',
     subtopicId: 'ch1-principles',
     front: 'Does supporting your family and obeying the law excuse ignoring your local community in the UK?',
-    back: 'No — being a good neighbour, getting involved in community life, and helping protect your local area and environment are core responsibilities of UK residency.',
+    back: 'No, being a good neighbour, getting involved in community life, and helping protect your local area and environment are core responsibilities of UK residency.',
     memoryHook:
       '🌳 Don’t be a hermit! British values include pitching in with your community and caring for your neighbourhood.',
   },
@@ -181,7 +181,7 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     subtopicId: 'ch2-nations',
     visualId: 'uk-map',
     front: 'What is the full official name of the UK, and which four nations form it?',
-    back: 'The United Kingdom of Great Britain and Northern Ireland — formed of England, Scotland, Wales, and Northern Ireland.',
+    back: 'The United Kingdom of Great Britain and Northern Ireland, formed of England, Scotland, Wales, and Northern Ireland.',
     memoryHook:
       '🗺️ "Great Britain (3) + Northern Ireland (1) = United Kingdom (4)!"',
   },
@@ -203,7 +203,7 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     front: 'What are the capital cities of England, Scotland, Wales, and Northern Ireland?',
     back: 'England: London\nScotland: Edinburgh\nWales: Cardiff\nNorthern Ireland: Belfast',
     memoryHook:
-      '🏙️ "L-E-C-B": London, Edinburgh, Cardiff, Belfast — never fall for Glasgow or Swansea as capitals!',
+      '🏙️ "L-E-C-B": London, Edinburgh, Cardiff, Belfast, never fall for Glasgow or Swansea as capitals!',
   },
   {
     id: 'fc-ch2-004',
@@ -213,7 +213,7 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     front: 'What is the approximate distance from John O’Groats (north coast of Scotland) to Land’s End (south-west tip of England)?',
     back: 'About 870 miles (approximately 1,400 kilometres).',
     memoryHook:
-      '📏 "8-7-0 from top to toe!" — John O’Groats down to Land’s End is 870 miles.',
+      '📏 "8-7-0 from top to toe!": John O’Groats down to Land’s End is 870 miles.',
   },
   {
     id: 'fc-ch2-005',
@@ -233,7 +233,7 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     front: 'Name three major Scottish cities besides Edinburgh.',
     back: 'Glasgow, Aberdeen, and Dundee (with Inverness in the Highlands and St Andrews on the east coast).',
     memoryHook:
-      '🏴󠁧󠁢󠁳󠁣󠁴󠁿 "EGAD!" — Edinburgh (capital), Glasgow, Aberdeen, Dundee!',
+      '🏴󠁧󠁢󠁳󠁣󠁴󠁿 "EGAD!": Edinburgh (capital), Glasgow, Aberdeen, Dundee!',
   },
   {
     id: 'fc-ch2-007',
@@ -273,7 +273,7 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     front: 'How is the UK’s population distributed across its four nations?',
     back: 'Distribution is very uneven: England makes up roughly 84% of the total UK population, followed by Scotland (~8%), Wales (~5%), and Northern Ireland (~3%).',
     memoryHook:
-      '📊 "84% in England’s door!" — More than 4 out of every 5 UK residents live in England.',
+      '📊 "84% in England’s door!": More than 4 out of every 5 UK residents live in England.',
   },
   {
     id: 'fc-ch2-011',
@@ -281,7 +281,7 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     subtopicId: 'ch2-symbols',
     visualId: 'union-jack',
     front: 'Which three crosses are combined to create the Union Flag (popularly known as the Union Jack)?',
-    back: '1. Cross of St George (England — upright red cross on white)\n2. Cross of St Andrew (Scotland — diagonal white cross on blue)\n3. Cross of St Patrick (Ireland — diagonal red cross on white)',
+    back: '1. Cross of St George (England, upright red cross on white)\n2. Cross of St Andrew (Scotland: diagonal white cross on blue)\n3. Cross of St Patrick (Ireland, diagonal red cross on white)',
     memoryHook:
       '👗 Picture Ginger Spice’s iconic 1997 BRITs Union Jack dress: George (upright red), Andrew (diagonal white on blue), Patrick (diagonal red)!',
   },
@@ -311,7 +311,7 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     subtopicId: 'ch2-symbols',
     visualId: 'national-emblems',
     front: 'Who is the patron saint of Wales, and on what exact date is their feast day celebrated?',
-    back: 'St David — celebrated on 1 March.',
+    back: 'St David, celebrated on 1 March.',
     memoryHook:
       '🌼 Calendar opener! "March 1st = Daffodils burst for David in Wales!"',
   },
@@ -321,7 +321,7 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     subtopicId: 'ch2-symbols',
     visualId: 'national-emblems',
     front: 'Who is the patron saint of Northern Ireland, and on what exact date is their day celebrated?',
-    back: 'St Patrick — celebrated on 17 March.',
+    back: 'St Patrick, celebrated on 17 March.',
     memoryHook:
       '☘️ Two weeks after St David: "17 March = Shamrock green for St Patrick!"',
   },
@@ -331,7 +331,7 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     subtopicId: 'ch2-symbols',
     visualId: 'national-emblems',
     front: 'Who is the patron saint of England, and on what exact date is their day celebrated?',
-    back: 'St George — celebrated on 23 April.',
+    back: 'St George, celebrated on 23 April.',
     memoryHook:
       '⚔️ Double English legend day: 23 April is BOTH St George’s Day AND Shakespeare’s birthday/death day!',
   },
@@ -341,7 +341,7 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     subtopicId: 'ch2-symbols',
     visualId: 'national-emblems',
     front: 'Who is the patron saint of Scotland, and on what exact date is their day celebrated?',
-    back: 'St Andrew — celebrated on 30 November.',
+    back: 'St Andrew, celebrated on 30 November.',
     memoryHook:
       '❄️ Winter finale! "30 November = Brrr, bundle up in tartan for Scotland’s St Andrew!"',
   },
@@ -351,7 +351,7 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     subtopicId: 'ch2-symbols',
     visualId: 'national-emblems',
     front: 'Which UK nations have an official bank (public) holiday for their patron saint’s day?',
-    back: 'ONLY Scotland (St Andrew’s Day, 30 Nov — though not all businesses close) and Northern Ireland (St Patrick’s Day, 17 Mar). England and Wales do NOT have bank holidays for St George’s or St David’s Day.',
+    back: 'ONLY Scotland (St Andrew’s Day, 30 Nov, though not all businesses close) and Northern Ireland (St Patrick’s Day, 17 Mar). England and Wales do NOT have bank holidays for St George’s or St David’s Day.',
     memoryHook:
       '🏖️ Diagonal crosses get the day off! Scotland & Northern Ireland = official holiday; England & Wales = back to work!',
   },
@@ -382,7 +382,7 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     front: 'What is Tynwald, and what world record does it hold?',
     back: 'Tynwald is the parliament of the Isle of Man, and it has the oldest continuous parliament in the world.',
     memoryHook:
-      '🏛️ "Tiny Isle of Man, Giant History!" — Tynwald = oldest non-stop parliament on Earth!',
+      '🏛️ "Tiny Isle of Man, Giant History!": Tynwald = oldest non-stop parliament on Earth!',
   },
   {
     id: 'fc-ch2-022',
@@ -391,7 +391,7 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     front: 'What are the British Overseas Territories, and are they part of the UK?',
     back: 'Territories in other parts of the world (such as the Falkland Islands, Gibraltar, St Helena, Bermuda, and the Cayman Islands) that have constitutional links with the UK for defence and foreign affairs, but are NOT part of the UK.',
     memoryHook:
-      '🌍 Far across the ocean = Overseas Territories (Falklands, Gibraltar, St Helena) — linked to Britain, NOT part of the UK!',
+      '🌍 Far across the ocean = Overseas Territories (Falklands, Gibraltar, St Helena): linked to Britain, NOT part of the UK!',
   },
   {
     id: 'fc-ch2-023',
@@ -416,9 +416,9 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     chapterId: 'ch2',
     subtopicId: 'ch2-territories',
     front: 'Can banknotes issued by banks in Scotland and Northern Ireland be used in England and Wales?',
-    back: 'Yes — Northern Ireland and Scotland have their own banknotes which are valid currency everywhere in the UK, although shops are not legally obliged to accept them.',
+    back: 'Yes, Northern Ireland and Scotland have their own banknotes which are valid currency everywhere in the UK, although shops are not legally obliged to accept them.',
     memoryHook:
-      '💴 Scottish & NI notes are real Sterling everywhere — even if a grumpy corner shopkeeper squints at them, banks can always swap them!',
+      '💴 Scottish & NI notes are real Sterling everywhere: even if a grumpy corner shopkeeper squints at them, banks can always swap them!',
   },
   {
     id: 'fc-ch2-026',
@@ -469,7 +469,7 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     chapterId: 'ch4',
     subtopicId: 'ch4-religion-customs',
     front: 'How does the national Church of Scotland differ from the Church of England, and do Wales or Northern Ireland have an established state church?',
-    back: 'The Church of Scotland ("the Kirk") is a Presbyterian church governed by ministers and elders whose General Assembly elects a Moderator for 1 year — the Monarch is NOT its head! Neither Wales nor Northern Ireland has an established state church.',
+    back: 'The Church of Scotland ("the Kirk") is a Presbyterian church governed by ministers and elders whose General Assembly elects a Moderator for 1 year: the Monarch is NOT its head! Neither Wales nor Northern Ireland has an established state church.',
     memoryHook:
       '🏴󠁧󠁢󠁳󠁣󠁴󠁿 "Scotland’s Kirk = Presbyterian (Moderator for 1 year, NO King as head)!" Wales & NI = zero state church!',
   },
@@ -480,7 +480,7 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     front: 'Which religions celebrate Diwali, when does it take place, and which English city is famous for its huge Diwali celebrations?',
     back: 'Celebrated by Hindus and Sikhs in October or November (lasting 5 days), known as the "Festival of Lights" celebrating the victory of good over evil; famously celebrated in Leicester.',
     memoryHook:
-      '🪔 "Lights in Leicester!" — Diwali = 5-day Festival of Lights for BOTH Hindus and Sikhs!',
+      '🪔 "Lights in Leicester!": Diwali = 5-day Festival of Lights for BOTH Hindus and Sikhs!',
   },
   {
     id: 'fc-ch4-004',
@@ -498,7 +498,7 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     front: 'What does the Jewish festival of Hanukkah celebrate, and how long does it last?',
     back: 'Celebrated in November or December for 8 days, remembering the Jews’ struggle for religious freedom when a single day’s supply of oil miraculously burned for 8 days (marked by lighting a candle each night on an 8-candle menorah).',
     memoryHook:
-      '🕎 "8 nights, 8 lights!" — Hanukkah celebrates the miracle of the temple oil lasting 8 days.',
+      '🕎 "8 nights, 8 lights!": Hanukkah celebrates the miracle of the temple oil lasting 8 days.',
   },
   {
     id: 'fc-ch4-006',
@@ -507,7 +507,7 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     front: 'What is Vaisakhi, who celebrates it, and on what date?',
     back: 'A Sikh festival celebrated on 14 April each year with parades, dancing, and singing, marking the founding of the Sikh community known as the Khalsa.',
     memoryHook:
-      '🧡 "14 April = Vaisakhi!" — Sikhs celebrate the birth of the Khalsa!',
+      '🧡 "14 April = Vaisakhi!": Sikhs celebrate the birth of the Khalsa!',
   },
   {
     id: 'fc-ch4-007',
@@ -532,7 +532,7 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     chapterId: 'ch4',
     subtopicId: 'ch4-religion-customs',
     front: 'Exam Favourite: What is the strict traditional time rule on April Fool’s Day (1 April)?',
-    back: 'People play jokes on each other ONLY until 12:00 midday (noon) — even TV and newspapers sometimes run spoof stories before noon!',
+    back: 'People play jokes on each other ONLY until 12:00 midday (noon), even TV and newspapers sometimes run spoof stories before noon!',
     memoryHook:
       '🕛 Prank after 12:00 noon and YOU’RE the fool! ("Stop right now" when the clock strikes midday!).',
   },
@@ -543,7 +543,7 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     front: 'When are Mothering Sunday, Father’s Day, and Valentine’s Day celebrated in the UK?',
     back: '• Valentine’s Day: 14 February\n• Mothering Sunday (Mother’s Day): the Sunday 3 weeks before Easter\n• Father’s Day: the 3rd Sunday in June',
     memoryHook:
-      '💐 "3s for Mum & Dad!" — Mum = 3 weeks before Easter; Dad = 3rd Sunday in June! (Careful: UK Mother’s Day is NOT in May like the US!).',
+      '💐 "3s for Mum & Dad!": Mum = 3 weeks before Easter; Dad = 3rd Sunday in June! (Careful: UK Mother’s Day is NOT in May like the US!).',
   },
   {
     id: 'fc-ch4-011',
@@ -552,7 +552,7 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     front: 'What event does Bonfire Night on 5 November commemorate, and what happens on Halloween (31 October)?',
     back: 'Bonfire Night (5 November) marks the failure of Guy Fawkes and Catholic plotters to blow up Parliament and King James I in the 1605 Gunpowder Plot, celebrated with fireworks and bonfires. Halloween (31 October) is an ancient pagan festival where people dress up and carve lanterns.',
     memoryHook:
-      '🎆 "Remember, remember the 5th of November — Gunpowder, treason and plot (1605)!"',
+      '🎆 "Remember, remember the 5th of November: Gunpowder, treason and plot (1605)!"',
   },
   {
     id: 'fc-ch4-012',
@@ -633,7 +633,7 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     front: 'Who was Bobby Moore (1941–1993), and what historic sporting triumph did he captain?',
     back: 'Bobby Moore captained the England men’s football team that won the FIFA World Cup in 1966 (hosted in England).',
     memoryHook:
-      '⚽🏆 "1966 — Bobby Moore lifted the World Cup at Wembley!"',
+      '⚽🏆 "1966: Bobby Moore lifted the World Cup at Wembley!"',
   },
   {
     id: 'fc-ch4-021',
@@ -658,7 +658,7 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     chapterId: 'ch4',
     subtopicId: 'ch4-sports',
     front: 'What Olympic records belong to rower Sir Steve Redgrave and runner Dame Kelly Holmes?',
-    back: '• Sir Steve Redgrave: won gold medals in rowing at 5 consecutive Olympic Games (1984–2000)!\n• Dame Kelly Holmes: won two gold medals — for both the 800m and 1500m — at the 2004 Athens Olympics.',
+    back: '• Sir Steve Redgrave: won gold medals in rowing at 5 consecutive Olympic Games (1984–2000)!\n• Dame Kelly Holmes: won two gold medals, for both the 800m and 1500m, at the 2004 Athens Olympics.',
     memoryHook:
       '🚣‍♂️🏃‍♀️ Redgrave = 5 Olympic rowing golds in a row; Kelly Holmes = 2004 middle-distance double gold (800m + 1500m)!',
   },
@@ -687,14 +687,14 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     front: 'What historic London 2012 athletics feats were achieved by Sir Mo Farah and Dame Jessica Ennis-Hill?',
     back: '• Sir Mo Farah (born in Somalia): distance runner who became the first Briton to win Olympic gold in the 5,000m and 10,000m (achieving the "double" at London 2012 and repeating it at Rio 2016).\n• Dame Jessica Ennis-Hill: won the 2012 Olympic gold medal in the heptathlon (7 track and field events).',
     memoryHook:
-      '🏅 "Super Saturday 2012!" — Mo Farah’s Mobot = 5,000m & 10,000m golds; Jess Ennis-Hill = 7-event Heptathlon Queen!',
+      '🏅 "Super Saturday 2012!": Mo Farah’s Mobot = 5,000m & 10,000m golds; Jess Ennis-Hill = 7-event Heptathlon Queen!',
   },
   {
     id: 'fc-ch4-027',
     chapterId: 'ch4',
     subtopicId: 'ch4-sports',
     front: 'Why is Scottish tennis star Sir Andy Murray’s 2013 Wimbledon victory historically famous?',
-    back: 'After winning the 2012 US Open and 2012 Olympic singles gold, Andy Murray won Wimbledon in 2013 — becoming the FIRST British man to win the Wimbledon singles title since Fred Perry in 1936 (77 years)!',
+    back: 'After winning the 2012 US Open and 2012 Olympic singles gold, Andy Murray won Wimbledon in 2013: becoming the FIRST British man to win the Wimbledon singles title since Fred Perry in 1936 (77 years)!',
     memoryHook:
       '🎾 Andy Murray ended a 77-year wait (since 1936!) to crown a British men’s singles champion at Wimbledon!',
   },
@@ -723,7 +723,7 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     front: 'Which books made J.R.R. Tolkien and J.K. Rowling world-famous, and what poll did Tolkien win in 2003?',
     back: '• J.R.R. Tolkien wrote The Lord of the Rings, which was voted the country’s best-loved novel in the BBC’s Big Read poll in 2003!\n• J.K. Rowling wrote the hugely successful Harry Potter series of children’s/fantasy books.',
     memoryHook:
-      '🧙‍♂️🪄 One Ring (voted #1 UK novel in 2003!) & Hogwarts wizards — British fantasy rules the bookshelf!',
+      '🧙‍♂️🪄 One Ring (voted #1 UK novel in 2003!) & Hogwarts wizards: British fantasy rules the bookshelf!',
   },
   {
     id: 'fc-ch4-031',
@@ -838,7 +838,7 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     chapterId: 'ch4',
     subtopicId: 'ch4-arts-culture',
     front: 'What biological milestones were achieved by Sir Ian Wilmut & Keith Campbell (1996) and Patrick Steptoe & Sir Robert Edwards (1978)?',
-    back: '• Sir Ian Wilmut & Keith Campbell (at the Roslin Institute near Edinburgh): cloned Dolly the Sheep in 1996 — the first mammal ever cloned from an adult cell!\n• Patrick Steptoe (gynaecologist) & Sir Robert Edwards (physiologist): pioneered IVF (in-vitro fertilisation), leading to the birth of the world’s first "test-tube baby" (Louise Brown) in Oldham in 1978.',
+    back: '• Sir Ian Wilmut & Keith Campbell (at the Roslin Institute near Edinburgh): cloned Dolly the Sheep in 1996, the first mammal ever cloned from an adult cell!\n• Patrick Steptoe (gynaecologist) & Sir Robert Edwards (physiologist): pioneered IVF (in-vitro fertilisation), leading to the birth of the world’s first "test-tube baby" (Louise Brown) in Oldham in 1978.',
     memoryHook:
       '🐑👶 1978 = First IVF baby in Oldham; 1996 = Wilmut & Campbell cloned Dolly the Sheep ("2 Become 1" identical sheep)!',
   },
@@ -858,7 +858,7 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     subtopicId: 'ch4-landmarks',
     visualId: 'uk-map',
     front: 'Where are Snowdonia National Park and Loch Lomond and the Trossachs National Park located?',
-    back: '• Snowdonia is in North Wales — its highest mountain is Snowdon (Yr Wyddfa), the highest peak in England and Wales.\n• Loch Lomond and the Trossachs is in west-central Scotland — Loch Lomond is the largest expanse of fresh water by surface area in mainland Britain.',
+    back: '• Snowdonia is in North Wales, its highest mountain is Snowdon (Yr Wyddfa), the highest peak in England and Wales.\n• Loch Lomond and the Trossachs is in west-central Scotland: Loch Lomond is the largest expanse of fresh water by surface area in mainland Britain.',
     memoryHook:
       '⛰️🌊 Snowdonia = North Wales mountain peak; Loch Lomond = West-central Scotland’s giant freshwater loch!',
   },
@@ -940,7 +940,7 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     front: 'Why is the UK said to have an "unwritten" (uncodified) constitution?',
     back: 'Because British constitutional rules, Acts of Parliament, common law, and historic conventions have evolved over centuries and have NEVER been written down in one single formal constitutional document.',
     memoryHook:
-      '📜 Unlike the US or France, the UK constitution is NOT in one single binder — it’s "unwritten"!',
+      '📜 Unlike the US or France, the UK constitution is NOT in one single binder: it’s "unwritten"!',
   },
   {
     id: 'fc-ch5-002',
@@ -948,7 +948,7 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     subtopicId: 'ch5-democracy-constitution',
     visualId: 'parliament-courts',
     front: 'Who is the current Head of State of the UK, and what does "constitutional monarchy" mean?',
-    back: 'His Majesty King Charles III is the Head of State. In a constitutional monarchy, the King reigns symbolically and represents the nation, but does NOT rule politically — decisions on government policies and laws are made by the Prime Minister, Cabinet, and elected Parliament.',
+    back: 'His Majesty King Charles III is the Head of State. In a constitutional monarchy, the King reigns symbolically and represents the nation, but does NOT rule politically: decisions on government policies and laws are made by the Prime Minister, Cabinet, and elected Parliament.',
     memoryHook:
       '👑 King Charles III = Head of State (reigns); Prime Minister = Head of Government (rules from 10 Downing Street)!',
   },
@@ -967,7 +967,7 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     chapterId: 'ch5',
     subtopicId: 'ch5-democracy-constitution',
     front: 'What is the UK National Anthem?',
-    back: '"God Save the King" — played at important national occasions and in the presence of His Majesty King Charles III.',
+    back: '"God Save the King", played at important national occasions and in the presence of His Majesty King Charles III.',
     memoryHook:
       '🎺 Current 2026 check: Reigning monarch is King Charles III → National Anthem is "God Save the King"!',
   },
@@ -977,9 +977,9 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     subtopicId: 'ch5-parliament-elections',
     visualId: 'parliament-courts',
     front: 'How many Members of Parliament (MPs) sit in the House of Commons, and how are they elected?',
-    back: '650 MPs — each representing one parliamentary constituency across the UK — elected under the "First Past the Post" system (whichever candidate wins the most votes in that constituency wins the seat).',
+    back: '650 MPs, each representing one parliamentary constituency across the UK: elected under the "First Past the Post" system (whichever candidate wins the most votes in that constituency wins the seat).',
     memoryHook:
-      '🗳️ "650 seats, 1 winner per constituency!" — First Past the Post = most votes takes the trophy, no second-round runoff.',
+      '🗳️ "650 seats, 1 winner per constituency!": First Past the Post = most votes takes the trophy, no second-round runoff.',
   },
   {
     id: 'fc-ch5-006',
@@ -996,7 +996,7 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     chapterId: 'ch5',
     subtopicId: 'ch5-parliament-elections',
     visualId: 'parliament-courts',
-    front: 'Who sits in the House of Lords, and which chamber is more powerful — the Commons or the Lords?',
+    front: 'Who sits in the House of Lords, and which chamber is more powerful, the Commons or the Lords?',
     back: 'The House of Lords (unelected) comprises life peers (appointed by the Monarch on the PM’s advice for expertise/public service), 26 senior Church of England bishops, and a small number of hereditary peers. The elected House of Commons is MORE powerful and can ultimately overrule the Lords!',
     memoryHook:
       '🏛️ Green benches (elected Commons) beat Red benches (unelected Lords)! Lords revise & check bills, Commons has final say.',
@@ -1009,7 +1009,7 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     front: 'Who is the Speaker of the House of Commons, and how are they chosen?',
     back: 'The Speaker is an MP elected by fellow MPs in a secret ballot to chair debates, enforce Commons rules, and remain strictly politically neutral.',
     memoryHook:
-      '🔊 "Order! Order!" — Chosen by MPs via SECRET BALLOT, the Speaker drops party politics to referee fairly!',
+      '🔊 "Order! Order!": Chosen by MPs via SECRET BALLOT, the Speaker drops party politics to referee fairly!',
   },
   {
     id: 'fc-ch5-009',
@@ -1019,7 +1019,7 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     front: 'On which day of the week does Prime Minister’s Questions (PMQs) take place when Parliament is sitting?',
     back: 'Every Wednesday (for 30 minutes at noon), when MPs and the Leader of the Opposition question the Prime Minister directly.',
     memoryHook:
-      '🎙️ "Wednesday = Westminster Grilling Day!" — PMQs happens every Wednesday!',
+      '🎙️ "Wednesday = Westminster Grilling Day!": PMQs happens every Wednesday!',
   },
   {
     id: 'fc-ch5-010',
@@ -1065,7 +1065,7 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     chapterId: 'ch5',
     subtopicId: 'ch5-parliament-elections',
     front: 'Who is eligible to vote in a UK General Election, and who can stand as a candidate for MP?',
-    back: '• Voting (aged 18+ on the electoral register): UK citizens, qualifying Irish citizens, and qualifying Commonwealth citizens resident in the UK.\n• Standing as an MP (aged 18+): UK, Irish, or qualifying Commonwealth citizens — EXCEPT members of the armed forces, civil servants, police, and people convicted of certain criminal offences.',
+    back: '• Voting (aged 18+ on the electoral register): UK citizens, qualifying Irish citizens, and qualifying Commonwealth citizens resident in the UK.\n• Standing as an MP (aged 18+): UK, Irish, or qualifying Commonwealth citizens, EXCEPT members of the armed forces, civil servants, police, and people convicted of certain criminal offences.',
     memoryHook:
       '🗳️ Age 18+ + UK/Irish/Commonwealth + on the Electoral Register (updated every autumn)!',
   },
@@ -1075,7 +1075,7 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     subtopicId: 'ch5-devolution',
     visualId: 'parliament-courts',
     front: 'Where is the Scottish Parliament based, how many members does it have, and what can it pass laws on?',
-    back: 'Based at Holyrood in Edinburgh with 129 MSPs (Members of the Scottish Parliament, opened in 1999). It can pass laws on domestic matters not reserved to Westminster — including health, education, civil and criminal law, planning, and income-tax powers.',
+    back: 'Based at Holyrood in Edinburgh with 129 MSPs (Members of the Scottish Parliament, opened in 1999). It can pass laws on domestic matters not reserved to Westminster: including health, education, civil and criminal law, planning, and income-tax powers.',
     memoryHook:
       '🏴󠁧󠁢󠁳󠁣󠁴󠁿 "Holyrood in Edinburgh = 129 MSPs!"',
   },
@@ -1105,7 +1105,7 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     subtopicId: 'ch5-devolution',
     visualId: 'parliament-courts',
     front: 'Exam Favourite: What type of electoral system is used for the Scottish Parliament, Senedd Cymru, and the Northern Ireland Assembly?',
-    back: 'Forms of Proportional Representation (PR) — NOT First Past the Post — meaning seats more closely match each party’s share of votes, so a single party rarely wins an outright majority alone.',
+    back: 'Forms of Proportional Representation (PR), NOT First Past the Post, meaning seats more closely match each party’s share of votes, so a single party rarely wins an outright majority alone.',
     memoryHook:
       '📊 Westminster = First Past the Post; Devolved trio (Holyrood, Senedd, Stormont) = Proportional Representation!',
   },
@@ -1133,7 +1133,7 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     chapterId: 'ch5',
     subtopicId: 'ch5-devolution',
     front: 'What is the United Nations (UN), and what special status does the UK hold on the UN Security Council?',
-    back: 'Set up after WWII with over 190 member countries to prevent war and promote international peace and security. The UN Security Council has 15 members — and the UK is one of ONLY 5 permanent members (alongside the USA, France, Russia, and China).',
+    back: 'Set up after WWII with over 190 member countries to prevent war and promote international peace and security. The UN Security Council has 15 members: and the UK is one of ONLY 5 permanent members (alongside the USA, France, Russia, and China).',
     memoryHook:
       '🇺🇳 UN Security Council = 15 seats total, and the UK holds 1 of the Permanent Top 5 VIP seats!',
   },
@@ -1151,7 +1151,7 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     chapterId: 'ch5',
     subtopicId: 'ch5-devolution',
     front: 'Huge Exam Trap: What is the Council of Europe, is it part of the EU, and what famous convention did it create?',
-    back: 'The Council of Europe (around 46–47 member countries, including the UK!) is completely SEPARATE from the European Union. It has no power to make laws directly, but draws up conventions — most famously the European Convention on Human Rights (ECHR), given force in UK courts via the Human Rights Act 1998.',
+    back: 'The Council of Europe (around 46–47 member countries, including the UK!) is completely SEPARATE from the European Union. It has no power to make laws directly, but draws up conventions: most famously the European Convention on Human Rights (ECHR), given force in UK courts via the Human Rights Act 1998.',
     memoryHook:
       '🚨 UK left the EU in 2020, but NEVER left the Council of Europe! Council of Europe = ECHR & Human Rights Act 1998!',
   },
@@ -1171,7 +1171,7 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     subtopicId: 'ch5-courts-police-role',
     visualId: 'parliament-courts',
     front: 'Compare Magistrates’ Courts and Crown Courts in England, Wales, and Northern Ireland.',
-    back: '• Magistrates’ Court: hears most minor criminal offences; decided by unpaid community volunteers called Magistrates / Justices of the Peace (JPs) — who need no legal qualifications and receive training — or a paid District Judge (no jury).\n• Crown Court: hears serious criminal offences before a judge and a 12-member jury.',
+    back: '• Magistrates’ Court: hears most minor criminal offences; decided by unpaid community volunteers called Magistrates / Justices of the Peace (JPs): who need no legal qualifications and receive training, or a paid District Judge (no jury).\n• Crown Court: hears serious criminal offences before a judge and a 12-member jury.',
     memoryHook:
       '👩‍⚖️ Minor = Magistrates (unpaid JPs, 0 jury); Serious = Crown Court (Judge + 12 jurors)!',
   },
@@ -1211,7 +1211,7 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     subtopicId: 'ch5-courts-police-role',
     visualId: 'parliament-courts',
     front: 'Is the UK judiciary independent of the government, and what is the highest court in the UK?',
-    back: 'Yes — judges are strictly independent of the government; politicians cannot interfere in trials or tell judges how to decide cases. If judges find a public body acted unlawfully, they can order it to change practices. The highest court of appeal is the UK Supreme Court.',
+    back: 'Yes, judges are strictly independent of the government; politicians cannot interfere in trials or tell judges how to decide cases. If judges find a public body acted unlawfully, they can order it to change practices. The highest court of appeal is the UK Supreme Court.',
     memoryHook:
       '🏛️ Not even the PM can boss a judge around! UK Supreme Court sits at the very top.',
   },
@@ -1229,7 +1229,7 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     chapterId: 'ch5',
     subtopicId: 'ch5-courts-police-role',
     front: 'Which telephone numbers do you dial in the UK for an urgent emergency versus a non-emergency police report?',
-    back: '• 999 (or 112) — free of charge for urgent emergencies requiring police, fire, ambulance, or coastguard.\n• 101 — for non-emergency police matters.',
+    back: '• 999 (or 112), free of charge for urgent emergencies requiring police, fire, ambulance, or coastguard.\n• 101: for non-emergency police matters.',
     memoryHook:
       '☎️ 999 (or 112) = Flames, danger, or sirens right now! 101 = Non-urgent police report!',
   },
@@ -1238,9 +1238,9 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     chapterId: 'ch5',
     subtopicId: 'ch5-courts-police-role',
     front: '2026 Rule Check: What is the minimum legal age to play the UK National Lottery or buy scratchcards?',
-    back: '18 years old (raised from 16 to 18 in 2021 — anyone under 18 cannot buy National Lottery tickets or scratchcards!).',
+    back: '18 years old (raised from 16 to 18 in 2021, anyone under 18 cannot buy National Lottery tickets or scratchcards!).',
     memoryHook:
-      '🎟️ Updated exam must-know! National Lottery = 18+ (same as voting, alcohol & cigarettes — NEVER pick 16!).',
+      '🎟️ Updated exam must-know! National Lottery = 18+ (same as voting, alcohol & cigarettes: NEVER pick 16!).',
   },
   {
     id: 'fc-ch5-033',
@@ -1301,7 +1301,7 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     chapterId: 'ch5',
     subtopicId: 'ch5-courts-police-role',
     front: 'How are members of the public selected for Jury Service in the UK?',
-    back: 'Jurors are chosen at random from the Electoral Register (anyone on the register aged 18 up to the statutory upper limit — 75 in England & Wales, 65 in Scotland, 70 in NI — must serve if summoned unless exempt or disqualified by a criminal conviction).',
+    back: 'Jurors are chosen at random from the Electoral Register (anyone on the register aged 18 up to the statutory upper limit: 75 in England & Wales, 65 in Scotland, 70 in NI, must serve if summoned unless exempt or disqualified by a criminal conviction).',
     memoryHook:
       '🎲 Register to vote → Enter the random Jury Service lottery!',
   },
@@ -1349,7 +1349,7 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     front: 'What happens at a polling station on Election Day in the UK?',
     back: 'Registered voters receive a poll card beforehand showing their local polling station (open 7:00 am to 10:00 pm; photo ID is required in Great Britain & Northern Ireland), mark their ballot paper in private inside a booth, and place it in a sealed ballot box (or vote by postal/proxy vote). Nobody has the right to make you tell them how you voted!',
     memoryHook:
-      '🗳️🔒 7am–10pm, secret booth, sealed box — your vote is 100% private!',
+      '🗳️🔒 7am–10pm, secret booth, sealed box: your vote is 100% private!',
   },
   {
     id: 'fc-ch5-045',
@@ -1357,7 +1357,7 @@ export const FLASHCARDS_CH1_2_4_5: readonly Flashcard[] = [
     subtopicId: 'ch5-parliament-elections',
     visualId: 'parliament-courts',
     front: 'What happens after a General Election if NO single political party wins a majority of MPs in the House of Commons?',
-    back: 'This is called a "hung parliament" — two or more parties may join forces to form a "coalition government" (like in 2010), or the largest party may try to govern as a minority government.',
+    back: 'This is called a "hung parliament", two or more parties may join forces to form a "coalition government" (like in 2010), or the largest party may try to govern as a minority government.',
     memoryHook:
       '🤝 No 326+ majority = Hung Parliament → Parties team up ("2 Become 1" Coalition)!',
   },

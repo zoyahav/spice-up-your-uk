@@ -1,5 +1,5 @@
 /**
- * Spice Up Your UK — Private Shared Google Sheet Sync Backend (Google Apps Script)
+ * Spice Up Your UK: Private Shared Google Sheet Sync Backend (Google Apps Script)
  *
  * SETUP INSTRUCTIONS (5 minutes, zero server cost):
  * 1. Create a new Google Sheet in Google Drive and share it with your partner (Editor access).
@@ -208,8 +208,8 @@ function sendDailyStreakNudge() {
     var partnerAlreadyStudied = Boolean(studiedToday[otherPid]);
 
     var subject = partnerAlreadyStudied
-      ? "🌶️ Don't break the 2 Become 1 Streak — your partner already practiced today!"
-      : '🌶️ Spice Up Your UK — Quick 5-minute study reminder!';
+      ? "🌶️ Don't break the 2 Become 1 Streak: your partner already practiced today!"
+      : '🌶️ Spice Up Your UK: Quick 5-minute study reminder!';
 
     var bodyText =
       (partnerAlreadyStudied

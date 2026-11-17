@@ -43,7 +43,7 @@ describe('Streaks, Streak Freezes & 2 Become 1 Couple Streak', () => {
       makeDay('partner_b', '2026-11-15', 50),
       makeDay('partner_a', '2026-11-16', 50),
       makeDay('partner_b', '2026-11-16', 25),
-      // On 2026-11-17 (today), only partner_a has practiced so far — yesterday's 3-day run stays alive!
+      // On 2026-11-17 (today), only partner_a has practiced so far, so yesterday's 3-day run stays alive!
       makeDay('partner_a', '2026-11-17', 60),
     ];
 

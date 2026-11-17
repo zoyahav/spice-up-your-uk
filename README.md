@@ -1,48 +1,41 @@
-# 🌶️ Spice Up Your UK — Life in the UK Study Companion PWA
+# Spice Up Your UK
 
-An offline-first, mobile-optimized **Progressive Web App (PWA)** for two study partners preparing together for the **Life in the UK Test**.
+A mobile-friendly Progressive Web App for two partners studying together for the Life in the UK Test.
 
-- **100% Commute-Ready Offline Mode**: Precaches the entire app, inline SVG visual aids, 5-chapter study guides, 265 SM-2 spaced-repetition flashcards, and 17 full-length 24-question mock exams (408 questions) in IndexedDB + Service Worker.
-- **Fun Memory Hooks Everywhere**: Every study section, flashcard, and exam question includes a playful mnemonic / memory hook (plus inline SVG diagrams for the Union Flag, UK Map, Patron Saints, Parliament & Courts, and History Timeline).
-- **Separate Subject & Exam Tracking ("2 Become 1")**: Track mastery across all 5 official chapters independently while building a shared Couple Streak, sending head-to-head question challenges, and playing 3 offline Arcade mini-games (*60s Tube Blitz*, *Timeline Sort*, *Fact Match*).
-- **Zero-Server Private Google Sheet Sync**: Syncs both devices through your own private **Google Sheet + Google Apps Script Web App**. Zero personal details, URLs, or credentials are stored in this repository.
+## What is included
 
----
+- **Offline study and storage**: Precaches the app, study guides, visual diagrams, flashcards, and practice exams with a Service Worker and local IndexedDB storage so it works without signal and syncs when back online.
+- **Full 5-chapter syllabus**: Summaries for all five official handbook chapters, 265 spaced-repetition (SM-2) flashcards, and 17 full 24-question mock exams (408 questions), each with answer explanations and memory hooks.
+- **Inline SVG diagrams**: Offline interactive diagrams for the Union Flag, UK nations and Crown Dependencies map, patron saints and national flowers, Parliament and courts, and the British history timeline.
+- **Separate progress and shared streaks**: Tracks chapter mastery, exam history, and missed questions separately per person, alongside a shared daily streak, head-to-head quizzes, and three quick mini-games (*Tube Blitz*, *Timeline Sort*, and *Fact Match*).
+- **Private Google Sheet sync**: Syncs progress between two phones through a Google Sheet and Google Apps Script endpoint that you host in your own Google account. No personal details, URLs, or credentials are stored in this repository.
 
-## 💻 Laptop-First QR-Only Setup (Zero Typing on Either Phone!)
+## Google Sheet sync setup
 
-1. **Create & Share One Google Sheet**:
-   - Create a new Google Sheet in Google Drive and **share it with your study partner with Editor access** (so you can both view/edit the raw tabs anytime).
-2. **Add the Sync Script**:
-   - In the Sheet, open **Extensions → Apps Script**, replace the default code with [`apps-script/Code.gs`](./apps-script/Code.gs), and click **Save**.
-3. **Set Your Private Passcode**:
-   - In Apps Script **Project Settings (⚙️) → Script Properties**, add:
-     - `SYNC_PASSCODE` = `<your-private-secret-passphrase>`
-     - *(Optional)* `APP_PUBLIC_URL` = `<your-https-pwa-url>` (for optional daily Streak Rescue emails)
-4. **Deploy as a Web App**:
-   - Click **Deploy → New deployment → Web app**:
-     - **Execute as**: `Me`
-     - **Who has access**: `Anyone` *(all requests require your private `SYNC_PASSCODE`)*
-5. **Generate QR Codes on Your Laptop for Both Phones**:
-   - Open your hosted **Spice Up Your UK** GitHub Pages URL on your laptop → go to the **Us** tab → enter both nicknames, the Apps Script `/exec` URL, and `SYNC_PASSCODE` → click **QR Codes (Phone A & B)**.
-   - Scan **Phone A QR** with the first phone’s camera, then toggle to **Phone B QR** and scan with the second phone’s camera!
-   - Each device automatically opens the browser, stores your private sync credentials in local IndexedDB, scrubs the `#pair=...` token from the URL bar, and syncs!
-6. **Install on Mobile Home Screens**:
-   - In Chrome / Safari on each phone, open the browser menu → **Add to Home screen** / **Install app**.
+You can set up sync once on a laptop and pair both phones by scanning QR codes, without typing URLs on mobile:
 
----
+1. Create a new Google Sheet in Google Drive and share it with your partner with **Editor** access.
+2. Open **Extensions -> Apps Script**, replace the default code with [`apps-script/Code.gs`](./apps-script/Code.gs), and save.
+3. In Apps Script **Project Settings -> Script Properties**, add:
+   - `SYNC_PASSCODE`: a secret passphrase of your choice
+   - `APP_PUBLIC_URL` *(optional)*: your hosted app URL, used only if you enable daily email reminders
+4. Click **Deploy -> New deployment -> Web app**:
+   - **Execute as**: `Me`
+   - **Who has access**: `Anyone` (requests are checked against your `SYNC_PASSCODE`)
+5. Open the hosted app on your laptop, go to the **Us** tab, enter both nicknames, the `/exec` Web App URL, and `SYNC_PASSCODE`, then click **QR Codes (Phone A & B)**.
+6. Scan the **Phone A** QR code with the first phone's camera, switch to **Phone B**, and scan with the second phone's camera. Each browser saves the sync config into local IndexedDB and removes the `#pair=...` hash from the address bar.
+7. To install on your home screen, open the browser menu on each phone and select **Add to Home screen** or **Install app**.
 
-## 📦 Importing Extra Online Mock Packs (Kept Off GitHub)
+## Importing extra question packs
 
-In the **Us** tab → **Import External Pack**, paste any HTTPS raw JSON URL (`exams.json`) or CSV/TSV deck once on your laptop or either phone. It parses locally, syncs via your private Google Sheet (`Custom_Content` tab) to both devices, and unlocks the **Custom** exam tab inside **Exams**—keeping external packs completely out of your public GitHub repository (`private-packs/` is also gitignored locally).
+In the **Us** tab under **Import External Pack**, you can fetch a raw HTTPS JSON URL (`exams.json`) or paste JSON/CSV/TSV content. Imported questions and flashcards are stored in IndexedDB, synced to both phones via the `Custom_Content` sheet tab, and kept out of git (`private-packs/` is gitignored locally).
 
----
-
-## 🛠️ Local Development & Deployment
+## Local development
 
 ```bash
 npm install
-npm test          # Run Vitest unit & curriculum integrity suite
+npm test          # Run Vitest unit and curriculum checks
 npm run dev       # Start local dev server
-npm run build     # Typecheck + build production PWA bundle into dist/
+npm run build     # Typecheck and build production bundle into dist/
+npm run deploy    # Build and publish dist/ to the gh-pages branch
 ```

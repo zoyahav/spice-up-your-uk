@@ -258,7 +258,7 @@ export const TestsView: React.FC<TestsViewProps> = ({
         chapterId: q.chapterId,
         subtopicId: q.subtopicId,
         front: q.prompt,
-        back: `${rightText} — ${q.explanation}`,
+        back: `${rightText}: ${q.explanation}`,
         memoryHook: q.memoryHook,
         visualId: q.visualId,
         isCustom: true,
@@ -316,7 +316,7 @@ export const TestsView: React.FC<TestsViewProps> = ({
         >
           <p className="text-4xl">{session.passed ? '🎉' : '🌶️'}</p>
           <h2 className="mt-1.5 text-2xl font-black">
-            {session.score} / {session.total} ({pct}%) —{' '}
+            {session.score} / {session.total} ({pct}%):{' '}
             {session.passed ? 'PASSED!' : 'NOT YET (75% NEEDED)'}
           </h2>
           <p className="mt-1 text-xs text-pink-200">{spiceQuote}</p>
@@ -359,7 +359,7 @@ export const TestsView: React.FC<TestsViewProps> = ({
         {visibleQuestions.length === 0 ? (
           <div className={`rounded-2xl border p-5 text-center ${cardSurface}`}>
             <p className="text-sm font-bold text-emerald-400">
-              Zero missed questions — flawless 100% Posh score! 👑
+              Zero missed questions: flawless 100% Posh score! 👑
             </p>
           </div>
         ) : (
@@ -767,7 +767,7 @@ export const TestsView: React.FC<TestsViewProps> = ({
                   <p className="mt-2 text-[11px] text-slate-400">
                     {best
                       ? best.passed
-                        ? '✓ Passed — tap to beat score'
+                        ? '✓ Passed (tap to beat score)'
                         : 'Retry to hit 18/24'
                       : `${qs.length} questions ready`}
                   </p>
@@ -785,7 +785,7 @@ export const TestsView: React.FC<TestsViewProps> = ({
             <h2 className="text-base font-black">Imported / External Question Bank</h2>
             <p className="mt-1 text-xs leading-relaxed text-slate-400">
               Practice any external online <code>exams.json</code> or custom Google Sheet pack
-              privately — stored locally in IndexedDB &amp; synced between your devices
+              privately, stored locally in IndexedDB &amp; synced between your devices
               with zero files committed to GitHub!
             </p>
             {importedQuestions.length === 0 ? (
@@ -809,7 +809,7 @@ export const TestsView: React.FC<TestsViewProps> = ({
                     startRunner({
                       questions: shuffled,
                       mode: 'mock',
-                      title: 'Imported Pack — Random 24',
+                      title: 'Imported Pack: Random 24',
                     });
                   }}
                 >
@@ -923,7 +923,7 @@ export const TestsView: React.FC<TestsViewProps> = ({
         <div className="space-y-2.5">
           {testSessions.filter((s) => s.profileId === activeProfileId).length === 0 ? (
             <div className={`rounded-3xl border p-6 text-center text-xs text-slate-400 ${cardSurface}`}>
-              No completed tests yet — start Exam #1 or a quick 12-question chapter drill!
+              No completed tests yet. Start Exam #1 or a quick 12-question chapter drill!
             </div>
           ) : (
             testSessions

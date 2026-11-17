@@ -421,7 +421,7 @@ export const ArcadeView: React.FC<ArcadeViewProps> = ({
         {fmDoneScore !== null ? (
           <div className={`rounded-3xl border p-6 text-center ${cardSurface}`}>
             <p className="text-4xl">🎯</p>
-            <h2 className="mt-2 text-2xl font-black">All 6 Pairs Matched — {fmDoneScore} pts!</h2>
+            <h2 className="mt-2 text-2xl font-black">All 6 Pairs Matched: {fmDoneScore} pts!</h2>
             <p className="mt-1 text-xs text-slate-400">Mistakes: {fmMistakes}</p>
             <div className="mt-5 flex justify-center gap-2.5">
               <Button variant="secondary" onClick={() => setActiveGame(null)}>
@@ -563,10 +563,10 @@ export const ArcadeView: React.FC<ArcadeViewProps> = ({
       <section className={`rounded-3xl border p-4 ${cardSurface}`}>
         <div className="flex items-center gap-2">
           <Swords className="h-5 w-5 text-pink-400" />
-          <h2 className="text-base font-black">2 Become 1 — Partner Showdowns</h2>
+          <h2 className="text-base font-black">2 Become 1: Partner Showdowns</h2>
         </div>
         <p className="mt-1 text-xs text-slate-400">
-          Generate an identical question seed synced through your Google Sheet — both play on your
+          Generate an identical question seed synced through your Google Sheet so you both play on your
           own phones and compare scores!
         </p>
 

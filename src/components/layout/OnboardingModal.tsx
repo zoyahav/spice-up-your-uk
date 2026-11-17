@@ -53,7 +53,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) 
             Spice Up Your UK!
           </h1>
           <p className="mt-1 text-xs text-slate-300">
-            <em>&ldquo;Tell me what you want, what you really, really want...&rdquo;</em> — to
+            <em>&ldquo;Tell me what you want, what you really, really want...&rdquo;</em> To
             ace the Life in the UK Test together, even offline on the Tube!
           </p>
         </div>

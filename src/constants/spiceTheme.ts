@@ -1,5 +1,5 @@
 /**
- * Spice Up Your UK — Playful Spice Girls references, ranks, badges, and celebratory copy.
+ * Spice Up Your UK: Playful Spice Girls references, ranks, badges, and celebratory copy.
  */
 
 export interface RankTier {
@@ -56,7 +56,7 @@ export const SPICE_RANKS: readonly RankTier[] = [
     id: 'posh',
     title: 'Posh Citizen Ready',
     minXp: 5000,
-    subtitle: 'Viva Forever — ready to ace the £50 test in 4 minutes flat.',
+    subtitle: 'Viva Forever: ready to ace the £50 test in 4 minutes flat.',
     emoji: '👑',
     gradient: 'from-yellow-400 via-amber-500 to-pink-500',
   },
@@ -115,10 +115,10 @@ export const SPICE_BADGES: readonly AchievementBadge[] = [
 ];
 
 export const SPICE_PEP_TALKS: readonly string[] = [
-  "So tell me what you want, what you really, really want — 24 out of 24! 🎤",
+  "So tell me what you want, what you really, really want: 24 out of 24! 🎤",
   "Colours of the world, Spice Up Your UK! Ready for a quick Tube round? 🇬🇧",
   "2 Become 1... British citizenship study team! Check how your partner is doing. 💞",
-  "Stop right now, thank you very much — time for 5 quick flashcards! ✨",
+  "Stop right now, thank you very much: time for 5 quick flashcards! ✨",
   "Say you'll be there... at the test centre with your eVisa share code ready! 📋",
   "Who do you think you are? Soon-to-be Life in the UK exam royalty! 👑",
   "Viva Forever: every flashcard you rate 'Good' locks dates into long-term memory. 🧠",
@@ -127,14 +127,14 @@ export const SPICE_PEP_TALKS: readonly string[] = [
 export const SPICE_PASS_QUOTES: readonly string[] = [
   "ZIG-A-ZIG-AH! You smashed the 75% pass mark! 🎉",
   "Posh perfection! Geri's Union Jack dress salutes you! 🇬🇧",
-  "Say You'll Pass It — and you just DID! 👑",
+  "Say You'll Pass It, and you just DID! 👑",
   "Union Power! At this rate you'll finish the real exam in 4 minutes! ⚡",
 ];
 
 export const SPICE_RETRY_QUOTES: readonly string[] = [
   "Never give up on the good times! Check the Memory Hooks below and go again! 💪",
   "Too Much tricky Tudor trivia? Boost missed questions to Flashcards! 🃏",
-  "Step to the left, shake it to the right — every mistake now is one less on test day! 🌟",
+  "Step to the left, shake it to the right: every mistake now is one less on test day! 🌟",
 ];
 
 export function getRankForXp(xp: number): {

@@ -88,7 +88,7 @@ const HOTSPOTS: readonly MapHotspot[] = [
     x: 162,
     y: 332,
     color: '#C084FC',
-    detail: 'Jersey & Guernsey — Crown Dependencies linked to the Monarch, NOT part of the UK!',
+    detail: 'Jersey & Guernsey: Crown Dependencies linked to the Monarch, NOT part of the UK!',
   },
 ];
 

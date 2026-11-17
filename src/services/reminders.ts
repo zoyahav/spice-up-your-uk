@@ -61,7 +61,7 @@ export function generatePracticeReminderIcs(
     `DTSTART:${formatIcsLocalDateTime(start)}`,
     `DTEND:${formatIcsLocalDateTime(end)}`,
     `RRULE:FREQ=WEEKLY;BYDAY=${byDay}`,
-    'SUMMARY:🌶️ Spice Up Your UK — Daily Practice!',
+    'SUMMARY:🌶️ Spice Up Your UK: Daily Practice!',
     `DESCRIPTION:Keep your streak alive! Knock out 10 flashcards or a quick Tube Blitz: ${appUrl}`,
     `URL:${appUrl}`,
     'BEGIN:VALARM',
@@ -100,8 +100,8 @@ export function buildGoogleCalendarReminderUrl(
 
   const params = new URLSearchParams({
     action: 'TEMPLATE',
-    text: '🌶️ Spice Up Your UK — Daily Study Streak',
-    details: `Stop right now, thank you very much — time for 5 mins of Life in the UK practice!\n\nOpen app: ${appUrl}`,
+    text: '🌶️ Spice Up Your UK: Daily Study Streak',
+    details: `Stop right now, thank you very much: time for 5 mins of Life in the UK practice!\n\nOpen app: ${appUrl}`,
     dates: datesParam,
     recur: rrule,
   });

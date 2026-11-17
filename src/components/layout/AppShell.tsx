@@ -135,9 +135,9 @@ export const AppShell: React.FC<AppShellProps> = ({
               }`}
               title={
                 syncBadge === 'offline'
-                  ? `Tube Mode (Offline) — ${outboxCount} local change(s) saved safely`
+                  ? `Tube Mode (Offline): ${outboxCount} local change(s) saved safely`
                   : syncBadge === 'unpaired'
-                    ? 'Local-only mode — tap Us tab to pair Google Sheet'
+                    ? 'Local-only mode: tap Us tab to pair Google Sheet'
                     : 'Tap to sync with Shared Google Sheet'
               }
             >

@@ -17,7 +17,7 @@ export const UnionJackDiagram: React.FC<{ compact?: boolean }> = ({ compact = fa
     <div className="rounded-2xl border border-slate-700/60 bg-slate-900/80 p-3.5 text-slate-100 shadow-inner">
       <div className="mb-2.5 flex items-center justify-between gap-2">
         <span className="text-xs font-bold tracking-wider text-pink-400 uppercase">
-          🇬🇧 Interactive Visual Aid — Anatomy of the Union Flag
+          🇬🇧 Interactive Visual Aid: Anatomy of the Union Flag
         </span>
       </div>
 
@@ -104,11 +104,11 @@ export const UnionJackDiagram: React.FC<{ compact?: boolean }> = ({ compact = fa
             {layer === 'union' &&
               'Combines 3 crosses: St George (England), St Andrew (Scotland), and St Patrick (Ireland). Tap a cross above to isolate it!'}
             {layer === 'england' &&
-              'Cross of St George (Patron Saint of England — 23 April): upright red cross on a white ground.'}
+              'Cross of St George (Patron Saint of England, 23 April): upright red cross on a white ground.'}
             {layer === 'scotland' &&
-              'Cross of St Andrew (Patron Saint of Scotland — 30 November, official bank holiday in Scotland!): diagonal white cross on a blue ground.'}
+              'Cross of St Andrew (Patron Saint of Scotland, 30 November, official bank holiday in Scotland!): diagonal white cross on a blue ground.'}
             {layer === 'ireland' &&
-              'Cross of St Patrick (Patron Saint of Ireland — 17 March, bank holiday in Northern Ireland!): diagonal red cross on a white ground.'}
+              'Cross of St Patrick (Patron Saint of Ireland, 17 March, bank holiday in Northern Ireland!): diagonal red cross on a white ground.'}
             {layer === 'wales' &&
               'Exam Trap! Why is the Welsh Dragon NOT on the Union Flag? Because Wales was already united with England when the first Union Flag was created in 1606!'}
           </p>

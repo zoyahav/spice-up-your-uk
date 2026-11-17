@@ -241,7 +241,7 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
       <section className={`rounded-3xl border p-4 ${cardSurface}`}>
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-base font-black">💞 2 Become 1 — Couple Scoreboard</h2>
+            <h2 className="text-base font-black">💞 2 Become 1: Couple Scoreboard</h2>
             <p className="text-xs text-slate-400">
               Shared Streak: <strong>{coupleStreakCount} days</strong>
             </p>
@@ -340,7 +340,7 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
         <p className="text-xs leading-relaxed text-slate-400">
           Pick your commute or evening time below, then tap{' '}
           <strong>Add to Google Calendar</strong> or <strong>Download .ics Alarm</strong> so your
-          phone rings reliably every day — even underground on the Tube!
+          phone rings reliably every day, even underground on the Tube!
         </p>
 
         <div className="flex items-center gap-3">
@@ -433,7 +433,7 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
 
         <p className="text-xs leading-relaxed text-slate-400">
           Set this up once on your <strong>laptop</strong>, then scan the QR code for{' '}
-          <strong>Phone A</strong> and <strong>Phone B</strong> with your phone cameras — zero
+          <strong>Phone A</strong> and <strong>Phone B</strong> with your phone cameras: zero
           long URLs to type on either device, and zero personal data in GitHub!
         </p>
 
@@ -469,7 +469,7 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
               URL + passcode below on your laptop.
             </li>
             <li>
-              <strong>5.</strong> Click <strong>QR Codes (Phone A &amp; B)</strong> below — scan{' '}
+              <strong>5.</strong> Click <strong>QR Codes (Phone A &amp; B)</strong> below, then scan{' '}
               <strong>Phone A QR</strong> on the first phone and <strong>Phone B QR</strong> on the second!
             </li>
           </ol>
@@ -590,7 +590,7 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
           <h3 className="text-sm font-black">Import External Pack (Off-GitHub!)</h3>
         </div>
         <p className="text-xs text-slate-400">
-          Fetch an external <code>exams.json</code> URL once or paste JSON / Anki CSV/TSV — it
+          Fetch an external <code>exams.json</code> URL once or paste JSON / Anki CSV/TSV. It
           caches offline &amp; syncs to both phones via your private Google Sheet!
         </p>
 

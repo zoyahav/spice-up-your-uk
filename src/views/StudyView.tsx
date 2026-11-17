@@ -365,7 +365,7 @@ export const StudyView: React.FC<StudyViewProps> = ({
           <div className={`rounded-3xl border p-4 ${cardSurface}`}>
             <h2 className="text-base font-black">Spaced Repetition (SM-2) Flashcards</h2>
             <p className="mt-1 text-xs text-slate-400">
-              {allFlashcards.length} cards bundled offline — every card includes a{' '}
+              {allFlashcards.length} cards bundled offline, and every card includes a{' '}
               <strong className="text-pink-400">Spice Memory Hook</strong>!
             </p>
 

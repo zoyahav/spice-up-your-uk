@@ -10,7 +10,7 @@ export const CHAPTERS: readonly ChapterMeta[] = [
     number: 1,
     title: 'The Values and Principles of the UK',
     shortTitle: 'Values & Principles',
-    spiceTagline: 'Say You’ll Be Fair — fundamental rights, duties & the citizenship pledge.',
+    spiceTagline: 'Say You’ll Be Fair, fundamental rights, duties & the citizenship pledge.',
     examWeightHint: '~2–3 questions per exam',
     accentColor: 'rose',
     subtopics: [
@@ -33,7 +33,7 @@ export const CHAPTERS: readonly ChapterMeta[] = [
     number: 2,
     title: 'What is the UK?',
     shortTitle: 'What is the UK?',
-    spiceTagline: 'Colours of the Union — four nations, capitals, flags & Crown Dependencies.',
+    spiceTagline: 'Colours of the Union, four nations, capitals, flags & Crown Dependencies.',
     examWeightHint: '~2–3 questions per exam',
     accentColor: 'sky',
     subtopics: [
@@ -62,7 +62,7 @@ export const CHAPTERS: readonly ChapterMeta[] = [
     number: 3,
     title: 'A Long and Illustrious History',
     shortTitle: 'British History',
-    spiceTagline: 'Viva Forever — from Stonehenge & 1066 to Tudors, Suffragettes & Modern UK.',
+    spiceTagline: 'Viva Forever, from Stonehenge & 1066 to Tudors, Suffragettes & Modern UK.',
     examWeightHint: '~7–9 questions per exam (High Yield!)',
     accentColor: 'amber',
     subtopics: [
@@ -115,7 +115,7 @@ export const CHAPTERS: readonly ChapterMeta[] = [
     number: 4,
     title: 'A Modern, Thriving Society',
     shortTitle: 'Culture & Society',
-    spiceTagline: 'Spice Up Your Culture — holidays, Wimbledon, West End, landmarks & inventions!',
+    spiceTagline: 'Spice Up Your Culture, holidays, Wimbledon, West End, landmarks & inventions!',
     examWeightHint: '~5–6 questions per exam',
     accentColor: 'fuchsia',
     subtopics: [
@@ -150,7 +150,7 @@ export const CHAPTERS: readonly ChapterMeta[] = [
     number: 5,
     title: 'The UK Government, the Law and Your Role',
     shortTitle: 'Government & Law',
-    spiceTagline: 'Union Power — Monarch, 650 MPs, Devolved Parliaments, Courts & Your Community.',
+    spiceTagline: 'Union Power, Monarch, 650 MPs, Devolved Parliaments, Courts & Your Community.',
     examWeightHint: '~6–7 questions per exam (High Yield!)',
     accentColor: 'indigo',
     subtopics: [

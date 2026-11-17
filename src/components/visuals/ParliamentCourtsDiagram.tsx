@@ -9,7 +9,7 @@ export const ParliamentCourtsDiagram: React.FC<{ compact?: boolean }> = ({ compa
     <div className="rounded-2xl border border-slate-700/60 bg-slate-900/80 p-3.5 text-slate-100">
       <div className="mb-2.5 flex flex-wrap items-center justify-between gap-2">
         <span className="text-xs font-bold tracking-wider text-indigo-400 uppercase">
-          🏛️ Visual Aid — UK Government, Devolution &amp; Courts
+          🏛️ Visual Aid: UK Government, Devolution &amp; Courts
         </span>
         {!compact && (
           <div className="flex gap-1">
@@ -40,7 +40,7 @@ export const ParliamentCourtsDiagram: React.FC<{ compact?: boolean }> = ({ compa
       {tab === 'westminster' && (
         <div className="space-y-2 text-xs">
           <div className="rounded-xl border border-amber-500/40 bg-amber-950/30 p-2.5 text-center">
-            <p className="font-bold text-amber-300">👑 King Charles III — Head of State</p>
+            <p className="font-bold text-amber-300">👑 King Charles III: Head of State</p>
             <p className="text-[11px] text-slate-300">
               Ceremonial role • Opens Parliament (King’s Speech) • Weekly PM audience • Royal Assent
             </p>

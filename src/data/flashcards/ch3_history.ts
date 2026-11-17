@@ -1,5 +1,5 @@
 /**
- * Built-in SM-2 Flashcard Deck: Chapter 3 — A Long and Illustrious History
+ * Built-in SM-2 Flashcard Deck: Chapter 3, A Long and Illustrious History
  * Atomic, high-yield SM-2 flashcards covering all 7 historical subtopics from the Stone Age to King Charles III.
  */
 
@@ -24,9 +24,9 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     chapterId: 'ch3',
     subtopicId: 'ch3-early-roman',
     front: 'When did the first farmers arrive in Britain, and where did their ancestors probably come from?',
-    back: 'Around 6,000 years ago, with ancestors originating from south-east Europe — they built houses, tombs, and monuments on the land.',
+    back: 'Around 6,000 years ago, with ancestors originating from south-east Europe: they built houses, tombs, and monuments on the land.',
     memoryHook:
-      '🌾 "10k Channel, 6k Crops!" — 6,000 years ago, south-east European farmers planted roots in Britain.',
+      '🌾 "10k Channel, 6k Crops!": 6,000 years ago, south-east European farmers planted roots in Britain.',
   },
   {
     id: 'fc-ch3-003',
@@ -36,7 +36,7 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     front: 'What is Stonehenge, and in which English county does it stand?',
     back: 'A famous Stone Age (Neolithic) monument in Wiltshire that was probably a special gathering place for seasonal ceremonies.',
     memoryHook:
-      '🪨 "Wiltshire’s Wonder!" — Stonehenge = Stone Age seasonal ceremony circle in Wiltshire.',
+      '🪨 "Wiltshire’s Wonder!": Stonehenge = Stone Age seasonal ceremony circle in Wiltshire.',
   },
   {
     id: 'fc-ch3-004',
@@ -46,7 +46,7 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     front: 'What is Skara Brae, and where is it located?',
     back: 'Located on Orkney, off the north coast of Scotland, Skara Brae is the best-preserved prehistoric village in northern Europe.',
     memoryHook:
-      '🏠🏴󠁧󠁢󠁳󠁣󠁴󠁿 "Skara Brae = Scotland’s Stone Age Street!" — Orkney’s best-preserved prehistoric village.',
+      '🏠🏴󠁧󠁢󠁳󠁣󠁴󠁿 "Skara Brae = Scotland’s Stone Age Street!": Orkney’s best-preserved prehistoric village.',
   },
   {
     id: 'fc-ch3-005',
@@ -55,7 +55,7 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     front: 'When did the Bronze Age begin in Britain, and how did Bronze Age people bury their dead?',
     back: 'Around 4,000 years ago, when people learned to make bronze; they lived in roundhouses, crafted bronze tools/weapons and gold ornaments, and buried their dead in tombs called "round barrows".',
     memoryHook:
-      '🥉 "Bronze = Barrows!" — 4,000 years ago, roundhouses for living, round barrows for tombs!',
+      '🥉 "Bronze = Barrows!": 4,000 years ago, roundhouses for living, round barrows for tombs!',
   },
   {
     id: 'fc-ch3-006',
@@ -72,9 +72,9 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     subtopicId: 'ch3-early-roman',
     visualId: 'history-timeline',
     front: 'When did Julius Caesar lead a Roman invasion of Britain, and did it succeed?',
-    back: 'Julius Caesar led a Roman invasion in 55 BC (and returned briefly in 54 BC), which was unsuccessful — Britain remained separate from the Roman Empire for nearly 100 years.',
+    back: 'Julius Caesar led a Roman invasion in 55 BC (and returned briefly in 54 BC), which was unsuccessful: Britain remained separate from the Roman Empire for nearly 100 years.',
     memoryHook:
-      '🏛️❌ "Caesar tried in 55 BC — came, saw, and went back across the sea!"',
+      '🏛️❌ "Caesar tried in 55 BC: came, saw, and went back across the sea!"',
   },
   {
     id: 'fc-ch3-008',
@@ -103,7 +103,7 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     front: 'Why did Emperor Hadrian build Hadrian’s Wall across northern England, and what are two famous Roman forts along it?',
     back: 'Areas of modern Scotland were never conquered by the Romans, so Emperor Hadrian built a wall in the north of England to keep out the Picts (ancestors of the Scottish people). Famous forts on the UNESCO World Heritage wall include Housesteads and Vindolanda.',
     memoryHook:
-      '🧱 "Hadrian’s Wall held back the Picts!" — Forts = Housesteads & Vindolanda!',
+      '🧱 "Hadrian’s Wall held back the Picts!": Forts = Housesteads & Vindolanda!',
   },
   {
     id: 'fc-ch3-011',
@@ -113,7 +113,7 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     front: 'How long did the Romans stay in Britain, when did the Roman army leave, and what did they leave behind?',
     back: 'The Romans remained for nearly 400 years until the Roman army left in AD 410 to defend other parts of the Roman Empire, never to return. They built roads, public buildings, a structure of law, introduced new plants/animals, and saw the first Christian communities appear in the 3rd and 4th centuries AD.',
     memoryHook:
-      '🛣️ "AD 43 in, AD 410 gone!" — 400 years of straight Roman roads, laws & early 3rd/4th-century Christianity.',
+      '🛣️ "AD 43 in, AD 410 gone!": 400 years of straight Roman roads, laws & early 3rd/4th-century Christianity.',
   },
 
   // ===========================================================================
@@ -125,9 +125,9 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     subtopicId: 'ch3-anglo-norman',
     visualId: 'history-timeline',
     front: 'Which three northern European tribes invaded Britain after the Romans left in AD 410, and which parts remained free of their rule?',
-    back: 'The Jutes, the Angles, and the Saxons (whose languages are the basis of modern English). By about AD 600 Anglo-Saxon kingdoms were established across Britain, while parts of the west — including much of Wales and Scotland — remained free of Anglo-Saxon rule.',
+    back: 'The Jutes, the Angles, and the Saxons (whose languages are the basis of modern English). By about AD 600 Anglo-Saxon kingdoms were established across Britain, while parts of the west: including much of Wales and Scotland, remained free of Anglo-Saxon rule.',
     memoryHook:
-      '⚔️ "Jutes, Angles & Saxons by AD 600!" — Wales & Scotland stayed Celtic in the west/north.',
+      '⚔️ "Jutes, Angles & Saxons by AD 600!": Wales & Scotland stayed Celtic in the west/north.',
   },
   {
     id: 'fc-ch3-013',
@@ -155,7 +155,7 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     front: 'Where did the Vikings come from, when did they first raid Britain, and what was the "Danelaw"?',
     back: 'The Vikings came from Denmark and Norway. They first visited Britain in AD 789 to raid coastal towns and take away goods and slaves, later staying to form their own communities in the east and north of England in an area known as the Danelaw.',
     memoryHook:
-      '🛶 "7-8-9, Vikings cross the brine!" — Settled in the East & North = The Danelaw!',
+      '🛶 "7-8-9, Vikings cross the brine!": Settled in the East & North = The Danelaw!',
   },
   {
     id: 'fc-ch3-016',
@@ -163,16 +163,16 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     subtopicId: 'ch3-anglo-norman',
     visualId: 'history-timeline',
     front: 'Which ruler united the Anglo-Saxon kingdoms of England and defeated the Vikings?',
-    back: 'King Alfred the Great — after his victory, many Viking invaders stayed peacefully in the Danelaw, mixed with local communities, and converted to Christianity.',
+    back: 'King Alfred the Great, after his victory, many Viking invaders stayed peacefully in the Danelaw, mixed with local communities, and converted to Christianity.',
     memoryHook:
-      '👑🛡️ Only ONE English king earned "the Great" — Alfred the Great united the Saxons and beat the Vikings!',
+      '👑🛡️ Only ONE English king earned "the Great": Alfred the Great united the Saxons and beat the Vikings!',
   },
   {
     id: 'fc-ch3-017',
     chapterId: 'ch3',
     subtopicId: 'ch3-anglo-norman',
     front: 'Which king united the peoples of Scotland under one ruler as Viking attacks encouraged unity in the north?',
-    back: 'Kenneth MacAlpin — around the same era the term "Scotland" began to be used to describe that country.',
+    back: 'Kenneth MacAlpin, around the same era the term "Scotland" began to be used to describe that country.',
     memoryHook:
       '🏴󠁧󠁢󠁳󠁣󠁴󠁿👑 "Alfred united England; Kenneth MacAlpin united Scotland!"',
   },
@@ -193,7 +193,7 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     front: 'What happened in 1066 at the Battle of Hastings, and why is 1066 unique in English history?',
     back: 'William, the Duke of Normandy (in northern France), defeated Harold, the Saxon king of England, who was killed in the battle. William became King of England ("William the Conqueror"), and the Norman Conquest of 1066 was the LAST successful foreign invasion of England!',
     memoryHook:
-      '🏹👑 "1066 Hastings = William beat Harold — the LAST successful foreign invasion of England ever!"',
+      '🏹👑 "1066 Hastings = William beat Harold: the LAST successful foreign invasion of England ever!"',
   },
   {
     id: 'fc-ch3-020',
@@ -210,7 +210,7 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     subtopicId: 'ch3-anglo-norman',
     visualId: 'history-timeline',
     front: 'What was the Domesday Book, and who ordered it to be written?',
-    back: 'Ordered by William the Conqueror, the Domesday Book listed all the towns and villages in England, who lived there, who owned the land, and what animals they owned — giving a picture of society just after the Norman Conquest that still exists today.',
+    back: 'Ordered by William the Conqueror, the Domesday Book listed all the towns and villages in England, who lived there, who owned the land, and what animals they owned: giving a picture of society just after the Norman Conquest that still exists today.',
     memoryHook:
       '📖🐄 William’s ultimate tax spreadsheet: every town, lord, villager & cow went into the Domesday Book!',
   },
@@ -233,16 +233,16 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     subtopicId: 'ch3-middle-ages',
     visualId: 'history-timeline',
     front: 'What happened in 1215 involving King John, and what core principle did the Magna Carta establish?',
-    back: 'In 1215, King John was forced by his noblemen to agree to a number of demands in the Magna Carta ("Charter of Liberties") — establishing the idea that even the king is subject to the law, protecting nobility’s rights, and restricting the king’s power to collect taxes or make/change laws without consulting nobles.',
+    back: 'In 1215, King John was forced by his noblemen to agree to a number of demands in the Magna Carta ("Charter of Liberties"): establishing the idea that even the king is subject to the law, protecting nobility’s rights, and restricting the king’s power to collect taxes or make/change laws without consulting nobles.',
     memoryHook:
-      '📜⚖️ "At 12:15 lunch (1215), King John learned NOBODY is above the law — Magna Carta!"',
+      '📜⚖️ "At 12:15 lunch (1215), King John learned NOBODY is above the law, Magna Carta!"',
   },
   {
     id: 'fc-ch3-024',
     chapterId: 'ch3',
     subtopicId: 'ch3-middle-ages',
     front: 'How did the medieval English Parliament divide into two Houses, and how was the medieval Scottish Parliament structured?',
-    back: '• In England: House of Lords (nobility, great landowners, and bishops) and House of Commons (knights who were smaller landowners, and wealthy people from towns and cities).\n• In Scotland: Parliament had THREE Houses called "Estates" — the lords, the clergy, and the towns.',
+    back: '• In England: House of Lords (nobility, great landowners, and bishops) and House of Commons (knights who were smaller landowners, and wealthy people from towns and cities).\n• In Scotland: Parliament had THREE Houses called "Estates", the lords, the clergy, and the towns.',
     memoryHook:
       '🏛️ Medieval England = 2 Houses (Lords + Commons); Medieval Scotland = 3 Estates (Lords + Clergy + Towns)!',
   },
@@ -261,7 +261,7 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     subtopicId: 'ch3-middle-ages',
     visualId: 'history-timeline',
     front: 'What did the Statute of Rhuddlan do in 1284, and which famous Welsh castles were built to maintain royal power?',
-    back: 'In 1284, King Edward I of England introduced the Statute of Rhuddlan, which annexed Wales to the Crown of England. Huge castles — including Conwy and Caernarfon — were built to maintain this power (by the middle of the 15th century the last Welsh rebellions had been defeated).',
+    back: 'In 1284, King Edward I of England introduced the Statute of Rhuddlan, which annexed Wales to the Crown of England. Huge castles: including Conwy and Caernarfon, were built to maintain this power (by the middle of the 15th century the last Welsh rebellions had been defeated).',
     memoryHook:
       '🏰🏴󠁧󠁢󠁷󠁬󠁳󠁿 "1284 Rhuddlan = Edward I annexed Wales & built giant Conwy + Caernarfon castles!"',
   },
@@ -271,7 +271,7 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     subtopicId: 'ch3-middle-ages',
     visualId: 'history-timeline',
     front: 'What happened in 1314 at the Battle of Bannockburn?',
-    back: 'The Scottish, led by King Robert the Bruce, defeated the English army of Edward II at the Battle of Bannockburn in 1314 — ensuring Scotland remained unconquered by the English.',
+    back: 'The Scottish, led by King Robert the Bruce, defeated the English army of Edward II at the Battle of Bannockburn in 1314: ensuring Scotland remained unconquered by the English.',
     memoryHook:
       '🗡️🏴󠁧󠁢󠁳󠁣󠁴󠁿 "1314 Bannockburn = Bruce Beat Britain & kept Scotland independent!"',
   },
@@ -292,7 +292,7 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     front: 'When did the Black Death strike Britain, what fraction of the population died, and how did it transform medieval society?',
     back: 'In 1348, the Black Death (a form of plague) killed ONE THIRD of the population in England and similar proportions in Scotland and Wales. Resulting labour shortages meant peasants could demand higher wages, weakening feudalism ("serfdom"), creating new social classes like the "gentry" (landowners), and drawing people into towns.',
     memoryHook:
-      '🐀💀 "1348 = 1/3 met their fate!" — Fewer workers meant higher peasant pay, crumbling feudalism & rising gentry!',
+      '🐀💀 "1348 = 1/3 met their fate!": Fewer workers meant higher peasant pay, crumbling feudalism & rising gentry!',
   },
   {
     id: 'fc-ch3-030',
@@ -318,7 +318,7 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     chapterId: 'ch3',
     subtopicId: 'ch3-middle-ages',
     front: 'Who was William Caxton, and which famous poems were among the first books he printed?',
-    back: 'William Caxton was the first person in England to print books using a printing press — and Geoffrey Chaucer’s Canterbury Tales was one of the first books he printed!',
+    back: 'William Caxton was the first person in England to print books using a printing press: and Geoffrey Chaucer’s Canterbury Tales was one of the first books he printed!',
     memoryHook:
       '🖨️ "Caxton = Clack-clack First English Printing Press (+ printed Chaucer)!"',
   },
@@ -347,7 +347,7 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     subtopicId: 'ch3-middle-ages',
     visualId: 'history-timeline',
     front: 'How did the Wars of the Roses end in 1485 at the Battle of Bosworth Field, and how was the Tudor Rose created?',
-    back: 'In 1485 at the Battle of Bosworth Field, King Richard III (House of York) was killed in battle, and Henry Tudor (leader of the House of Lancaster) became King Henry VII — the first Tudor king. Henry VII married Richard’s niece, Elizabeth of York, uniting the two families under the red-and-white Tudor Rose!',
+    back: 'In 1485 at the Battle of Bosworth Field, King Richard III (House of York) was killed in battle, and Henry Tudor (leader of the House of Lancaster) became King Henry VII: the first Tudor king. Henry VII married Richard’s niece, Elizabeth of York, uniting the two families under the red-and-white Tudor Rose!',
     memoryHook:
       '🌹👑 "1485 Bosworth Field = Henry VII beat Richard III, married Elizabeth of York, and Red + White became 1 Tudor Rose!"',
   },
@@ -370,7 +370,7 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     subtopicId: 'ch3-tudors-stuarts',
     visualId: 'history-timeline',
     front: 'Why did King Henry VIII break away from the Church of Rome, and what church did he establish?',
-    back: 'When the Pope refused to approve Henry VIII’s divorce from his first wife (Catherine of Aragon) so he could marry again in hopes of a male heir, Henry broke away from Rome, established the Church of England with the King — not the Pope — able to appoint bishops and decide worship, and closed monasteries as Protestantism spread.',
+    back: 'When the Pope refused to approve Henry VIII’s divorce from his first wife (Catherine of Aragon) so he could marry again in hopes of a male heir, Henry broke away from Rome, established the Church of England with the King: not the Pope, able to appoint bishops and decide worship, and closed monasteries as Protestantism spread.',
     memoryHook:
       '💔⛪ Pope said "No divorce!" → Henry VIII said "Fine, I’m Supreme Head of the Church of England!"',
   },
@@ -379,9 +379,9 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     chapterId: 'ch3',
     subtopicId: 'ch3-tudors-stuarts',
     front: 'Name King Henry VIII’s six wives in exact chronological order and what happened to each.',
-    back: '1. Catherine of Aragon — Divorced (Spanish princess; mother of Mary I)\n2. Anne Boleyn — Executed at the Tower of London (English; mother of Elizabeth I)\n3. Jane Seymour — Died shortly after giving birth to son Edward VI\n4. Anne of Cleves — Divorced (German princess)\n5. Catherine Howard — Executed (cousin of Anne Boleyn)\n6. Catherine Parr — Survived (widow who outlived Henry)',
+    back: '1. Catherine of Aragon, Divorced (Spanish princess; mother of Mary I)\n2. Anne Boleyn: Executed at the Tower of London (English; mother of Elizabeth I)\n3. Jane Seymour: Died shortly after giving birth to son Edward VI\n4. Anne of Cleves, Divorced (German princess)\n5. Catherine Howard: Executed (cousin of Anne Boleyn)\n6. Catherine Parr, Survived (widow who outlived Henry)',
     memoryHook:
-      '👑6️⃣ Classic rhyme: "Divorced, Beheaded, Died — Divorced, Beheaded, Survived!" (3 Catherines, 2 Annes, 1 Jane!).',
+      '👑6️⃣ Classic rhyme: "Divorced, Beheaded, Died, Divorced, Beheaded, Survived!" (3 Catherines, 2 Annes, 1 Jane!).',
   },
   {
     id: 'fc-ch3-039',
@@ -390,7 +390,7 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     front: 'How was Wales formally united with England during the reign of Henry VIII?',
     back: 'Under the Act for the Government of Wales, Henry VIII united Wales formally with England: the Welsh sent representatives to the House of Commons in London, the Welsh legal system was reformed, and English became the official language of administration.',
     memoryHook:
-      '🏴󠁧󠁢󠁷󠁬󠁳󠁿🤝🏴󠁧󠁢󠁥󠁮󠁧󠁿 Henry Tudor had Welsh roots — and his son Henry VIII formally united Wales with England in law & Parliament!',
+      '🏴󠁧󠁢󠁷󠁬󠁳󠁿🤝🏴󠁧󠁢󠁥󠁮󠁧󠁿 Henry Tudor had Welsh roots: and his son Henry VIII formally united Wales with England in law & Parliament!',
   },
   {
     id: 'fc-ch3-040',
@@ -425,9 +425,9 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     subtopicId: 'ch3-tudors-stuarts',
     visualId: 'history-timeline',
     front: 'How did Queen Elizabeth I (1558–1603) handle religion, and what famous naval victory occurred in 1588?',
-    back: 'Elizabeth I (Protestant daughter of Anne Boleyn) re-established the Church of England, requiring everyone to attend local churches while avoiding investigating people’s private inner beliefs. In 1588, the English fleet defeated the Spanish Armada — a large fleet of ships sent by Catholic Spain to conquer England and restore Catholicism.',
+    back: 'Elizabeth I (Protestant daughter of Anne Boleyn) re-established the Church of England, requiring everyone to attend local churches while avoiding investigating people’s private inner beliefs. In 1588, the English fleet defeated the Spanish Armada: a large fleet of ships sent by Catholic Spain to conquer England and restore Catholicism.',
     memoryHook:
-      '⛵🔥 "1588 — Elizabeth I & England sealed the Spanish Armada’s fate!"',
+      '⛵🔥 "1588: Elizabeth I & England sealed the Spanish Armada’s fate!"',
   },
   {
     id: 'fc-ch3-044',
@@ -453,7 +453,7 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     subtopicId: 'ch3-tudors-stuarts',
     visualId: 'history-timeline',
     front: 'Who succeeded Elizabeth I in 1603 when she died unmarried and childless, and what major religious book did he commission?',
-    back: 'Her cousin James VI of Scotland became King James I of England, Wales, and Ireland in 1603 (though Scotland remained a separate country with its own Parliament). One key achievement of his reign was a new translation of the Bible into English — the "King James Version" or "Authorised Version".',
+    back: 'Her cousin James VI of Scotland became King James I of England, Wales, and Ireland in 1603 (though Scotland remained a separate country with its own Parliament). One key achievement of his reign was a new translation of the Bible into English: the "King James Version" or "Authorised Version".',
     memoryHook:
       '👑📖 "1603 Union of the Crowns = James VI of Scotland became James I of England + commissioned the King James Bible!"',
   },
@@ -462,7 +462,7 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     chapterId: 'ch3',
     subtopicId: 'ch3-tudors-stuarts',
     front: 'What was the "Plantation" of Ulster under Elizabeth I and James I?',
-    back: 'After suppressing rebellions in Ireland, the English government encouraged Scottish and English Protestants to settle in Ulster (the northern province of Ireland), taking over land from Catholic landholders — settlements known as "plantations" with long-term consequences for Irish history.',
+    back: 'After suppressing rebellions in Ireland, the English government encouraged Scottish and English Protestants to settle in Ulster (the northern province of Ireland), taking over land from Catholic landholders: settlements known as "plantations" with long-term consequences for Irish history.',
     memoryHook:
       '☘️🌱 Ulster Plantations = Protestant settlers from Scotland & England given land in northern Ireland under Elizabeth I & James I.',
   },
@@ -481,7 +481,7 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     chapterId: 'ch3',
     subtopicId: 'ch3-tudors-stuarts',
     front: 'What was the "Divine Right of Kings", and why did King Charles I clash fiercely with Parliament and Scotland?',
-    back: 'James I and his son Charles I believed in the "Divine Right of Kings" — that the king was directly appointed by God and could rule without Parliament’s approval. Charles I ruled for 11 years without recalling Parliament, raised taxes alone, tried to force a revised Prayer Book on the Presbyterian Church in Scotland (sparking a Scottish invasion), and entered the House of Commons to try to arrest 5 parliamentary leaders!',
+    back: 'James I and his son Charles I believed in the "Divine Right of Kings": that the king was directly appointed by God and could rule without Parliament’s approval. Charles I ruled for 11 years without recalling Parliament, raised taxes alone, tried to force a revised Prayer Book on the Presbyterian Church in Scotland (sparking a Scottish invasion), and entered the House of Commons to try to arrest 5 parliamentary leaders!',
     memoryHook:
       '👑⚡ Charles I thought God gave him solo power → 11 years no Parliament + stormed the Commons → sparked Civil War!',
   },
@@ -493,7 +493,7 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     front: 'When did the English Civil War begin, what were the two sides called, and which two battles sealed Parliament’s victory?',
     back: 'Civil war between the king and Parliament began in 1642: the king’s supporters were the Cavaliers, and Parliament’s supporters were the Roundheads. The Parliamentary army defeated Charles I at the Battles of Marston Moor and Naseby (by 1646 it was clear Parliament had won).',
     memoryHook:
-      '⚔️🪖 "1642: Fancy-haired Cavaliers (King) vs Helmeted Roundheads (Parliament) — Roundheads won Marston Moor & Naseby!"',
+      '⚔️🪖 "1642: Fancy-haired Cavaliers (King) vs Helmeted Roundheads (Parliament), Roundheads won Marston Moor & Naseby!"',
   },
   {
     id: 'fc-ch3-051',
@@ -523,16 +523,16 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     front: 'Which two disasters struck London in 1665 and 1666, who chronicled them in a famous diary, and who designed the new St Paul’s Cathedral?',
     back: 'In 1665 London suffered a major outbreak of the Great Plague; in 1666 the Great Fire of London destroyed much of the city, including many churches and the old St Paul’s Cathedral. London was rebuilt with a famous new St Paul’s Cathedral designed by Sir Christopher Wren, and Samuel Pepys wrote about these events in his famous published diary.',
     memoryHook:
-      '🐀🔥🏛️ "1665 Plague, 1666 Blazing Bricks — Pepys wrote the diary & Wren built St Paul’s dome!"',
+      '🐀🔥🏛️ "1665 Plague, 1666 Blazing Bricks: Pepys wrote the diary & Wren built St Paul’s dome!"',
   },
   {
     id: 'fc-ch3-054',
     chapterId: 'ch3',
     subtopicId: 'ch3-tudors-stuarts',
     front: 'What important legal safeguard became law in 1679 under the Habeas Corpus Act?',
-    back: 'The Habeas Corpus Act of 1679 (Latin for "you must present the person in court") guaranteed that no one could be held unlawfully as a prisoner — every prisoner has a right to a court hearing.',
+    back: 'The Habeas Corpus Act of 1679 (Latin for "you must present the person in court") guaranteed that no one could be held unlawfully as a prisoner: every prisoner has a right to a court hearing.',
     memoryHook:
-      '⚖️🔓 "1679 Habeas Corpus = Show the body in court — no secret unlawful lock-ups!"',
+      '⚖️🔓 "1679 Habeas Corpus = Show the body in court: no secret unlawful lock-ups!"',
   },
   {
     id: 'fc-ch3-055',
@@ -549,9 +549,9 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     subtopicId: 'ch3-tudors-stuarts',
     visualId: 'history-timeline',
     front: 'Why was the event of 1688 called the "Glorious Revolution", and who became joint monarchs?',
-    back: 'Catholic King James II (Charles II’s brother) alarmed Protestants by favouring Catholics and arresting bishops. Leading Protestants invited William of Orange (Protestant ruler of the Netherlands, married to James II’s Protestant daughter Mary) to invade England in 1688. There was NO resistance in England — James II fled to France, and William III and Mary II ruled jointly in a bloodless "Glorious Revolution"!',
+    back: 'Catholic King James II (Charles II’s brother) alarmed Protestants by favouring Catholics and arresting bishops. Leading Protestants invited William of Orange (Protestant ruler of the Netherlands, married to James II’s Protestant daughter Mary) to invade England in 1688. There was NO resistance in England: James II fled to France, and William III and Mary II ruled jointly in a bloodless "Glorious Revolution"!',
     memoryHook:
-      '🍊👑 "1688 = William of Orange walked straight through the gate — zero English battle = Glorious Revolution!"',
+      '🍊👑 "1688 = William of Orange walked straight through the gate: zero English battle = Glorious Revolution!"',
   },
   {
     id: 'fc-ch3-057',
@@ -559,7 +559,7 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     subtopicId: 'ch3-tudors-stuarts',
     visualId: 'history-timeline',
     front: 'What did the 1689 Bill of Rights establish, and what happened at the Battle of the Boyne in 1690?',
-    back: 'The Bill of Rights (1689) confirmed the rights of Parliament and the limits of the king’s power (requiring free elections, frequent Parliaments, Parliamentary consent for taxes/laws, and that the monarch must be Protestant — laying the foundation of constitutional monarchy!). In 1690, William III defeated James II’s French-backed army at the Battle of the Boyne in Ireland (supporters of the Stuarts became known as "Jacobites").',
+    back: 'The Bill of Rights (1689) confirmed the rights of Parliament and the limits of the king’s power (requiring free elections, frequent Parliaments, Parliamentary consent for taxes/laws, and that the monarch must be Protestant: laying the foundation of constitutional monarchy!). In 1690, William III defeated James II’s French-backed army at the Battle of the Boyne in Ireland (supporters of the Stuarts became known as "Jacobites").',
     memoryHook:
       '📜⚖️ "1688 Glorious Arrival → 1689 Bill of Rights (Parliament rules!) → 1690 Battle of the Boyne!"',
   },
@@ -582,7 +582,7 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     subtopicId: 'ch3-empire-industry',
     visualId: 'history-timeline',
     front: 'What did the Act of Union (Treaty of Union in Scotland) create in 1707, and under which monarch?',
-    back: 'Passed in 1707 during the reign of Queen Anne, the Act of Union united England (with Wales) and Scotland into a single Kingdom of Great Britain with one Parliament in London — though Scotland kept its own legal and education systems and its Presbyterian Church.',
+    back: 'Passed in 1707 during the reign of Queen Anne, the Act of Union united England (with Wales) and Scotland into a single Kingdom of Great Britain with one Parliament in London: though Scotland kept its own legal and education systems and its Presbyterian Church.',
     memoryHook:
       '🏴󠁧󠁢󠁥󠁮󠁧󠁿🤝🏴󠁧󠁢󠁳󠁣󠁴󠁿 "1707 under Queen Anne = Scotland + England & Wales became ONE Kingdom of Great Britain!"',
   },
@@ -592,7 +592,7 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     subtopicId: 'ch3-empire-industry',
     visualId: 'history-timeline',
     front: 'Why did German Hanoverian King George I rely heavily on his ministers, and who became Britain’s FIRST Prime Minister?',
-    back: 'When Queen Anne died in 1714 with no surviving children, Parliament chose her nearest Protestant relative — George, Elector of Hanover — as King George I. Because he did not speak very good English, he relied more on his ministers; the most important minister in Parliament became known as the Prime Minister. The first man to be called this was Sir Robert Walpole, Prime Minister from 1721 to 1742!',
+    back: 'When Queen Anne died in 1714 with no surviving children, Parliament chose her nearest Protestant relative: George, Elector of Hanover, as King George I. Because he did not speak very good English, he relied more on his ministers; the most important minister in Parliament became known as the Prime Minister. The first man to be called this was Sir Robert Walpole, Prime Minister from 1721 to 1742!',
     memoryHook:
       '🎩🥇 "George I spoke little English → Sir Robert Walpole took the pole position as Britain’s FIRST Prime Minister (1721–1742)!"',
   },
@@ -602,7 +602,7 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     subtopicId: 'ch3-empire-industry',
     visualId: 'history-timeline',
     front: 'What happened in 1746 at the Battle of Culloden, and what were the "Highland Clearances"?',
-    back: 'In 1745, Charles Edward Stuart ("Bonnie Prince Charlie", grandson of James II) landed in Scotland supported by Highland clansmen to reclaim the throne, but was defeated by George II’s army at the Battle of Culloden in 1746 (escaping back to Europe). Afterwards, clans lost power as Scottish landlords destroyed small individual farms ("crofts") to make space for sheep and cattle — evictions known as the Highland Clearances, sending many Scots to North America.',
+    back: 'In 1745, Charles Edward Stuart ("Bonnie Prince Charlie", grandson of James II) landed in Scotland supported by Highland clansmen to reclaim the throne, but was defeated by George II’s army at the Battle of Culloden in 1746 (escaping back to Europe). Afterwards, clans lost power as Scottish landlords destroyed small individual farms ("crofts") to make space for sheep and cattle: evictions known as the Highland Clearances, sending many Scots to North America.',
     memoryHook:
       '⚔️🐑 "1746 Culloden crushed Bonnie Prince Charlie’s Jacobites → Highland Clearances swapped crofters for sheep!"',
   },
@@ -638,7 +638,7 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     chapterId: 'ch3',
     subtopicId: 'ch3-empire-industry',
     front: 'Who was Sake Dean Mahomed (1759–1851), and what two cultural firsts did he introduce to Britain?',
-    back: 'Born in the Bengal region of India, he came to Britain in 1782, eloped with Irish girl Jane Daly, opened the Hindoostane Coffee House in George Street, London in 1810 (the FIRST curry house to open in Britain!), and with his wife introduced "shampooing" — the Indian art of head massage!',
+    back: 'Born in the Bengal region of India, he came to Britain in 1782, eloped with Irish girl Jane Daly, opened the Hindoostane Coffee House in George Street, London in 1810 (the FIRST curry house to open in Britain!), and with his wife introduced "shampooing": the Indian art of head massage!',
     memoryHook:
       '🍛💆‍♂️ Literal "Spice Up Your UK" pioneer! Sake Dean Mahomed = First London curry house (1810) + brought "shampooing" to Britain!',
   },
@@ -658,7 +658,7 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     subtopicId: 'ch3-empire-industry',
     visualId: 'history-timeline',
     front: 'Exam Favourite: Distinguish the 1807 Slave Trade Act from the 1833 Emancipation Act.',
-    back: '• 1807: It became illegal to trade slaves in British ships or from British ports (and the Royal Navy patrolled to stop slave ships from other nations).\n• 1833: The Emancipation Act abolished slavery itself throughout the entire British Empire! (After 1833, 2 million Indian and Chinese workers were employed to replace freed slaves on plantations).',
+    back: '• 1807: It became illegal to trade slaves in British ships or from British ports (and the Royal Navy patrolled to stop slave ships from other nations).\n• 1833: The Emancipation Act abolished slavery itself throughout the entire British Empire! (After 1833-2 million Indian and Chinese workers were employed to replace freed slaves on plantations).',
     memoryHook:
       '⛓️🚫 "1807 = Stop the Ships (Trade banned); 1833 = Set Everyone Free (Slavery abolished across the Empire)!"',
   },
@@ -667,7 +667,7 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     chapterId: 'ch3',
     subtopicId: 'ch3-empire-industry',
     front: 'What happened in 1776 in British North America?',
-    back: 'After clashes with the British government over taxation without representation, 13 American colonies declared their independence in 1776 — defeating the British army in the War of Independence and having independence recognised by Britain in 1783.',
+    back: 'After clashes with the British government over taxation without representation, 13 American colonies declared their independence in 1776: defeating the British army in the War of Independence and having independence recognised by Britain in 1783.',
     memoryHook:
       '🦅📜 1776 = 13 American colonies declared independence over taxes; 1783 = Britain recognised the USA!',
   },
@@ -677,7 +677,7 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     subtopicId: 'ch3-empire-industry',
     visualId: 'history-timeline',
     front: 'What did the Act of Union of 1800 (taking effect in 1801) create?',
-    back: 'It abolished the separate Irish Parliament and united Ireland with Great Britain, creating the United Kingdom of Great Britain and Ireland — and adding the red diagonal Cross of St Patrick to create the current official Union Flag!',
+    back: 'It abolished the separate Irish Parliament and united Ireland with Great Britain, creating the United Kingdom of Great Britain and Ireland: and adding the red diagonal Cross of St Patrick to create the current official Union Flag!',
     memoryHook:
       '☘️🇬🇧 "1707 Scotland joined; 1801 Ireland made ONE United Kingdom (+ added St Patrick’s cross to the Union Jack)!"',
   },
@@ -706,7 +706,7 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     chapterId: 'ch3',
     subtopicId: 'ch3-empire-industry',
     front: 'What did the Great Reform Act of 1832 do, and who were the "Chartists"?',
-    back: 'The Reform Act of 1832 greatly increased the number of (male) voters, abolished old pocket and "rotten" boroughs with tiny electorates, and gave more parliamentary seats to growing industrial towns and cities. Working-class campaigners called Chartists then demanded universal male votes, annual elections, secret ballots, equal constituencies, and MPs’ salaries — initially failing, though most goals were adopted by 1918.',
+    back: 'The Reform Act of 1832 greatly increased the number of (male) voters, abolished old pocket and "rotten" boroughs with tiny electorates, and gave more parliamentary seats to growing industrial towns and cities. Working-class campaigners called Chartists then demanded universal male votes, annual elections, secret ballots, equal constituencies, and MPs’ salaries: initially failing, though most goals were adopted by 1918.',
     memoryHook:
       '🗳️🏙️ 1832 Reform Act swept out "rotten boroughs"; Chartists demanded a People’s Charter for working voters!',
   },
@@ -716,7 +716,7 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     subtopicId: 'ch3-empire-industry',
     visualId: 'history-timeline',
     front: 'During which years did Queen Victoria reign, and how large did the British Empire grow?',
-    back: 'Queen Victoria became queen in 1837 at age 18 and reigned until 1901 — almost 64 years! During the Victorian Age, Britain led the world in trade and industry, and the British Empire grew to become the largest empire the world had ever seen (an estimated 400 million people).',
+    back: 'Queen Victoria became queen in 1837 at age 18 and reigned until 1901: almost 64 years! During the Victorian Age, Britain led the world in trade and industry, and the British Empire grew to become the largest empire the world had ever seen (an estimated 400 million people).',
     memoryHook:
       '👑🌍 Queen Victoria = 1837 to 1901 (~64 years) presiding over an Empire of 400 million!',
   },
@@ -725,7 +725,7 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     chapterId: 'ch3',
     subtopicId: 'ch3-empire-industry',
     front: 'What were the Corn Laws repealed in 1846, and what tragedy struck Ireland in the mid-19th century?',
-    back: 'The Corn Laws had prevented the import of cheap grain; their repeal in 1846 promoted free trade and cheaper food/raw materials for factories. Around the same time in the mid-19th century, the potato crop failed in Ireland — a million people died from disease and starvation in the Irish Famine, and a million and a half emigrated (many to the US and English cities like Liverpool, London, Manchester, and Glasgow).',
+    back: 'The Corn Laws had prevented the import of cheap grain; their repeal in 1846 promoted free trade and cheaper food/raw materials for factories. Around the same time in the mid-19th century, the potato crop failed in Ireland: a million people died from disease and starvation in the Irish Famine, and a million and a half emigrated (many to the US and English cities like Liverpool, London, Manchester, and Glasgow).',
     memoryHook:
       '🌾🥔 1846 = Corn Laws repealed for Free Trade; Mid-1840s = Devastating Irish Potato Famine.',
   },
@@ -735,7 +735,7 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     subtopicId: 'ch3-empire-industry',
     visualId: 'history-timeline',
     front: 'Where was the Great Exhibition of 1851 held, and what building was constructed to house it?',
-    back: 'Opened in 1851 in Hyde Park, London inside the Crystal Palace — a huge building made of iron and glass — exhibiting objects from all over the world, most of them made in Britain.',
+    back: 'Opened in 1851 in Hyde Park, London inside the Crystal Palace, a huge building made of iron and glass: exhibiting objects from all over the world, most of them made in Britain.',
     memoryHook:
       '🔮🏛️ "1851 Great Exhibition = Sparkling iron-and-glass Crystal Palace in Hyde Park!"',
   },
@@ -744,7 +744,7 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     chapterId: 'ch3',
     subtopicId: 'ch3-empire-industry',
     front: 'Compare Victorian railway and engineering pioneers George & Robert Stephenson and Isambard Kingdom Brunel.',
-    back: '• George & Robert Stephenson: pioneered the railway engine — built the famous locomotive Rocket just before the first passenger railways opened in 1830.\n• Isambard Kingdom Brunel (born in Portsmouth): engineer who built tunnels, bridges, railway lines, and ships — including the Great Western Railway (Paddington to SW England/Wales), the Clifton Suspension Bridge over the Avon Gorge in Bristol, and the iron steamship SS Great Britain.',
+    back: '• George & Robert Stephenson: pioneered the railway engine, built the famous locomotive Rocket just before the first passenger railways opened in 1830.\n• Isambard Kingdom Brunel (born in Portsmouth): engineer who built tunnels, bridges, railway lines, and ships, including the Great Western Railway (Paddington to SW England/Wales), the Clifton Suspension Bridge over the Avon Gorge in Bristol, and the iron steamship SS Great Britain.',
     memoryHook:
       '🚂🌉 Stephensons = Rocket engine (1830); Brunel (tall stovepipe hat!) = Great Western Railway + Clifton Suspension Bridge!',
   },
@@ -763,7 +763,7 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     chapterId: 'ch3',
     subtopicId: 'ch3-empire-industry',
     front: 'Where was Florence Nightingale (1820–1910) born, where did she nurse soldiers in the Crimean War, and what school did she open in 1860?',
-    back: 'Born in Italy to English parents, Florence Nightingale trained as a nurse in Germany (age 31) and in 1854 went to Turkey to treat soldiers at the military hospital in Scutari — dramatically slashing mortality rates through hygiene. In 1860 she established the Nightingale Training School for nurses at St Thomas’ Hospital in London; she is regarded as the founder of modern nursing.',
+    back: 'Born in Italy to English parents, Florence Nightingale trained as a nurse in Germany (age 31) and in 1854 went to Turkey to treat soldiers at the military hospital in Scutari: dramatically slashing mortality rates through hygiene. In 1860 she established the Nightingale Training School for nurses at St Thomas’ Hospital in London; she is regarded as the founder of modern nursing.',
     memoryHook:
       '🕯️🏥 Born in Florence (Italy!) → Saved soldiers in Scutari (Turkey) → Opened nursing school at St Thomas’ London (1860)!',
   },
@@ -782,7 +782,7 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     subtopicId: 'ch3-empire-industry',
     visualId: 'history-timeline',
     front: 'Who was Emmeline Pankhurst (1858–1928), when did she found the WSPU ("Suffragettes"), and in which TWO years did women gain the vote?',
-    back: 'Born in Manchester in 1858, Emmeline Pankhurst helped found the Women’s Social and Political Union (WSPU) in 1903, whose members — the "Suffragettes" — used civil disobedience (chaining themselves to railings, smashing windows, going on hunger strike) to win votes for women.\n• 1918: Women aged 30 and over gained the right to vote (recognising women’s WWI effort).\n• 1928: Women gained the vote at age 21, equal with men (shortly before Emmeline died)!',
+    back: 'Born in Manchester in 1858, Emmeline Pankhurst helped found the Women’s Social and Political Union (WSPU) in 1903, whose members: the "Suffragettes", used civil disobedience (chaining themselves to railings, smashing windows, going on hunger strike) to win votes for women.\n• 1918: Women aged 30 and over gained the right to vote (recognising women’s WWI effort).\n• 1928: Women gained the vote at age 21, equal with men (shortly before Emmeline died)!',
     memoryHook:
       '💜✊ Ultimate Girl Power! 1903 = WSPU Suffragettes; 1918 = Vote at 30+; 1928 = Equal vote at 21! (Later lowered to 18 in 1969).',
   },
@@ -805,7 +805,7 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     subtopicId: 'ch3-world-wars',
     visualId: 'history-timeline',
     front: 'What event on 28 June 1914 triggered the First World War (1914–1918), and how many British casualties were suffered overall?',
-    back: 'The assassination of Archduke Franz Ferdinand of Austria set off a chain of events leading to WWI (1914–1918), where Britain and the Allied Powers (including France, Russia, Japan, Belgium, Serbia, and later Italy & the US — plus over 1 million Indians and troops from across the Empire) fought the Central Powers (mainly Germany, the Austro-Hungarian Empire, the Ottoman Empire, and Bulgaria). There were more than 2 million British casualties.',
+    back: 'The assassination of Archduke Franz Ferdinand of Austria set off a chain of events leading to WWI (1914–1918), where Britain and the Allied Powers (including France, Russia, Japan, Belgium, Serbia, and later Italy & the US: plus over 1 million Indians and troops from across the Empire) fought the Central Powers (mainly Germany, the Austro-Hungarian Empire, the Ottoman Empire, and Bulgaria). There were more than 2 million British casualties.',
     memoryHook:
       '💥🪖 28 June 1914 = Franz Ferdinand assassinated → WWI (1914–18), 2M+ British casualties & 1M+ Indian soldiers!',
   },
@@ -825,7 +825,7 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     subtopicId: 'ch3-world-wars',
     visualId: 'history-timeline',
     front: 'At what exact time and date did the First World War end?',
-    back: 'At 11:00 am on 11 November 1918 — victory for Britain and its allies (commemorated as Armistice / Remembrance Day).',
+    back: 'At 11:00 am on 11 November 1918, victory for Britain and its allies (commemorated as Armistice / Remembrance Day).',
     memoryHook:
       '🕚🌺 "11th hour, 11th day, 11th month of 1918!"',
   },
@@ -844,7 +844,7 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     chapterId: 'ch3',
     subtopicId: 'ch3-world-wars',
     front: 'What happened in Britain during the 1926 General Strike and the 1930s Great Depression?',
-    back: 'After high unemployment in the 1920s led to the 1926 General Strike, the world entered the "Great Depression" in 1929. Traditional heavy industries (such as shipbuilding in Scotland, north-east England, and Belfast, plus coal and steel) suffered badly, while new light industries — especially car manufacturing and aviation — developed alongside lower prices and a major 1930s house-building boom.',
+    back: 'After high unemployment in the 1920s led to the 1926 General Strike, the world entered the "Great Depression" in 1929. Traditional heavy industries (such as shipbuilding in Scotland, north-east England, and Belfast, plus coal and steel) suffered badly, while new light industries: especially car manufacturing and aviation, developed alongside lower prices and a major 1930s house-building boom.',
     memoryHook:
       '⛏️🚗 1926 General Strike → 1930s Depression hit coal & shipyards hard, while cars, planes & new semi-detached suburbs boomed!',
   },
@@ -884,7 +884,7 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     subtopicId: 'ch3-world-wars',
     visualId: 'history-timeline',
     front: 'What was the evacuation of Dunkirk in 1940, and how many men were rescued?',
-    back: 'After German forces defeated Allied troops and took control of France and Belgium in spring 1940, many civilian volunteers in small pleasure and fishing boats helped the Royal Navy rescue more than 300,000 British and French soldiers from the beaches around Dunkirk — giving rise to the phrase "the Dunkirk spirit".',
+    back: 'After German forces defeated Allied troops and took control of France and Belgium in spring 1940, many civilian volunteers in small pleasure and fishing boats helped the Royal Navy rescue more than 300,000 British and French soldiers from the beaches around Dunkirk: giving rise to the phrase "the Dunkirk spirit".',
     memoryHook:
       '🚤🌊 "Dunkirk 1940 = Little boats + Royal Navy rescued 300,000+ troops!"',
   },
@@ -913,7 +913,7 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     chapterId: 'ch3',
     subtopicId: 'ch3-world-wars',
     front: 'What was "The Blitz", and which English Midlands city was almost totally destroyed alongside heavy damage in London?',
-    back: 'Despite losing the Battle of Britain, the German air force continued bombing London and other British cities at night — called the Blitz. Coventry was almost totally destroyed, and great damage was caused across London (especially in the East End), inspiring the resilient "Blitz spirit".',
+    back: 'Despite losing the Battle of Britain, the German air force continued bombing London and other British cities at night: called the Blitz. Coventry was almost totally destroyed, and great damage was caused across London (especially in the East End), inspiring the resilient "Blitz spirit".',
     memoryHook:
       '💣🌃 Night bombing = The Blitz! London’s East End battered, and Coventry (plus its cathedral) almost flattened!',
   },
@@ -941,7 +941,7 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     chapterId: 'ch3',
     subtopicId: 'ch3-world-wars',
     front: 'How did the war against Japan end in August 1945, and which scientist working in Britain had earlier been the first to "split the atom"?',
-    back: 'The war against Japan ended in August 1945 when the United States dropped atomic bombs on the Japanese cities of Hiroshima and Nagasaki. Earlier, scientists led by Ernest Rutherford (born in New Zealand), working at Manchester and then Cambridge University, were the FIRST to "split the atom" — and British scientists later took part in the Manhattan Project in the US.',
+    back: 'The war against Japan ended in August 1945 when the United States dropped atomic bombs on the Japanese cities of Hiroshima and Nagasaki. Earlier, scientists led by Ernest Rutherford (born in New Zealand), working at Manchester and then Cambridge University, were the FIRST to "split the atom": and British scientists later took part in the Manhattan Project in the US.',
     memoryHook:
       '⚛️🔬 Ernest Rutherford (NZ-born, working at Manchester & Cambridge) = First team ever to split the atom!',
   },
@@ -1013,7 +1013,7 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     chapterId: 'ch3',
     subtopicId: 'ch3-modern-britain',
     front: 'What defined Britain’s "Swinging Sixties" in music, fashion, and social laws?',
-    back: 'The 1960s ("Swinging Sixties") brought surging pop music (The Beatles from Liverpool and The Rolling Stones), fashion innovations (Mary Quant popularised the miniskirt!), rising wealth (cars & consumer goods), and major liberalised social laws — reforming divorce and abortion laws (in England, Wales & Scotland), improving women’s workplace position, and abolishing capital punishment (the death penalty) for murder in 1965/1969.',
+    back: 'The 1960s ("Swinging Sixties") brought surging pop music (The Beatles from Liverpool and The Rolling Stones), fashion innovations (Mary Quant popularised the miniskirt!), rising wealth (cars & consumer goods), and major liberalised social laws: reforming divorce and abortion laws (in England, Wales & Scotland), improving women’s workplace position, and abolishing capital punishment (the death penalty) for murder in 1965/1969.',
     memoryHook:
       '🎸👗✌️ Swinging Sixties = Beatles, Stones, Mary Quant’s miniskirt, liberal divorce/abortion laws & ending the death penalty!',
   },
@@ -1032,7 +1032,7 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     subtopicId: 'ch3-modern-britain',
     visualId: 'history-timeline',
     front: 'In what year did the UK join the European Economic Community (EEC), and what troubles occurred in the 1970s?',
-    back: 'The UK joined the European Economic Community (EEC — precursor to the EU) in 1973 (alongside Ireland and Denmark, under Conservative PM Edward Heath). The late 1970s were marked by economic instability, balance-of-payments problems, strikes, and serious unrest ("the Troubles") in Northern Ireland, where the NI Parliament was suspended in 1972 and around 3,000 people lost their lives over ensuing decades.',
+    back: 'The UK joined the European Economic Community (EEC, precursor to the EU) in 1973 (alongside Ireland and Denmark, under Conservative PM Edward Heath). The late 1970s were marked by economic instability, balance-of-payments problems, strikes, and serious unrest ("the Troubles") in Northern Ireland, where the NI Parliament was suspended in 1972 and around 3,000 people lost their lives over ensuing decades.',
     memoryHook:
       '🇪🇺📅 "1973 = UK stepped INTO the EEC!" (1972 = NI Parliament suspended amid the Troubles).',
   },
@@ -1044,7 +1044,7 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     front: 'Who became the UK’s FIRST female Prime Minister in 1979, and what major economic changes did her government make?',
     back: 'Margaret Thatcher, leader of the Conservative Party, was elected in 1979 as the UK’s FIRST woman Prime Minister (and longest continuously serving PM of the 20th century, serving until 1990). Her government privatised nationalised industries, imposed legal controls on trade union powers, deregulated financial markets ( sparking huge growth in the City of London), and benefited from North Sea oil and gas revenues.',
     memoryHook:
-      '👜👩‍💼 "1979 = Margaret Thatcher became Britain’s FIRST female PM!" — Privatisation + City deregulation + North Sea oil.',
+      '👜👩‍💼 "1979 = Margaret Thatcher became Britain’s FIRST female PM!": Privatisation + City deregulation + North Sea oil.',
   },
   {
     id: 'fc-ch3-107',
@@ -1052,7 +1052,7 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     subtopicId: 'ch3-modern-britain',
     visualId: 'history-timeline',
     front: 'What caused the Falklands War in 1982, and what was the outcome?',
-    back: 'In 1982, Argentina invaded the Falkland Islands — a British Overseas Territory in the South Atlantic. A naval taskforce was sent from the UK under Margaret Thatcher’s government, and military action led to the recovery of the islands.',
+    back: 'In 1982, Argentina invaded the Falkland Islands, a British Overseas Territory in the South Atlantic. A naval taskforce was sent from the UK under Margaret Thatcher’s government, and military action led to the recovery of the islands.',
     memoryHook:
       '🚢🏝️ "1982 = Argentina invaded the Falklands → British taskforce sailed south & recovered them!"',
   },
@@ -1081,16 +1081,16 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     subtopicId: 'ch3-modern-britain',
     visualId: 'history-timeline',
     front: 'What major constitutional change ("Devolution") did the Labour government introduce in Scotland and Wales in 1999?',
-    back: 'Following referendums, the government introduced a Scottish Parliament (with substantial powers to legislate) and a Welsh Assembly (with fewer initial legislative powers, but considerable control over public services — now Senedd Cymru / Welsh Parliament), both opening in 1999!',
+    back: 'Following referendums, the government introduced a Scottish Parliament (with substantial powers to legislate) and a Welsh Assembly (with fewer initial legislative powers, but considerable control over public services: now Senedd Cymru / Welsh Parliament), both opening in 1999!',
     memoryHook:
-      '🏛️🏴󠁧󠁢󠁳󠁣󠁴󠁿🏴󠁧󠁢󠁷󠁬󠁳󠁿 "1999 = Devolution Party like it’s 1999!" — Scottish Parliament & Welsh Assembly opened their doors!',
+      '🏛️🏴󠁧󠁢󠁳󠁣󠁴󠁿🏴󠁧󠁢󠁷󠁬󠁳󠁿 "1999 = Devolution Party like it’s 1999!": Scottish Parliament & Welsh Assembly opened their doors!',
   },
   {
     id: 'fc-ch3-111',
     chapterId: 'ch3',
     subtopicId: 'ch3-modern-britain',
     front: 'Who became Prime Minister in 2007, and why was the May 2010 UK General Election historically unusual?',
-    back: 'Gordon Brown took over from Tony Blair as Labour PM in 2007. In May 2010, for the first time in the UK since 1974, NO political party won an overall majority — resulting in the Conservative and Liberal Democrat parties forming a coalition government with David Cameron as Prime Minister.',
+    back: 'Gordon Brown took over from Tony Blair as Labour PM in 2007. In May 2010, for the first time in the UK since 1974, NO political party won an overall majority: resulting in the Conservative and Liberal Democrat parties forming a coalition government with David Cameron as Prime Minister.',
     memoryHook:
       '🤝🗳️ 2007 = Gordon Brown; May 2010 = Hung Parliament → Cameron Conservative + LibDem Coalition!',
   },
@@ -1100,7 +1100,7 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     subtopicId: 'ch3-modern-britain',
     visualId: 'history-timeline',
     front: 'What global sporting celebration did London host in 2012, and where was the main Olympic Park built?',
-    back: 'In 2012, the UK hosted the London 2012 Olympic and Paralympic Games (making London the first city to host the modern Summer Olympics three times — 1908, 1948, and 2012!), with the main Olympic site regenerating Stratford in East London and Team GB finishing 3rd in the Olympic medal table.',
+    back: 'In 2012, the UK hosted the London 2012 Olympic and Paralympic Games (making London the first city to host the modern Summer Olympics three times: 1908-1948, and 2012!), with the main Olympic site regenerating Stratford in East London and Team GB finishing 3rd in the Olympic medal table.',
     memoryHook:
       '🥇🔥 London 2012 in Stratford = Britain’s golden summer of Olympics & Paralympics!',
   },
@@ -1120,7 +1120,7 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     subtopicId: 'ch3-modern-britain',
     visualId: 'history-timeline',
     front: 'What historic reign record did Queen Elizabeth II achieve before her death in 2022, and who succeeded her as monarch?',
-    back: 'Queen Elizabeth II reigned for 70 years from 1952 to September 2022 — celebrating her Platinum Jubilee in 2022 and surpassing Queen Victoria to become Britain’s longest-reigning monarch in history! She was succeeded upon her death by her eldest son, His Majesty King Charles III.',
+    back: 'Queen Elizabeth II reigned for 70 years from 1952 to September 2022, celebrating her Platinum Jubilee in 2022 and surpassing Queen Victoria to become Britain’s longest-reigning monarch in history! She was succeeded upon her death by her eldest son, His Majesty King Charles III.',
     memoryHook:
       '👑💜 Viva Forever! Elizabeth II = 70 years (1952–2022, longest reign ever + Platinum Jubilee) → Succeeded by King Charles III!',
   },
@@ -1138,7 +1138,7 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     chapterId: 'ch3',
     subtopicId: 'ch3-tudors-stuarts',
     front: 'What caused the Massacre of Glencoe in Scotland after the 1688 Glorious Revolution?',
-    back: 'When a Scottish clan (the MacDonalds of Glencoe) was late in taking the oath of loyalty to King William III due to bad weather, they were killed in the Massacre of Glencoe — causing deep distrust of the new government among Scottish Jacobites.',
+    back: 'When a Scottish clan (the MacDonalds of Glencoe) was late in taking the oath of loyalty to King William III due to bad weather, they were killed in the Massacre of Glencoe: causing deep distrust of the new government among Scottish Jacobites.',
     memoryHook:
       '🏔️❄️ Late oath in the snow → Tragic Massacre of Glencoe → fuelled Scottish Jacobite anger!',
   },
@@ -1147,7 +1147,7 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     chapterId: 'ch3',
     subtopicId: 'ch3-empire-industry',
     front: 'Who was Robert Burns (1759–1796), and what song did he write that is sung across the world at New Year?',
-    back: 'Known in Scotland as "The Bard", Scottish poet Robert Burns wrote in the Scots language, English with Scottish words, and standard English — revising old folk songs and writing "Auld Lang Syne", sung when celebrating the New Year (31 December / Hogmanay).',
+    back: 'Known in Scotland as "The Bard", Scottish poet Robert Burns wrote in the Scots language, English with Scottish words, and standard English: revising old folk songs and writing "Auld Lang Syne", sung when celebrating the New Year (31 December / Hogmanay).',
     memoryHook:
       '🎶🥃 Scotland’s Bard Robert Burns = "Should auld acquaintance be forgot..." (Auld Lang Syne)!',
   },
@@ -1192,7 +1192,7 @@ export const FLASHCARDS_CH3: readonly Flashcard[] = [
     chapterId: 'ch3',
     subtopicId: 'ch3-middle-ages',
     visualId: 'history-timeline',
-    front: 'Quick Timeline Check (Medieval Big 5): Match 1215, 1284, 1314, 1348, and 1415 to their landmark events!',
+    front: 'Quick Timeline Check (Medieval Big 5): Match 1215-1284-1314-1348, and 1415 to their landmark events!',
     back: '• 1215: Magna Carta (King John)\n• 1284: Statute of Rhuddlan (Edward I annexes Wales)\n• 1314: Battle of Bannockburn (Robert the Bruce wins for Scotland)\n• 1348: The Black Death arrives in Britain (1/3 die)\n• 1415: Battle of Agincourt (Henry V defeats French)',
     memoryHook:
       '⏳🌶️ Medieval Spice Ladder: 1215 Law → 1284 Wales → 1314 Bruce → 1348 Plague → 1415 Henry V (then 1485 Bosworth)!',
