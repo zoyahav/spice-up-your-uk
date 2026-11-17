@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AlertTriangle, X } from 'lucide-react';
 import { AppShell, type NavTab } from './components/layout/AppShell';
 import { InstallAppModal } from './components/layout/InstallAppModal';
@@ -37,15 +37,25 @@ export const App: React.FC = () => {
     questionIds: readonly string[];
   } | null>(null);
 
+  const isLightMode = data.settings.theme === 'light';
+
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+    document.documentElement.classList.toggle('theme-light', isLightMode);
+    document.body.style.backgroundColor = isLightMode ? '#F3E7D7' : '#1E1612';
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    if (metaTheme) {
+      metaTheme.setAttribute('content', isLightMode ? '#F3E7D7' : '#251B16');
+    }
+  }, [isLightMode]);
+
   if (!data.isLoaded) {
     return (
-      <div className="flex min-h-dvh items-center justify-center bg-[#140E0B] text-slate-300">
+      <div className="flex min-h-dvh items-center justify-center bg-[#1E1612] text-[#D2BDA8]">
         <p className="animate-pulse text-sm font-bold">Loading Spice Up Your UK...</p>
       </div>
     );
   }
-
-  const isLightMode = data.settings.theme === 'light';
 
   const handleToggleTheme = () => {
     void updateAppSettings({
@@ -98,7 +108,7 @@ export const App: React.FC = () => {
         dueCardsBadge={data.dueFlashcardCount}
       >
         {data.pairingNotice && (
-          <div className="mb-3 flex items-center justify-between rounded-2xl border border-emerald-500/40 bg-emerald-500/15 px-3.5 py-2.5 text-xs font-bold text-emerald-200">
+          <div className="callout-emerald mb-3 flex items-center justify-between rounded-2xl px-3.5 py-2.5 text-xs font-bold">
             <span>✓ {data.pairingNotice}</span>
             <button
               type="button"
@@ -111,18 +121,18 @@ export const App: React.FC = () => {
         )}
 
         {data.syncError && (
-          <div className="mb-3 rounded-2xl border border-rose-500/45 bg-rose-950/75 p-3 text-xs text-rose-100 shadow">
+          <div className="callout-rose mb-3 rounded-2xl p-3 text-xs shadow-sm">
             <div className="flex items-start justify-between gap-2">
               <div className="flex items-start gap-2">
-                <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-rose-400" />
+                <AlertTriangle className="accent-rose mt-0.5 h-4 w-4 shrink-0" />
                 <div>
-                  <p className="font-extrabold text-rose-200">Google Sheet Sync Failed</p>
-                  <p className="mt-0.5 leading-relaxed text-rose-100/90">{data.syncError}</p>
+                  <p className="accent-rose font-extrabold">Google Sheet Sync Failed</p>
+                  <p className="mt-0.5 leading-relaxed opacity-95">{data.syncError}</p>
                   <div className="mt-2 flex flex-wrap gap-2">
                     <button
                       type="button"
                       onClick={() => void data.triggerSync()}
-                      className="rounded-lg bg-rose-600 px-2.5 py-1 text-[11px] font-bold text-white hover:bg-rose-500"
+                      className="rounded-lg bg-rose-700 px-2.5 py-1 text-[11px] font-bold text-white hover:bg-rose-600"
                     >
                       Retry Sync
                     </button>
@@ -130,7 +140,7 @@ export const App: React.FC = () => {
                       <button
                         type="button"
                         onClick={() => handleSelectTab('us')}
-                        className="rounded-lg bg-slate-800 px-2.5 py-1 text-[11px] font-bold text-slate-200 hover:bg-slate-700"
+                        className="autumn-pill rounded-lg px-2.5 py-1 text-[11px] font-bold"
                       >
                         Open Sync Settings (Us)
                       </button>
@@ -141,7 +151,7 @@ export const App: React.FC = () => {
               <button
                 type="button"
                 onClick={data.clearSyncError}
-                className="rounded-lg p-1 text-rose-300 hover:bg-rose-900/60"
+                className="accent-rose rounded-lg p-1 opacity-80 hover:opacity-100"
                 aria-label="Dismiss sync error"
               >
                 <X className="h-4 w-4" />
@@ -222,6 +232,7 @@ export const App: React.FC = () => {
             missedQuestionIds={data.missedQuestionIds}
             testSessions={data.testSessions}
             hydratingStandardPack={data.hydratingStandardPack}
+            onRetryStandardPack={data.retryStandardPack}
             autoStartExamNumber={autoStartExamNumber}
             autoStartMistakes={autoStartMistakes}
             activeChallenge={activeChallenge}
@@ -264,6 +275,18 @@ export const App: React.FC = () => {
             outboxCount={data.outboxCount}
             syncError={data.syncError}
             onManualSync={data.triggerSync}
+            onDeviceReset={() => {
+              data.clearSyncError();
+              data.clearPairingNotice();
+              setFlashcardChapterFilter(null);
+              setAutoLaunchDeck(false);
+              setAutoStartExamNumber(null);
+              setAutoStartMistakes(false);
+              setActiveChallenge(null);
+              setInstallModalDismissedSession(false);
+              setShowChapterProgressPage(false);
+              setActiveTab('home');
+            }}
             isLightMode={isLightMode}
           />
         )}

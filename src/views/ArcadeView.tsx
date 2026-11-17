@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   ArrowDown,
   ArrowLeft,
   ArrowUp,
   Clock,
   Flame,
+  GripVertical,
   Shuffle,
   Swords,
   Trophy,
@@ -43,15 +44,16 @@ export const ArcadeView: React.FC<ArcadeViewProps> = ({
   gameScores,
   challenges,
   onPlayChallenge,
-  isLightMode,
 }) => {
   const [activeGame, setActiveGame] = useState<MiniGameId | null>(null);
 
-  // --- GAME 1: TIMELINE SORT STATE ---
+  // --- GAME 1: TIMELINE SORT STATE & DRAG-AND-DROP ---
   const [tlItems, setTlItems] = useState<TimelineEventItem[]>([]);
   const [tlRevealed, setTlRevealed] = useState(false);
   const [tlRoundScore, setTlRoundScore] = useState(0);
   const [tlStreak, setTlStreak] = useState(0);
+  const [draggedIdx, setDraggedIdx] = useState<number | null>(null);
+  const draggedIdxRef = useRef<number | null>(null);
 
   // --- GAME 2: 60s TUBE BLITZ STATE ---
   const [blitzSeconds, setBlitzSeconds] = useState(60);
@@ -72,10 +74,6 @@ export const ArcadeView: React.FC<ArcadeViewProps> = ({
   const [fmStartMs, setFmStartMs] = useState<number>(0);
   const [fmDoneScore, setFmDoneScore] = useState<number | null>(null);
 
-  const cardSurface = isLightMode
-    ? 'border-[#E6D6C3] bg-[#FFFDF9] shadow-sm'
-    : 'border-slate-800/90 bg-slate-900/85';
-
   // --- TIMELINE SORT HELPERS ---
   const startTimelineRound = () => {
     const sample = [...TIMELINE_EVENTS]
@@ -83,6 +81,8 @@ export const ArcadeView: React.FC<ArcadeViewProps> = ({
       .slice(0, 5);
     setTlItems(sample);
     setTlRevealed(false);
+    draggedIdxRef.current = null;
+    setDraggedIdx(null);
     setActiveGame('timeline-sort');
   };
 
@@ -98,7 +98,60 @@ export const ArcadeView: React.FC<ArcadeViewProps> = ({
     });
   };
 
+  const handleTimelinePointerDown = (e: React.PointerEvent<HTMLDivElement>, idx: number) => {
+    if (tlRevealed) return;
+    if (e.pointerType === 'mouse' && e.button !== 0) return;
+    if ((e.target as HTMLElement).closest('button')) return;
+
+    try {
+      e.currentTarget.setPointerCapture(e.pointerId);
+    } catch {
+      // Ignore pointer capture errors in synthetic test environments
+    }
+    draggedIdxRef.current = idx;
+    setDraggedIdx(idx);
+  };
+
+  const handleTimelinePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    const fromIdx = draggedIdxRef.current;
+    if (fromIdx === null || tlRevealed) return;
+
+    const elUnder = document.elementFromPoint(e.clientX, e.clientY);
+    const slotEl = elUnder?.closest('[data-tl-slot]') as HTMLElement | null;
+    if (!slotEl) return;
+
+    const toIdx = Number(slotEl.getAttribute('data-tl-slot'));
+    if (!Number.isInteger(toIdx) || toIdx < 0 || toIdx === fromIdx) return;
+
+    // Require crossing the target slot's midpoint so variable-height cards never bounce
+    const rect = slotEl.getBoundingClientRect();
+    if (toIdx > fromIdx && e.clientY < rect.top + rect.height * 0.42) return;
+    if (toIdx < fromIdx && e.clientY > rect.top + rect.height * 0.58) return;
+
+    draggedIdxRef.current = toIdx;
+    setDraggedIdx(toIdx);
+    setTlItems((prev) => {
+      if (fromIdx < 0 || fromIdx >= prev.length || toIdx < 0 || toIdx >= prev.length) {
+        return prev;
+      }
+      const copy = [...prev];
+      const [moved] = copy.splice(fromIdx, 1);
+      if (!moved) return prev;
+      copy.splice(toIdx, 0, moved);
+      return copy;
+    });
+  };
+
+  const handleTimelinePointerEnd = () => {
+    if (draggedIdxRef.current !== null) {
+      draggedIdxRef.current = null;
+      setDraggedIdx(null);
+    }
+  };
+
   const checkTimelineOrder = async () => {
+    draggedIdxRef.current = null;
+    setDraggedIdx(null);
     const sorted = [...tlItems].sort((a, b) => a.year - b.year);
     let exactMatches = 0;
     tlItems.forEach((item, idx) => {
@@ -239,64 +292,86 @@ export const ArcadeView: React.FC<ArcadeViewProps> = ({
           <button
             type="button"
             onClick={() => setActiveGame(null)}
-            className="inline-flex items-center gap-1 rounded-xl px-2.5 py-1 text-xs font-bold text-slate-400 hover:bg-slate-800 hover:text-white"
+            className="autumn-back-btn inline-flex items-center gap-1 rounded-xl px-2.5 py-1 text-xs font-bold"
           >
             <ArrowLeft className="h-4 w-4" />
             <span>Arcade</span>
           </button>
-          <span className="text-xs font-extrabold text-amber-400">
+          <span className="accent-amber text-xs font-extrabold">
             Score: {tlRoundScore} • Perfect Streak: {tlStreak}
           </span>
         </div>
 
-        <div className={`rounded-3xl border p-4 ${cardSurface}`}>
+        <div className="autumn-card rounded-3xl p-4">
           <h2 className="text-base font-black">⏳ Timeline Sort</h2>
-          <p className="text-xs text-slate-400">
-            Order from <strong>EARLIEST (top)</strong> to <strong>LATEST (bottom)</strong>!
+          <p className="autumn-muted text-xs">
+            Drag cards up or down from <strong>EARLIEST (top)</strong> to{' '}
+            <strong>LATEST (bottom)</strong>!
           </p>
 
           <div className="mt-3.5 space-y-2">
             {tlItems.map((item, idx) => {
               const expected = correctSorted[idx];
               const isSlotRight = tlRevealed && expected?.id === item.id;
+              const isDraggingThis = draggedIdx === idx;
               return (
                 <div
                   key={item.id}
-                  className={`flex items-center justify-between gap-2 rounded-2xl border p-3 ${
+                  data-tl-slot={idx}
+                  onDragStart={(e) => e.preventDefault()}
+                  onPointerDown={(e) => handleTimelinePointerDown(e, idx)}
+                  onPointerMove={handleTimelinePointerMove}
+                  onPointerUp={handleTimelinePointerEnd}
+                  onPointerCancel={handleTimelinePointerEnd}
+                  style={{ touchAction: tlRevealed ? 'auto' : 'none' }}
+                  className={`flex items-center justify-between gap-2.5 rounded-2xl p-3 select-none transition ${
                     tlRevealed
                       ? isSlotRight
-                        ? 'border-emerald-500/50 bg-emerald-500/15'
-                        : 'border-rose-500/50 bg-rose-500/15'
-                      : 'border-slate-700/80 bg-slate-950/50'
+                        ? 'callout-emerald'
+                        : 'callout-rose'
+                      : isDraggingThis
+                        ? 'callout-spice z-10 scale-[1.02] cursor-grabbing shadow-lg ring-2 ring-orange-500/65'
+                        : 'autumn-inset cursor-grab hover:border-orange-500/45'
                   }`}
                 >
+                  {!tlRevealed && (
+                    <span
+                      className="autumn-muted flex items-center gap-1 text-[11px] font-extrabold"
+                      aria-hidden="true"
+                    >
+                      <GripVertical className="h-4 w-4 shrink-0" />
+                      <span>#{idx + 1}</span>
+                    </span>
+                  )}
+
                   <div className="min-w-0 flex-1">
                     <p className="text-xs font-bold">{item.title}</p>
                     {tlRevealed && (
-                      <p className="mt-0.5 text-[11px] font-extrabold text-amber-300">
+                      <p className="accent-amber mt-0.5 text-[11px] font-extrabold">
                         Actual Year: {item.yearLabel} (Correct #{correctSorted.findIndex((c) => c.id === item.id) + 1})
                       </p>
                     )}
                   </div>
+
                   {!tlRevealed && (
-                    <div className="flex gap-1">
+                    <div className="flex shrink-0 gap-1">
                       <button
                         type="button"
                         disabled={idx === 0}
                         onClick={() => moveTimelineItem(idx, -1)}
-                        className="rounded-lg bg-slate-800 p-1.5 text-slate-200 disabled:opacity-30"
+                        className="autumn-pill rounded-lg p-1.5 disabled:opacity-30"
                         aria-label="Move earlier"
                       >
-                        <ArrowUp className="h-4 w-4" />
+                        <ArrowUp className="h-3.5 w-3.5" />
                       </button>
                       <button
                         type="button"
                         disabled={idx === tlItems.length - 1}
                         onClick={() => moveTimelineItem(idx, 1)}
-                        className="rounded-lg bg-slate-800 p-1.5 text-slate-200 disabled:opacity-30"
+                        className="autumn-pill rounded-lg p-1.5 disabled:opacity-30"
                         aria-label="Move later"
                       >
-                        <ArrowDown className="h-4 w-4" />
+                        <ArrowDown className="h-3.5 w-3.5" />
                       </button>
                     </div>
                   )}
@@ -332,18 +407,18 @@ export const ArcadeView: React.FC<ArcadeViewProps> = ({
               setBlitzRunning(false);
               setActiveGame(null);
             }}
-            className="inline-flex items-center gap-1 rounded-xl px-2.5 py-1 text-xs font-bold text-slate-400 hover:bg-slate-800 hover:text-white"
+            className="autumn-back-btn inline-flex items-center gap-1 rounded-xl px-2.5 py-1 text-xs font-bold"
           >
             <ArrowLeft className="h-4 w-4" />
             <span>Arcade</span>
           </button>
 
           <div className="flex items-center gap-2">
-            <span className="rounded-full bg-pink-500/20 px-2.5 py-1 text-xs font-black text-pink-300">
+            <span className="callout-spice rounded-full px-2.5 py-1 text-xs font-black">
               <Flame className="mr-1 inline h-3.5 w-3.5" />
               {blitzCombo}x Combo
             </span>
-            <span className="rounded-full bg-amber-500/20 px-2.5 py-1 font-mono text-xs font-black text-amber-300">
+            <span className="callout-amber rounded-full px-2.5 py-1 font-mono text-xs font-black">
               <Clock className="mr-1 inline h-3.5 w-3.5" />
               {blitzSeconds}s
             </span>
@@ -351,10 +426,10 @@ export const ArcadeView: React.FC<ArcadeViewProps> = ({
         </div>
 
         {!blitzRunning ? (
-          <div className={`rounded-3xl border p-6 text-center ${cardSurface}`}>
+          <div className="autumn-card rounded-3xl p-6 text-center">
             <p className="text-4xl">🚇</p>
             <h2 className="mt-2 text-2xl font-black">Mind the Gap! {blitzScore} pts!</h2>
-            <p className="mt-1 text-xs text-slate-400">
+            <p className="autumn-muted mt-1 text-xs">
               Best Combo: <strong>{blitzBestCombo}x</strong> • Sporty Spice speed!
             </p>
             <div className="mt-5 flex justify-center gap-2.5">
@@ -368,17 +443,17 @@ export const ArcadeView: React.FC<ArcadeViewProps> = ({
           </div>
         ) : q ? (
           <div
-            className={`space-y-4 rounded-3xl border p-5 transition ${
+            className={`space-y-4 rounded-3xl p-5 transition ${
               blitzFlash === 'right'
-                ? 'border-emerald-400 bg-emerald-950/50'
+                ? 'callout-emerald'
                 : blitzFlash === 'wrong'
-                  ? 'border-rose-500 bg-rose-950/50'
-                  : cardSurface
+                  ? 'callout-rose'
+                  : 'autumn-card'
             }`}
           >
             <div className="flex items-center justify-between text-xs font-black">
-              <span className="text-indigo-400">60s TUBE BLITZ</span>
-              <span className="text-lg text-amber-400">{blitzScore} pts</span>
+              <span className="accent-spice">60s TUBE BLITZ</span>
+              <span className="accent-amber text-lg">{blitzScore} pts</span>
             </div>
 
             <p className="text-base leading-snug font-extrabold">{q.prompt}</p>
@@ -389,7 +464,7 @@ export const ArcadeView: React.FC<ArcadeViewProps> = ({
                   key={idx}
                   type="button"
                   onClick={() => answerBlitz(idx)}
-                  className="w-full rounded-2xl border border-slate-700/80 bg-slate-950/60 p-3.5 text-left text-sm font-bold transition hover:border-pink-500 active:scale-[0.99]"
+                  className="autumn-inset w-full rounded-2xl p-3.5 text-left text-sm font-bold transition hover:border-orange-500/60 active:scale-[0.99]"
                 >
                   {opt}
                 </button>
@@ -408,21 +483,21 @@ export const ArcadeView: React.FC<ArcadeViewProps> = ({
           <button
             type="button"
             onClick={() => setActiveGame(null)}
-            className="inline-flex items-center gap-1 rounded-xl px-2.5 py-1 text-xs font-bold text-slate-400 hover:bg-slate-800 hover:text-white"
+            className="autumn-back-btn inline-flex items-center gap-1 rounded-xl px-2.5 py-1 text-xs font-bold"
           >
             <ArrowLeft className="h-4 w-4" />
             <span>Arcade</span>
           </button>
-          <span className="text-xs font-extrabold text-pink-400">
+          <span className="accent-spice text-xs font-extrabold">
             Matched {fmMatchedIds.size}/6 • Mistakes: {fmMistakes}
           </span>
         </div>
 
         {fmDoneScore !== null ? (
-          <div className={`rounded-3xl border p-6 text-center ${cardSurface}`}>
+          <div className="autumn-card rounded-3xl p-6 text-center">
             <p className="text-4xl">🎯</p>
             <h2 className="mt-2 text-2xl font-black">All 6 Pairs Matched: {fmDoneScore} pts!</h2>
-            <p className="mt-1 text-xs text-slate-400">Mistakes: {fmMistakes}</p>
+            <p className="autumn-muted mt-1 text-xs">Mistakes: {fmMistakes}</p>
             <div className="mt-5 flex justify-center gap-2.5">
               <Button variant="secondary" onClick={() => setActiveGame(null)}>
                 Back
@@ -433,9 +508,9 @@ export const ArcadeView: React.FC<ArcadeViewProps> = ({
             </div>
           </div>
         ) : (
-          <div className={`rounded-3xl border p-4 ${cardSurface}`}>
+          <div className="autumn-card rounded-3xl p-4">
             <h2 className="text-sm font-black">🎯 UK Fact Match</h2>
-            <p className="mb-3 text-xs text-slate-400">
+            <p className="autumn-muted mb-3 text-xs">
               Tap a clue on the left, then tap its matching fact on the right!
             </p>
             <div className="grid grid-cols-2 gap-2.5">
@@ -449,12 +524,12 @@ export const ArcadeView: React.FC<ArcadeViewProps> = ({
                       type="button"
                       disabled={matched}
                       onClick={() => setFmSelectedLeft(p.id)}
-                      className={`min-h-[54px] w-full rounded-xl border p-2.5 text-left text-xs font-bold transition ${
+                      className={`min-h-[54px] w-full rounded-xl p-2.5 text-left text-xs font-bold transition ${
                         matched
-                          ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-400 opacity-50'
+                          ? 'callout-emerald opacity-55'
                           : selected
-                            ? 'border-pink-500 bg-pink-600/25 text-pink-200 ring-2 ring-pink-500/40'
-                            : 'border-slate-700/80 bg-slate-950/50'
+                            ? 'callout-spice ring-2 ring-orange-500/60'
+                            : 'autumn-inset'
                       }`}
                     >
                       {p.left}
@@ -472,10 +547,10 @@ export const ArcadeView: React.FC<ArcadeViewProps> = ({
                       type="button"
                       disabled={matched}
                       onClick={() => void handleTapRightMatch(r.id)}
-                      className={`min-h-[54px] w-full rounded-xl border p-2.5 text-left text-xs font-bold transition ${
+                      className={`min-h-[54px] w-full rounded-xl p-2.5 text-left text-xs font-bold transition ${
                         matched
-                          ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-400 opacity-50'
-                          : 'border-slate-700/80 bg-slate-950/50 hover:border-amber-400'
+                          ? 'callout-emerald opacity-55'
+                          : 'autumn-inset hover:border-amber-500/60'
                       }`}
                     >
                       {r.text}
@@ -496,27 +571,31 @@ export const ArcadeView: React.FC<ArcadeViewProps> = ({
     title: string;
     desc: string;
     icon: React.ReactNode;
+    chipClass: string;
     onStart: () => void;
   }[] = [
     {
       id: 'tube-blitz',
       title: '60s Tube Blitz',
       desc: 'Rapid-fire sprint between Underground stops with up to 4x combo multipliers!',
-      icon: <Zap className="h-5 w-5 text-amber-400" />,
+      icon: <Zap className="accent-amber h-5 w-5" />,
+      chipClass: 'callout-amber',
       onStart: startTubeBlitz,
     },
     {
       id: 'timeline-sort',
       title: 'History Timeline Sort',
-      desc: 'Order 5 famous British events chronologically from Roman Britain to Brexit.',
-      icon: <Shuffle className="h-5 w-5 text-pink-400" />,
+      desc: 'Drag and sort 5 famous British events chronologically from Roman Britain to today.',
+      icon: <Shuffle className="accent-spice h-5 w-5" />,
+      chipClass: 'callout-spice',
       onStart: startTimelineRound,
     },
     {
       id: 'fact-match',
       title: 'UK Fact Match',
       desc: 'Pair Patron Saints, inventors, writers, parliament seats & landmarks against the clock!',
-      icon: <Trophy className="h-5 w-5 text-emerald-400" />,
+      icon: <Trophy className="accent-emerald h-5 w-5" />,
+      chipClass: 'callout-emerald',
       onStart: startFactMatch,
     },
   ];
@@ -529,24 +608,24 @@ export const ArcadeView: React.FC<ArcadeViewProps> = ({
           const myBest = getBestFor(activeProfile.id, g.id);
           const partnerBest = getBestFor(partnerProfile.id, g.id);
           return (
-            <div key={g.id} className={`rounded-3xl border p-4 ${cardSurface}`}>
+            <div key={g.id} className="autumn-card rounded-3xl p-4">
               <div className="flex items-start justify-between gap-3">
                 <div className="flex items-start gap-3">
-                  <div className="rounded-2xl bg-slate-800 p-2.5">{g.icon}</div>
+                  <div className={`rounded-2xl p-2.5 ${g.chipClass}`}>{g.icon}</div>
                   <div>
                     <h3 className="text-base font-black">{g.title}</h3>
-                    <p className="mt-0.5 text-xs leading-relaxed text-slate-400">{g.desc}</p>
+                    <p className="autumn-muted mt-0.5 text-xs leading-relaxed">{g.desc}</p>
                   </div>
                 </div>
               </div>
 
-              <div className="mt-3 flex items-center justify-between gap-2 border-t border-slate-800/70 pt-3">
-                <div className="text-[11px] text-slate-400">
-                  <span className="font-bold text-amber-300">
+              <div className="mt-3 flex items-center justify-between gap-2 border-t border-amber-900/20 pt-3">
+                <div className="autumn-muted text-[11px]">
+                  <span className="accent-amber font-bold">
                     You: {myBest}
                   </span>{' '}
                   •{' '}
-                  <span className="font-bold text-pink-300">
+                  <span className="accent-spice font-bold">
                     {partnerProfile.displayName}: {partnerBest}
                   </span>
                 </div>
@@ -560,12 +639,12 @@ export const ArcadeView: React.FC<ArcadeViewProps> = ({
       </section>
 
       {/* Head-to-Head Async Couple Challenges */}
-      <section className={`rounded-3xl border p-4 ${cardSurface}`}>
+      <section className="autumn-card rounded-3xl p-4">
         <div className="flex items-center gap-2">
-          <Swords className="h-5 w-5 text-pink-400" />
+          <Swords className="accent-spice h-5 w-5" />
           <h2 className="text-base font-black">2 Become 1: Partner Showdowns</h2>
         </div>
-        <p className="mt-1 text-xs text-slate-400">
+        <p className="autumn-muted mt-1 text-xs">
           Generate an identical question seed synced through your Google Sheet so you both play on your
           own phones and compare scores!
         </p>
@@ -597,11 +676,11 @@ export const ArcadeView: React.FC<ArcadeViewProps> = ({
               return (
                 <div
                   key={c.challengeId}
-                  className="flex items-center justify-between gap-2 rounded-2xl border border-slate-800 bg-slate-950/45 p-3 text-xs"
+                  className="autumn-inset flex items-center justify-between gap-2 rounded-2xl p-3 text-xs"
                 >
                   <div className="min-w-0 flex-1">
                     <p className="truncate font-extrabold">{c.title}</p>
-                    <p className="mt-0.5 text-[11px] text-slate-400">
+                    <p className="autumn-muted mt-0.5 text-[11px]">
                       A: {c.partnerAScore !== undefined ? `${c.partnerAScore}/${c.questionIds.length}` : 'Pending'}{' '}
                       • B:{' '}
                       {c.partnerBScore !== undefined ? `${c.partnerBScore}/${c.questionIds.length}` : 'Pending'}

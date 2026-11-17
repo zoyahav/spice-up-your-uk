@@ -34,7 +34,7 @@ export const SPICE_RANKS: readonly RankTier[] = [
     minXp: 750,
     subtitle: 'Backflipping through Tube Blitz rounds.',
     emoji: '👟',
-    gradient: 'from-sky-400 to-blue-600',
+    gradient: 'from-orange-500 to-amber-600',
   },
   {
     id: 'scary',
@@ -42,7 +42,7 @@ export const SPICE_RANKS: readonly RankTier[] = [
     minXp: 1600,
     subtitle: 'Tudors, Stuarts, and Supreme Courts fear you.',
     emoji: '🐆',
-    gradient: 'from-purple-500 to-fuchsia-600',
+    gradient: 'from-amber-600 to-red-700',
   },
   {
     id: 'ginger',

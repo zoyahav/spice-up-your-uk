@@ -8,8 +8,7 @@ const NATIONS = [
     date: '23 April',
     bankHoliday: false,
     flower: 'Tudor Rose',
-    color: 'border-rose-500/50 bg-rose-950/30',
-    badgeColor: 'bg-rose-600',
+    calloutClass: 'callout-rose',
     svg: (
       <svg viewBox="0 0 48 48" className="h-10 w-10">
         <circle cx="24" cy="24" r="18" fill="#E11D48" />
@@ -25,8 +24,7 @@ const NATIONS = [
     date: '30 November',
     bankHoliday: true,
     flower: 'Thistle',
-    color: 'border-sky-500/50 bg-sky-950/30',
-    badgeColor: 'bg-sky-600',
+    calloutClass: 'callout-spice',
     svg: (
       <svg viewBox="0 0 48 48" className="h-10 w-10">
         <path d="M16 22 L24 8 L32 22 Z" fill="#A855F7" />
@@ -42,8 +40,7 @@ const NATIONS = [
     date: '1 March',
     bankHoliday: false,
     flower: 'Daffodil (& Leek)',
-    color: 'border-amber-500/50 bg-amber-950/30',
-    badgeColor: 'bg-amber-600',
+    calloutClass: 'callout-amber',
     svg: (
       <svg viewBox="0 0 48 48" className="h-10 w-10">
         <circle cx="24" cy="20" r="13" fill="#FDE047" />
@@ -59,8 +56,7 @@ const NATIONS = [
     date: '17 March',
     bankHoliday: true,
     flower: 'Shamrock',
-    color: 'border-emerald-500/50 bg-emerald-950/30',
-    badgeColor: 'bg-emerald-600',
+    calloutClass: 'callout-emerald',
     svg: (
       <svg viewBox="0 0 48 48" className="h-10 w-10">
         <circle cx="18" cy="20" r="8" fill="#10B981" />
@@ -74,9 +70,9 @@ const NATIONS = [
 
 export const NationalEmblemsGrid: React.FC = () => {
   return (
-    <div className="rounded-2xl border border-slate-700/60 bg-slate-900/80 p-3.5 text-slate-100">
+    <div className="autumn-card rounded-2xl p-3.5">
       <div className="mb-2.5 flex items-center justify-between">
-        <span className="text-xs font-bold tracking-wider text-amber-400 uppercase">
+        <span className="accent-amber text-xs font-bold tracking-wider uppercase">
           🌼 Patron Saints, Capitals &amp; National Flowers Cheat Matrix
         </span>
       </div>
@@ -84,22 +80,22 @@ export const NationalEmblemsGrid: React.FC = () => {
         {NATIONS.map((n) => (
           <div
             key={n.nation}
-            className={`flex items-center gap-3 rounded-xl border p-2.5 ${n.color}`}
+            className={`flex items-center gap-3 rounded-xl p-2.5 ${n.calloutClass}`}
           >
             <div className="shrink-0">{n.svg}</div>
             <div className="min-w-0 flex-1">
               <div className="flex flex-wrap items-center justify-between gap-1">
-                <p className="text-xs font-bold text-white">{n.nation}</p>
+                <p className="text-xs font-extrabold">{n.nation}</p>
                 {n.bankHoliday && (
-                  <span className="shrink-0 rounded bg-emerald-500/20 px-1.5 py-0.5 text-[9px] font-bold text-emerald-300">
+                  <span className="rounded bg-emerald-700 px-1.5 py-0.5 text-[9px] font-bold text-white">
                     Official Bank Holiday!
                   </span>
                 )}
               </div>
-              <p className="text-[11px] text-slate-300">
-                Capital: <strong>{n.capital}</strong> • Flower: <span className="text-amber-200">{n.flower}</span>
+              <p className="text-[11px] opacity-95">
+                Capital: <strong>{n.capital}</strong> • Flower: <strong>{n.flower}</strong>
               </p>
-              <p className="text-[11px] font-semibold text-pink-300">
+              <p className="text-[11px] font-bold opacity-90">
                 {n.saint} • {n.date}
               </p>
             </div>

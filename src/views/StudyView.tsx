@@ -110,18 +110,14 @@ export const StudyView: React.FC<StudyViewProps> = ({
     setCardIndex((idx) => idx + 1);
   };
 
-  const cardSurface = isLightMode
-    ? 'border-[#E6D6C3] bg-[#FFFDF9] shadow-sm'
-    : 'border-slate-800/90 bg-slate-900/85';
-
   // Active Flashcard Review Screen
   if (sessionCards !== null) {
     if (sessionCards.length === 0) {
       return (
-        <div className={`rounded-3xl border p-6 text-center ${cardSurface}`}>
+        <div className="autumn-card rounded-3xl p-6 text-center">
           <p className="text-3xl">🎉</p>
           <h2 className="mt-2 text-lg font-black">All caught up on due reviews!</h2>
-          <p className="mt-1 text-xs text-slate-400">
+          <p className="autumn-muted mt-1 text-xs">
             Switch mode to <strong>Smart Mix</strong> or <strong>Cram All</strong> to study extra
             cards right now.
           </p>
@@ -139,10 +135,10 @@ export const StudyView: React.FC<StudyViewProps> = ({
 
     if (!currentCard) {
       return (
-        <div className={`rounded-3xl border p-6 text-center ${cardSurface}`}>
+        <div className="autumn-card rounded-3xl p-6 text-center">
           <p className="text-4xl">👑</p>
           <h2 className="mt-2 text-xl font-black">Zig-A-Zig-Ah! Deck Session Complete!</h2>
-          <p className="mt-1 text-xs text-slate-400">
+          <p className="autumn-muted mt-1 text-xs">
             You reviewed <strong>{sessionCompletedCount}</strong> flashcards and locked them into
             your SM-2 schedule.
           </p>
@@ -166,12 +162,12 @@ export const StudyView: React.FC<StudyViewProps> = ({
           <button
             type="button"
             onClick={() => setSessionCards(null)}
-            className="inline-flex items-center gap-1 rounded-xl px-2.5 py-1.5 text-xs font-bold text-slate-400 hover:bg-slate-800 hover:text-white"
+            className="autumn-back-btn inline-flex items-center gap-1 rounded-xl px-2.5 py-1.5 text-xs font-bold"
           >
             <ArrowLeft className="h-4 w-4" />
             <span>Exit Deck</span>
           </button>
-          <span className="text-xs font-extrabold text-pink-400">
+          <span className="accent-spice text-xs font-extrabold">
             Card {cardIndex + 1} of {sessionCards.length}
           </span>
         </div>
@@ -192,15 +188,17 @@ export const StudyView: React.FC<StudyViewProps> = ({
             }}
             className={`relative min-h-[270px] w-full cursor-pointer rounded-3xl border p-5 transition-all duration-300 ${
               isFlipped
-                ? 'border-pink-500/60 bg-gradient-to-br from-slate-900 via-slate-900 to-indigo-950 text-white'
-                : `${cardSurface}`
+                ? isLightMode
+                  ? 'border-[#C79B74] bg-gradient-to-br from-[#FBF4EA] via-[#F4E6D3] to-[#EAD5BC] text-[#332319] shadow-sm'
+                  : 'border-[#7D4F36] bg-gradient-to-br from-[#2E211A] via-[#3A281F] to-[#4A3224] text-[#F2E6D8] shadow-md'
+                : 'autumn-card'
             }`}
           >
             <div className="mb-3 flex items-center justify-between text-[11px] font-bold">
-              <span className="rounded-lg bg-pink-500/15 px-2 py-0.5 text-pink-400 uppercase">
+              <span className="callout-spice rounded-lg px-2 py-0.5 uppercase">
                 {currentCard.chapterId.toUpperCase()} • {isFlipped ? 'ANSWER' : 'QUESTION'}
               </span>
-              <span className="inline-flex items-center gap-1 text-slate-400">
+              <span className="autumn-muted inline-flex items-center gap-1">
                 <RotateCcw className="h-3 w-3" /> Tap card to flip
               </span>
             </div>
@@ -214,7 +212,7 @@ export const StudyView: React.FC<StudyViewProps> = ({
                 {currentCard.memoryHook && (
                   <div className="mt-2">
                     {showFrontHint ? (
-                      <div className="rounded-2xl border border-amber-500/35 bg-amber-500/10 p-3 text-xs text-amber-200">
+                      <div className="callout-amber rounded-2xl p-3 text-xs">
                         <span className="font-extrabold">Memory Tip: </span>
                         {currentCard.memoryHook}
                       </div>
@@ -225,7 +223,7 @@ export const StudyView: React.FC<StudyViewProps> = ({
                           e.stopPropagation();
                           setShowFrontHint(true);
                         }}
-                        className="inline-flex items-center gap-1.5 rounded-xl border border-amber-500/30 bg-amber-500/10 px-3 py-1.5 text-xs font-bold text-amber-300 hover:bg-amber-500/20"
+                        className="callout-amber inline-flex items-center gap-1.5 rounded-xl px-3 py-1.5 text-xs font-bold transition hover:opacity-90"
                       >
                         <Lightbulb className="h-3.5 w-3.5" />
                         <span>Peek Memory Tip</span>
@@ -236,13 +234,13 @@ export const StudyView: React.FC<StudyViewProps> = ({
               </div>
             ) : (
               <div className="space-y-3.5">
-                <p className="text-base leading-relaxed font-extrabold text-emerald-300">
+                <p className="accent-emerald text-base leading-relaxed font-extrabold">
                   {currentCard.back}
                 </p>
 
                 {currentCard.memoryHook && (
-                  <div className="rounded-2xl border border-pink-500/35 bg-pink-500/10 p-3 text-xs leading-relaxed text-pink-100">
-                    <p className="mb-0.5 font-extrabold text-pink-300">
+                  <div className="callout-spice rounded-2xl p-3 text-xs leading-relaxed">
+                    <p className="accent-spice mb-0.5 font-extrabold">
                       <Sparkles className="mr-1 inline h-3.5 w-3.5" />
                       Memory Tip:
                     </p>
@@ -267,7 +265,7 @@ export const StudyView: React.FC<StudyViewProps> = ({
           </Button>
         ) : (
           <div className="space-y-1.5">
-            <p className="text-center text-[11px] font-semibold text-slate-400">
+            <p className="autumn-muted text-center text-[11px] font-semibold">
               How well did you know this?
             </p>
             <div className="grid grid-cols-4 gap-2">
@@ -307,7 +305,7 @@ export const StudyView: React.FC<StudyViewProps> = ({
   return (
     <div className="space-y-4">
       {/* Sub-navigation Pills */}
-      <div className="grid grid-cols-4 gap-1.5 rounded-2xl border border-slate-800 bg-slate-900/80 p-1">
+      <div className="autumn-tabs grid grid-cols-4 gap-1.5 rounded-2xl p-1">
         {(
           [
             ['flashcards', 'Cards', <Layers key="c" className="h-3.5 w-3.5" />],
@@ -322,8 +320,8 @@ export const StudyView: React.FC<StudyViewProps> = ({
             onClick={() => setSubTab(id)}
             className={`flex items-center justify-center gap-1 rounded-xl py-2 text-xs font-extrabold transition ${
               subTab === id
-                ? 'bg-pink-600 text-white shadow'
-                : 'text-slate-400 hover:text-slate-200'
+                ? 'bg-orange-600 text-[#FAF1E6] shadow-sm'
+                : 'autumn-tab-inactive'
             }`}
           >
             {icon}
@@ -340,8 +338,8 @@ export const StudyView: React.FC<StudyViewProps> = ({
             onClick={() => setSelectedChapter('all')}
             className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-bold transition ${
               selectedChapter === 'all'
-                ? 'bg-pink-600 text-white'
-                : 'bg-slate-800/80 text-slate-300'
+                ? 'bg-orange-600 text-[#FAF1E6]'
+                : 'autumn-pill'
             }`}
           >
             All Chapters
@@ -353,8 +351,8 @@ export const StudyView: React.FC<StudyViewProps> = ({
               onClick={() => setSelectedChapter(ch.id)}
               className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-bold transition ${
                 selectedChapter === ch.id
-                  ? 'bg-pink-600 text-white'
-                  : 'bg-slate-800/80 text-slate-300'
+                  ? 'bg-orange-600 text-[#FAF1E6]'
+                  : 'autumn-pill'
               }`}
             >
               Ch {ch.number}: {ch.shortTitle}
@@ -366,9 +364,9 @@ export const StudyView: React.FC<StudyViewProps> = ({
       {/* TAB 1: SM-2 Flashcard Launcher */}
       {subTab === 'flashcards' && (
         <div className="space-y-3.5">
-          <div className={`rounded-3xl border p-4 ${cardSurface}`}>
+          <div className="autumn-card rounded-3xl p-4">
             <h2 className="text-base font-black">Spaced Repetition (SM-2) Flashcards</h2>
-            <p className="mt-1 text-xs text-slate-400">
+            <p className="autumn-muted mt-1 text-xs">
               {allFlashcards.length} cards bundled offline with SM-2 spaced repetition and
               mnemonics for tricky dates &amp; numbers.
             </p>
@@ -385,14 +383,14 @@ export const StudyView: React.FC<StudyViewProps> = ({
                   key={m}
                   type="button"
                   onClick={() => setDeckMode(m)}
-                  className={`rounded-2xl border p-2.5 text-left transition ${
+                  className={`rounded-2xl p-2.5 text-left transition ${
                     deckMode === m
-                      ? 'border-pink-500 bg-pink-500/15'
-                      : 'border-slate-800 bg-slate-950/40'
+                      ? 'callout-spice ring-1 ring-orange-500/60'
+                      : 'autumn-inset'
                   }`}
                 >
                   <p className="text-xs font-extrabold">{title}</p>
-                  <p className="text-[10px] text-slate-400">{sub}</p>
+                  <p className="autumn-muted text-[10px]">{sub}</p>
                 </button>
               ))}
             </div>
@@ -411,13 +409,13 @@ export const StudyView: React.FC<StudyViewProps> = ({
               return (
                 <div
                   key={ch.id}
-                  className={`flex items-center justify-between gap-3 rounded-2xl border p-3.5 ${cardSurface}`}
+                  className="autumn-card flex items-center justify-between gap-3 rounded-2xl p-3.5"
                 >
                   <div className="min-w-0 flex-1">
                     <p className="text-xs font-extrabold">
                       Ch {ch.number}: {ch.title}
                     </p>
-                    <p className="mt-0.5 text-[11px] text-slate-400">
+                    <p className="autumn-muted mt-0.5 text-[11px]">
                       {m?.cardsSeen ?? 0} / {chCards.length} cards studied • {ch.examWeightHint}
                     </p>
                   </div>
@@ -441,25 +439,25 @@ export const StudyView: React.FC<StudyViewProps> = ({
           {STUDY_SECTIONS.filter(
             (sec) => selectedChapter === 'all' || sec.chapterId === selectedChapter,
           ).map((sec) => (
-            <article key={sec.id} className={`space-y-3 rounded-3xl border p-4 ${cardSurface}`}>
+            <article key={sec.id} className="autumn-card space-y-3 rounded-3xl p-4">
               <div>
-                <span className="rounded-md bg-pink-500/15 px-2 py-0.5 text-[10px] font-bold text-pink-400 uppercase">
+                <span className="callout-spice rounded-md px-2 py-0.5 text-[10px] font-bold uppercase">
                   {sec.chapterId.toUpperCase()}
                 </span>
                 <h3 className="mt-1.5 text-base font-black">{sec.title}</h3>
               </div>
 
-              <ul className="space-y-2 text-xs leading-relaxed">
+              <ul className="autumn-soft space-y-2 text-xs leading-relaxed">
                 {sec.keyFacts.map((fact, idx) => (
                   <li key={idx} className="flex gap-2">
-                    <span className="mt-0.5 shrink-0 text-pink-400">•</span>
+                    <span className="accent-spice mt-0.5 shrink-0 font-bold">•</span>
                     <span>{fact}</span>
                   </li>
                 ))}
               </ul>
 
               {sec.memoryHook && (
-                <div className="rounded-2xl border border-amber-500/35 bg-amber-500/10 p-3 text-xs leading-relaxed text-amber-200">
+                <div className="callout-amber rounded-2xl p-3 text-xs leading-relaxed">
                   {sec.memoryHook}
                 </div>
               )}
@@ -490,15 +488,15 @@ export const StudyView: React.FC<StudyViewProps> = ({
       {/* TAB 4: Reddit & Official Community Links Vault + Test Day Checklist */}
       {subTab === 'vault' && (
         <div className="space-y-4">
-          <div className={`rounded-3xl border p-4 ${cardSurface}`}>
+          <div className="autumn-card rounded-3xl p-4">
             <h3 className="flex items-center gap-1.5 text-sm font-black">
-              <CheckSquare className="h-4 w-4 text-emerald-400" />
+              <CheckSquare className="accent-emerald h-4 w-4" />
               <span>Official Test-Day &amp; eVisa Checklist</span>
             </h3>
-            <ul className="mt-2.5 space-y-2 text-xs leading-relaxed">
+            <ul className="autumn-soft mt-2.5 space-y-2 text-xs leading-relaxed">
               {TEST_DAY_CHECKLIST.map((item, i) => (
                 <li key={i} className="flex gap-2">
-                  <span className="font-bold text-emerald-400">✓</span>
+                  <span className="accent-emerald font-bold">✓</span>
                   <span>{item}</span>
                 </li>
               ))}
@@ -507,10 +505,10 @@ export const StudyView: React.FC<StudyViewProps> = ({
 
           <div className="space-y-2.5">
             {COMMUNITY_RESOURCES.map((res) => (
-              <div key={res.id} className={`rounded-2xl border p-3.5 ${cardSurface}`}>
+              <div key={res.id} className="autumn-card rounded-2xl p-3.5">
                 <div className="flex items-start justify-between gap-2">
                   <div>
-                    <span className="rounded-md bg-indigo-500/20 px-2 py-0.5 text-[10px] font-bold text-indigo-300">
+                    <span className="callout-amber rounded-md px-2 py-0.5 text-[10px] font-bold">
                       {res.badge}
                     </span>
                     <h4 className="mt-1 text-sm font-extrabold">{res.title}</h4>
@@ -519,14 +517,14 @@ export const StudyView: React.FC<StudyViewProps> = ({
                     href={res.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="shrink-0 rounded-xl bg-slate-800 p-2 text-pink-400 hover:bg-slate-700"
+                    className="autumn-pill shrink-0 rounded-xl p-2"
                     title="Open online link"
                   >
-                    <ExternalLink className="h-4 w-4" />
+                    <ExternalLink className="accent-spice h-4 w-4" />
                   </a>
                 </div>
-                <p className="mt-1.5 text-xs leading-relaxed text-slate-400">{res.summary}</p>
-                <p className="mt-2 rounded-xl bg-pink-500/10 px-2.5 py-1.5 text-[11px] text-pink-300">
+                <p className="autumn-muted mt-1.5 text-xs leading-relaxed">{res.summary}</p>
+                <p className="callout-spice mt-2 rounded-xl px-2.5 py-1.5 text-[11px]">
                   🌶️ <strong>Tip:</strong> {res.spiceTip}
                 </p>
               </div>

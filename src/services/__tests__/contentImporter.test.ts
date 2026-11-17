@@ -81,9 +81,39 @@ describe('External JSON / CSV / Remote URL Content Importer', () => {
     const parsed = parseImportedContent(dictJson, 'ch1', '2026-11-17T00:00:00.000Z', 'std18');
     expect(parsed.questionsAdded).toBe(1);
     const hydrated = hydrateCustomContent(parsed.records);
-    expect(hydrated.questions[0]?.id.startsWith('std18-q-ex01-')).toBe(true);
+    expect(hydrated.questions[0]?.id.startsWith('std18-q-ex01-01-')).toBe(true);
     expect(hydrated.questions[0]?.type).toBe('multiple');
     expect(hydrated.questions[0]?.correctIndices).toEqual([0, 1]);
     expect(hydrated.questions[0]?.explanation).toContain('Respect and obey');
+  });
+
+  it('preserves lexicographical primary-key ordering across questions within an exam', () => {
+    const dictJson = JSON.stringify({
+      exams: {
+        '1': [
+          {
+            id: 1,
+            question: 'Zebra prompt that hashes differently?',
+            answers: [
+              { text: 'Yes', isCorrect: true },
+              { text: 'No', isCorrect: false },
+            ],
+          },
+          {
+            id: 2,
+            question: 'Alpha prompt second in exam?',
+            answers: [
+              { text: 'Yes', isCorrect: true },
+              { text: 'No', isCorrect: false },
+            ],
+          },
+        ],
+      },
+    });
+    const parsed = parseImportedContent(dictJson, 'ch1', '2026-11-17T00:00:00.000Z', 'std18');
+    const sortedByPk = [...parsed.records].sort((a, b) => a.itemId.localeCompare(b.itemId));
+    const hydrated = hydrateCustomContent(sortedByPk);
+    expect(hydrated.questions[0]?.prompt).toContain('Zebra');
+    expect(hydrated.questions[1]?.prompt).toContain('Alpha');
   });
 });

@@ -1,39 +1,96 @@
 @import "tailwindcss";
 
-/* Warm Autumn Theme Overrides (replaces cool blue-grey slate/indigo with warm espresso, umber, terracotta, and burnt orange) */
+/* Cozy Autumn Cafe & Parchment Palette
+   Dark: Roasted cocoa (#1E1612), chestnut cards (#2A1F19), warm taupe borders (#4B392E), warm cream text (#F2E6D8)
+   Light: Oatmilk (#F3E7D7), soft ivory parchment cards (#FBF4EA), warm almond insets (#EADACA), roasted coffee text (#332319)
+   Accents: Terracotta/rust, honey/ochre, sage/moss green, and muted cranberry/burgundy */
 @theme {
-  --color-slate-50: #FAF4EC;
-  --color-slate-100: #F3E9DD;
-  --color-slate-200: #E5D5C5;
-  --color-slate-300: #CFC0B2;
-  --color-slate-400: #A69281;
-  --color-slate-500: #826E5E;
-  --color-slate-600: #5E4C3F;
-  --color-slate-700: #44352B;
-  --color-slate-800: #2D221B;
-  --color-slate-900: #1E1612;
-  --color-slate-950: #140E0B;
+  --color-slate-50: #FBF4EA;
+  --color-slate-100: #F2E6D8;
+  --color-slate-200: #E5D4C2;
+  --color-slate-300: #D2BDA8;
+  --color-slate-400: #B39C88;
+  --color-slate-500: #8D7664;
+  --color-slate-600: #6B5647;
+  --color-slate-700: #4B392E;
+  --color-slate-800: #362820;
+  --color-slate-900: #2A1F19;
+  --color-slate-950: #1E1612;
 
-  --color-pink-200: #FED7AA;
-  --color-pink-300: #FDBA74;
-  --color-pink-400: #FB923C;
-  --color-pink-500: #EA580C;
-  --color-pink-600: #C2410C;
-  --color-pink-950: #431407;
+  /* Terracotta & Cinnamon Rust */
+  --color-orange-100: #F8E6D7;
+  --color-orange-200: #F0CFB5;
+  --color-orange-300: #E3AF89;
+  --color-orange-400: #D4885C;
+  --color-orange-500: #C0673E;
+  --color-orange-600: #A8522E;
+  --color-orange-700: #8B4123;
+  --color-orange-800: #6E331B;
+  --color-orange-900: #572816;
+  --color-orange-950: #36180D;
 
-  --color-indigo-200: #FDE68A;
-  --color-indigo-300: #FCD34D;
-  --color-indigo-400: #F59E0B;
-  --color-indigo-500: #D97706;
-  --color-indigo-600: #B45309;
-  --color-indigo-900: #78350F;
-  --color-indigo-950: #3D1F0D;
+  --color-pink-100: #F8E6D7;
+  --color-pink-200: #F0CFB5;
+  --color-pink-300: #E3AF89;
+  --color-pink-400: #D4885C;
+  --color-pink-500: #C0673E;
+  --color-pink-600: #A8522E;
+  --color-pink-950: #36180D;
+
+  /* Honey & Golden Ochre */
+  --color-amber-100: #F9EDD2;
+  --color-amber-200: #F2DCAD;
+  --color-amber-300: #E5C27E;
+  --color-amber-400: #D4A453;
+  --color-amber-500: #BA8738;
+  --color-amber-600: #9A6C28;
+  --color-amber-700: #7B541E;
+  --color-amber-800: #614117;
+  --color-amber-900: #4D3313;
+  --color-amber-950: #311F0B;
+
+  --color-indigo-200: #F2DCAD;
+  --color-indigo-300: #E5C27E;
+  --color-indigo-400: #D4A453;
+  --color-indigo-500: #BA8738;
+  --color-indigo-600: #9A6C28;
+  --color-indigo-900: #4D3313;
+  --color-indigo-950: #311F0B;
+
+  /* Sage & Moss Green */
+  --color-emerald-100: #E3EDE0;
+  --color-emerald-200: #C8DCC3;
+  --color-emerald-300: #A1C09B;
+  --color-emerald-400: #7CA376;
+  --color-emerald-500: #5E8858;
+  --color-emerald-600: #4C7147;
+  --color-emerald-700: #3E5D3A;
+  --color-emerald-800: #324B2F;
+  --color-emerald-900: #273B25;
+  --color-emerald-950: #192618;
+
+  /* Muted Cranberry & Mulled Burgundy */
+  --color-rose-100: #F3E1E2;
+  --color-rose-200: #E4C2C5;
+  --color-rose-300: #CF989D;
+  --color-rose-400: #B97279;
+  --color-rose-500: #A0545C;
+  --color-rose-600: #874149;
+  --color-rose-700: #6E333A;
+  --color-rose-800: #59282E;
+  --color-rose-900: #472025;
+  --color-rose-950: #2C1316;
 }
 
 @layer base {
   :root {
     --safe-top: env(safe-area-inset-top, 0px);
     --safe-bottom: env(safe-area-inset-bottom, 0px);
+    color-scheme: dark;
+  }
+
+  :root.theme-light {
+    color-scheme: light;
   }
 
   html {
@@ -44,6 +101,287 @@
   body {
     overscroll-behavior-y: none;
   }
+}
+
+/* Cozy Autumn Surfaces & Typography */
+.autumn-card {
+  border: 1px solid #4B392E;
+  background-color: #2A1F19;
+  color: #F2E6D8;
+  box-shadow: 0 2px 10px rgba(12, 8, 5, 0.22);
+}
+.theme-light .autumn-card {
+  border-color: #DECBB5;
+  background-color: #FBF4EA;
+  color: #332319;
+  box-shadow: 0 2px 8px rgba(92, 58, 28, 0.07);
+}
+
+.autumn-inset {
+  border: 1px solid #443329;
+  background-color: #221914;
+  color: #EBDCCB;
+}
+.theme-light .autumn-inset {
+  border-color: #DBC6AE;
+  background-color: #EADACA;
+  color: #332319;
+}
+
+.autumn-input {
+  border: 1px solid #533F33;
+  background-color: #201712;
+  color: #F2E6D8;
+  color-scheme: dark;
+}
+.autumn-input::placeholder {
+  color: #9A8371;
+}
+.autumn-input:focus {
+  outline: none;
+  border-color: #C0673E;
+}
+.theme-light .autumn-input {
+  border-color: #CFB89E;
+  background-color: #F7EDE0;
+  color: #332319;
+  color-scheme: light;
+}
+.theme-light .autumn-input::placeholder {
+  color: #8E7663;
+}
+.theme-light .autumn-input:focus {
+  border-color: #A8522E;
+}
+
+.autumn-tabs {
+  border: 1px solid #48362B;
+  background-color: #241B16;
+}
+.theme-light .autumn-tabs {
+  border-color: #D8C3AB;
+  background-color: #E8D7C5;
+}
+
+.autumn-tab-inactive {
+  color: #B39C88;
+}
+.autumn-tab-inactive:hover {
+  color: #F2E6D8;
+}
+.theme-light .autumn-tab-inactive {
+  color: #6E5644;
+}
+.theme-light .autumn-tab-inactive:hover {
+  color: #332319;
+}
+
+.autumn-pill {
+  background-color: #382A21;
+  color: #E4D3C1;
+}
+.autumn-pill:hover {
+  background-color: #453429;
+  color: #F2E6D8;
+}
+.theme-light .autumn-pill {
+  background-color: #E6D5C2;
+  color: #4B3627;
+}
+.theme-light .autumn-pill:hover {
+  background-color: #DCC7B0;
+  color: #332319;
+}
+
+.autumn-back-btn {
+  color: #B39C88;
+}
+.autumn-back-btn:hover {
+  background-color: #362820;
+  color: #F2E6D8;
+}
+.theme-light .autumn-back-btn {
+  color: #6E5644;
+}
+.theme-light .autumn-back-btn:hover {
+  background-color: #E6D5C2;
+  color: #332319;
+}
+
+.autumn-muted {
+  color: #B39C88;
+}
+.theme-light .autumn-muted {
+  color: #705846;
+}
+
+.autumn-soft {
+  color: #E4D3C1;
+}
+.theme-light .autumn-soft {
+  color: #4A3628;
+}
+
+.autumn-track {
+  background-color: #392B22;
+}
+.theme-light .autumn-track {
+  background-color: #DFCCB6;
+}
+
+/* Cozy Tactile Buttons */
+.autumn-btn-primary {
+  background: linear-gradient(135deg, #B55B34 0%, #9E6830 100%);
+  color: #FAF1E6;
+  border-bottom: 3px solid #6E341C;
+  box-shadow: 0 2px 6px rgba(68, 32, 16, 0.25);
+}
+.autumn-btn-primary:hover {
+  background: linear-gradient(135deg, #C1653D 0%, #AC7337 100%);
+}
+
+.autumn-btn-secondary {
+  background-color: #382A21;
+  color: #EFE2D2;
+  border-bottom: 3px solid #221914;
+}
+.autumn-btn-secondary:hover {
+  background-color: #453429;
+}
+.theme-light .autumn-btn-secondary {
+  background-color: #E7D6C4;
+  color: #332319;
+  border-bottom: 3px solid #C8B198;
+}
+.theme-light .autumn-btn-secondary:hover {
+  background-color: #DEC9B3;
+}
+
+.autumn-btn-sage {
+  background-color: #4D6F48;
+  color: #F6F1E9;
+  border-bottom: 3px solid #30472D;
+}
+.autumn-btn-sage:hover {
+  background-color: #587D52;
+}
+
+.autumn-btn-ochre {
+  background-color: #C28E42;
+  color: #241810;
+  border-bottom: 3px solid #8A6125;
+}
+.autumn-btn-ochre:hover {
+  background-color: #CE994B;
+}
+
+.autumn-btn-cranberry {
+  background-color: #8E353F;
+  color: #FAF1E6;
+  border-bottom: 3px solid #591F26;
+}
+.autumn-btn-cranberry:hover {
+  background-color: #9E3D48;
+}
+
+.autumn-map-canvas {
+  background-color: #211813;
+  border: 1px solid #48362B;
+}
+.theme-light .autumn-map-canvas {
+  background-color: #E7D6C3;
+  border: 1px solid #CFB89E;
+}
+
+.autumn-btn-ghost {
+  background-color: transparent;
+  color: #D2BDA8;
+  border: 1px solid #523F33;
+}
+.autumn-btn-ghost:hover {
+  background-color: rgba(56, 42, 33, 0.65);
+}
+.theme-light .autumn-btn-ghost {
+  background-color: transparent;
+  color: #543E2E;
+  border: 1px solid #CEB8A0;
+}
+.theme-light .autumn-btn-ghost:hover {
+  background-color: rgba(231, 214, 196, 0.7);
+}
+
+/* Soft Muted Autumn Callouts */
+.callout-spice {
+  border: 1px solid rgba(192, 103, 62, 0.42);
+  background-color: rgba(192, 103, 62, 0.15);
+  color: #F4DAC4;
+}
+.theme-light .callout-spice {
+  border-color: rgba(168, 82, 46, 0.34);
+  background-color: rgba(192, 103, 62, 0.12);
+  color: #632D16;
+}
+
+.callout-amber {
+  border: 1px solid rgba(212, 164, 83, 0.40);
+  background-color: rgba(212, 164, 83, 0.14);
+  color: #F3DFB4;
+}
+.theme-light .callout-amber {
+  border-color: rgba(154, 108, 40, 0.34);
+  background-color: rgba(186, 135, 56, 0.14);
+  color: #5E3E12;
+}
+
+.callout-emerald {
+  border: 1px solid rgba(124, 163, 118, 0.40);
+  background-color: rgba(94, 136, 88, 0.16);
+  color: #D2E4CE;
+}
+.theme-light .callout-emerald {
+  border-color: rgba(76, 113, 71, 0.34);
+  background-color: rgba(94, 136, 88, 0.13);
+  color: #2A4727;
+}
+
+.callout-rose {
+  border: 1px solid rgba(185, 114, 121, 0.42);
+  background-color: rgba(160, 84, 92, 0.16);
+  color: #ECCCD0;
+}
+.theme-light .callout-rose {
+  border-color: rgba(135, 65, 73, 0.34);
+  background-color: rgba(160, 84, 92, 0.12);
+  color: #63262D;
+}
+
+/* Cozy Accent Text */
+.accent-spice {
+  color: #DF956B;
+}
+.theme-light .accent-spice {
+  color: #9E4925;
+}
+
+.accent-amber {
+  color: #DEB368;
+}
+.theme-light .accent-amber {
+  color: #8A5E1D;
+}
+
+.accent-emerald {
+  color: #93BA8D;
+}
+.theme-light .accent-emerald {
+  color: #3B5E37;
+}
+
+.accent-rose {
+  color: #CE888F;
+}
+.theme-light .accent-rose {
+  color: #7D333B;
 }
 
 /* 3D Flashcard Flip Utilities */
@@ -73,6 +411,6 @@
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(180, 130, 90, 0.28);
+  background: rgba(168, 126, 92, 0.3);
   border-radius: 9999px;
 }

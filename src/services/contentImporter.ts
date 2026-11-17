@@ -273,6 +273,7 @@ function parseJsonImport(
   }
 
   const records: CustomContentRecord[] = [];
+  const examQuestionSeq = new Map<number, number>();
   let flashcardsAdded = 0;
   let questionsAdded = 0;
 
@@ -408,7 +409,10 @@ function parseJsonImport(
           ? row['examNumber']
           : Math.floor(questionsAdded / 24) + 1;
 
-      const id = `${idPrefix}-q-ex${String(assignedExamNum).padStart(2, '0')}-${stableSlugHash(prompt)}`;
+      const seqInExam = (examQuestionSeq.get(assignedExamNum) ?? 0) + 1;
+      examQuestionSeq.set(assignedExamNum, seqInExam);
+
+      const id = `${idPrefix}-q-ex${String(assignedExamNum).padStart(2, '0')}-${String(seqInExam).padStart(2, '0')}-${stableSlugHash(prompt)}`;
       const rightSummary = correctIndices.map((i) => options[i]).join(' + ');
 
       const question: PracticeQuestion = {

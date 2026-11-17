@@ -66,6 +66,41 @@ export function useAppData() {
   const customRecords = useLiveQuery(() => db.customContent.toArray(), [], []);
   const outboxCount = useLiveQuery(() => db.syncOutbox.count(), [], 0);
 
+  const hydrateStandardPack = useCallback(async (force: boolean = false) => {
+    if (stdHydrationStartedRef.current) return;
+    if (typeof navigator !== 'undefined' && !navigator.onLine) return;
+
+    if (!force) {
+      const numberedCount = await db.customContent
+        .where('itemId')
+        .startsWith('std18-q-ex01-01-')
+        .count();
+      if (numberedCount > 0) {
+        return;
+      }
+    }
+
+    stdHydrationStartedRef.current = true;
+    setHydratingStandardPack(true);
+    try {
+      const parsed = await fetchAndParseRemotePack(
+        STANDARD_18_EXAMS_URL,
+        'ch3',
+        fetch,
+        'std18',
+      );
+      if (parsed.records.length > 0) {
+        await cacheLocalStandardPackRecords(parsed.records, db);
+        await updateAppSettings({ standardPackHydrated: true }, db);
+      }
+    } catch {
+      // Will retry automatically next time online or on manual retry
+    } finally {
+      stdHydrationStartedRef.current = false;
+      setHydratingStandardPack(false);
+    }
+  }, []);
+
   // Initialize default settings & auto-import `#pair=...` link if scanned via phone camera!
   useEffect(() => {
     void (async () => {
@@ -109,35 +144,10 @@ export function useAppData() {
         }
       }
 
-      // Auto-cache the 18 Standard Exams into local IndexedDB on first install!
-      if (
-        !current.standardPackHydrated &&
-        !stdHydrationStartedRef.current &&
-        typeof navigator !== 'undefined' &&
-        navigator.onLine
-      ) {
-        stdHydrationStartedRef.current = true;
-        setHydratingStandardPack(true);
-        try {
-          const parsed = await fetchAndParseRemotePack(
-            STANDARD_18_EXAMS_URL,
-            'ch3',
-            fetch,
-            'std18',
-          );
-          if (parsed.records.length > 0) {
-            await cacheLocalStandardPackRecords(parsed.records, db);
-            await updateAppSettings({ standardPackHydrated: true }, db);
-          }
-        } catch {
-          // Will retry automatically next time online
-          stdHydrationStartedRef.current = false;
-        } finally {
-          setHydratingStandardPack(false);
-        }
-      }
+      // Auto-cache the 18 Standard Exams into local IndexedDB on install (or upgrade to sequence-ordered IDs)
+      await hydrateStandardPack();
     })();
-  }, []);
+  }, [hydrateStandardPack]);
 
   const triggerSync = useCallback(async () => {
     if (syncInFlightRef.current) return;
@@ -162,11 +172,13 @@ export function useAppData() {
   useEffect(() => {
     const handleOnline = () => {
       setIsOnline(true);
+      void hydrateStandardPack();
       void triggerSync();
     };
     const handleOffline = () => setIsOnline(false);
     const handleVisibility = () => {
       if (document.visibilityState === 'visible' && navigator.onLine) {
+        void hydrateStandardPack();
         void triggerSync();
       }
     };
@@ -179,7 +191,7 @@ export function useAppData() {
       window.removeEventListener('offline', handleOffline);
       document.removeEventListener('visibilitychange', handleVisibility);
     };
-  }, [triggerSync]);
+  }, [hydrateStandardPack, triggerSync]);
 
   // Auto-drain outbox shortly after mutations when online & paired
   useEffect(() => {
@@ -375,6 +387,7 @@ export function useAppData() {
     syncError,
     clearSyncError: () => setSyncError(null),
     hydratingStandardPack,
+    retryStandardPack: () => hydrateStandardPack(true),
     pairingNotice,
     clearPairingNotice: () => setPairingNotice(null),
     triggerSync,

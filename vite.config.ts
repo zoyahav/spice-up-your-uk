@@ -13,8 +13,7 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       includeAssets: [
-        'favicon.svg',
-        'icons/icon.svg',
+        'favicon.png',
         'icons/brand-logo.png',
         'icons/icon-192.png',
         'icons/icon-512.png',
@@ -24,9 +23,9 @@ export default defineConfig({
         name: 'Spice Up Your UK: Life in the UK Prep',
         short_name: 'SpiceUpUK',
         description:
-          'Offline-ready Life in the UK study companion with flashcards, 17 mock exams, visual aids, streaks, and couple sync.',
-        theme_color: '#1C1410',
-        background_color: '#140E0B',
+          'Offline-ready Life in the UK study companion with SM-2 flashcards, 18 standard practice exams, 17 bonus mock exams, visual aids, streaks, and couple sync.',
+        theme_color: '#251B16',
+        background_color: '#1E1612',
         display: 'standalone',
         orientation: 'portrait',
         start_url: basePath,
@@ -50,12 +49,6 @@ export default defineConfig({
             sizes: '512x512',
             type: 'image/png',
             purpose: 'maskable',
-          },
-          {
-            src: 'icons/icon.svg',
-            sizes: 'any',
-            type: 'image/svg+xml',
-            purpose: 'any',
           },
         ],
       },

@@ -380,7 +380,16 @@ export async function cacheLocalStandardPackRecords(
   database: SpiceUpUkDB = db,
 ): Promise<void> {
   if (records.length === 0) return;
-  await database.customContent.bulkPut(records as CustomContentRecord[]);
+  await database.transaction('rw', database.customContent, async () => {
+    const existingStdKeys = await database.customContent
+      .where('itemId')
+      .startsWith('std18-')
+      .primaryKeys();
+    if (existingStdKeys.length > 0) {
+      await database.customContent.bulkDelete(existingStdKeys);
+    }
+    await database.customContent.bulkPut(records as CustomContentRecord[]);
+  });
 }
 
 /**
@@ -440,6 +449,9 @@ export async function runFullSync(
       }
 
       const freshSettings = await ensureAppSettings(database);
+      if (!freshSettings.scriptUrl || !freshSettings.passcode) {
+        return;
+      }
       const updatedProfiles = { ...freshSettings.profiles };
 
       for (const rec of response.updates) {
@@ -560,6 +572,59 @@ async function applyIncomingRemoteRecord(
     }
     default:
       return false;
+  }
+}
+
+export async function resetLocalDeviceData(database: SpiceUpUkDB = db): Promise<void> {
+  await database.transaction(
+    'rw',
+    [
+      database.appConfig,
+      database.srsProgress,
+      database.questionStats,
+      database.testSessions,
+      database.dailyActivity,
+      database.gameScores,
+      database.challenges,
+      database.customContent,
+      database.syncOutbox,
+    ],
+    async () => {
+      const prevSettings = await database.appConfig.get('app');
+      await Promise.all([
+        database.srsProgress.clear(),
+        database.questionStats.clear(),
+        database.testSessions.clear(),
+        database.dailyActivity.clear(),
+        database.gameScores.clear(),
+        database.challenges.clear(),
+        database.syncOutbox.clear(),
+      ]);
+
+      const allCustomKeys = await database.customContent.toCollection().primaryKeys();
+      const nonStdKeys = allCustomKeys.filter((k) => !String(k).startsWith('std18-'));
+      if (nonStdKeys.length > 0) {
+        await database.customContent.bulkDelete(nonStdKeys);
+      }
+
+      const remainingStdCount = allCustomKeys.length - nonStdKeys.length;
+      const freshDefaults = createDefaultAppSettings();
+      await database.appConfig.put({
+        ...freshDefaults,
+        theme: prevSettings?.theme ?? freshDefaults.theme,
+        onboarded: false,
+        standardPackHydrated: remainingStdCount > 0,
+      });
+    },
+  );
+
+  try {
+    if (typeof sessionStorage !== 'undefined') {
+      sessionStorage.removeItem('spiceupuk_install_dismissed');
+      sessionStorage.removeItem('spiceupuk_banner_dismissed');
+    }
+  } catch {
+    // Ignore storage errors
   }
 }
 

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import QRCode from 'qrcode';
 import {
+  AlertTriangle,
   Bell,
   CalendarPlus,
   CheckCircle2,
@@ -10,6 +11,7 @@ import {
   Laptop,
   QrCode,
   RefreshCw,
+  RotateCcw,
   Smartphone,
   Upload,
   Users,
@@ -19,6 +21,7 @@ import { SPICE_BADGES } from '../constants/spiceTheme';
 import { CHAPTERS } from '../data/syllabus';
 import {
   exportFullLocalBackupJson,
+  resetLocalDeviceData,
   saveImportedCustomRecords,
   updateAppSettings,
   updateUserProfile,
@@ -56,6 +59,7 @@ interface PartnerViewProps {
   outboxCount: number;
   syncError: string | null;
   onManualSync: () => Promise<void>;
+  onDeviceReset?: () => void;
   isLightMode: boolean;
 }
 
@@ -74,7 +78,7 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
   outboxCount,
   syncError,
   onManualSync,
-  isLightMode,
+  onDeviceReset,
 }) => {
   const [scriptUrlInput, setScriptUrlInput] = useState(settings.scriptUrl);
   const [passcodeInput, setPasscodeInput] = useState(settings.passcode);
@@ -94,6 +98,12 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
   const [remoteJsonUrl, setRemoteJsonUrl] = useState('');
   const [rawImportText, setRawImportText] = useState('');
   const [importBusy, setImportBusy] = useState(false);
+
+  // Deliberate non-accidental Reset / Wipe Device state
+  const [showResetDrawer, setShowResetDrawer] = useState(false);
+  const [resetConfirmText, setResetConfirmText] = useState('');
+  const [resetBusy, setResetBusy] = useState(false);
+
   const { canInstall, isStandalone, isMobile, swReady, promptInstall } = usePwaInstall();
 
   useEffect(() => {
@@ -112,6 +122,19 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
   const showToast = (msg: string) => {
     setStatusToast(msg);
     window.setTimeout(() => setStatusToast(null), 4500);
+  };
+
+  const persistSyncInputsLocally = async () => {
+    if (partnerANameInput.trim()) {
+      await updateUserProfile('partner_a', { displayName: partnerANameInput.trim() });
+    }
+    if (partnerBNameInput.trim()) {
+      await updateUserProfile('partner_b', { displayName: partnerBNameInput.trim() });
+    }
+    await updateAppSettings({
+      scriptUrl: scriptUrlInput.trim(),
+      passcode: passcodeInput.trim(),
+    });
   };
 
   const buildCurrentPairingUrl = (forProfile: ProfileId): string => {
@@ -133,11 +156,12 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
       showToast('Enter your Apps Script URL & Passcode first!');
       return;
     }
+    await persistSyncInputsLocally();
     const pairUrl = buildCurrentPairingUrl(target);
     const url = await QRCode.toDataURL(pairUrl, {
       margin: 2,
       width: 240,
-      color: { dark: '#0F172A', light: '#FFFFFF' },
+      color: { dark: '#332319', light: '#FBF4EA' },
     });
     setQrTargetProfile(target);
     setQrDataUrl(url);
@@ -146,16 +170,7 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
 
   const handleSaveSyncConfig = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (partnerANameInput.trim()) {
-      await updateUserProfile('partner_a', { displayName: partnerANameInput.trim() });
-    }
-    if (partnerBNameInput.trim()) {
-      await updateUserProfile('partner_b', { displayName: partnerBNameInput.trim() });
-    }
-    await updateAppSettings({
-      scriptUrl: scriptUrlInput.trim(),
-      passcode: passcodeInput.trim(),
-    });
+    await persistSyncInputsLocally();
     showToast('Saved private Google Sheet sync settings locally!');
     if (scriptUrlInput.trim() && passcodeInput.trim()) {
       await onManualSync();
@@ -219,6 +234,21 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
     URL.revokeObjectURL(url);
   };
 
+  const handleConfirmedDeviceReset = async () => {
+    if (resetConfirmText.trim().toUpperCase() !== 'RESET' || resetBusy) return;
+    setResetBusy(true);
+    try {
+      await resetLocalDeviceData();
+      setResetConfirmText('');
+      setShowResetDrawer(false);
+      setShowQr(false);
+      setQrDataUrl(null);
+      onDeviceReset?.();
+    } finally {
+      setResetBusy(false);
+    }
+  };
+
   const toggleReminderDay = async (dayNum: number) => {
     const current = new Set(settings.reminders.daysOfWeek);
     if (current.has(dayNum)) current.delete(dayNum);
@@ -231,49 +261,47 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
     });
   };
 
-  const cardSurface = isLightMode
-    ? 'border-[#E6D6C3] bg-[#FFFDF9] shadow-sm'
-    : 'border-slate-800/90 bg-slate-900/85';
+  const canConfirmReset = resetConfirmText.trim().toUpperCase() === 'RESET' && !resetBusy;
 
   return (
     <div className="space-y-4">
       {statusToast && (
-        <div className="rounded-2xl border border-pink-500/40 bg-pink-600/20 px-4 py-3 text-xs font-bold text-pink-200">
+        <div className="callout-spice rounded-2xl px-4 py-3 text-xs font-bold">
           🌶️ {statusToast}
         </div>
       )}
 
       {/* 1. YOU VS PARTNER HEAD-TO-HEAD MASTERY */}
-      <section className={`rounded-3xl border p-4 ${cardSurface}`}>
+      <section className="autumn-card rounded-3xl p-4">
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-base font-black">💞 2 Become 1: Couple Scoreboard</h2>
-            <p className="text-xs text-slate-400">
+            <p className="autumn-muted text-xs">
               Shared Streak: <strong>{coupleStreakCount} days</strong>
             </p>
           </div>
-          <span className="rounded-full bg-pink-500/15 px-3 py-1 text-xs font-black text-pink-400">
+          <span className="callout-spice rounded-full px-3 py-1 text-xs font-black">
             Team Mode
           </span>
         </div>
 
         <div className="mt-3.5 grid grid-cols-2 gap-3">
-          <div className="rounded-2xl border border-pink-500/30 bg-pink-500/10 p-3 text-center">
+          <div className="callout-spice rounded-2xl p-3 text-center">
             <p className="text-2xl">
               <ProfileAvatar avatar={activeProfile.avatarEmoji} sizeClass="text-2xl" />
             </p>
             <p className="mt-1 truncate text-xs font-black">{activeProfile.displayName} (You)</p>
-            <p className="text-lg font-black text-pink-400">{myMastery.overallPercent}%</p>
-            <p className="text-[11px] text-slate-400">{myTotalXp} XP</p>
+            <p className="accent-spice text-lg font-black">{myMastery.overallPercent}%</p>
+            <p className="autumn-muted text-[11px]">{myTotalXp} XP</p>
           </div>
 
-          <div className="rounded-2xl border border-indigo-500/30 bg-indigo-500/10 p-3 text-center">
+          <div className="callout-amber rounded-2xl p-3 text-center">
             <p className="text-2xl">
               <ProfileAvatar avatar={partnerProfile.avatarEmoji} sizeClass="text-2xl" />
             </p>
             <p className="mt-1 truncate text-xs font-black">{partnerProfile.displayName}</p>
-            <p className="text-lg font-black text-indigo-400">{partnerMastery.overallPercent}%</p>
-            <p className="text-[11px] text-slate-400">{partnerTotalXp} XP</p>
+            <p className="accent-amber text-lg font-black">{partnerMastery.overallPercent}%</p>
+            <p className="autumn-muted text-[11px]">{partnerTotalXp} XP</p>
           </div>
         </div>
 
@@ -289,19 +317,19 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
                     Ch {ch.number}: {ch.shortTitle}
                   </span>
                   <span>
-                    <span className="text-pink-400">{mine}%</span> vs{' '}
-                    <span className="text-indigo-400">{theirs}%</span>
+                    <span className="accent-spice">{mine}%</span> vs{' '}
+                    <span className="accent-amber">{theirs}%</span>
                   </span>
                 </div>
                 <div className="grid grid-cols-2 gap-1.5">
                   <ProgressBar
                     percent={mine}
-                    colorClass="bg-pink-500"
+                    colorClass="bg-[#C0673E]"
                     heightClass="h-1.5"
                   />
                   <ProgressBar
                     percent={theirs}
-                    colorClass="bg-indigo-500"
+                    colorClass="bg-[#BA8738]"
                     heightClass="h-1.5"
                   />
                 </div>
@@ -312,7 +340,7 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
       </section>
 
       {/* 2. SPICE ACHIEVEMENT BADGES */}
-      <section className={`rounded-3xl border p-4 ${cardSurface}`}>
+      <section className="autumn-card rounded-3xl p-4">
         <h3 className="text-sm font-black">🏅 Spice Achievement Badges</h3>
         <div className="mt-3 grid grid-cols-2 gap-2">
           {SPICE_BADGES.map((b) => {
@@ -320,17 +348,17 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
             return (
               <div
                 key={b.id}
-                className={`rounded-2xl border p-2.5 transition ${
+                className={`rounded-2xl p-2.5 transition ${
                   unlocked
-                    ? 'border-amber-500/40 bg-amber-500/10'
-                    : 'border-slate-800 bg-slate-950/30 opacity-45 grayscale'
+                    ? 'callout-amber'
+                    : 'autumn-inset opacity-50 grayscale'
                 }`}
               >
                 <div className="flex items-center gap-2">
                   <span className="text-xl">{b.emoji}</span>
                   <span className="text-xs font-extrabold">{b.title}</span>
                 </div>
-                <p className="mt-1 text-[10px] leading-snug text-slate-400">{b.description}</p>
+                <p className="autumn-muted mt-1 text-[10px] leading-snug">{b.description}</p>
               </div>
             );
           })}
@@ -338,12 +366,12 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
       </section>
 
       {/* 3. CONFIGURABLE PHONE REMINDERS */}
-      <section className={`space-y-3 rounded-3xl border p-4 ${cardSurface}`}>
+      <section className="autumn-card space-y-3 rounded-3xl p-4">
         <div className="flex items-center gap-2">
-          <Bell className="h-4 w-4 text-amber-400" />
+          <Bell className="accent-amber h-4 w-4" />
           <h3 className="text-sm font-black">Configurable Practice Reminders</h3>
         </div>
-        <p className="text-xs leading-relaxed text-slate-400">
+        <p className="autumn-muted text-xs leading-relaxed">
           Pick your commute or evening time below, then tap{' '}
           <strong>Add to Google Calendar</strong> or <strong>Download .ics Alarm</strong> so your
           phone rings reliably every day, even underground on the Tube!
@@ -359,7 +387,7 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
                 reminders: { ...settings.reminders, enabled: true, timeHHMM: e.target.value },
               })
             }
-            className="rounded-xl border border-slate-700 bg-slate-950 px-3 py-1.5 text-sm font-bold text-white"
+            className="autumn-input rounded-xl px-3 py-1.5 text-sm font-bold"
           />
         </div>
 
@@ -372,7 +400,7 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
                 type="button"
                 onClick={() => void toggleReminderDay(idx)}
                 className={`rounded-xl px-2.5 py-1 text-xs font-bold transition ${
-                  active ? 'bg-amber-500 text-slate-950' : 'bg-slate-800 text-slate-400'
+                  active ? 'autumn-btn-ochre' : 'autumn-pill'
                 }`}
               >
                 {label}
@@ -400,7 +428,7 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
             )}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 rounded-xl border-b-4 border-indigo-900 bg-indigo-600 px-3 py-1.5 text-xs font-bold text-white hover:bg-indigo-500"
+            className="autumn-btn-primary inline-flex items-center justify-center gap-2 rounded-xl px-3 py-1.5 text-xs font-bold transition"
           >
             <CalendarPlus className="h-4 w-4" />
             <span>Add to Google Calendar</span>
@@ -428,16 +456,16 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
       </section>
 
       {/* 4. PRIVATE GOOGLE WORKSPACE / SHEET SYNC + LAPTOP-FIRST DUAL QR PAIRING */}
-      <section className={`space-y-3 rounded-3xl border p-4 ${cardSurface}`}>
+      <section className="autumn-card space-y-3 rounded-3xl p-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <Cloud className="h-4 w-4 text-sky-400" />
+            <Cloud className="accent-spice h-4 w-4" />
             <h3 className="text-sm font-black">Shared Google Sheet Sync &amp; QR Pairing</h3>
           </div>
-          <span className="text-[11px] text-slate-400">{outboxCount} queued</span>
+          <span className="autumn-muted text-[11px]">{outboxCount} queued</span>
         </div>
 
-        <p className="text-xs leading-relaxed text-slate-400">
+        <p className="autumn-muted text-xs leading-relaxed">
           Set this up once on your <strong>laptop</strong>, then scan the QR code for{' '}
           <strong>Player 1</strong> and <strong>Player 2</strong> with your phone cameras: zero
           long URLs to type on either device, and zero personal data in GitHub!
@@ -446,17 +474,17 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
         <button
           type="button"
           onClick={() => setShowSetupSteps((s) => !s)}
-          className="inline-flex items-center gap-1.5 text-xs font-bold text-sky-400 hover:underline"
+          className="accent-spice inline-flex items-center gap-1.5 text-xs font-bold hover:underline"
         >
           <Laptop className="h-3.5 w-3.5" />
           <span>{showSetupSteps ? 'Hide 5-Step Setup Checklist' : 'Show 5-Step Setup Checklist'}</span>
         </button>
 
         {showSetupSteps && (
-          <ol className="space-y-1.5 rounded-2xl border border-slate-800 bg-slate-950/60 p-3 text-xs leading-relaxed text-slate-300">
+          <ol className="autumn-inset autumn-soft space-y-1.5 rounded-2xl p-3 text-xs leading-relaxed">
             <li>
               <strong>1.</strong> Create one Google Sheet in Google Drive and{' '}
-              <strong className="text-emerald-300">
+              <strong className="accent-emerald">
                 Share it with your partner with Editor access
               </strong>
               .
@@ -482,7 +510,7 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
         )}
 
         {syncError && (
-          <p className="rounded-xl bg-rose-500/15 px-3 py-2 text-xs text-rose-300">
+          <p className="callout-rose rounded-xl px-3 py-2 text-xs">
             Sync error: {syncError}
           </p>
         )}
@@ -494,14 +522,14 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
               value={partnerANameInput}
               onChange={(e) => setPartnerANameInput(e.target.value)}
               placeholder="Player 1 nickname (e.g. Cuppa)"
-              className="rounded-xl border border-slate-700 bg-slate-950 px-3 py-2 text-xs text-white placeholder-slate-500"
+              className="autumn-input rounded-xl px-3 py-2 text-xs"
             />
             <input
               type="text"
               value={partnerBNameInput}
               onChange={(e) => setPartnerBNameInput(e.target.value)}
               placeholder="Player 2 nickname (e.g. Biscuit)"
-              className="rounded-xl border border-slate-700 bg-slate-950 px-3 py-2 text-xs text-white placeholder-slate-500"
+              className="autumn-input rounded-xl px-3 py-2 text-xs"
             />
           </div>
 
@@ -510,14 +538,14 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
             value={scriptUrlInput}
             onChange={(e) => setScriptUrlInput(e.target.value)}
             placeholder="https://script.google.com/macros/s/.../exec"
-            className="w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2 text-xs text-white placeholder-slate-500"
+            className="autumn-input w-full rounded-xl px-3 py-2 text-xs"
           />
           <input
             type="password"
             value={passcodeInput}
             onChange={(e) => setPasscodeInput(e.target.value)}
             placeholder="Shared secret SYNC_PASSCODE"
-            className="w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2 text-xs text-white placeholder-slate-500"
+            className="autumn-input w-full rounded-xl px-3 py-2 text-xs"
           />
           <div className="flex flex-wrap gap-2">
             <Button type="submit" variant="primary" size="sm" className="flex-1">
@@ -537,9 +565,9 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
         </form>
 
         {showQr && qrDataUrl && (
-          <div className="rounded-2xl border border-slate-700 bg-white p-4 text-center text-slate-900">
+          <div className="rounded-2xl border border-[#D4BEA6] bg-[#FBF4EA] p-4 text-center text-[#332319] shadow-sm">
             {/* Player 1 / Player 2 Toggle */}
-            <div className="mb-3 grid grid-cols-2 gap-1.5 rounded-xl bg-slate-100 p-1">
+            <div className="mb-3 grid grid-cols-2 gap-1.5 rounded-xl bg-[#EADACA] p-1">
               {(
                 [
                   ['partner_a', `Player 1 (${partnerANameInput || 'Cuppa'})`],
@@ -552,8 +580,8 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
                   onClick={() => void renderQrForTarget(pid)}
                   className={`rounded-lg py-1.5 text-xs font-extrabold transition ${
                     qrTargetProfile === pid
-                      ? 'bg-pink-600 text-white shadow'
-                      : 'text-slate-600 hover:bg-slate-200'
+                      ? 'bg-[#A8522E] text-[#FAF1E6] shadow-sm'
+                      : 'text-[#5C4332] hover:bg-[#DFCCB6]'
                   }`}
                 >
                   {label}
@@ -561,8 +589,8 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
               ))}
             </div>
 
-            <p className="mb-2 flex items-center justify-center gap-1 text-xs font-extrabold text-slate-800">
-              <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" />
+            <p className="mb-2 flex items-center justify-center gap-1 text-xs font-extrabold text-[#332319]">
+              <CheckCircle2 className="h-3.5 w-3.5 text-[#3E5D3A]" />
               <span>
                 Scan with{' '}
                 {qrTargetProfile === 'partner_a'
@@ -574,28 +602,36 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
             <img
               src={qrDataUrl}
               alt="Private Google Sheet Pairing QR Code"
-              className="mx-auto h-48 w-48 rounded-lg"
+              className="mx-auto h-48 w-48 rounded-lg border border-[#DECBB5]"
             />
             <div className="mt-3 flex justify-center gap-2">
-              <Button variant="secondary" size="sm" onClick={() => void handleCopyPairingLink()}>
+              <button
+                type="button"
+                onClick={() => void handleCopyPairingLink()}
+                className="inline-flex items-center gap-1.5 rounded-xl border border-[#C8B198] bg-[#EADACA] px-3 py-1.5 text-xs font-bold text-[#332319] hover:bg-[#DFCCB6]"
+              >
                 <Copy className="h-3.5 w-3.5" />
                 <span>Copy Setup Link</span>
-              </Button>
-              <Button variant="ghost" size="sm" onClick={() => setShowQr(false)}>
+              </button>
+              <button
+                type="button"
+                onClick={() => setShowQr(false)}
+                className="rounded-xl border border-[#D5BFA8] px-3 py-1.5 text-xs font-bold text-[#5C4332] hover:bg-[#EADACA]"
+              >
                 Hide
-              </Button>
+              </button>
             </div>
           </div>
         )}
       </section>
 
       {/* 5. EXTERNAL JSON URL / CSV / ANKI DECK IMPORTER */}
-      <section className={`space-y-3 rounded-3xl border p-4 ${cardSurface}`}>
+      <section className="autumn-card space-y-3 rounded-3xl p-4">
         <div className="flex items-center gap-2">
-          <Upload className="h-4 w-4 text-emerald-400" />
+          <Upload className="accent-emerald h-4 w-4" />
           <h3 className="text-sm font-black">Import External Pack (Off-GitHub!)</h3>
         </div>
-        <p className="text-xs text-slate-400">
+        <p className="autumn-muted text-xs">
           Fetch an external <code>exams.json</code> URL once or paste JSON / Anki CSV/TSV. It
           caches offline &amp; syncs to both phones via your private Google Sheet!
         </p>
@@ -606,7 +642,7 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
             value={remoteJsonUrl}
             onChange={(e) => setRemoteJsonUrl(e.target.value)}
             placeholder="https://raw.githubusercontent.com/.../exams.json"
-            className="min-w-0 flex-1 rounded-xl border border-slate-700 bg-slate-950 px-3 py-2 text-xs text-white placeholder-slate-500"
+            className="autumn-input min-w-0 flex-1 rounded-xl px-3 py-2 text-xs"
           />
           <Button
             variant="emerald"
@@ -623,7 +659,7 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
           value={rawImportText}
           onChange={(e) => setRawImportText(e.target.value)}
           placeholder='Or paste JSON [{"question":"...","options":[...],"answer":0}] or CSV: Front,Back,MemoryHook'
-          className="w-full rounded-xl border border-slate-700 bg-slate-950 p-3 text-xs text-white placeholder-slate-500"
+          className="autumn-input w-full rounded-xl p-3 text-xs"
         />
         <Button
           variant="secondary"
@@ -636,41 +672,39 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
         </Button>
       </section>
 
-      {/* 6. LOCKED DEVICE PROFILE & LOCAL BACKUP */}
-      <section className={`space-y-3 rounded-3xl border p-4 ${cardSurface}`}>
+      {/* 6. LOCKED DEVICE PROFILE, LOCAL BACKUP & SAFE DEVICE RESET */}
+      <section className="autumn-card space-y-3 rounded-3xl p-4">
         <div className="flex items-center justify-between gap-2">
           <div className="flex items-center gap-2">
-            <Users className="h-4 w-4 text-pink-400" />
+            <Users className="accent-spice h-4 w-4" />
             <h3 className="text-sm font-black">Your Profile &amp; Local Backup</h3>
           </div>
-          <span className="rounded-full bg-emerald-500/15 px-2.5 py-0.5 text-[10px] font-bold text-emerald-400">
-            Locked to this phone
+          <span className="callout-emerald rounded-full px-2.5 py-0.5 text-[10px] font-bold">
+            {isMobile ? 'Locked to this phone' : 'Active profile'}
           </span>
         </div>
 
-        <div className="flex items-center justify-between rounded-2xl border border-pink-500/40 bg-pink-500/10 px-3.5 py-2.5 text-xs">
-          <div className="flex items-center gap-2 font-extrabold text-pink-200">
+        <div className="callout-spice flex items-center justify-between rounded-2xl px-3.5 py-2.5 text-xs">
+          <div className="flex items-center gap-2 font-extrabold">
             <ProfileAvatar avatar={activeProfile.avatarEmoji} sizeClass="text-lg" />
             <span>{activeProfile.displayName}</span>
           </div>
-          <span className="text-[11px] text-slate-400">
+          <span className="autumn-muted text-[11px]">
             Teammate: {partnerProfile.displayName} (view-only)
           </span>
         </div>
 
         {/* App Installation Status Check (mobile only) */}
         {isMobile && (
-          <div className="rounded-2xl border border-slate-800 bg-slate-950/55 p-3 text-xs">
+          <div className="autumn-inset rounded-2xl p-3 text-xs">
             <div className="flex items-center justify-between gap-2">
               <div className="flex items-center gap-2">
-                <Smartphone className="h-4 w-4 text-sky-400" />
+                <Smartphone className="accent-spice h-4 w-4" />
                 <span className="font-bold">App Status</span>
               </div>
               <span
                 className={`rounded-full px-2.5 py-0.5 text-[10px] font-extrabold ${
-                  isStandalone
-                    ? 'bg-emerald-500/20 text-emerald-300'
-                    : 'bg-amber-500/20 text-amber-300'
+                  isStandalone ? 'callout-emerald' : 'callout-amber'
                 }`}
               >
                 {isStandalone ? 'Installed App (Offline Ready)' : 'Running in Browser Tab'}
@@ -690,13 +724,13 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
                       <Download className="h-3.5 w-3.5" />
                       <span>Install SpiceUpUK App</span>
                     </Button>
-                    <p className="text-[11px] text-slate-400">
+                    <p className="autumn-muted text-[11px]">
                       {swReady ? 'Offline cache ready. ' : ''}Tap <strong>Install</strong> (not{' '}
                       <em>Create shortcut</em>) and wait ~10 seconds.
                     </p>
                   </>
                 ) : (
-                  <p className="text-[11px] leading-relaxed text-slate-400">
+                  <p className="autumn-muted text-[11px] leading-relaxed">
                     To install offline: tap Chrome <code>⋮</code> -&gt;{' '}
                     <strong>Add to home screen</strong> -&gt; <strong>Install</strong> (or Safari{' '}
                     <strong>Share</strong> -&gt; <strong>Add to Home Screen</strong>).
@@ -708,7 +742,7 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
         )}
 
         <div>
-          <p className="mb-1.5 text-[11px] font-bold text-slate-400">
+          <p className="autumn-muted mb-1.5 text-[11px] font-bold">
             Avatar for {activeProfile.displayName} (1 per player):
           </p>
           <div className="grid grid-cols-8 gap-1.5">
@@ -719,10 +753,10 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
                 onClick={() =>
                   void updateUserProfile(activeProfile.id, { avatarEmoji: emoji })
                 }
-                className={`flex h-9 items-center justify-center rounded-xl border text-lg transition ${
+                className={`flex h-9 items-center justify-center rounded-xl text-lg transition ${
                   activeProfile.avatarEmoji === emoji
-                    ? 'border-pink-500 bg-pink-500/20'
-                    : 'border-slate-800 bg-slate-950/40'
+                    ? 'callout-spice ring-1 ring-orange-500/65'
+                    : 'autumn-inset'
                 }`}
               >
                 {emoji}
@@ -739,13 +773,13 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
               void updateUserProfile(activeProfile.id, { displayName: e.target.value })
             }
             placeholder="Your nickname"
-            className="rounded-xl border border-slate-700 bg-slate-950 px-3 py-2 text-xs text-white"
+            className="autumn-input rounded-xl px-3 py-2 text-xs"
           />
           <input
             type="date"
             value={settings.examDate ?? ''}
             onChange={(e) => void updateAppSettings({ examDate: e.target.value || null })}
-            className="rounded-xl border border-slate-700 bg-slate-950 px-3 py-2 text-xs text-white"
+            className="autumn-input rounded-xl px-3 py-2 text-xs"
           />
         </div>
 
@@ -753,6 +787,85 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
           <Download className="h-3.5 w-3.5" />
           <span>Export Local JSON Backup</span>
         </Button>
+
+        {/* Deliberate, Two-Step Protected Device Reset */}
+        <div className="border-t border-amber-900/20 pt-2.5">
+          <button
+            type="button"
+            onClick={() => {
+              setShowResetDrawer((v) => !v);
+              setResetConfirmText('');
+            }}
+            className="autumn-muted hover:accent-rose inline-flex items-center gap-1.5 text-[11px] font-bold transition"
+          >
+            <RotateCcw className="h-3.5 w-3.5" />
+            <span>
+              {showResetDrawer
+                ? 'Cancel device reset'
+                : 'Need to start setup over? Wipe & reset this device...'}
+            </span>
+          </button>
+
+          {showResetDrawer && (
+            <div className="callout-rose mt-2.5 space-y-2.5 rounded-2xl p-3.5 text-xs">
+              <div className="flex items-start gap-2">
+                <AlertTriangle className="accent-rose mt-0.5 h-4 w-4 shrink-0" />
+                <div className="space-y-1 leading-relaxed">
+                  <p className="font-extrabold">Wipe This Device &amp; Start Setup Again</p>
+                  <p className="text-[11px] opacity-90">
+                    Clears your locked profile, Google Sheet sync link, flashcards schedule, XP,
+                    and test history on this device, then re-opens initial setup. (Data already in
+                    your shared Google Sheet is not deleted unless you clear the sheet tabs.)
+                  </p>
+                  <p className="text-[11px] opacity-85">
+                    <em>Tip:</em> If you only want to switch to a newly generated QR code, scanning
+                    the new QR link automatically updates this device without needing a full wipe.
+                  </p>
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-[11px] font-bold">
+                  Type <code className="font-mono font-black">RESET</code> below to unlock the wipe
+                  button:
+                </label>
+                <input
+                  type="text"
+                  value={resetConfirmText}
+                  onChange={(e) => setResetConfirmText(e.target.value)}
+                  placeholder="Type RESET to confirm"
+                  autoComplete="off"
+                  className="autumn-input mt-1.5 w-full rounded-xl px-3 py-2 text-xs font-bold"
+                />
+              </div>
+
+              <div className="flex gap-2">
+                <Button
+                  type="button"
+                  variant="danger"
+                  size="sm"
+                  className="flex-1"
+                  disabled={!canConfirmReset}
+                  onClick={() => void handleConfirmedDeviceReset()}
+                >
+                  <RotateCcw className="h-3.5 w-3.5" />
+                  <span>{resetBusy ? 'Wiping...' : 'Wipe Device & Restart Setup'}</span>
+                </Button>
+                <Button
+                  type="button"
+                  variant="secondary"
+                  size="sm"
+                  onClick={() => {
+                    setShowResetDrawer(false);
+                    setResetConfirmText('');
+                  }}
+                >
+                  Keep Data
+                </Button>
+              </div>
+            </div>
+          )}
+        </div>
       </section>
     </div>
   );

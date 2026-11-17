@@ -9,18 +9,12 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const VARIANT_CLASSES: Record<ButtonVariant, string> = {
-  primary:
-    'bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white border-b-4 border-orange-900 active:border-b-0 active:translate-y-1 shadow-md shadow-orange-950/35',
-  secondary:
-    'bg-slate-800 hover:bg-slate-700 text-slate-100 border-b-4 border-slate-950 active:border-b-0 active:translate-y-1',
-  emerald:
-    'bg-emerald-700 hover:bg-emerald-600 text-white border-b-4 border-emerald-950 active:border-b-0 active:translate-y-1',
-  amber:
-    'bg-amber-500 hover:bg-amber-400 text-slate-950 border-b-4 border-amber-700 active:border-b-0 active:translate-y-1',
-  danger:
-    'bg-rose-700 hover:bg-rose-600 text-white border-b-4 border-rose-950 active:border-b-0 active:translate-y-1',
-  ghost:
-    'bg-transparent hover:bg-slate-800/60 text-slate-300 border border-slate-700/70',
+  primary: 'autumn-btn-primary active:border-b-0 active:translate-y-0.5',
+  secondary: 'autumn-btn-secondary active:border-b-0 active:translate-y-0.5',
+  emerald: 'autumn-btn-sage active:border-b-0 active:translate-y-0.5',
+  amber: 'autumn-btn-ochre active:border-b-0 active:translate-y-0.5',
+  danger: 'autumn-btn-cranberry active:border-b-0 active:translate-y-0.5',
+  ghost: 'autumn-btn-ghost',
 };
 
 const SIZE_CLASSES = {

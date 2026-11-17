@@ -66,15 +66,17 @@ export const AppShell: React.FC<AppShellProps> = ({
   return (
     <div
       className={`min-h-dvh transition-colors ${
-        isLightMode ? 'bg-[#FAF3E8] text-[#2B1D14]' : 'bg-[#140E0B] text-slate-100'
+        isLightMode
+          ? 'theme-light bg-[#F3E7D7] text-[#332319]'
+          : 'bg-[#1E1612] text-[#F2E6D8]'
       }`}
     >
       {/* Sticky Top Status Bar */}
       <header
         className={`sticky top-0 z-30 border-b backdrop-blur-md ${
           isLightMode
-            ? 'border-[#E6D6C3] bg-[#FFFBF5]/90 text-[#2B1D14]'
-            : 'border-slate-800/80 bg-[#1A120E]/90 text-slate-100'
+            ? 'border-[#DECBB5] bg-[#F8EFE2]/94 text-[#332319]'
+            : 'border-[#48362B] bg-[#251B16]/94 text-[#F2E6D8]'
         }`}
         style={{ paddingTop: 'var(--safe-top)' }}
       >
@@ -90,13 +92,13 @@ export const AppShell: React.FC<AppShellProps> = ({
               <img
                 src="./icons/brand-logo.png"
                 alt="Spice Up Your UK"
-                className="h-8 w-8 rounded-xl ring-1 ring-pink-500/40"
+                className="h-8 w-8 rounded-xl ring-1 ring-orange-500/45"
               />
             </button>
             <button
               type="button"
               onClick={() => onSelectTab('us')}
-              className="flex items-center gap-1.5 rounded-full border border-pink-500/30 bg-pink-500/10 px-2.5 py-1 text-left transition hover:bg-pink-500/20"
+              className="callout-spice flex items-center gap-1.5 rounded-full px-2.5 py-1 text-left transition hover:opacity-90"
               title="Team scoreboard & sync settings"
             >
               <ProfileAvatar avatar={activeProfile.avatarEmoji} sizeClass="text-base" />
@@ -107,18 +109,18 @@ export const AppShell: React.FC<AppShellProps> = ({
           </div>
 
           {/* Streaks & XP */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5">
             <div
-              className="flex items-center gap-1 rounded-full bg-amber-500/15 px-2.5 py-1 text-xs font-extrabold text-amber-400"
+              className="callout-amber flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-extrabold"
               title="Your Daily Streak"
             >
-              <Flame className="h-3.5 w-3.5 fill-amber-400" />
+              <Flame className="accent-amber h-3.5 w-3.5 fill-current" />
               <span>{streakCount}</span>
             </div>
 
             {coupleStreakCount > 0 && (
               <div
-                className="flex items-center gap-1 rounded-full bg-pink-500/15 px-2 py-1 text-xs font-extrabold text-pink-400"
+                className="callout-spice flex items-center gap-1 rounded-full px-2 py-1 text-xs font-extrabold"
                 title="2 Become 1 Couple Streak"
               >
                 <span>💞</span>
@@ -126,7 +128,7 @@ export const AppShell: React.FC<AppShellProps> = ({
               </div>
             )}
 
-            <div className="rounded-full bg-indigo-500/15 px-2.5 py-1 text-xs font-extrabold text-indigo-400">
+            <div className="callout-amber rounded-full px-2.5 py-1 text-xs font-extrabold">
               {totalXp} XP
             </div>
           </div>
@@ -144,14 +146,14 @@ export const AppShell: React.FC<AppShellProps> = ({
               }}
               className={`flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-bold transition ${
                 syncBadge === 'offline'
-                  ? 'bg-amber-500/20 text-amber-300'
+                  ? 'callout-amber'
                   : syncBadge === 'synced'
-                    ? 'bg-emerald-500/15 text-emerald-400'
+                    ? 'callout-emerald'
                     : syncBadge === 'syncing' || syncBadge === 'pending'
-                      ? 'bg-sky-500/20 text-sky-300'
+                      ? 'callout-spice'
                       : syncBadge === 'error'
-                        ? 'bg-rose-500/20 text-rose-300'
-                        : 'bg-slate-800 text-slate-400'
+                        ? 'callout-rose'
+                        : 'autumn-pill'
               }`}
               title={
                 syncBadge === 'offline'
@@ -189,8 +191,9 @@ export const AppShell: React.FC<AppShellProps> = ({
             <button
               type="button"
               onClick={onToggleTheme}
-              className="rounded-full p-1.5 text-slate-400 transition hover:bg-slate-800/50 hover:text-pink-400"
+              className="autumn-back-btn rounded-full p-1.5 transition"
               aria-label="Toggle theme"
+              title={isLightMode ? 'Switch to Warm Espresso Dark Mode' : 'Switch to Warm Autumn Light Mode'}
             >
               {isLightMode ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
             </button>
@@ -205,8 +208,8 @@ export const AppShell: React.FC<AppShellProps> = ({
       <nav
         className={`fixed inset-x-0 bottom-0 z-30 border-t backdrop-blur-lg ${
           isLightMode
-            ? 'border-[#E6D6C3] bg-[#FFFBF5]/95 text-[#6E5645]'
-            : 'border-slate-800/90 bg-[#1A120E]/95 text-slate-400'
+            ? 'border-[#DECBB5] bg-[#F8EFE2]/95 text-[#705846]'
+            : 'border-[#48362B] bg-[#251B16]/95 text-[#B39C88]'
         }`}
         style={{ paddingBottom: 'var(--safe-bottom)' }}
       >
@@ -220,14 +223,14 @@ export const AppShell: React.FC<AppShellProps> = ({
                 onClick={() => onSelectTab(item.id)}
                 className={`relative flex flex-col items-center justify-center gap-0.5 rounded-2xl py-1.5 transition ${
                   active
-                    ? 'text-pink-500 font-extrabold'
-                    : 'hover:text-slate-200 font-semibold'
+                    ? 'accent-spice font-extrabold'
+                    : 'autumn-tab-inactive font-semibold'
                 }`}
               >
                 <div className="relative">
                   {item.icon}
                   {item.badge !== undefined && (
-                    <span className="absolute -top-1.5 -right-2.5 rounded-full bg-pink-600 px-1.5 text-[10px] leading-4 font-extrabold text-white">
+                    <span className="absolute -top-1.5 -right-2.5 rounded-full bg-orange-600 px-1.5 text-[10px] leading-4 font-extrabold text-white">
                       {item.badge > 99 ? '99+' : item.badge}
                     </span>
                   )}

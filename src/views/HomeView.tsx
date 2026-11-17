@@ -15,7 +15,6 @@ import {
 import { getRankForXp } from '../constants/spiceTheme';
 import type { NavTab } from '../components/layout/AppShell';
 import { Button } from '../components/ui/Button';
-import { ProgressBar } from '../components/ui/ProgressBar';
 import { usePwaInstall } from '../hooks/usePwaInstall';
 import type { StreakSummary } from '../services/streaks';
 import type {
@@ -111,10 +110,6 @@ export const HomeView: React.FC<HomeViewProps> = ({
     return { nextSuggestedExam: next, passedExamsCount: passedSet.size };
   }, [recentSessions, activeProfile.id]);
 
-  const cardSurface = isLightMode
-    ? 'border-[#E6D6C3] bg-[#FFFDF9] hover:border-orange-500/50 shadow-sm'
-    : 'border-slate-800/90 bg-slate-900/85 hover:border-orange-500/40';
-
   const dailyPercent = Math.min(
     100,
     Math.round((myStreak.todayXp / Math.max(1, dailyGoalXp)) * 100),
@@ -122,12 +117,18 @@ export const HomeView: React.FC<HomeViewProps> = ({
 
   return (
     <div className="space-y-4">
-      {/* 1. Compact Greeting + Daily Goal Bar */}
-      <section className="rounded-3xl border border-orange-500/35 bg-gradient-to-br from-[#2C1810] via-[#592811] to-[#9A3412] p-4 text-white shadow-lg">
+      {/* 1. Cozy Chestnut-to-Cinnamon-to-Terracotta Greeting + Daily Goal Bar */}
+      <section
+        className={`rounded-3xl border p-4 shadow-md ${
+          isLightMode
+            ? 'border-[#B67F5E]/55 bg-gradient-to-br from-[#6B3E2B] via-[#895036] to-[#A66443] text-[#FAF2E8]'
+            : 'border-[#6D4732]/65 bg-gradient-to-br from-[#3A241B] via-[#5F3724] to-[#874C31] text-[#F5EBE0]'
+        }`}
+      >
         <div className="flex items-center justify-between gap-3">
           <div className="min-w-0">
-            <div className="inline-flex items-center gap-1 rounded-full bg-white/10 px-2.5 py-0.5 text-[11px] font-bold text-pink-200">
-              <Sparkles className="h-3 w-3 text-amber-300" />
+            <div className="inline-flex items-center gap-1 rounded-full bg-[#24150E]/25 px-2.5 py-0.5 text-[11px] font-bold text-[#F5DEC7]">
+              <Sparkles className="h-3 w-3 text-[#F1CF8A]" />
               <span>{rank.current.title}</span>
             </div>
             <h1 className="mt-1 truncate text-lg font-black tracking-tight">
@@ -136,38 +137,43 @@ export const HomeView: React.FC<HomeViewProps> = ({
           </div>
 
           {daysUntilExam !== null && (
-            <div className="shrink-0 rounded-2xl border border-white/15 bg-black/30 px-2.5 py-1.5 text-center">
-              <CalendarClock className="mx-auto h-3.5 w-3.5 text-amber-300" />
+            <div className="shrink-0 rounded-2xl border border-[#F5DEC7]/20 bg-[#24150E]/28 px-2.5 py-1.5 text-center">
+              <CalendarClock className="mx-auto h-3.5 w-3.5 text-[#F1CF8A]" />
               <p className="mt-0.5 text-sm leading-none font-black">{daysUntilExam}d</p>
             </div>
           )}
         </div>
 
-        <div className="mt-3 rounded-2xl bg-black/30 p-2.5">
+        <div className="mt-3 rounded-2xl bg-[#22130D]/28 p-2.5">
           <div className="mb-1.5 flex items-center justify-between text-xs">
-            <span className="font-bold text-pink-200">
+            <span className="font-bold text-[#F5DEC7]">
               Daily Goal: {myStreak.todayXp} / {dailyGoalXp} XP
             </span>
-            <span className="font-extrabold text-amber-300">
+            <span className="font-extrabold text-[#F3D493]">
               {myStreak.metGoalToday ? 'Goal Met! 🌟' : `${dailyPercent}%`}
             </span>
           </div>
-          <ProgressBar percent={dailyPercent} heightClass="h-2" />
+          <div className="h-2 w-full overflow-hidden rounded-full bg-[#22130D]/45">
+            <div
+              className="h-full rounded-full bg-gradient-to-r from-[#E5B28E] via-[#E5C27E] to-[#A1C09B] transition-all duration-500 ease-out"
+              style={{ width: `${dailyPercent}%` }}
+            />
+          </div>
         </div>
       </section>
 
       {isMobile && !isStandalone && !bannerDismissed && (
-        <section className="rounded-2xl border border-emerald-500/35 bg-emerald-950/40 p-3 text-xs text-emerald-100">
+        <section className="callout-emerald rounded-2xl p-3 text-xs">
           <div className="flex items-start justify-between gap-2.5">
             <div className="min-w-0 flex-1">
-              <p className="font-extrabold text-emerald-300">Install SpiceUpUK App</p>
+              <p className="accent-emerald font-extrabold">Install SpiceUpUK App</p>
               {canInstall ? (
-                <p className="mt-0.5 text-[11px] text-emerald-200/85">
+                <p className="mt-0.5 text-[11px] opacity-90">
                   {swReady ? 'Offline cache ready. ' : ''}Tap Install (not Create shortcut) and
                   wait ~10s.
                 </p>
               ) : (
-                <p className="mt-0.5 text-[11px] leading-relaxed text-emerald-200/85">
+                <p className="mt-0.5 text-[11px] leading-relaxed opacity-90">
                   Tap Chrome <code>⋮</code> -&gt; <strong>Add to home screen</strong> -&gt;{' '}
                   <strong>Install</strong> (not Create shortcut), or Safari Share -&gt; Add to Home
                   Screen.
@@ -195,7 +201,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
                   }
                   setBannerDismissed(true);
                 }}
-                className="rounded-lg p-1 text-emerald-300/80 hover:bg-emerald-900/50"
+                className="accent-emerald rounded-lg p-1 opacity-80 hover:opacity-100"
                 aria-label="Dismiss install banner for this session"
               >
                 <X className="h-4 w-4" />
@@ -247,80 +253,80 @@ export const HomeView: React.FC<HomeViewProps> = ({
         <button
           type="button"
           onClick={onOpenChapterProgress}
-          className={`flex w-full items-center justify-between gap-3 rounded-2xl border p-3.5 text-left transition ${cardSurface}`}
+          className="autumn-card flex w-full items-center justify-between gap-3 rounded-2xl p-3.5 text-left transition hover:border-orange-500/50"
         >
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-500/15 text-emerald-400">
-              <BarChart3 className="h-5 w-5" />
+            <div className="callout-emerald flex h-10 w-10 shrink-0 items-center justify-center rounded-xl">
+              <BarChart3 className="accent-emerald h-5 w-5" />
             </div>
             <div>
               <p className="text-sm font-extrabold">Chapter Progress</p>
-              <p className="text-xs text-slate-400">
+              <p className="autumn-muted text-xs">
                 {overallMasteryPercent}% overall readiness across 5 chapters
               </p>
             </div>
           </div>
-          <ChevronRight className="h-4 w-4 shrink-0 text-slate-400" />
+          <ChevronRight className="autumn-muted h-4 w-4 shrink-0" />
         </button>
 
         {missedQuestionCount > 0 && (
           <button
             type="button"
             onClick={onQuickStartMistakes}
-            className={`flex w-full items-center justify-between gap-3 rounded-2xl border p-3.5 text-left transition ${cardSurface}`}
+            className="autumn-card flex w-full items-center justify-between gap-3 rounded-2xl p-3.5 text-left transition hover:border-orange-500/50"
           >
             <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-rose-500/15 text-rose-400">
-                <AlertCircle className="h-5 w-5" />
+              <div className="callout-rose flex h-10 w-10 shrink-0 items-center justify-center rounded-xl">
+                <AlertCircle className="accent-rose h-5 w-5" />
               </div>
               <div>
                 <p className="text-sm font-extrabold">Mistakes Rescue</p>
-                <p className="text-xs text-slate-400">
+                <p className="autumn-muted text-xs">
                   Re-drill {missedQuestionCount} missed question{missedQuestionCount === 1 ? '' : 's'}
                 </p>
               </div>
             </div>
-            <ChevronRight className="h-4 w-4 shrink-0 text-slate-400" />
+            <ChevronRight className="autumn-muted h-4 w-4 shrink-0" />
           </button>
         )}
 
         <button
           type="button"
           onClick={() => onNavigate('arcade')}
-          className={`flex w-full items-center justify-between gap-3 rounded-2xl border p-3.5 text-left transition ${cardSurface}`}
+          className="autumn-card flex w-full items-center justify-between gap-3 rounded-2xl p-3.5 text-left transition hover:border-orange-500/50"
         >
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-500/15 text-amber-400">
-              <Gamepad2 className="h-5 w-5" />
+            <div className="callout-amber flex h-10 w-10 shrink-0 items-center justify-center rounded-xl">
+              <Gamepad2 className="accent-amber h-5 w-5" />
             </div>
             <div>
               <p className="text-sm font-extrabold">Tube Arcade</p>
-              <p className="text-xs text-slate-400">
+              <p className="autumn-muted text-xs">
                 60s Blitz, Timeline Sort, Fact Match &amp; Duels
               </p>
             </div>
           </div>
-          <ChevronRight className="h-4 w-4 shrink-0 text-slate-400" />
+          <ChevronRight className="autumn-muted h-4 w-4 shrink-0" />
         </button>
 
         <button
           type="button"
           onClick={() => onNavigate('us')}
-          className={`flex w-full items-center justify-between gap-3 rounded-2xl border p-3.5 text-left transition ${cardSurface}`}
+          className="autumn-card flex w-full items-center justify-between gap-3 rounded-2xl p-3.5 text-left transition hover:border-orange-500/50"
         >
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-pink-500/15 text-pink-400">
-              <HeartHandshake className="h-5 w-5" />
+            <div className="callout-spice flex h-10 w-10 shrink-0 items-center justify-center rounded-xl">
+              <HeartHandshake className="accent-spice h-5 w-5" />
             </div>
             <div>
               <p className="text-sm font-extrabold">Streaks, Team &amp; Sync</p>
-              <p className="text-xs text-slate-400">
+              <p className="autumn-muted text-xs">
                 🔥 {myStreak.currentStreak}d streak • 💞 {coupleStreak.currentCoupleStreak}d shared •{' '}
                 {partnerProfile.displayName}: {partnerTotalXp} XP
               </p>
             </div>
           </div>
-          <ChevronRight className="h-4 w-4 shrink-0 text-slate-400" />
+          <ChevronRight className="autumn-muted h-4 w-4 shrink-0" />
         </button>
       </section>
     </div>

@@ -9,6 +9,7 @@ import {
   Flag,
   History,
   Layers,
+  RefreshCw,
   Sparkles,
   Star,
   XCircle,
@@ -43,6 +44,7 @@ interface TestsViewProps {
   missedQuestionIds: readonly string[];
   testSessions: readonly TestSessionRecord[];
   hydratingStandardPack?: boolean;
+  onRetryStandardPack?: () => Promise<void>;
   autoStartExamNumber?: number | null;
   autoStartMistakes?: boolean;
   activeChallenge?: { challengeId: string; title: string; questionIds: readonly string[] } | null;
@@ -71,6 +73,7 @@ export const TestsView: React.FC<TestsViewProps> = ({
   missedQuestionIds,
   testSessions,
   hydratingStandardPack = false,
+  onRetryStandardPack,
   autoStartExamNumber,
   autoStartMistakes,
   activeChallenge,
@@ -256,7 +259,7 @@ export const TestsView: React.FC<TestsViewProps> = ({
 
     if (saved.passed) {
       try {
-        void confetti({ particleCount: 75, spread: 70, origin: { y: 0.6 } });
+        void confetti({ particleCount: 65, spread: 65, origin: { y: 0.6 } });
       } catch {
         // Ignore in headless environments
       }
@@ -303,10 +306,6 @@ export const TestsView: React.FC<TestsViewProps> = ({
     setBoostedIds((prev) => new Set(prev).add(q.id));
   };
 
-  const cardSurface = isLightMode
-    ? 'border-[#E6D6C3] bg-[#FFFDF9] shadow-sm'
-    : 'border-slate-800/90 bg-slate-900/85';
-
   // 1. POST-EXAM RESULTS & RICH WRONG-ANSWER REVIEW SCREEN
   if (reviewSession) {
     const { session, questions } = reviewSession;
@@ -325,17 +324,21 @@ export const TestsView: React.FC<TestsViewProps> = ({
         <button
           type="button"
           onClick={() => setReviewSession(null)}
-          className="inline-flex items-center gap-1 rounded-xl px-2.5 py-1.5 text-xs font-bold text-slate-400 hover:bg-slate-800 hover:text-white"
+          className="autumn-back-btn inline-flex items-center gap-1 rounded-xl px-2.5 py-1.5 text-xs font-bold"
         >
           <ArrowLeft className="h-4 w-4" />
           <span>Back to Exams</span>
         </button>
 
         <section
-          className={`rounded-3xl border p-5 text-center ${
+          className={`rounded-3xl border p-5 text-center shadow-md ${
             session.passed
-              ? 'border-emerald-500/40 bg-gradient-to-br from-emerald-950/80 to-slate-900 text-white'
-              : 'border-rose-500/40 bg-gradient-to-br from-rose-950/80 to-slate-900 text-white'
+              ? isLightMode
+                ? 'border-[#5E8858]/50 bg-gradient-to-br from-[#435F3F] to-[#567451] text-[#FAF2E8]'
+                : 'border-[#5E8858]/50 bg-gradient-to-br from-[#2B3D29] to-[#372920] text-[#F3EAE0]'
+              : isLightMode
+                ? 'border-[#A0545C]/50 bg-gradient-to-br from-[#6D363D] to-[#86474F] text-[#FAF2E8]'
+                : 'border-[#A0545C]/50 bg-gradient-to-br from-[#462328] to-[#36261E] text-[#F3EAE0]'
           }`}
         >
           <p className="text-4xl">{session.passed ? '🎉' : '🌶️'}</p>
@@ -343,8 +346,8 @@ export const TestsView: React.FC<TestsViewProps> = ({
             {session.score} / {session.total} ({pct}%):{' '}
             {session.passed ? 'PASSED!' : 'NOT YET (75% NEEDED)'}
           </h2>
-          <p className="mt-1 text-xs text-pink-200">{spiceQuote}</p>
-          <p className="mt-2 text-[11px] text-slate-300">
+          <p className="mt-1 text-xs text-[#F4D9BD]">{spiceQuote}</p>
+          <p className="mt-2 text-[11px] opacity-85">
             Completed in {Math.floor(session.durationSec / 60)}m {session.durationSec % 60}s
           </p>
         </section>
@@ -359,8 +362,8 @@ export const TestsView: React.FC<TestsViewProps> = ({
               onClick={() => setReviewFilter('wrong')}
               className={`rounded-xl px-3 py-1 text-xs font-bold ${
                 reviewFilter === 'wrong'
-                  ? 'bg-rose-600 text-white'
-                  : 'bg-slate-800 text-slate-300'
+                  ? 'autumn-btn-cranberry'
+                  : 'autumn-pill'
               }`}
             >
               Missed ({session.total - session.score})
@@ -370,8 +373,8 @@ export const TestsView: React.FC<TestsViewProps> = ({
               onClick={() => setReviewFilter('all')}
               className={`rounded-xl px-3 py-1 text-xs font-bold ${
                 reviewFilter === 'all'
-                  ? 'bg-pink-600 text-white'
-                  : 'bg-slate-800 text-slate-300'
+                  ? 'bg-orange-600 text-[#FAF1E6]'
+                  : 'autumn-pill'
               }`}
             >
               All ({session.total})
@@ -380,8 +383,8 @@ export const TestsView: React.FC<TestsViewProps> = ({
         </div>
 
         {visibleQuestions.length === 0 ? (
-          <div className={`rounded-2xl border p-5 text-center ${cardSurface}`}>
-            <p className="text-sm font-bold text-emerald-400">
+          <div className="autumn-card rounded-2xl p-5 text-center">
+            <p className="accent-emerald text-sm font-bold">
               Zero missed questions: flawless 100% Posh score! 👑
             </p>
           </div>
@@ -398,17 +401,17 @@ export const TestsView: React.FC<TestsViewProps> = ({
               const isBoosted = boostedIds.has(q.id);
 
               return (
-                <article key={q.id} className={`space-y-3 rounded-3xl border p-4 ${cardSurface}`}>
+                <article key={q.id} className="autumn-card space-y-3 rounded-3xl p-4">
                   <div className="flex items-start justify-between gap-2">
-                    <span className="rounded-md bg-slate-800 px-2 py-0.5 text-[10px] font-bold text-slate-300 uppercase">
+                    <span className="autumn-pill rounded-md px-2 py-0.5 text-[10px] font-bold uppercase">
                       {q.chapterId.toUpperCase()}
                     </span>
                     {isCorrect ? (
-                      <span className="inline-flex items-center gap-1 text-xs font-bold text-emerald-400">
+                      <span className="accent-emerald inline-flex items-center gap-1 text-xs font-bold">
                         <CheckCircle2 className="h-4 w-4" /> Correct
                       </span>
                     ) : (
-                      <span className="inline-flex items-center gap-1 text-xs font-bold text-rose-400">
+                      <span className="accent-rose inline-flex items-center gap-1 text-xs font-bold">
                         <XCircle className="h-4 w-4" /> Missed
                       </span>
                     )}
@@ -417,23 +420,23 @@ export const TestsView: React.FC<TestsViewProps> = ({
                   <p className="text-sm leading-snug font-extrabold">{q.prompt}</p>
 
                   {!isCorrect && (
-                    <div className="rounded-xl border border-rose-500/30 bg-rose-500/10 px-3 py-2 text-xs text-rose-200">
+                    <div className="callout-rose rounded-xl px-3 py-2 text-xs">
                       <strong>Your pick:</strong> {chosenLabels}
                     </div>
                   )}
 
-                  <div className="rounded-xl border border-emerald-500/35 bg-emerald-500/10 px-3 py-2 text-xs text-emerald-200">
+                  <div className="callout-emerald rounded-xl px-3 py-2 text-xs">
                     <strong>Right answer:</strong> {rightLabels}
                   </div>
 
-                  <div className="text-xs leading-relaxed text-slate-300">
-                    <strong className="text-white">Why: </strong>
+                  <div className="autumn-soft text-xs leading-relaxed">
+                    <strong>Why: </strong>
                     {q.explanation}
                   </div>
 
                   {q.memoryHook && (
-                    <div className="rounded-2xl border border-pink-500/35 bg-pink-500/10 p-3 text-xs leading-relaxed text-pink-100">
-                      <p className="mb-0.5 font-extrabold text-pink-300">
+                    <div className="callout-spice rounded-2xl p-3 text-xs leading-relaxed">
+                      <p className="accent-spice mb-0.5 font-extrabold">
                         <Sparkles className="mr-1 inline h-3.5 w-3.5" />
                         Memory Tip:
                       </p>
@@ -484,20 +487,18 @@ export const TestsView: React.FC<TestsViewProps> = ({
           <button
             type="button"
             onClick={() => setRunnerQuestions(null)}
-            className="inline-flex items-center gap-1 rounded-xl px-2 py-1 text-xs font-bold text-slate-400 hover:bg-slate-800 hover:text-white"
+            className="autumn-back-btn inline-flex items-center gap-1 rounded-xl px-2 py-1 text-xs font-bold"
           >
             <ArrowLeft className="h-4 w-4" />
             <span>Quit</span>
           </button>
 
-          <span className="truncate text-xs font-extrabold text-slate-300">{runnerTitle}</span>
+          <span className="autumn-soft truncate text-xs font-extrabold">{runnerTitle}</span>
 
           {runnerMode === 'mock' && (
             <div
               className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 font-mono text-xs font-extrabold ${
-                remainingSec < 300
-                  ? 'bg-rose-500/20 text-rose-300'
-                  : 'bg-slate-800 text-amber-300'
+                remainingSec < 300 ? 'callout-rose' : 'callout-amber'
               }`}
             >
               <Clock className="h-3.5 w-3.5" />
@@ -513,9 +514,9 @@ export const TestsView: React.FC<TestsViewProps> = ({
           heightClass="h-2"
         />
 
-        <div className={`space-y-4 rounded-3xl border p-4.5 ${cardSurface}`}>
+        <div className="autumn-card space-y-4 rounded-3xl p-4.5">
           <div className="flex items-center justify-between text-xs">
-            <span className="font-extrabold text-pink-400">
+            <span className="accent-spice font-extrabold">
               Question {currentIdx + 1} of {runnerQuestions.length}
             </span>
             <button
@@ -529,7 +530,7 @@ export const TestsView: React.FC<TestsViewProps> = ({
                 })
               }
               className={`inline-flex items-center gap-1 rounded-lg px-2 py-1 text-[11px] font-bold ${
-                isFlagged ? 'bg-amber-500/20 text-amber-300' : 'text-slate-400 hover:bg-slate-800'
+                isFlagged ? 'callout-amber' : 'autumn-back-btn'
               }`}
             >
               <Flag className="h-3 w-3" />
@@ -540,7 +541,7 @@ export const TestsView: React.FC<TestsViewProps> = ({
           <div>
             <p className="text-base leading-snug font-extrabold">{q.prompt}</p>
             {q.type === 'multiple' && (
-              <p className="mt-1 text-xs font-bold text-amber-400">
+              <p className="accent-amber mt-1 text-xs font-bold">
                 Select {q.correctIndices.length} answers ({selectedForCurrent.length}/
                 {q.correctIndices.length} chosen)
               </p>
@@ -552,16 +553,15 @@ export const TestsView: React.FC<TestsViewProps> = ({
               const isChosen = selectedForCurrent.includes(idx);
               const isRightOpt = q.correctIndices.includes(idx);
 
-              let optStyle =
-                'border-slate-700/80 bg-slate-950/40 hover:border-slate-600 text-inherit';
+              let optStyle = 'autumn-inset hover:border-orange-500/45';
               if (isRevealed) {
                 if (isRightOpt) {
-                  optStyle = 'border-emerald-500 bg-emerald-500/20 text-emerald-200 font-bold';
+                  optStyle = 'callout-emerald font-bold ring-1 ring-emerald-500/50';
                 } else if (isChosen) {
-                  optStyle = 'border-rose-500 bg-rose-500/20 text-rose-200';
+                  optStyle = 'callout-rose ring-1 ring-rose-500/50';
                 }
               } else if (isChosen) {
-                optStyle = 'border-pink-500 bg-pink-600/20 text-pink-200 font-bold';
+                optStyle = 'callout-spice font-bold ring-1 ring-orange-500/60';
               }
 
               return (
@@ -569,13 +569,13 @@ export const TestsView: React.FC<TestsViewProps> = ({
                   key={idx}
                   type="button"
                   onClick={() => handleSelectOption(q, idx)}
-                  className={`flex w-full items-center gap-3 rounded-2xl border p-3.5 text-left text-sm transition ${optStyle}`}
+                  className={`flex w-full items-center gap-3 rounded-2xl p-3.5 text-left text-sm transition ${optStyle}`}
                 >
                   <span
                     className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full border text-xs font-extrabold ${
                       isChosen
-                        ? 'border-pink-400 bg-pink-500 text-white'
-                        : 'border-slate-600 text-slate-400'
+                        ? 'border-orange-500 bg-orange-600 text-[#FAF1E6]'
+                        : 'border-amber-900/35 opacity-75'
                     }`}
                   >
                     {String.fromCharCode(65 + idx)}
@@ -597,21 +597,21 @@ export const TestsView: React.FC<TestsViewProps> = ({
           )}
 
           {isRevealed && (
-            <div className="space-y-2.5 rounded-2xl border border-slate-700/80 bg-slate-950/70 p-3.5 text-xs">
+            <div className="autumn-inset space-y-2.5 rounded-2xl p-3.5 text-xs">
               <p
                 className={`font-extrabold ${
                   arraysHaveSameNumbers(selectedForCurrent, q.correctIndices)
-                    ? 'text-emerald-400'
-                    : 'text-rose-400'
+                    ? 'accent-emerald'
+                    : 'accent-rose'
                 }`}
               >
                 {arraysHaveSameNumbers(selectedForCurrent, q.correctIndices)
                   ? '✓ Spot on!'
                   : `✗ Right answer: ${q.correctIndices.map((i) => q.options[i]).join(' • ')}`}
               </p>
-              <p className="leading-relaxed text-slate-300">{q.explanation}</p>
+              <p className="autumn-soft leading-relaxed">{q.explanation}</p>
               {q.memoryHook && (
-                <div className="rounded-xl border border-pink-500/30 bg-pink-500/10 p-2.5 text-pink-200">
+                <div className="callout-spice rounded-xl p-2.5">
                   <strong>Memory Tip:</strong> {q.memoryHook}
                 </div>
               )}
@@ -648,8 +648,8 @@ export const TestsView: React.FC<TestsViewProps> = ({
           )}
         </div>
 
-        <div className={`rounded-2xl border p-3 ${cardSurface}`}>
-          <p className="mb-2 text-[11px] font-bold text-slate-400">
+        <div className="autumn-card rounded-2xl p-3">
+          <p className="autumn-muted mb-2 text-[11px] font-bold">
             Jump to question ({answeredCount}/{runnerQuestions.length} answered):
           </p>
           <div className="grid grid-cols-8 gap-1.5">
@@ -664,12 +664,12 @@ export const TestsView: React.FC<TestsViewProps> = ({
                   onClick={() => setCurrentIdx(idx)}
                   className={`rounded-lg py-1 text-xs font-bold transition ${
                     cur
-                      ? 'ring-2 ring-pink-500 bg-pink-600 text-white'
+                      ? 'bg-orange-600 text-[#FAF1E6] ring-2 ring-orange-400/60'
                       : flg
-                        ? 'bg-amber-500/30 text-amber-200'
+                        ? 'callout-amber'
                         : done
-                          ? 'bg-emerald-500/20 text-emerald-300'
-                          : 'bg-slate-800/80 text-slate-400'
+                          ? 'callout-emerald'
+                          : 'autumn-pill opacity-85'
                   }`}
                 >
                   {idx + 1}
@@ -696,7 +696,7 @@ export const TestsView: React.FC<TestsViewProps> = ({
   return (
     <div className="space-y-4">
       {/* Sub-navigation */}
-      <div className="grid grid-cols-4 gap-1 rounded-2xl border border-slate-800 bg-slate-900/80 p-1">
+      <div className="autumn-tabs grid grid-cols-4 gap-1 rounded-2xl p-1">
         {(
           [
             ['official18', 'Exams 1-18', <Star key="o" className="h-3.5 w-3.5" />],
@@ -710,7 +710,7 @@ export const TestsView: React.FC<TestsViewProps> = ({
             type="button"
             onClick={() => setSubTab(id)}
             className={`flex items-center justify-center gap-1 rounded-xl py-2 text-xs font-extrabold transition ${
-              subTab === id ? 'bg-pink-600 text-white shadow' : 'text-slate-400'
+              subTab === id ? 'bg-orange-600 text-[#FAF1E6] shadow-sm' : 'autumn-tab-inactive'
             }`}
           >
             {icon}
@@ -719,14 +719,14 @@ export const TestsView: React.FC<TestsViewProps> = ({
         ))}
       </div>
 
-      {/* TAB 1: Auto-Loaded Standard 18 Practice Exams (435 Qs, cached offline automatically on install!) */}
+      {/* TAB 1: Auto-Loaded Standard 18 Practice Exams (435 Qs, cached offline automatically on install) */}
       {subTab === 'official18' && (
         <div className="space-y-3">
-          <div className={`rounded-3xl border p-4 ${cardSurface}`}>
+          <div className="autumn-card rounded-3xl p-4">
             <div className="flex items-center justify-between gap-2">
               <div>
                 <h2 className="text-base font-black">Standard Practice Exams (1-18)</h2>
-                <p className="text-xs text-slate-400">
+                <p className="autumn-muted text-xs">
                   Auto-cached offline on install • 45 mins • 75% to pass
                 </p>
               </div>
@@ -752,12 +752,24 @@ export const TestsView: React.FC<TestsViewProps> = ({
           </div>
 
           {standard18Questions.length === 0 ? (
-            <div className={`rounded-3xl border p-5 text-center text-xs ${cardSurface}`}>
-              <p className="font-bold text-slate-300">
+            <div className="autumn-card space-y-3 rounded-3xl p-5 text-center text-xs">
+              <p className="autumn-soft font-bold">
                 {hydratingStandardPack
                   ? 'Caching all 18 exams offline right now...'
                   : 'Connect to the internet once to cache Exams 1-18 offline (or practice Spice 17 right away!).'}
               </p>
+              {!hydratingStandardPack && onRetryStandardPack && (
+                <div>
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    onClick={() => void onRetryStandardPack()}
+                  >
+                    <RefreshCw className="h-3.5 w-3.5" />
+                    <span>Load Exams 1-18 Now</span>
+                  </Button>
+                </div>
+              )}
             </div>
           ) : (
             <div className="grid grid-cols-2 gap-2.5">
@@ -776,23 +788,21 @@ export const TestsView: React.FC<TestsViewProps> = ({
                         title: `Exam #${examNum}`,
                       })
                     }
-                    className={`flex flex-col justify-between rounded-2xl border p-3.5 text-left transition hover:border-pink-500/50 ${cardSurface}`}
+                    className="autumn-card flex flex-col justify-between rounded-2xl p-3.5 text-left transition hover:border-orange-500/50"
                   >
                     <div className="flex items-center justify-between">
                       <span className="text-sm font-black">Exam #{examNum}</span>
                       {best && (
                         <span
                           className={`rounded-md px-1.5 py-0.5 text-[10px] font-black ${
-                            best.passed
-                              ? 'bg-emerald-500/20 text-emerald-400'
-                              : 'bg-rose-500/20 text-rose-400'
+                            best.passed ? 'callout-emerald' : 'callout-rose'
                           }`}
                         >
                           {best.score}/{best.total}
                         </span>
                       )}
                     </div>
-                    <p className="mt-2 text-[11px] text-slate-400">
+                    <p className="autumn-muted mt-2 text-[11px]">
                       {best
                         ? best.passed
                           ? '✓ Passed (tap to beat score)'
@@ -806,7 +816,7 @@ export const TestsView: React.FC<TestsViewProps> = ({
           )}
 
           {userImportedQuestions.length > 0 && (
-            <div className={`rounded-2xl border p-3.5 ${cardSurface}`}>
+            <div className="autumn-card rounded-2xl p-3.5">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-extrabold">
                   Extra Custom Pack ({userImportedQuestions.length} Qs)
@@ -836,11 +846,11 @@ export const TestsView: React.FC<TestsViewProps> = ({
       {/* TAB 2: Built-in 17 Original Spice Mock Exams */}
       {subTab === 'spice17' && (
         <div className="space-y-3">
-          <div className={`rounded-3xl border p-4 ${cardSurface}`}>
+          <div className="autumn-card rounded-3xl p-4">
             <div className="flex items-center justify-between gap-2">
               <div>
                 <h2 className="text-base font-black">Spice Bonus Mock Exams (1-17)</h2>
-                <p className="text-xs text-slate-400">
+                <p className="autumn-muted text-xs">
                   408 extra original questions with Spice Girls mnemonics
                 </p>
               </div>
@@ -881,23 +891,21 @@ export const TestsView: React.FC<TestsViewProps> = ({
                       title: `Spice Exam #${examNum}`,
                     })
                   }
-                  className={`flex flex-col justify-between rounded-2xl border p-3.5 text-left transition hover:border-pink-500/50 ${cardSurface}`}
+                  className="autumn-card flex flex-col justify-between rounded-2xl p-3.5 text-left transition hover:border-orange-500/50"
                 >
                   <div className="flex items-center justify-between">
                     <span className="text-sm font-black">Spice #{examNum}</span>
                     {best && (
                       <span
                         className={`rounded-md px-1.5 py-0.5 text-[10px] font-black ${
-                          best.passed
-                            ? 'bg-emerald-500/20 text-emerald-400'
-                            : 'bg-rose-500/20 text-rose-400'
+                          best.passed ? 'callout-emerald' : 'callout-rose'
                         }`}
                       >
                         {best.score}/{best.total}
                       </span>
                     )}
                   </div>
-                  <p className="mt-2 text-[11px] text-slate-400">
+                  <p className="autumn-muted mt-2 text-[11px]">
                     {best
                       ? best.passed
                         ? '✓ Passed (tap to beat score)'
@@ -914,7 +922,7 @@ export const TestsView: React.FC<TestsViewProps> = ({
               <button
                 type="button"
                 onClick={onJumpToImporter}
-                className="text-xs font-bold text-slate-400 hover:text-pink-400"
+                className="autumn-muted hover:accent-spice text-xs font-bold transition"
               >
                 Want to import another custom JSON/CSV deck? Open Us tab -&gt;
               </button>
@@ -926,13 +934,13 @@ export const TestsView: React.FC<TestsViewProps> = ({
       {/* TAB 3: Chapter Drills & Mistakes Bank */}
       {subTab === 'drills' && (
         <div className="space-y-3">
-          <div className={`rounded-3xl border p-4 ${cardSurface}`}>
+          <div className="autumn-card rounded-3xl p-4">
             <div className="flex items-center justify-between gap-3">
               <div>
-                <h3 className="text-sm font-black text-rose-400">
+                <h3 className="accent-rose text-sm font-black">
                   Mistakes Rescue Bank ({missedQuestionIds.length})
                 </h3>
-                <p className="mt-0.5 text-xs text-slate-400">
+                <p className="autumn-muted mt-0.5 text-xs">
                   Re-drill questions you missed with instant explanations &amp; memory hooks!
                 </p>
               </div>
@@ -962,13 +970,13 @@ export const TestsView: React.FC<TestsViewProps> = ({
               return (
                 <div
                   key={ch.id}
-                  className={`flex items-center justify-between gap-3 rounded-2xl border p-3.5 ${cardSurface}`}
+                  className="autumn-card flex items-center justify-between gap-3 rounded-2xl p-3.5"
                 >
                   <div>
                     <p className="text-xs font-extrabold">
                       Ch {ch.number}: {ch.title}
                     </p>
-                    <p className="text-[11px] text-slate-400">
+                    <p className="autumn-muted text-[11px]">
                       12-question instant-feedback drill ({chQs.length} in bank)
                     </p>
                   </div>
@@ -999,7 +1007,7 @@ export const TestsView: React.FC<TestsViewProps> = ({
       {subTab === 'history' && (
         <div className="space-y-2.5">
           {testSessions.filter((s) => s.profileId === activeProfileId).length === 0 ? (
-            <div className={`rounded-3xl border p-6 text-center text-xs text-slate-400 ${cardSurface}`}>
+            <div className="autumn-card autumn-muted rounded-3xl p-6 text-center text-xs">
               No completed tests yet. Start Exam #1 or a quick 12-question chapter drill!
             </div>
           ) : (
@@ -1020,7 +1028,7 @@ export const TestsView: React.FC<TestsViewProps> = ({
                         setReviewSession({ session: s, questions: sessionQs });
                       }
                     }}
-                    className={`flex w-full items-center justify-between rounded-2xl border p-3.5 text-left transition hover:border-pink-500/40 ${cardSurface}`}
+                    className="autumn-card flex w-full items-center justify-between rounded-2xl p-3.5 text-left transition hover:border-orange-500/45"
                   >
                     <div>
                       <p className="text-xs font-extrabold">
@@ -1032,7 +1040,7 @@ export const TestsView: React.FC<TestsViewProps> = ({
                               ? 'Couple Challenge'
                               : `Chapter Drill (${s.chapterId?.toUpperCase() ?? ''})`}
                       </p>
-                      <p className="text-[11px] text-slate-400">
+                      <p className="autumn-muted text-[11px]">
                         {new Date(s.completedAt).toLocaleString('en-GB', {
                           day: 'numeric',
                           month: 'short',
@@ -1044,9 +1052,7 @@ export const TestsView: React.FC<TestsViewProps> = ({
                     </div>
                     <span
                       className={`rounded-xl px-2.5 py-1 text-xs font-black ${
-                        s.passed
-                          ? 'bg-emerald-500/20 text-emerald-300'
-                          : 'bg-rose-500/20 text-rose-300'
+                        s.passed ? 'callout-emerald' : 'callout-rose'
                       }`}
                     >
                       {s.score}/{s.total}

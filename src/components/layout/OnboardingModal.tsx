@@ -47,18 +47,18 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) 
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-slate-950/90 p-4 backdrop-blur-md">
-      <div className="my-auto w-full max-w-md rounded-3xl border border-pink-500/30 bg-slate-900 p-5 text-slate-100 shadow-2xl">
+    <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/80 p-4 backdrop-blur-md">
+      <div className="autumn-card my-auto w-full max-w-md rounded-3xl p-5 shadow-2xl">
         <div className="text-center">
           <img
             src="./icons/brand-logo.png"
             alt="Spice Up Your UK"
-            className="mx-auto mb-2.5 h-16 w-16 rounded-2xl shadow-lg ring-2 ring-pink-500/40"
+            className="mx-auto mb-2.5 h-16 w-16 rounded-2xl shadow-lg ring-2 ring-orange-500/45"
           />
-          <h1 className="text-2xl font-black tracking-tight text-white">
+          <h1 className="text-2xl font-black tracking-tight">
             Spice Up Your UK!
           </h1>
-          <p className="mt-1 text-xs text-slate-300">
+          <p className="autumn-soft mt-1 text-xs">
             <em>&ldquo;Tell me what you want, what you really, really want...&rdquo;</em> To
             ace the Life in the UK Test together, even offline on the Tube!
           </p>
@@ -66,7 +66,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) 
 
         <form onSubmit={handleStart} className="mt-4 space-y-3.5">
           <div>
-            <label className="block text-xs font-bold text-slate-300">
+            <label className="autumn-soft block text-xs font-bold">
               Where are you opening this right now?
             </label>
             <div className="mt-1.5 grid grid-cols-3 gap-1.5">
@@ -86,10 +86,10 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) 
                       setEditingAvatarFor(role);
                     }
                   }}
-                  className={`rounded-xl border px-2 py-2 text-center transition ${
+                  className={`rounded-xl px-2 py-2 text-center transition ${
                     deviceRole === role
-                      ? 'border-pink-500 bg-pink-600/20 text-pink-200'
-                      : 'border-slate-700 bg-slate-800/70 text-slate-400'
+                      ? 'callout-spice font-extrabold ring-1 ring-orange-500/60'
+                      : 'autumn-inset autumn-muted'
                   }`}
                 >
                   <p className="text-[11px] font-extrabold">{title}</p>
@@ -101,7 +101,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) 
 
           <div className="grid grid-cols-2 gap-2.5">
             <div>
-              <label className="block text-xs font-bold text-slate-300">
+              <label className="autumn-soft block text-xs font-bold">
                 Player 1 Name
               </label>
               <input
@@ -110,11 +110,11 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) 
                 onChange={(e) => setPlayer1Name(e.target.value)}
                 placeholder="e.g. Ginger"
                 maxLength={24}
-                className="mt-1 w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-white placeholder-slate-500 focus:border-pink-500 focus:outline-none"
+                className="autumn-input mt-1 w-full rounded-xl px-3 py-2 text-sm"
               />
             </div>
             <div>
-              <label className="block text-xs font-bold text-slate-300">
+              <label className="autumn-soft block text-xs font-bold">
                 Player 2 Name
               </label>
               <input
@@ -123,23 +123,23 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) 
                 onChange={(e) => setPlayer2Name(e.target.value)}
                 placeholder="e.g. Posh"
                 maxLength={24}
-                className="mt-1 w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-white placeholder-slate-500 focus:border-pink-500 focus:outline-none"
+                className="autumn-input mt-1 w-full rounded-xl px-3 py-2 text-sm"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-slate-300">
-              Player Avatars <span className="font-normal text-slate-400">(tap player, then pick emoji)</span>
+            <label className="autumn-soft block text-xs font-bold">
+              Player Avatars <span className="autumn-muted font-normal">(tap player, then pick emoji)</span>
             </label>
             <div className="mt-1.5 grid grid-cols-2 gap-2">
               <button
                 type="button"
                 onClick={() => setEditingAvatarFor('partner_a')}
-                className={`flex items-center justify-center gap-1.5 rounded-xl border px-2.5 py-1.5 text-xs font-bold transition ${
+                className={`flex items-center justify-center gap-1.5 rounded-xl px-2.5 py-1.5 text-xs font-bold transition ${
                   editingAvatarFor === 'partner_a'
-                    ? 'border-pink-500 bg-pink-600/20 text-pink-200'
-                    : 'border-slate-700 bg-slate-800/60 text-slate-400'
+                    ? 'callout-spice ring-1 ring-orange-500/60'
+                    : 'autumn-inset autumn-muted'
                 }`}
               >
                 <span className="text-base">{player1Avatar}</span>
@@ -148,10 +148,10 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) 
               <button
                 type="button"
                 onClick={() => setEditingAvatarFor('partner_b')}
-                className={`flex items-center justify-center gap-1.5 rounded-xl border px-2.5 py-1.5 text-xs font-bold transition ${
+                className={`flex items-center justify-center gap-1.5 rounded-xl px-2.5 py-1.5 text-xs font-bold transition ${
                   editingAvatarFor === 'partner_b'
-                    ? 'border-indigo-500 bg-indigo-600/20 text-indigo-200'
-                    : 'border-slate-700 bg-slate-800/60 text-slate-400'
+                    ? 'callout-amber ring-1 ring-amber-500/60'
+                    : 'autumn-inset autumn-muted'
                 }`}
               >
                 <span className="text-base">{player2Avatar}</span>
@@ -171,10 +171,10 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) 
                         ? setPlayer1Avatar(emoji)
                         : setPlayer2Avatar(emoji)
                     }
-                    className={`flex h-9 items-center justify-center rounded-xl border text-xl transition ${
+                    className={`flex h-9 items-center justify-center rounded-xl text-xl transition ${
                       activeEmoji === emoji
-                        ? 'border-pink-500 bg-pink-500/25 scale-105'
-                        : 'border-slate-700 bg-slate-800/70'
+                        ? 'callout-spice scale-105 ring-1 ring-orange-500/70'
+                        : 'autumn-inset'
                     }`}
                   >
                     {emoji}
@@ -185,18 +185,18 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) 
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-slate-300">
-              Target Test Date <span className="font-normal text-slate-400">(optional)</span>
+            <label className="autumn-soft block text-xs font-bold">
+              Target Test Date <span className="autumn-muted font-normal">(optional)</span>
             </label>
             <input
               type="date"
               value={examDate}
               onChange={(e) => setExamDate(e.target.value)}
-              className="mt-1 w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2 text-sm text-white focus:border-pink-500 focus:outline-none"
+              className="autumn-input mt-1 w-full rounded-xl px-3 py-2 text-sm"
             />
           </div>
 
-          <p className="rounded-xl border border-slate-800 bg-slate-950/70 p-2.5 text-[11px] leading-relaxed text-slate-400">
+          <p className="autumn-inset autumn-muted rounded-xl p-2.5 text-[11px] leading-relaxed">
             🔒 <strong>Private Local Storage:</strong> Names, avatars, and Google Sheet sync keys
             are encoded directly into your QR codes and never stored in GitHub.
           </p>

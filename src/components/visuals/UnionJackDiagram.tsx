@@ -14,15 +14,15 @@ export const UnionJackDiagram: React.FC<{ compact?: boolean }> = ({ compact = fa
   ];
 
   return (
-    <div className="rounded-2xl border border-slate-700/60 bg-slate-900/80 p-3.5 text-slate-100 shadow-inner">
+    <div className="autumn-card rounded-2xl p-3.5">
       <div className="mb-2.5 flex items-center justify-between gap-2">
-        <span className="text-xs font-bold tracking-wider text-pink-400 uppercase">
+        <span className="accent-spice text-xs font-bold tracking-wider uppercase">
           🇬🇧 Interactive Visual Aid: Anatomy of the Union Flag
         </span>
       </div>
 
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-        <div className="mx-auto w-full max-w-[230px] shrink-0 overflow-hidden rounded-xl border border-slate-700 shadow-md">
+        <div className="mx-auto w-full max-w-[230px] shrink-0 overflow-hidden rounded-xl border border-amber-900/25 shadow-md">
           {layer === 'wales' ? (
             <svg viewBox="0 0 300 180" className="h-auto w-full" role="img" aria-label="Flag of Wales">
               <rect width="300" height="90" fill="#FFFFFF" />
@@ -90,8 +90,8 @@ export const UnionJackDiagram: React.FC<{ compact?: boolean }> = ({ compact = fa
                   onClick={() => setLayer(t.id)}
                   className={`rounded-lg px-2.5 py-1 text-xs font-semibold transition ${
                     layer === t.id
-                      ? 'bg-pink-600 text-white shadow'
-                      : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                      ? 'bg-orange-600 text-white shadow'
+                      : 'autumn-pill'
                   }`}
                 >
                   {t.label} <span className="opacity-75">({t.badge})</span>
@@ -100,7 +100,7 @@ export const UnionJackDiagram: React.FC<{ compact?: boolean }> = ({ compact = fa
             </div>
           )}
 
-          <p className="text-xs leading-relaxed text-slate-300">
+          <p className="autumn-soft text-xs leading-relaxed">
             {layer === 'union' &&
               'Combines 3 crosses: St George (England), St Andrew (Scotland), and St Patrick (Ireland). Tap a cross above to isolate it!'}
             {layer === 'england' &&
