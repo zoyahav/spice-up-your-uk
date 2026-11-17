@@ -50,6 +50,8 @@ export function createDefaultAppSettings(): AppSettings {
   return {
     id: 'app',
     onboarded: false,
+    installGuideDismissed: false,
+    standardPackHydrated: false,
     activeProfileId: 'partner_a',
     profiles: {
       partner_a: {

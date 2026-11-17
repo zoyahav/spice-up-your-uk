@@ -97,7 +97,7 @@ export const AppShell: React.FC<AppShellProps> = ({
               type="button"
               onClick={() => onSelectTab('us')}
               className="flex items-center gap-1.5 rounded-full border border-pink-500/30 bg-pink-500/10 px-2.5 py-1 text-left transition hover:bg-pink-500/20"
-              title="Switch player or sync settings"
+              title="Team scoreboard & sync settings"
             >
               <ProfileAvatar avatar={activeProfile.avatarEmoji} sizeClass="text-base" />
               <span className="max-w-[78px] truncate text-xs font-extrabold">
@@ -135,7 +135,13 @@ export const AppShell: React.FC<AppShellProps> = ({
           <div className="flex items-center gap-1.5">
             <button
               type="button"
-              onClick={onManualSync}
+              onClick={() => {
+                if (syncBadge === 'unpaired') {
+                  onSelectTab('us');
+                } else {
+                  onManualSync();
+                }
+              }}
               className={`flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-bold transition ${
                 syncBadge === 'offline'
                   ? 'bg-amber-500/20 text-amber-300'

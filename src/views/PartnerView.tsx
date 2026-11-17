@@ -633,38 +633,26 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
         </Button>
       </section>
 
-      {/* 6. PROFILE SWITCHER & LOCAL BACKUP */}
+      {/* 6. LOCKED DEVICE PROFILE & LOCAL BACKUP */}
       <section className={`space-y-3 rounded-3xl border p-4 ${cardSurface}`}>
-        <div className="flex items-center gap-2">
-          <Users className="h-4 w-4 text-pink-400" />
-          <h3 className="text-sm font-black">Profile, Exam Date &amp; Local Backup</h3>
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2">
+            <Users className="h-4 w-4 text-pink-400" />
+            <h3 className="text-sm font-black">Your Profile &amp; Local Backup</h3>
+          </div>
+          <span className="rounded-full bg-emerald-500/15 px-2.5 py-0.5 text-[10px] font-bold text-emerald-400">
+            Locked to this phone
+          </span>
         </div>
 
-        <div className="grid grid-cols-2 gap-2">
-          {(['partner_a', 'partner_b'] as const).map((pid) => {
-            const p = settings.profiles[pid];
-            const isActive = settings.activeProfileId === pid;
-            return (
-              <button
-                key={pid}
-                type="button"
-                onClick={() => void updateAppSettings({ activeProfileId: pid })}
-                className={`rounded-2xl border p-2.5 text-left text-xs font-bold transition ${
-                  isActive
-                    ? 'border-pink-500 bg-pink-500/15 text-pink-200'
-                    : 'border-slate-800 bg-slate-950/40 text-slate-400'
-                }`}
-              >
-                <p className="flex items-center gap-1.5">
-                  <ProfileAvatar avatar={p.avatarEmoji} sizeClass="text-base" />
-                  <span className="truncate">{p.displayName}</span>
-                </p>
-                <p className="text-[10px] opacity-75">
-                  {isActive ? 'Active on this phone' : 'Tap to switch'}
-                </p>
-              </button>
-            );
-          })}
+        <div className="flex items-center justify-between rounded-2xl border border-pink-500/40 bg-pink-500/10 px-3.5 py-2.5 text-xs">
+          <div className="flex items-center gap-2 font-extrabold text-pink-200">
+            <ProfileAvatar avatar={activeProfile.avatarEmoji} sizeClass="text-lg" />
+            <span>{activeProfile.displayName}</span>
+          </div>
+          <span className="text-[11px] text-slate-400">
+            Teammate: {partnerProfile.displayName} (view-only)
+          </span>
         </div>
 
         <div>

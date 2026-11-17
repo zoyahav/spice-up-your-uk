@@ -9,8 +9,8 @@ import {
   Flag,
   History,
   Layers,
-  PackageOpen,
   Sparkles,
+  Star,
   XCircle,
 } from 'lucide-react';
 import { CHAPTERS } from '../data/syllabus';
@@ -34,7 +34,7 @@ import type {
   TestSessionRecord,
 } from '../types/domain';
 
-type TestsSubTab = 'mocks' | 'imported' | 'drills' | 'history';
+type TestsSubTab = 'official18' | 'spice17' | 'drills' | 'history';
 
 interface TestsViewProps {
   activeProfileId: ProfileId;
@@ -42,6 +42,7 @@ interface TestsViewProps {
   allFlashcards: readonly Flashcard[];
   missedQuestionIds: readonly string[];
   testSessions: readonly TestSessionRecord[];
+  hydratingStandardPack?: boolean;
   autoStartExamNumber?: number | null;
   autoStartMistakes?: boolean;
   activeChallenge?: { challengeId: string; title: string; questionIds: readonly string[] } | null;
@@ -57,12 +58,19 @@ function arraysHaveSameNumbers(a: readonly number[], b: readonly number[]): bool
   return sa.every((v, idx) => v === sb[idx]);
 }
 
+function formatExamLabel(examNumber?: number): string {
+  if (!examNumber) return 'Mock Exam';
+  if (examNumber > 100) return `Spice Exam #${examNumber - 100}`;
+  return `Exam #${examNumber}`;
+}
+
 export const TestsView: React.FC<TestsViewProps> = ({
   activeProfileId,
   allQuestions,
   allFlashcards,
   missedQuestionIds,
   testSessions,
+  hydratingStandardPack = false,
   autoStartExamNumber,
   autoStartMistakes,
   activeChallenge,
@@ -70,7 +78,7 @@ export const TestsView: React.FC<TestsViewProps> = ({
   onJumpToImporter,
   isLightMode,
 }) => {
-  const [subTab, setSubTab] = useState<TestsSubTab>('mocks');
+  const [subTab, setSubTab] = useState<TestsSubTab>('official18');
 
   // Active Exam / Drill Runner State
   const [runnerQuestions, setRunnerQuestions] = useState<PracticeQuestion[] | null>(null);
@@ -96,22 +104,26 @@ export const TestsView: React.FC<TestsViewProps> = ({
   const [reviewFilter, setReviewFilter] = useState<'wrong' | 'all'>('wrong');
   const [boostedIds, setBoostedIds] = useState<Set<string>>(new Set());
 
-  const builtInQuestions = useMemo(
+  const standard18Questions = useMemo(
+    () => allQuestions.filter((q) => q.id.startsWith('std18-')),
+    [allQuestions],
+  );
+  const spice17Questions = useMemo(
     () => allQuestions.filter((q) => !q.isCustom),
     [allQuestions],
   );
-  const importedQuestions = useMemo(
-    () => allQuestions.filter((q) => q.isCustom),
+  const userImportedQuestions = useMemo(
+    () => allQuestions.filter((q) => q.isCustom && !q.id.startsWith('std18-')),
     [allQuestions],
   );
 
-  const importedExamNumbers = useMemo(() => {
+  const standardExamNumbers = useMemo(() => {
     const nums = new Set<number>();
-    for (const q of importedQuestions) {
+    for (const q of standard18Questions) {
       if (q.examNumber) nums.add(q.examNumber);
     }
     return Array.from(nums).sort((a, b) => a - b);
-  }, [importedQuestions]);
+  }, [standard18Questions]);
 
   const startRunner = (params: {
     questions: PracticeQuestion[];
@@ -141,14 +153,27 @@ export const TestsView: React.FC<TestsViewProps> = ({
 
   useEffect(() => {
     if (autoStartExamNumber) {
-      const qs = builtInQuestions.filter((q) => q.examNumber === autoStartExamNumber);
-      startRunner({
-        questions: qs,
-        mode: 'mock',
-        examNumber: autoStartExamNumber,
-        title: `Official Mock Exam #${autoStartExamNumber}`,
-        instantFeedback: false,
-      });
+      const stdQs = standard18Questions.filter((q) => q.examNumber === autoStartExamNumber);
+      if (stdQs.length > 0) {
+        startRunner({
+          questions: stdQs,
+          mode: 'mock',
+          examNumber: autoStartExamNumber,
+          title: `Exam #${autoStartExamNumber}`,
+          instantFeedback: false,
+        });
+      } else {
+        const fallbackSpice = spice17Questions.filter(
+          (q) => q.examNumber === ((autoStartExamNumber - 1) % TOTAL_MOCK_EXAMS) + 1,
+        );
+        startRunner({
+          questions: fallbackSpice,
+          mode: 'mock',
+          examNumber: 100 + (((autoStartExamNumber - 1) % TOTAL_MOCK_EXAMS) + 1),
+          title: `Spice Exam #${((autoStartExamNumber - 1) % TOTAL_MOCK_EXAMS) + 1}`,
+          instantFeedback: false,
+        });
+      }
       onConsumeAutoStart?.();
     } else if (autoStartMistakes) {
       const missedSet = new Set(missedQuestionIds);
@@ -233,7 +258,7 @@ export const TestsView: React.FC<TestsViewProps> = ({
       try {
         void confetti({ particleCount: 75, spread: 70, origin: { y: 0.6 } });
       } catch {
-        // Ignore in headless/non-canvas environments
+        // Ignore in headless environments
       }
     }
 
@@ -244,7 +269,6 @@ export const TestsView: React.FC<TestsViewProps> = ({
   };
 
   const handleBoostQuestionToFlashcards = async (q: PracticeQuestion) => {
-    // Check if an existing flashcard covers the exact prompt, otherwise create/boost a tailored custom card!
     const existingCard = allFlashcards.find(
       (c) => c.subtopicId === q.subtopicId && c.front.toLowerCase() === q.prompt.toLowerCase(),
     );
@@ -325,7 +349,6 @@ export const TestsView: React.FC<TestsViewProps> = ({
           </p>
         </section>
 
-        {/* Filter toggle */}
         <div className="flex items-center justify-between gap-2">
           <h3 className="text-sm font-extrabold">
             Answer Explanations &amp; Memory Hooks
@@ -455,7 +478,6 @@ export const TestsView: React.FC<TestsViewProps> = ({
 
     return (
       <div className="space-y-3.5">
-        {/* Runner Header */}
         <div className="flex items-center justify-between gap-2">
           <button
             type="button"
@@ -489,7 +511,6 @@ export const TestsView: React.FC<TestsViewProps> = ({
           heightClass="h-2"
         />
 
-        {/* Question Card */}
         <div className={`space-y-4 rounded-3xl border p-4.5 ${cardSurface}`}>
           <div className="flex items-center justify-between text-xs">
             <span className="font-extrabold text-pink-400">
@@ -563,7 +584,6 @@ export const TestsView: React.FC<TestsViewProps> = ({
             })}
           </div>
 
-          {/* Instant Feedback Panel in Topic Drills / Mistakes Mode */}
           {instantFeedbackMode && selectedForCurrent.length >= q.correctIndices.length && !isRevealed && (
             <Button
               variant="amber"
@@ -596,7 +616,6 @@ export const TestsView: React.FC<TestsViewProps> = ({
           )}
         </div>
 
-        {/* Navigation Controls */}
         <div className="flex items-center justify-between gap-2.5">
           <Button
             variant="secondary"
@@ -625,7 +644,6 @@ export const TestsView: React.FC<TestsViewProps> = ({
           )}
         </div>
 
-        {/* Question Navigator Grid */}
         <div className={`rounded-2xl border p-3 ${cardSurface}`}>
           <p className="mb-2 text-[11px] font-bold text-slate-400">
             Jump to question ({answeredCount}/{runnerQuestions.length} answered):
@@ -677,12 +695,8 @@ export const TestsView: React.FC<TestsViewProps> = ({
       <div className="grid grid-cols-4 gap-1 rounded-2xl border border-slate-800 bg-slate-900/80 p-1">
         {(
           [
-            ['mocks', '17 Exams', <Layers key="m" className="h-3.5 w-3.5" />],
-            [
-              'imported',
-              importedQuestions.length > 0 ? `Custom (${importedExamNumbers.length || 1})` : 'Custom',
-              <PackageOpen key="i" className="h-3.5 w-3.5" />,
-            ],
+            ['official18', 'Exams 1-18', <Star key="o" className="h-3.5 w-3.5" />],
+            ['spice17', 'Spice 17', <Layers key="m" className="h-3.5 w-3.5" />],
             ['drills', 'Drills', <AlertTriangle key="d" className="h-3.5 w-3.5" />],
             ['history', 'History', <History key="h" className="h-3.5 w-3.5" />],
           ] as const
@@ -701,28 +715,142 @@ export const TestsView: React.FC<TestsViewProps> = ({
         ))}
       </div>
 
-      {/* TAB 1: Built-in 17 Mock Exams */}
-      {subTab === 'mocks' && (
+      {/* TAB 1: Auto-Loaded Standard 18 Practice Exams (435 Qs, cached offline automatically on install!) */}
+      {subTab === 'official18' && (
         <div className="space-y-3">
           <div className={`rounded-3xl border p-4 ${cardSurface}`}>
             <div className="flex items-center justify-between gap-2">
               <div>
-                <h2 className="text-base font-black">The 17 Full Mock Exams</h2>
+                <h2 className="text-base font-black">Standard Practice Exams (1-18)</h2>
                 <p className="text-xs text-slate-400">
-                  24 questions • 45 mins • 18/24 (75%) to pass • 100% offline
+                  Auto-cached offline on install • 45 mins • 75% to pass
+                </p>
+              </div>
+              {standard18Questions.length > 0 && (
+                <Button
+                  variant="primary"
+                  size="sm"
+                  onClick={() => {
+                    const shuffled = [...standard18Questions]
+                      .sort(() => Math.random() - 0.5)
+                      .slice(0, 24);
+                    startRunner({
+                      questions: shuffled,
+                      mode: 'mock',
+                      title: 'Random 24-Q Exam',
+                    });
+                  }}
+                >
+                  Random 24
+                </Button>
+              )}
+            </div>
+          </div>
+
+          {standard18Questions.length === 0 ? (
+            <div className={`rounded-3xl border p-5 text-center text-xs ${cardSurface}`}>
+              <p className="font-bold text-slate-300">
+                {hydratingStandardPack
+                  ? 'Caching all 18 exams offline right now...'
+                  : 'Connect to the internet once to cache Exams 1-18 offline (or practice Spice 17 right away!).'}
+              </p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 gap-2.5">
+              {standardExamNumbers.map((examNum) => {
+                const qs = standard18Questions.filter((q) => q.examNumber === examNum);
+                const best = myMockBestByExam.get(examNum);
+                return (
+                  <button
+                    key={examNum}
+                    type="button"
+                    onClick={() =>
+                      startRunner({
+                        questions: qs,
+                        mode: 'mock',
+                        examNumber: examNum,
+                        title: `Exam #${examNum}`,
+                      })
+                    }
+                    className={`flex flex-col justify-between rounded-2xl border p-3.5 text-left transition hover:border-pink-500/50 ${cardSurface}`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-black">Exam #{examNum}</span>
+                      {best && (
+                        <span
+                          className={`rounded-md px-1.5 py-0.5 text-[10px] font-black ${
+                            best.passed
+                              ? 'bg-emerald-500/20 text-emerald-400'
+                              : 'bg-rose-500/20 text-rose-400'
+                          }`}
+                        >
+                          {best.score}/{best.total}
+                        </span>
+                      )}
+                    </div>
+                    <p className="mt-2 text-[11px] text-slate-400">
+                      {best
+                        ? best.passed
+                          ? '✓ Passed (tap to beat score)'
+                          : 'Retry to hit 75%'
+                        : `${qs.length} questions ready`}
+                    </p>
+                  </button>
+                );
+              })}
+            </div>
+          )}
+
+          {userImportedQuestions.length > 0 && (
+            <div className={`rounded-2xl border p-3.5 ${cardSurface}`}>
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-extrabold">
+                  Extra Custom Pack ({userImportedQuestions.length} Qs)
+                </span>
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  onClick={() => {
+                    const sample = [...userImportedQuestions]
+                      .sort(() => Math.random() - 0.5)
+                      .slice(0, 24);
+                    startRunner({
+                      questions: sample,
+                      mode: 'mock',
+                      title: 'Custom Pack: Random 24',
+                    });
+                  }}
+                >
+                  Practice 24
+                </Button>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* TAB 2: Built-in 17 Original Spice Mock Exams */}
+      {subTab === 'spice17' && (
+        <div className="space-y-3">
+          <div className={`rounded-3xl border p-4 ${cardSurface}`}>
+            <div className="flex items-center justify-between gap-2">
+              <div>
+                <h2 className="text-base font-black">Spice Bonus Mock Exams (1-17)</h2>
+                <p className="text-xs text-slate-400">
+                  408 extra original questions with Spice Girls mnemonics
                 </p>
               </div>
               <Button
                 variant="primary"
                 size="sm"
                 onClick={() => {
-                  const shuffled = [...builtInQuestions]
+                  const shuffled = [...spice17Questions]
                     .sort(() => Math.random() - 0.5)
                     .slice(0, 24);
                   startRunner({
                     questions: shuffled,
                     mode: 'mock',
-                    title: 'Random 24-Q Official Mock',
+                    title: 'Spice Bonus: Random 24',
                   });
                 }}
               >
@@ -733,8 +861,9 @@ export const TestsView: React.FC<TestsViewProps> = ({
 
           <div className="grid grid-cols-2 gap-2.5">
             {Array.from({ length: TOTAL_MOCK_EXAMS }, (_, idx) => idx + 1).map((examNum) => {
-              const qs = builtInQuestions.filter((q) => q.examNumber === examNum);
-              const best = myMockBestByExam.get(examNum);
+              const qs = spice17Questions.filter((q) => q.examNumber === examNum);
+              const sessionExamId = 100 + examNum;
+              const best = myMockBestByExam.get(sessionExamId);
               return (
                 <button
                   key={examNum}
@@ -744,14 +873,14 @@ export const TestsView: React.FC<TestsViewProps> = ({
                     startRunner({
                       questions: qs,
                       mode: 'mock',
-                      examNumber: examNum,
-                      title: `Official Mock Exam #${examNum}`,
+                      examNumber: sessionExamId,
+                      title: `Spice Exam #${examNum}`,
                     })
                   }
                   className={`flex flex-col justify-between rounded-2xl border p-3.5 text-left transition hover:border-pink-500/50 ${cardSurface}`}
                 >
                   <div className="flex items-center justify-between">
-                    <span className="text-sm font-black">Exam #{examNum}</span>
+                    <span className="text-sm font-black">Spice #{examNum}</span>
                     {best && (
                       <span
                         className={`rounded-md px-1.5 py-0.5 text-[10px] font-black ${
@@ -775,72 +904,16 @@ export const TestsView: React.FC<TestsViewProps> = ({
               );
             })}
           </div>
-        </div>
-      )}
 
-      {/* TAB 2: Custom / Imported JSON Pack Mock Exams (kept off GitHub!) */}
-      {subTab === 'imported' && (
-        <div className="space-y-3">
-          <div className={`rounded-3xl border p-4 ${cardSurface}`}>
-            <h2 className="text-base font-black">Imported / External Question Bank</h2>
-            <p className="mt-1 text-xs leading-relaxed text-slate-400">
-              Practice any external online <code>exams.json</code> or custom Google Sheet pack
-              privately, stored locally in IndexedDB &amp; synced between your devices
-              with zero files committed to GitHub!
-            </p>
-            {importedQuestions.length === 0 ? (
-              <div className="mt-4">
-                <Button variant="primary" fullWidth onClick={onJumpToImporter}>
-                  Import JSON URL or Paste Pack in &ldquo;Us&rdquo; Tab →
-                </Button>
-              </div>
-            ) : (
-              <div className="mt-3 flex items-center justify-between gap-2">
-                <span className="text-xs font-bold text-emerald-400">
-                  {importedQuestions.length} imported questions cached offline
-                </span>
-                <Button
-                  variant="primary"
-                  size="sm"
-                  onClick={() => {
-                    const shuffled = [...importedQuestions]
-                      .sort(() => Math.random() - 0.5)
-                      .slice(0, 24);
-                    startRunner({
-                      questions: shuffled,
-                      mode: 'mock',
-                      title: 'Imported Pack: Random 24',
-                    });
-                  }}
-                >
-                  Random 24
-                </Button>
-              </div>
-            )}
-          </div>
-
-          {importedQuestions.length > 0 && (
-            <div className="grid grid-cols-2 gap-2.5">
-              {importedExamNumbers.map((exNum) => {
-                const qs = importedQuestions.filter((q) => q.examNumber === exNum);
-                return (
-                  <button
-                    key={exNum}
-                    type="button"
-                    onClick={() =>
-                      startRunner({
-                        questions: qs,
-                        mode: 'mock',
-                        title: `Imported Exam #${exNum}`,
-                      })
-                    }
-                    className={`rounded-2xl border p-3.5 text-left transition hover:border-pink-500/50 ${cardSurface}`}
-                  >
-                    <p className="text-sm font-black">Imported Exam #{exNum}</p>
-                    <p className="mt-1 text-[11px] text-slate-400">{qs.length} questions</p>
-                  </button>
-                );
-              })}
+          {onJumpToImporter && (
+            <div className="pt-1 text-center">
+              <button
+                type="button"
+                onClick={onJumpToImporter}
+                className="text-xs font-bold text-slate-400 hover:text-pink-400"
+              >
+                Want to import another custom JSON/CSV deck? Open Us tab -&gt;
+              </button>
             </div>
           )}
         </div>
@@ -948,7 +1021,7 @@ export const TestsView: React.FC<TestsViewProps> = ({
                     <div>
                       <p className="text-xs font-extrabold">
                         {s.mode === 'mock'
-                          ? `Mock Exam ${s.examNumber ? `#${s.examNumber}` : ''}`
+                          ? formatExamLabel(s.examNumber)
                           : s.mode === 'mistakes'
                             ? 'Mistakes Drill'
                             : s.mode === 'challenge'

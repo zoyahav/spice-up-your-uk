@@ -373,6 +373,17 @@ export async function saveImportedCustomRecords(
 }
 
 /**
+ * Bulk-caches standard exam pack records locally in IndexedDB on install without bloating syncOutbox.
+ */
+export async function cacheLocalStandardPackRecords(
+  records: readonly CustomContentRecord[],
+  database: SpiceUpUkDB = db,
+): Promise<void> {
+  if (records.length === 0) return;
+  await database.customContent.bulkPut(records as CustomContentRecord[]);
+}
+
+/**
  * Executes a full bidirectional sync cycle with the paired Google Apps Script Web App.
  */
 export async function runFullSync(

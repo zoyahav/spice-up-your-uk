@@ -9,6 +9,7 @@ import {
 import {
   buildPairingUrl,
   compactOutboxMutations,
+  exchangeWithAppsScript,
   extractPairingPayloadFromHash,
 } from '../sync';
 
@@ -111,5 +112,40 @@ describe('Offline Outbox, Pairing QR Codec & Google Sheet Sync', () => {
     const partnerRecord = await testDb.dailyActivity.get('partner_b:2026-11-17');
     expect(partnerRecord?.xp).toBe(75);
     await testDb.delete();
+  });
+
+  it('detects HTML login pages and /dev URLs from Apps Script with clear instructions', async () => {
+    const dummyReq = {
+      passcode: 'p',
+      profileId: 'partner_a' as const,
+      profile: {
+        id: 'partner_a' as const,
+        displayName: 'Ginger',
+        spiceAlias: 'Posh',
+        avatarEmoji: '🐰',
+        updatedAt: '2026-11-17T00:00:00.000Z',
+      },
+      since: null,
+      mutations: [],
+    };
+
+    await expect(
+      exchangeWithAppsScript(
+        'https://script.google.com/macros/s/abc/dev',
+        dummyReq,
+      ),
+    ).rejects.toThrow(/ends in \/dev/i);
+
+    await expect(
+      exchangeWithAppsScript(
+        'https://script.google.com/macros/s/abc/exec',
+        dummyReq,
+        async () =>
+          new Response('<!DOCTYPE html><html><body>accounts.google.com</body></html>', {
+            status: 200,
+            headers: { 'content-type': 'text/html; charset=utf-8' },
+          }),
+      ),
+    ).rejects.toThrow(/Who has access: Anyone/i);
   });
 });

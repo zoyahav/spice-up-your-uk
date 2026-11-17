@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
+import { AlertTriangle, X } from 'lucide-react';
 import { AppShell, type NavTab } from './components/layout/AppShell';
+import { InstallAppModal, isRunningStandalone } from './components/layout/InstallAppModal';
 import { OnboardingModal } from './components/layout/OnboardingModal';
 import { useAppData } from './hooks/useAppData';
 import { updateAppSettings } from './db/repository';
 import { HomeView } from './views/HomeView';
+import { ChapterProgressView } from './views/ChapterProgressView';
 import { StudyView } from './views/StudyView';
 import { TestsView } from './views/TestsView';
 import { ArcadeView } from './views/ArcadeView';
@@ -13,6 +16,7 @@ import type { ChapterId } from './types/domain';
 export const App: React.FC = () => {
   const data = useAppData();
   const [activeTab, setActiveTab] = useState<NavTab>('home');
+  const [showChapterProgressPage, setShowChapterProgressPage] = useState(false);
 
   // Cross-tab quick-launch triggers
   const [flashcardChapterFilter, setFlashcardChapterFilter] = useState<ChapterId | null>(null);
@@ -41,15 +45,33 @@ export const App: React.FC = () => {
     });
   };
 
+  const handleSelectTab = (tab: NavTab) => {
+    setShowChapterProgressPage(false);
+    setActiveTab(tab);
+  };
+
+  const shouldShowInstallPopup =
+    data.settings.onboarded &&
+    !data.settings.installGuideDismissed &&
+    !isRunningStandalone();
+
   return (
     <>
       {!data.settings.onboarded && (
-        <OnboardingModal onComplete={(targetTab) => setActiveTab(targetTab)} />
+        <OnboardingModal onComplete={(targetTab) => handleSelectTab(targetTab)} />
+      )}
+
+      {shouldShowInstallPopup && (
+        <InstallAppModal
+          onDismiss={() => {
+            void updateAppSettings({ installGuideDismissed: true });
+          }}
+        />
       )}
 
       <AppShell
         activeTab={activeTab}
-        onSelectTab={setActiveTab}
+        onSelectTab={handleSelectTab}
         activeProfile={data.activeProfile}
         streakCount={data.myStreak.currentStreak}
         coupleStreakCount={data.coupleStreak.currentCoupleStreak}
@@ -74,7 +96,47 @@ export const App: React.FC = () => {
           </div>
         )}
 
-        {activeTab === 'home' && (
+        {data.syncError && (
+          <div className="mb-3 rounded-2xl border border-rose-500/45 bg-rose-950/75 p-3 text-xs text-rose-100 shadow">
+            <div className="flex items-start justify-between gap-2">
+              <div className="flex items-start gap-2">
+                <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-rose-400" />
+                <div>
+                  <p className="font-extrabold text-rose-200">Google Sheet Sync Failed</p>
+                  <p className="mt-0.5 leading-relaxed text-rose-100/90">{data.syncError}</p>
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    <button
+                      type="button"
+                      onClick={() => void data.triggerSync()}
+                      className="rounded-lg bg-rose-600 px-2.5 py-1 text-[11px] font-bold text-white hover:bg-rose-500"
+                    >
+                      Retry Sync
+                    </button>
+                    {activeTab !== 'us' && (
+                      <button
+                        type="button"
+                        onClick={() => handleSelectTab('us')}
+                        className="rounded-lg bg-slate-800 px-2.5 py-1 text-[11px] font-bold text-slate-200 hover:bg-slate-700"
+                      >
+                        Open Sync Settings (Us)
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={data.clearSyncError}
+                className="rounded-lg p-1 text-rose-300 hover:bg-rose-900/60"
+                aria-label="Dismiss sync error"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'home' && !showChapterProgressPage && (
           <HomeView
             activeProfile={data.activeProfile}
             partnerProfile={data.partnerProfile}
@@ -86,24 +148,42 @@ export const App: React.FC = () => {
             examDate={data.settings.examDate}
             dueFlashcardCount={data.dueFlashcardCount}
             missedQuestionCount={data.missedQuestionIds.length}
+            overallMasteryPercent={data.myMastery.overallPercent}
+            recentSessions={data.testSessions}
+            isLightMode={isLightMode}
+            onNavigate={handleSelectTab}
+            onOpenChapterProgress={() => setShowChapterProgressPage(true)}
+            onQuickStartFlashcards={(chapterId) => {
+              setFlashcardChapterFilter(chapterId ?? null);
+              setAutoLaunchDeck(true);
+              handleSelectTab('study');
+            }}
+            onQuickStartMockExam={(examNumber) => {
+              setAutoStartExamNumber(examNumber ?? 1);
+              handleSelectTab('tests');
+            }}
+            onQuickStartMistakes={() => {
+              setAutoStartMistakes(true);
+              handleSelectTab('tests');
+            }}
+          />
+        )}
+
+        {activeTab === 'home' && showChapterProgressPage && (
+          <ChapterProgressView
+            activeProfile={data.activeProfile}
+            partnerProfile={data.partnerProfile}
             chapterMasteries={data.myMastery.chapters}
             overallMasteryPercent={data.myMastery.overallPercent}
             recentSessions={data.testSessions}
             isLightMode={isLightMode}
-            onNavigate={setActiveTab}
-            onQuickStartFlashcards={(chapterId) => {
-              setFlashcardChapterFilter(chapterId ?? null);
+            onBack={() => setShowChapterProgressPage(false)}
+            onStartChapterFlashcards={(chapterId) => {
+              setFlashcardChapterFilter(chapterId);
               setAutoLaunchDeck(true);
-              setActiveTab('study');
+              handleSelectTab('study');
             }}
-            onQuickStartMockExam={(examNumber) => {
-              setAutoStartExamNumber(examNumber ?? 1);
-              setActiveTab('tests');
-            }}
-            onQuickStartMistakes={() => {
-              setAutoStartMistakes(true);
-              setActiveTab('tests');
-            }}
+            onOpenExamsHistory={() => handleSelectTab('tests')}
           />
         )}
 
@@ -127,6 +207,7 @@ export const App: React.FC = () => {
             allFlashcards={data.allFlashcards}
             missedQuestionIds={data.missedQuestionIds}
             testSessions={data.testSessions}
+            hydratingStandardPack={data.hydratingStandardPack}
             autoStartExamNumber={autoStartExamNumber}
             autoStartMistakes={autoStartMistakes}
             activeChallenge={activeChallenge}
@@ -135,7 +216,7 @@ export const App: React.FC = () => {
               setAutoStartMistakes(false);
               setActiveChallenge(null);
             }}
-            onJumpToImporter={() => setActiveTab('us')}
+            onJumpToImporter={() => handleSelectTab('us')}
             isLightMode={isLightMode}
           />
         )}
@@ -149,7 +230,7 @@ export const App: React.FC = () => {
             challenges={data.challenges}
             onPlayChallenge={(ch) => {
               setActiveChallenge(ch);
-              setActiveTab('tests');
+              handleSelectTab('tests');
             }}
             isLightMode={isLightMode}
           />

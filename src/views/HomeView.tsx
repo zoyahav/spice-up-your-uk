@@ -1,24 +1,22 @@
 import React, { useMemo } from 'react';
 import {
   AlertCircle,
+  BarChart3,
   BookOpen,
   CalendarClock,
+  ChevronRight,
   ClipboardCheck,
-  Flame,
   Gamepad2,
-  ShieldCheck,
+  HeartHandshake,
   Sparkles,
-  Trophy,
 } from 'lucide-react';
-import { getRankForXp, SPICE_PEP_TALKS } from '../constants/spiceTheme';
-import { CHAPTERS } from '../data/syllabus';
+import { getRankForXp } from '../constants/spiceTheme';
 import type { NavTab } from '../components/layout/AppShell';
 import { Button } from '../components/ui/Button';
 import { ProgressBar } from '../components/ui/ProgressBar';
 import type { StreakSummary } from '../services/streaks';
 import type {
   ChapterId,
-  SubjectMasterySummary,
   TestSessionRecord,
   UserProfile,
 } from '../types/domain';
@@ -40,11 +38,11 @@ interface HomeViewProps {
   examDate: string | null;
   dueFlashcardCount: number;
   missedQuestionCount: number;
-  chapterMasteries: readonly SubjectMasterySummary[];
   overallMasteryPercent: number;
   recentSessions: readonly TestSessionRecord[];
   isLightMode: boolean;
   onNavigate: (tab: NavTab) => void;
+  onOpenChapterProgress: () => void;
   onQuickStartFlashcards: (chapterId?: ChapterId) => void;
   onQuickStartMockExam: (examNumber?: number) => void;
   onQuickStartMistakes: () => void;
@@ -61,21 +59,16 @@ export const HomeView: React.FC<HomeViewProps> = ({
   examDate,
   dueFlashcardCount,
   missedQuestionCount,
-  chapterMasteries,
   overallMasteryPercent,
   recentSessions,
   isLightMode,
   onNavigate,
+  onOpenChapterProgress,
   onQuickStartFlashcards,
   onQuickStartMockExam,
   onQuickStartMistakes,
 }) => {
   const rank = useMemo(() => getRankForXp(myTotalXp), [myTotalXp]);
-
-  const pepTalk = useMemo(() => {
-    const daySeed = new Date().getDate();
-    return SPICE_PEP_TALKS[daySeed % SPICE_PEP_TALKS.length]!;
-  }, []);
 
   const daysUntilExam = useMemo(() => {
     if (!examDate) return null;
@@ -84,280 +77,192 @@ export const HomeView: React.FC<HomeViewProps> = ({
     return diff >= 0 ? diff : null;
   }, [examDate]);
 
-  // Suggest next unpassed mock exam (1..17)
-  const nextSuggestedExam = useMemo(() => {
-    const passedExams = new Set(
+  const { nextSuggestedExam, passedExamsCount } = useMemo(() => {
+    const passedSet = new Set(
       recentSessions
-        .filter((s) => s.profileId === activeProfile.id && s.mode === 'mock' && s.passed && s.examNumber)
+        .filter(
+          (s) =>
+            s.profileId === activeProfile.id &&
+            s.mode === 'mock' &&
+            s.passed &&
+            s.examNumber &&
+            s.examNumber <= 18,
+        )
         .map((s) => s.examNumber!),
     );
-    for (let i = 1; i <= 17; i++) {
-      if (!passedExams.has(i)) return i;
+    let next = 1;
+    for (let i = 1; i <= 18; i++) {
+      if (!passedSet.has(i)) {
+        next = i;
+        break;
+      }
     }
-    return 1;
-  }, [recentSessions, activeProfile.id]);
-
-  const passedExamsCount = useMemo(() => {
-    return new Set(
-      recentSessions
-        .filter((s) => s.profileId === activeProfile.id && s.mode === 'mock' && s.passed && s.examNumber)
-        .map((s) => s.examNumber!),
-    ).size;
+    return { nextSuggestedExam: next, passedExamsCount: passedSet.size };
   }, [recentSessions, activeProfile.id]);
 
   const cardSurface = isLightMode
-    ? 'border-slate-200 bg-white shadow-sm'
-    : 'border-slate-800/90 bg-slate-900/85';
+    ? 'border-slate-200 bg-white hover:border-pink-400/50 shadow-sm'
+    : 'border-slate-800/90 bg-slate-900/85 hover:border-pink-500/40';
 
-  const dailyPercent = Math.min(100, Math.round((myStreak.todayXp / Math.max(1, dailyGoalXp)) * 100));
+  const dailyPercent = Math.min(
+    100,
+    Math.round((myStreak.todayXp / Math.max(1, dailyGoalXp)) * 100),
+  );
 
   return (
     <div className="space-y-4">
-      {/* Hero Rank & Spice Pep Talk Banner */}
-      <section className="relative overflow-hidden rounded-3xl border border-pink-500/30 bg-gradient-to-br from-slate-900 via-indigo-950 to-rose-950 p-4 text-white shadow-lg">
-        <div className="flex items-start justify-between gap-3">
-          <div>
-            <div className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-2.5 py-0.5 text-[11px] font-bold text-pink-200">
+      {/* 1. Compact Greeting + Daily Goal Bar */}
+      <section className="rounded-3xl border border-pink-500/30 bg-gradient-to-br from-slate-900 via-indigo-950 to-rose-950 p-4 text-white shadow-lg">
+        <div className="flex items-center justify-between gap-3">
+          <div className="min-w-0">
+            <div className="inline-flex items-center gap-1 rounded-full bg-white/10 px-2.5 py-0.5 text-[11px] font-bold text-pink-200">
               <Sparkles className="h-3 w-3 text-amber-300" />
               <span>{rank.current.title}</span>
             </div>
-            <h1 className="mt-1.5 text-xl font-black tracking-tight">
+            <h1 className="mt-1 truncate text-lg font-black tracking-tight">
               Hey {activeProfile.displayName}! {rank.current.emoji}
             </h1>
-            <p className="mt-1 text-xs leading-relaxed text-pink-100/90">{pepTalk}</p>
           </div>
+
           {daysUntilExam !== null && (
-            <div className="shrink-0 rounded-2xl border border-white/15 bg-black/30 px-3 py-2 text-center">
-              <CalendarClock className="mx-auto h-4 w-4 text-amber-300" />
-              <p className="mt-0.5 text-lg leading-none font-black text-white">{daysUntilExam}</p>
-              <p className="text-[10px] font-semibold text-slate-300">days left</p>
+            <div className="shrink-0 rounded-2xl border border-white/15 bg-black/30 px-2.5 py-1.5 text-center">
+              <CalendarClock className="mx-auto h-3.5 w-3.5 text-amber-300" />
+              <p className="mt-0.5 text-sm leading-none font-black">{daysUntilExam}d</p>
             </div>
           )}
         </div>
 
-        {/* Daily XP Bar */}
-        <div className="mt-4 rounded-2xl bg-black/30 p-3">
+        <div className="mt-3 rounded-2xl bg-black/30 p-2.5">
           <div className="mb-1.5 flex items-center justify-between text-xs">
             <span className="font-bold text-pink-200">
               Daily Goal: {myStreak.todayXp} / {dailyGoalXp} XP
             </span>
             <span className="font-extrabold text-amber-300">
-              {myStreak.metGoalToday ? 'Goal Smashed! 🌟' : `${dailyPercent}%`}
+              {myStreak.metGoalToday ? 'Goal Met! 🌟' : `${dailyPercent}%`}
             </span>
           </div>
-          <ProgressBar percent={dailyPercent} />
+          <ProgressBar percent={dailyPercent} heightClass="h-2" />
         </div>
       </section>
 
-      {/* Streaks + 2 Become 1 Couple Card */}
-      <section className="grid grid-cols-2 gap-3">
-        <div className={`rounded-2xl border p-3.5 ${cardSurface}`}>
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-slate-400">Your Streak</span>
-            <Flame className="h-4 w-4 text-amber-400" />
+      {/* 2. Primary Action Buttons */}
+      <section className="grid grid-cols-2 gap-2.5">
+        <Button
+          variant="primary"
+          size="lg"
+          fullWidth
+          onClick={() => onQuickStartFlashcards()}
+          className="flex-col py-4 text-center"
+        >
+          <div className="flex items-center gap-1.5">
+            <BookOpen className="h-4 w-4" />
+            <span>Flashcards</span>
           </div>
-          <p className="mt-1 text-2xl font-black text-amber-400">
-            {myStreak.currentStreak} <span className="text-xs font-bold">days</span>
-          </p>
-          <p className="mt-1 text-[11px] text-slate-400">
-            🧊 {myStreak.freezesAvailable} Streak Freeze{myStreak.freezesAvailable === 1 ? '' : 's'} ready
-          </p>
-        </div>
+          <span className="text-[11px] font-semibold opacity-90">
+            {dueFlashcardCount > 0
+              ? `${dueFlashcardCount} due right now`
+              : 'Smart SM-2 deck'}
+          </span>
+        </Button>
+
+        <Button
+          variant="emerald"
+          size="lg"
+          fullWidth
+          onClick={() => onQuickStartMockExam(nextSuggestedExam)}
+          className="flex-col py-4 text-center"
+        >
+          <div className="flex items-center gap-1.5">
+            <ClipboardCheck className="h-4 w-4" />
+            <span>Mock Exam #{nextSuggestedExam}</span>
+          </div>
+          <span className="text-[11px] font-semibold opacity-90">
+            {passedExamsCount}/18 passed
+          </span>
+        </Button>
+      </section>
+
+      {/* 3. Clean Page Links to Dedicated Sub-Pages & Tabs */}
+      <section className="space-y-2.5">
+        <button
+          type="button"
+          onClick={onOpenChapterProgress}
+          className={`flex w-full items-center justify-between gap-3 rounded-2xl border p-3.5 text-left transition ${cardSurface}`}
+        >
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-500/15 text-emerald-400">
+              <BarChart3 className="h-5 w-5" />
+            </div>
+            <div>
+              <p className="text-sm font-extrabold">Chapter Progress</p>
+              <p className="text-xs text-slate-400">
+                {overallMasteryPercent}% overall readiness across 5 chapters
+              </p>
+            </div>
+          </div>
+          <ChevronRight className="h-4 w-4 shrink-0 text-slate-400" />
+        </button>
+
+        {missedQuestionCount > 0 && (
+          <button
+            type="button"
+            onClick={onQuickStartMistakes}
+            className={`flex w-full items-center justify-between gap-3 rounded-2xl border p-3.5 text-left transition ${cardSurface}`}
+          >
+            <div className="flex items-center gap-3">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-rose-500/15 text-rose-400">
+                <AlertCircle className="h-5 w-5" />
+              </div>
+              <div>
+                <p className="text-sm font-extrabold">Mistakes Rescue</p>
+                <p className="text-xs text-slate-400">
+                  Re-drill {missedQuestionCount} missed question{missedQuestionCount === 1 ? '' : 's'}
+                </p>
+              </div>
+            </div>
+            <ChevronRight className="h-4 w-4 shrink-0 text-slate-400" />
+          </button>
+        )}
+
+        <button
+          type="button"
+          onClick={() => onNavigate('arcade')}
+          className={`flex w-full items-center justify-between gap-3 rounded-2xl border p-3.5 text-left transition ${cardSurface}`}
+        >
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-500/15 text-amber-400">
+              <Gamepad2 className="h-5 w-5" />
+            </div>
+            <div>
+              <p className="text-sm font-extrabold">Tube Arcade</p>
+              <p className="text-xs text-slate-400">
+                60s Blitz, Timeline Sort, Fact Match &amp; Duels
+              </p>
+            </div>
+          </div>
+          <ChevronRight className="h-4 w-4 shrink-0 text-slate-400" />
+        </button>
 
         <button
           type="button"
           onClick={() => onNavigate('us')}
-          className={`rounded-2xl border p-3.5 text-left transition hover:border-pink-500/50 ${cardSurface}`}
+          className={`flex w-full items-center justify-between gap-3 rounded-2xl border p-3.5 text-left transition ${cardSurface}`}
         >
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-pink-400">2 Become 1</span>
-            <span className="text-sm">💞</span>
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-pink-500/15 text-pink-400">
+              <HeartHandshake className="h-5 w-5" />
+            </div>
+            <div>
+              <p className="text-sm font-extrabold">Streaks, Team &amp; Sync</p>
+              <p className="text-xs text-slate-400">
+                🔥 {myStreak.currentStreak}d streak • 💞 {coupleStreak.currentCoupleStreak}d shared •{' '}
+                {partnerProfile.displayName}: {partnerTotalXp} XP
+              </p>
+            </div>
           </div>
-          <p className="mt-1 text-2xl font-black text-pink-400">
-            {coupleStreak.currentCoupleStreak} <span className="text-xs font-bold">shared</span>
-          </p>
-          <p className="mt-1 truncate text-[11px] text-slate-400">
-            {partnerProfile.displayName}: {partnerTotalXp} XP
-          </p>
+          <ChevronRight className="h-4 w-4 shrink-0 text-slate-400" />
         </button>
       </section>
-
-      {/* Quick Launch Action Buttons */}
-      <section className="space-y-2.5">
-        <div className="grid grid-cols-2 gap-2.5">
-          <Button
-            variant="primary"
-            size="lg"
-            fullWidth
-            onClick={() => onQuickStartFlashcards()}
-            className="flex-col py-3.5 text-center"
-          >
-            <div className="flex items-center gap-1.5">
-              <BookOpen className="h-4 w-4" />
-              <span>Flashcards</span>
-            </div>
-            <span className="text-[11px] font-semibold opacity-90">
-              {dueFlashcardCount > 0
-                ? `${dueFlashcardCount} due right now`
-                : 'Start smart deck'}
-            </span>
-          </Button>
-
-          <Button
-            variant="emerald"
-            size="lg"
-            fullWidth
-            onClick={() => onQuickStartMockExam(nextSuggestedExam)}
-            className="flex-col py-3.5 text-center"
-          >
-            <div className="flex items-center gap-1.5">
-              <ClipboardCheck className="h-4 w-4" />
-              <span>Mock Exam #{nextSuggestedExam}</span>
-            </div>
-            <span className="text-[11px] font-semibold opacity-90">
-              {passedExamsCount}/17 exams passed
-            </span>
-          </Button>
-        </div>
-
-        <div className="grid grid-cols-2 gap-2.5">
-          <Button
-            variant="amber"
-            size="md"
-            fullWidth
-            onClick={() => onNavigate('arcade')}
-          >
-            <Gamepad2 className="h-4 w-4" />
-            <span>Tube Arcade</span>
-          </Button>
-
-          <Button
-            variant="secondary"
-            size="md"
-            fullWidth
-            onClick={onQuickStartMistakes}
-            disabled={missedQuestionCount === 0}
-          >
-            <AlertCircle className="h-4 w-4 text-rose-400" />
-            <span>
-              {missedQuestionCount > 0
-                ? `Fix ${missedQuestionCount} Mistake${missedQuestionCount === 1 ? '' : 's'}`
-                : '0 Mistakes!'}
-            </span>
-          </Button>
-        </div>
-      </section>
-
-      {/* Overall Exam Readiness & 5-Chapter Mastery */}
-      <section className={`rounded-3xl border p-4 ${cardSurface}`}>
-        <div className="flex items-center justify-between">
-          <div>
-            <h2 className="text-sm font-extrabold">Subject Mastery &amp; Readiness</h2>
-            <p className="text-xs text-slate-400">
-              Combined SM-2 flashcard retention + exam accuracy
-            </p>
-          </div>
-          <div className="flex items-center gap-1.5 rounded-xl bg-emerald-500/15 px-3 py-1.5 text-emerald-400">
-            <ShieldCheck className="h-4 w-4" />
-            <span className="text-sm font-black">{overallMasteryPercent}%</span>
-          </div>
-        </div>
-
-        <div className="mt-3.5 space-y-3">
-          {CHAPTERS.map((ch) => {
-            const m = chapterMasteries.find((cm) => cm.id === ch.id);
-            const pct = m?.masteryPercent ?? 0;
-            return (
-              <button
-                key={ch.id}
-                type="button"
-                onClick={() => onQuickStartFlashcards(ch.id)}
-                className="block w-full rounded-2xl border border-slate-800/60 bg-slate-950/35 p-3 text-left transition hover:border-pink-500/40"
-              >
-                <div className="mb-1.5 flex items-center justify-between gap-2">
-                  <span className="text-xs font-extrabold">
-                    Ch {ch.number}: {ch.shortTitle}
-                  </span>
-                  <div className="flex items-center gap-2 text-[11px]">
-                    <span className="rounded-md bg-slate-800 px-1.5 py-0.5 font-bold text-amber-300">
-                      {m?.tier ?? 'Uncharted'}
-                    </span>
-                    <span className="font-black text-pink-400">{pct}%</span>
-                  </div>
-                </div>
-                <ProgressBar percent={pct} heightClass="h-2" />
-                <div className="mt-1.5 flex items-center justify-between text-[11px] text-slate-400">
-                  <span>
-                    🃏 {m?.cardsSeen ?? 0}/{m?.totalCards ?? 0} cards seen
-                  </span>
-                  <span>
-                    📝 {m?.questionAccuracyPercent ?? 0}% quiz acc ({m?.questionsAttempted ?? 0} Qs)
-                  </span>
-                </div>
-              </button>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* Recent Test Activity */}
-      {recentSessions.length > 0 && (
-        <section className={`rounded-3xl border p-4 ${cardSurface}`}>
-          <div className="mb-2.5 flex items-center justify-between">
-            <h2 className="flex items-center gap-1.5 text-sm font-extrabold">
-              <Trophy className="h-4 w-4 text-amber-400" />
-              <span>Recent Practice Sessions</span>
-            </h2>
-            <button
-              type="button"
-              onClick={() => onNavigate('tests')}
-              className="text-xs font-bold text-pink-400 hover:underline"
-            >
-              See all →
-            </button>
-          </div>
-          <div className="space-y-2">
-            {recentSessions.slice(0, 3).map((s) => {
-              const isMe = s.profileId === activeProfile.id;
-              const who = isMe ? activeProfile.displayName : partnerProfile.displayName;
-              return (
-                <div
-                  key={s.sessionId}
-                  className="flex items-center justify-between rounded-xl border border-slate-800/60 bg-slate-950/35 px-3 py-2 text-xs"
-                >
-                  <div>
-                    <p className="font-bold">
-                      {who} •{' '}
-                      {s.mode === 'mock'
-                        ? `Mock Exam #${s.examNumber ?? ''}`
-                        : s.mode === 'mistakes'
-                          ? 'Mistakes Drill'
-                          : s.mode === 'challenge'
-                            ? 'Couple Challenge'
-                            : 'Topic Quiz'}
-                    </p>
-                    <p className="text-[11px] text-slate-400">
-                      {new Date(s.completedAt).toLocaleDateString('en-GB', {
-                        day: 'numeric',
-                        month: 'short',
-                      })}
-                    </p>
-                  </div>
-                  <span
-                    className={`rounded-lg px-2.5 py-1 font-black ${
-                      s.passed
-                        ? 'bg-emerald-500/20 text-emerald-300'
-                        : 'bg-rose-500/20 text-rose-300'
-                    }`}
-                  >
-                    {s.score}/{s.total} {s.passed ? 'PASS' : 'RETRY'}
-                  </span>
-                </div>
-              );
-            })}
-          </div>
-        </section>
-      )}
     </div>
   );
 };

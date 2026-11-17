@@ -58,4 +58,32 @@ describe('External JSON / CSV / Remote URL Content Importer', () => {
     );
     expect(res.questionsAdded).toBe(1);
   });
+
+  it('parses standard 18-exam dictionary format with object answers and reference text', () => {
+    const dictJson = JSON.stringify({
+      metadata: { lastUpdated: '2026-03-22' },
+      exams: {
+        '1': [
+          {
+            id: 1,
+            question: 'What are two responsibilities of UK residents?',
+            reference: 'Respect and obey the law and treat others with fairness.',
+            answers: [
+              { text: 'Respect and obey the law', isCorrect: true },
+              { text: 'Treat others with fairness', isCorrect: true },
+              { text: 'Buy property', isCorrect: false },
+              { text: 'Vote daily', isCorrect: false },
+            ],
+          },
+        ],
+      },
+    });
+    const parsed = parseImportedContent(dictJson, 'ch1', '2026-11-17T00:00:00.000Z', 'std18');
+    expect(parsed.questionsAdded).toBe(1);
+    const hydrated = hydrateCustomContent(parsed.records);
+    expect(hydrated.questions[0]?.id.startsWith('std18-q-ex01-')).toBe(true);
+    expect(hydrated.questions[0]?.type).toBe('multiple');
+    expect(hydrated.questions[0]?.correctIndices).toEqual([0, 1]);
+    expect(hydrated.questions[0]?.explanation).toContain('Respect and obey');
+  });
 });

@@ -139,27 +139,64 @@ export async function exchangeWithAppsScript(
   requestBody: SyncRequestPayload,
   fetchImpl: FetchLike = fetch,
 ): Promise<SyncResponsePayload> {
-  if (!scriptUrl || !scriptUrl.startsWith('https://')) {
-    throw new Error('Sync endpoint URL must start with https://');
+  const trimmedUrl = scriptUrl.trim();
+  if (!trimmedUrl || !trimmedUrl.startsWith('https://')) {
+    throw new Error('Sync URL must start with https:// (use your Apps Script /exec URL).');
   }
 
-  const response = await fetchImpl(scriptUrl, {
-    method: 'POST',
-    // Crucial: text/plain avoids CORS OPTIONS preflight which Google Apps Script rejects
-    headers: {
-      'Content-Type': 'text/plain;charset=utf-8',
-    },
-    body: JSON.stringify(requestBody),
-    redirect: 'follow',
-  });
+  if (trimmedUrl.endsWith('/dev')) {
+    throw new Error(
+      'Your Apps Script URL ends in /dev. Use the production Web App URL ending in /exec and set Who has access: Anyone.',
+    );
+  }
+
+  let response: Response;
+  try {
+    response = await fetchImpl(trimmedUrl, {
+      method: 'POST',
+      // Crucial: text/plain avoids CORS OPTIONS preflight which Google Apps Script rejects
+      headers: {
+        'Content-Type': 'text/plain;charset=utf-8',
+      },
+      body: JSON.stringify(requestBody),
+      redirect: 'follow',
+    });
+  } catch {
+    throw new Error(
+      'Could not reach Apps Script. Check your internet connection, verify the URL ends in /exec, and set Who has access: Anyone in Apps Script -> Deploy -> Manage deployments.',
+    );
+  }
+
+  const contentType = response.headers?.get?.('content-type') ?? '';
+  const rawText = await response.text();
+  const trimmedBody = rawText.trim();
+
+  if (
+    contentType.includes('text/html') ||
+    trimmedBody.startsWith('<!DOCTYPE') ||
+    trimmedBody.startsWith('<html') ||
+    trimmedBody.includes('accounts.google.com')
+  ) {
+    throw new Error(
+      'Apps Script returned a Google login HTML page instead of JSON. In Apps Script -> Deploy -> Manage deployments, set "Who has access: Anyone" and use the /exec Web App URL.',
+    );
+  }
 
   if (!response.ok) {
-    throw new Error(`Sync HTTP error: ${response.status}`);
+    throw new Error(`Sync HTTP error (${response.status}). Verify your Apps Script /exec deployment.`);
   }
 
-  const json = (await response.json()) as SyncResponsePayload;
+  let json: SyncResponsePayload;
+  try {
+    json = JSON.parse(trimmedBody) as SyncResponsePayload;
+  } catch {
+    throw new Error(
+      'Apps Script returned invalid JSON. Ensure you deployed Code.gs as a Web App (/exec) with Who has access: Anyone.',
+    );
+  }
+
   if (!json.ok) {
-    throw new Error(json.error || 'Apps Script returned ok=false');
+    throw new Error(json.error || 'Apps Script returned ok=false (check your SYNC_PASSCODE).');
   }
 
   return json;

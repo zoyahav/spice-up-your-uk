@@ -5,11 +5,20 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { createDefaultAppSettings, db } from '../db/schema';
-import { ensureAppSettings, runFullSync, updateAppSettings } from '../db/repository';
+import {
+  cacheLocalStandardPackRecords,
+  ensureAppSettings,
+  runFullSync,
+  updateAppSettings,
+} from '../db/repository';
 import { BUILT_IN_FLASHCARDS } from '../data/flashcards';
 import { BUILT_IN_QUESTIONS } from '../data/questions';
 import { CHAPTERS } from '../data/syllabus';
-import { hydrateCustomContent } from '../services/contentImporter';
+import {
+  fetchAndParseRemotePack,
+  hydrateCustomContent,
+  STANDARD_18_EXAMS_URL,
+} from '../services/contentImporter';
 import { computeSubjectMastery, makeProfileEntityKey } from '../services/srs';
 import {
   computeCoupleStreak,
@@ -35,7 +44,9 @@ export function useAppData() {
   const [isSyncing, setIsSyncing] = useState(false);
   const [syncError, setSyncError] = useState<string | null>(null);
   const [pairingNotice, setPairingNotice] = useState<string | null>(null);
+  const [hydratingStandardPack, setHydratingStandardPack] = useState(false);
   const syncInFlightRef = useRef(false);
+  const stdHydrationStartedRef = useRef(false);
 
   const settings = useLiveQuery(() => db.appConfig.get('app'), [], undefined);
   const srsList = useLiveQuery(() => db.srsProgress.toArray(), [], []);
@@ -95,6 +106,34 @@ export function useAppData() {
             profiles: nextProfiles,
           });
           setPairingNotice('Paired with your shared Google Sheet! Syncing now...');
+        }
+      }
+
+      // Auto-cache the 18 Standard Exams into local IndexedDB on first install!
+      if (
+        !current.standardPackHydrated &&
+        !stdHydrationStartedRef.current &&
+        typeof navigator !== 'undefined' &&
+        navigator.onLine
+      ) {
+        stdHydrationStartedRef.current = true;
+        setHydratingStandardPack(true);
+        try {
+          const parsed = await fetchAndParseRemotePack(
+            STANDARD_18_EXAMS_URL,
+            'ch3',
+            fetch,
+            'std18',
+          );
+          if (parsed.records.length > 0) {
+            await cacheLocalStandardPackRecords(parsed.records, db);
+            await updateAppSettings({ standardPackHydrated: true }, db);
+          }
+        } catch {
+          // Will retry automatically next time online
+          stdHydrationStartedRef.current = false;
+        } finally {
+          setHydratingStandardPack(false);
         }
       }
     })();
@@ -334,6 +373,8 @@ export function useAppData() {
     isOnline,
     syncBadge,
     syncError,
+    clearSyncError: () => setSyncError(null),
+    hydratingStandardPack,
     pairingNotice,
     clearPairingNotice: () => setPairingNotice(null),
     triggerSync,

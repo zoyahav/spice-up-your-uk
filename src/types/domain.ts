@@ -213,6 +213,8 @@ export type ThemePreference = 'dark' | 'light' | 'system';
 export interface AppSettings {
   readonly id: 'app';
   readonly onboarded: boolean;
+  readonly installGuideDismissed?: boolean;
+  readonly standardPackHydrated?: boolean;
   readonly activeProfileId: ProfileId;
   readonly profiles: Record<ProfileId, UserProfile>;
   readonly scriptUrl: string;
