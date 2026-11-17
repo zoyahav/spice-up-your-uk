@@ -1,5 +1,35 @@
 @import "tailwindcss";
 
+/* Warm Autumn Theme Overrides (replaces cool blue-grey slate/indigo with warm espresso, umber, terracotta, and burnt orange) */
+@theme {
+  --color-slate-50: #FAF4EC;
+  --color-slate-100: #F3E9DD;
+  --color-slate-200: #E5D5C5;
+  --color-slate-300: #CFC0B2;
+  --color-slate-400: #A69281;
+  --color-slate-500: #826E5E;
+  --color-slate-600: #5E4C3F;
+  --color-slate-700: #44352B;
+  --color-slate-800: #2D221B;
+  --color-slate-900: #1E1612;
+  --color-slate-950: #140E0B;
+
+  --color-pink-200: #FED7AA;
+  --color-pink-300: #FDBA74;
+  --color-pink-400: #FB923C;
+  --color-pink-500: #EA580C;
+  --color-pink-600: #C2410C;
+  --color-pink-950: #431407;
+
+  --color-indigo-200: #FDE68A;
+  --color-indigo-300: #FCD34D;
+  --color-indigo-400: #F59E0B;
+  --color-indigo-500: #D97706;
+  --color-indigo-600: #B45309;
+  --color-indigo-900: #78350F;
+  --color-indigo-950: #3D1F0D;
+}
+
 @layer base {
   :root {
     --safe-top: env(safe-area-inset-top, 0px);
@@ -43,6 +73,6 @@
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(148, 163, 184, 0.25);
+  background: rgba(180, 130, 90, 0.28);
   border-radius: 9999px;
 }

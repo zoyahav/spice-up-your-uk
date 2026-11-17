@@ -112,8 +112,8 @@ export const HomeView: React.FC<HomeViewProps> = ({
   }, [recentSessions, activeProfile.id]);
 
   const cardSurface = isLightMode
-    ? 'border-slate-200 bg-white hover:border-pink-400/50 shadow-sm'
-    : 'border-slate-800/90 bg-slate-900/85 hover:border-pink-500/40';
+    ? 'border-[#E6D6C3] bg-[#FFFDF9] hover:border-orange-500/50 shadow-sm'
+    : 'border-slate-800/90 bg-slate-900/85 hover:border-orange-500/40';
 
   const dailyPercent = Math.min(
     100,
@@ -123,7 +123,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
   return (
     <div className="space-y-4">
       {/* 1. Compact Greeting + Daily Goal Bar */}
-      <section className="rounded-3xl border border-pink-500/30 bg-gradient-to-br from-slate-900 via-indigo-950 to-rose-950 p-4 text-white shadow-lg">
+      <section className="rounded-3xl border border-orange-500/35 bg-gradient-to-br from-[#2C1810] via-[#592811] to-[#9A3412] p-4 text-white shadow-lg">
         <div className="flex items-center justify-between gap-3">
           <div className="min-w-0">
             <div className="inline-flex items-center gap-1 rounded-full bg-white/10 px-2.5 py-0.5 text-[11px] font-bold text-pink-200">

@@ -25,8 +25,8 @@ export default defineConfig({
         short_name: 'SpiceUpUK',
         description:
           'Offline-ready Life in the UK study companion with flashcards, 17 mock exams, visual aids, streaks, and couple sync.',
-        theme_color: '#0F172A',
-        background_color: '#0B1120',
+        theme_color: '#1C1410',
+        background_color: '#140E0B',
         display: 'standalone',
         orientation: 'portrait',
         start_url: basePath,

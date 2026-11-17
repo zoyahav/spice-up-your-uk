@@ -73,7 +73,7 @@ export const ArcadeView: React.FC<ArcadeViewProps> = ({
   const [fmDoneScore, setFmDoneScore] = useState<number | null>(null);
 
   const cardSurface = isLightMode
-    ? 'border-slate-200 bg-white shadow-sm'
+    ? 'border-[#E6D6C3] bg-[#FFFDF9] shadow-sm'
     : 'border-slate-800/90 bg-slate-900/85';
 
   // --- TIMELINE SORT HELPERS ---

@@ -66,15 +66,15 @@ export const AppShell: React.FC<AppShellProps> = ({
   return (
     <div
       className={`min-h-dvh transition-colors ${
-        isLightMode ? 'bg-[#FAF8F5] text-slate-900' : 'bg-[#0B1120] text-slate-100'
+        isLightMode ? 'bg-[#FAF3E8] text-[#2B1D14]' : 'bg-[#140E0B] text-slate-100'
       }`}
     >
       {/* Sticky Top Status Bar */}
       <header
         className={`sticky top-0 z-30 border-b backdrop-blur-md ${
           isLightMode
-            ? 'border-slate-200/90 bg-white/90 text-slate-900'
-            : 'border-slate-800/80 bg-slate-950/85 text-slate-100'
+            ? 'border-[#E6D6C3] bg-[#FFFBF5]/90 text-[#2B1D14]'
+            : 'border-slate-800/80 bg-[#1A120E]/90 text-slate-100'
         }`}
         style={{ paddingTop: 'var(--safe-top)' }}
       >
@@ -205,8 +205,8 @@ export const AppShell: React.FC<AppShellProps> = ({
       <nav
         className={`fixed inset-x-0 bottom-0 z-30 border-t backdrop-blur-lg ${
           isLightMode
-            ? 'border-slate-200 bg-white/95 text-slate-600'
-            : 'border-slate-800/90 bg-slate-950/95 text-slate-400'
+            ? 'border-[#E6D6C3] bg-[#FFFBF5]/95 text-[#6E5645]'
+            : 'border-slate-800/90 bg-[#1A120E]/95 text-slate-400'
         }`}
         style={{ paddingBottom: 'var(--safe-bottom)' }}
       >

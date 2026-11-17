@@ -304,7 +304,7 @@ export const TestsView: React.FC<TestsViewProps> = ({
   };
 
   const cardSurface = isLightMode
-    ? 'border-slate-200 bg-white shadow-sm'
+    ? 'border-[#E6D6C3] bg-[#FFFDF9] shadow-sm'
     : 'border-slate-800/90 bg-slate-900/85';
 
   // 1. POST-EXAM RESULTS & RICH WRONG-ANSWER REVIEW SCREEN

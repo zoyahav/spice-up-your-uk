@@ -39,8 +39,8 @@ export const App: React.FC = () => {
 
   if (!data.isLoaded) {
     return (
-      <div className="flex min-h-dvh items-center justify-center bg-[#0B1120] text-slate-300">
-        <p className="animate-pulse text-sm font-bold">🌶️ Loading Spice Up Your UK...</p>
+      <div className="flex min-h-dvh items-center justify-center bg-[#140E0B] text-slate-300">
+        <p className="animate-pulse text-sm font-bold">Loading Spice Up Your UK...</p>
       </div>
     );
   }

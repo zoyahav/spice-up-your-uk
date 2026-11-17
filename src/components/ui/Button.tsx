@@ -10,15 +10,15 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 const VARIANT_CLASSES: Record<ButtonVariant, string> = {
   primary:
-    'bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-500 hover:to-rose-500 text-white border-b-4 border-rose-800 active:border-b-0 active:translate-y-1 shadow-md shadow-pink-950/30',
+    'bg-gradient-to-r from-orange-600 to-amber-600 hover:from-orange-500 hover:to-amber-500 text-white border-b-4 border-orange-900 active:border-b-0 active:translate-y-1 shadow-md shadow-orange-950/35',
   secondary:
     'bg-slate-800 hover:bg-slate-700 text-slate-100 border-b-4 border-slate-950 active:border-b-0 active:translate-y-1',
   emerald:
-    'bg-emerald-600 hover:bg-emerald-500 text-white border-b-4 border-emerald-800 active:border-b-0 active:translate-y-1',
+    'bg-emerald-700 hover:bg-emerald-600 text-white border-b-4 border-emerald-950 active:border-b-0 active:translate-y-1',
   amber:
     'bg-amber-500 hover:bg-amber-400 text-slate-950 border-b-4 border-amber-700 active:border-b-0 active:translate-y-1',
   danger:
-    'bg-rose-600 hover:bg-rose-500 text-white border-b-4 border-rose-900 active:border-b-0 active:translate-y-1',
+    'bg-rose-700 hover:bg-rose-600 text-white border-b-4 border-rose-950 active:border-b-0 active:translate-y-1',
   ghost:
     'bg-transparent hover:bg-slate-800/60 text-slate-300 border border-slate-700/70',
 };
