@@ -5,9 +5,9 @@ A mobile-friendly Progressive Web App for two partners studying together for the
 ## What is included
 
 - **Offline study and storage**: Precaches the app, study guides, visual diagrams, flashcards, and practice exams with a Service Worker and local IndexedDB storage so it works without signal and syncs when back online.
-- **Full 5-chapter syllabus**: Summaries for all five official handbook chapters, 265 spaced-repetition (SM-2) flashcards, and 17 full 24-question mock exams (408 questions), each with answer explanations and memory hooks.
+- **Full 5-chapter syllabus and exam banks**: Summaries for all five official handbook chapters, 265 spaced-repetition (SM-2) flashcards, 18 standard practice exams auto-cached offline on install (435 questions), and 17 extra bonus mock exams (408 questions), with answer explanations and targeted mnemonics on tricky dates and numbers.
 - **Inline SVG diagrams**: Offline interactive diagrams for the Union Flag, UK nations and Crown Dependencies map, patron saints and national flowers, Parliament and courts, and the British history timeline.
-- **Separate progress and shared streaks**: Tracks chapter mastery, exam history, and missed questions separately per person, alongside a shared daily streak, head-to-head quizzes, and three quick mini-games (*Tube Blitz*, *Timeline Sort*, and *Fact Match*).
+- **Locked per-phone profiles and shared streaks**: Each phone locks to its own player profile (with read-only visibility into your partner's progress) while tracking chapter mastery, exam history, missed questions, a shared daily streak, head-to-head quizzes, and three quick mini-games (*Tube Blitz*, *Timeline Sort*, and *Fact Match*).
 - **Private Google Sheet sync**: Syncs progress between two phones through a Google Sheet and Google Apps Script endpoint that you host in your own Google account. No personal details, URLs, or credentials are stored in this repository.
 
 ## Google Sheet sync setup

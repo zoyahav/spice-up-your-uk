@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import {
   AlertCircle,
   BarChart3,
@@ -6,14 +6,17 @@ import {
   CalendarClock,
   ChevronRight,
   ClipboardCheck,
+  Download,
   Gamepad2,
   HeartHandshake,
   Sparkles,
+  X,
 } from 'lucide-react';
 import { getRankForXp } from '../constants/spiceTheme';
 import type { NavTab } from '../components/layout/AppShell';
 import { Button } from '../components/ui/Button';
 import { ProgressBar } from '../components/ui/ProgressBar';
+import { usePwaInstall } from '../hooks/usePwaInstall';
 import type { StreakSummary } from '../services/streaks';
 import type {
   ChapterId,
@@ -69,6 +72,14 @@ export const HomeView: React.FC<HomeViewProps> = ({
   onQuickStartMistakes,
 }) => {
   const rank = useMemo(() => getRankForXp(myTotalXp), [myTotalXp]);
+  const { canInstall, isStandalone, swReady, promptInstall } = usePwaInstall();
+  const [bannerDismissed, setBannerDismissed] = useState<boolean>(() => {
+    try {
+      return sessionStorage.getItem('spiceupuk_banner_dismissed') === '1';
+    } catch {
+      return false;
+    }
+  });
 
   const daysUntilExam = useMemo(() => {
     if (!examDate) return null;
@@ -144,6 +155,55 @@ export const HomeView: React.FC<HomeViewProps> = ({
           <ProgressBar percent={dailyPercent} heightClass="h-2" />
         </div>
       </section>
+
+      {!isStandalone && !bannerDismissed && (
+        <section className="rounded-2xl border border-emerald-500/35 bg-emerald-950/40 p-3 text-xs text-emerald-100">
+          <div className="flex items-start justify-between gap-2.5">
+            <div className="min-w-0 flex-1">
+              <p className="font-extrabold text-emerald-300">Install SpiceUpUK App</p>
+              {canInstall ? (
+                <p className="mt-0.5 text-[11px] text-emerald-200/85">
+                  {swReady ? 'Offline cache ready. ' : ''}Tap Install (not Create shortcut) and
+                  wait ~10s.
+                </p>
+              ) : (
+                <p className="mt-0.5 text-[11px] leading-relaxed text-emerald-200/85">
+                  Tap Chrome <code>⋮</code> -&gt; <strong>Add to home screen</strong> -&gt;{' '}
+                  <strong>Install</strong> (not Create shortcut), or Safari Share -&gt; Add to Home
+                  Screen.
+                </p>
+              )}
+            </div>
+            <div className="flex shrink-0 items-center gap-1.5">
+              {canInstall && (
+                <Button
+                  variant="emerald"
+                  size="sm"
+                  onClick={() => void promptInstall()}
+                >
+                  <Download className="h-3.5 w-3.5" />
+                  <span>Install</span>
+                </Button>
+              )}
+              <button
+                type="button"
+                onClick={() => {
+                  try {
+                    sessionStorage.setItem('spiceupuk_banner_dismissed', '1');
+                  } catch {
+                    // Ignore storage errors
+                  }
+                  setBannerDismissed(true);
+                }}
+                className="rounded-lg p-1 text-emerald-300/80 hover:bg-emerald-900/50"
+                aria-label="Dismiss install banner for this session"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* 2. Primary Action Buttons */}
       <section className="grid grid-cols-2 gap-2.5">

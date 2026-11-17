@@ -1,42 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Download, MoreVertical, Share, Smartphone, X } from 'lucide-react';
 import { Button } from '../ui/Button';
-
-interface BeforeInstallPromptEvent extends Event {
-  prompt: () => Promise<void>;
-  userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
-}
-
-export function isRunningStandalone(): boolean {
-  if (typeof window === 'undefined') return false;
-  const standaloneMq = window.matchMedia?.('(display-mode: standalone)')?.matches ?? false;
-  const iosStandalone = Boolean(
-    (window.navigator as Navigator & { standalone?: boolean }).standalone,
-  );
-  return standaloneMq || iosStandalone;
-}
+import { usePwaInstall } from '../../hooks/usePwaInstall';
 
 interface InstallAppModalProps {
   onDismiss: () => void;
 }
 
 export const InstallAppModal: React.FC<InstallAppModalProps> = ({ onDismiss }) => {
-  const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
-
-  useEffect(() => {
-    const handler = (e: Event) => {
-      e.preventDefault();
-      setDeferredPrompt(e as BeforeInstallPromptEvent);
-    };
-    window.addEventListener('beforeinstallprompt', handler);
-    return () => window.removeEventListener('beforeinstallprompt', handler);
-  }, []);
+  const { canInstall, swReady, promptInstall } = usePwaInstall();
 
   const handleNativeInstall = async () => {
-    if (!deferredPrompt) return;
-    await deferredPrompt.prompt();
-    const choice = await deferredPrompt.userChoice;
-    if (choice.outcome === 'accepted') {
+    const outcome = await promptInstall();
+    if (outcome === 'accepted') {
       onDismiss();
     }
   };
@@ -68,12 +44,16 @@ export const InstallAppModal: React.FC<InstallAppModalProps> = ({ onDismiss }) =
           </button>
         </div>
 
-        {deferredPrompt && (
-          <div className="mt-4">
+        {canInstall && (
+          <div className="mt-4 space-y-1.5">
             <Button variant="emerald" fullWidth size="md" onClick={() => void handleNativeInstall()}>
               <Download className="h-4 w-4" />
-              <span>Install App Now</span>
+              <span>Install SpiceUpUK App</span>
             </Button>
+            <p className="text-center text-[11px] text-emerald-300/90">
+              {swReady ? 'Offline cache ready.' : 'Preparing offline cache...'} Tap{' '}
+              <strong>Install</strong> (not <em>Create shortcut</em>) and wait ~10s.
+            </p>
           </div>
         )}
 
@@ -95,8 +75,8 @@ export const InstallAppModal: React.FC<InstallAppModalProps> = ({ onDismiss }) =
                 (or <strong>Add to Home screen -&gt; Install</strong>).
               </li>
               <li className="text-[11px] text-amber-300">
-                Tip: Choose <strong>Install</strong> rather than <em>Create shortcut</em> so it
-                opens fullscreen without browser bars and works offline.
+                Tip: Choose <strong>Install</strong> rather than <em>Create shortcut</em>, and wait
+                ~10 seconds for Android to finish adding the app icon.
               </li>
             </ol>
           </div>
@@ -116,7 +96,7 @@ export const InstallAppModal: React.FC<InstallAppModalProps> = ({ onDismiss }) =
 
         <div className="mt-4">
           <Button variant="primary" fullWidth size="md" onClick={onDismiss}>
-            Got it, don’t show again
+            Continue in browser for now
           </Button>
         </div>
       </div>

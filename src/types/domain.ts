@@ -68,7 +68,7 @@ export interface StudySection {
   readonly subtopicId: SubtopicId;
   readonly title: string;
   readonly keyFacts: readonly string[];
-  readonly memoryHook: string;
+  readonly memoryHook?: string;
   readonly visualId?: VisualAidId;
 }
 
@@ -78,7 +78,7 @@ export interface Flashcard {
   readonly subtopicId: SubtopicId;
   readonly front: string;
   readonly back: string;
-  readonly memoryHook: string;
+  readonly memoryHook?: string;
   readonly visualId?: VisualAidId;
   readonly isCustom?: boolean;
 }
@@ -95,7 +95,7 @@ export interface PracticeQuestion {
   readonly options: readonly string[];
   readonly correctIndices: readonly number[];
   readonly explanation: string;
-  readonly memoryHook: string;
+  readonly memoryHook?: string;
   readonly visualId?: VisualAidId;
   readonly isCustom?: boolean;
 }

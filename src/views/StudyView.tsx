@@ -211,26 +211,28 @@ export const StudyView: React.FC<StudyViewProps> = ({
                   {currentCard.front}
                 </p>
 
-                <div className="mt-2">
-                  {showFrontHint ? (
-                    <div className="rounded-2xl border border-amber-500/35 bg-amber-500/10 p-3 text-xs text-amber-200">
-                      <span className="font-extrabold">🌶️ Spice Memory Peek: </span>
-                      {currentCard.memoryHook}
-                    </div>
-                  ) : (
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setShowFrontHint(true);
-                      }}
-                      className="inline-flex items-center gap-1.5 rounded-xl border border-amber-500/30 bg-amber-500/10 px-3 py-1.5 text-xs font-bold text-amber-300 hover:bg-amber-500/20"
-                    >
-                      <Lightbulb className="h-3.5 w-3.5" />
-                      <span>Peek Memory Hook</span>
-                    </button>
-                  )}
-                </div>
+                {currentCard.memoryHook && (
+                  <div className="mt-2">
+                    {showFrontHint ? (
+                      <div className="rounded-2xl border border-amber-500/35 bg-amber-500/10 p-3 text-xs text-amber-200">
+                        <span className="font-extrabold">Memory Tip: </span>
+                        {currentCard.memoryHook}
+                      </div>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setShowFrontHint(true);
+                        }}
+                        className="inline-flex items-center gap-1.5 rounded-xl border border-amber-500/30 bg-amber-500/10 px-3 py-1.5 text-xs font-bold text-amber-300 hover:bg-amber-500/20"
+                      >
+                        <Lightbulb className="h-3.5 w-3.5" />
+                        <span>Peek Memory Tip</span>
+                      </button>
+                    )}
+                  </div>
+                )}
               </div>
             ) : (
               <div className="space-y-3.5">
@@ -238,13 +240,15 @@ export const StudyView: React.FC<StudyViewProps> = ({
                   {currentCard.back}
                 </p>
 
-                <div className="rounded-2xl border border-pink-500/35 bg-pink-500/10 p-3 text-xs leading-relaxed text-pink-100">
-                  <p className="mb-0.5 font-extrabold text-pink-300">
-                    <Sparkles className="mr-1 inline h-3.5 w-3.5" />
-                    Fun Way to Remember It:
-                  </p>
-                  <p>{currentCard.memoryHook}</p>
-                </div>
+                {currentCard.memoryHook && (
+                  <div className="rounded-2xl border border-pink-500/35 bg-pink-500/10 p-3 text-xs leading-relaxed text-pink-100">
+                    <p className="mb-0.5 font-extrabold text-pink-300">
+                      <Sparkles className="mr-1 inline h-3.5 w-3.5" />
+                      Memory Tip:
+                    </p>
+                    <p>{currentCard.memoryHook}</p>
+                  </div>
+                )}
 
                 {currentCard.visualId && (
                   <div onClick={(e) => e.stopPropagation()}>
@@ -259,7 +263,7 @@ export const StudyView: React.FC<StudyViewProps> = ({
         {/* SM-2 Rating Controls */}
         {!isFlipped ? (
           <Button variant="primary" size="lg" fullWidth onClick={() => setIsFlipped(true)}>
-            Show Answer &amp; Memory Hook 👀
+            Show Answer 👀
           </Button>
         ) : (
           <div className="space-y-1.5">
@@ -365,8 +369,8 @@ export const StudyView: React.FC<StudyViewProps> = ({
           <div className={`rounded-3xl border p-4 ${cardSurface}`}>
             <h2 className="text-base font-black">Spaced Repetition (SM-2) Flashcards</h2>
             <p className="mt-1 text-xs text-slate-400">
-              {allFlashcards.length} cards bundled offline, and every card includes a{' '}
-              <strong className="text-pink-400">Spice Memory Hook</strong>!
+              {allFlashcards.length} cards bundled offline with SM-2 spaced repetition and
+              mnemonics for tricky dates &amp; numbers.
             </p>
 
             <div className="mt-3 grid grid-cols-3 gap-2">
@@ -454,9 +458,11 @@ export const StudyView: React.FC<StudyViewProps> = ({
                 ))}
               </ul>
 
-              <div className="rounded-2xl border border-amber-500/35 bg-amber-500/10 p-3 text-xs leading-relaxed text-amber-200">
-                {sec.memoryHook}
-              </div>
+              {sec.memoryHook && (
+                <div className="rounded-2xl border border-amber-500/35 bg-amber-500/10 p-3 text-xs leading-relaxed text-amber-200">
+                  {sec.memoryHook}
+                </div>
+              )}
 
               {sec.visualId && <VisualAidRenderer visualId={sec.visualId} />}
             </article>

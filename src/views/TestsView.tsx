@@ -431,13 +431,15 @@ export const TestsView: React.FC<TestsViewProps> = ({
                     {q.explanation}
                   </div>
 
-                  <div className="rounded-2xl border border-pink-500/35 bg-pink-500/10 p-3 text-xs leading-relaxed text-pink-100">
-                    <p className="mb-0.5 font-extrabold text-pink-300">
-                      <Sparkles className="mr-1 inline h-3.5 w-3.5" />
-                      Fun Way to Remember It:
-                    </p>
-                    <p>{q.memoryHook}</p>
-                  </div>
+                  {q.memoryHook && (
+                    <div className="rounded-2xl border border-pink-500/35 bg-pink-500/10 p-3 text-xs leading-relaxed text-pink-100">
+                      <p className="mb-0.5 font-extrabold text-pink-300">
+                        <Sparkles className="mr-1 inline h-3.5 w-3.5" />
+                        Memory Tip:
+                      </p>
+                      <p>{q.memoryHook}</p>
+                    </div>
+                  )}
 
                   {q.visualId && <VisualAidRenderer visualId={q.visualId} compact />}
 
@@ -590,7 +592,7 @@ export const TestsView: React.FC<TestsViewProps> = ({
               fullWidth
               onClick={() => setRevealedInDrill((r) => ({ ...r, [q.id]: true }))}
             >
-              Check Answer &amp; Memory Hook ✨
+              Check Answer ✨
             </Button>
           )}
 
@@ -608,9 +610,11 @@ export const TestsView: React.FC<TestsViewProps> = ({
                   : `✗ Right answer: ${q.correctIndices.map((i) => q.options[i]).join(' • ')}`}
               </p>
               <p className="leading-relaxed text-slate-300">{q.explanation}</p>
-              <div className="rounded-xl border border-pink-500/30 bg-pink-500/10 p-2.5 text-pink-200">
-                <strong>🌶️ Memory Hook:</strong> {q.memoryHook}
-              </div>
+              {q.memoryHook && (
+                <div className="rounded-xl border border-pink-500/30 bg-pink-500/10 p-2.5 text-pink-200">
+                  <strong>Memory Tip:</strong> {q.memoryHook}
+                </div>
+              )}
               {q.visualId && <VisualAidRenderer visualId={q.visualId} compact />}
             </div>
           )}

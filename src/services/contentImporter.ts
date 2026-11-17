@@ -301,10 +301,9 @@ function parseJsonImport(
         subtopicId,
         front,
         back,
-        memoryHook:
-          typeof row['memoryHook'] === 'string' && row['memoryHook'].trim()
-            ? sanitizeText(row['memoryHook'])
-            : 'Custom deck card: lock this key fact in!',
+        ...(typeof row['memoryHook'] === 'string' && row['memoryHook'].trim()
+          ? { memoryHook: sanitizeText(row['memoryHook']) }
+          : {}),
         isCustom: true,
       };
       records.push({
@@ -425,10 +424,9 @@ function parseJsonImport(
         options,
         correctIndices,
         explanation: refText || `Correct answer: ${rightSummary}.`,
-        memoryHook:
-          typeof row['memoryHook'] === 'string' && row['memoryHook'].trim()
-            ? sanitizeText(row['memoryHook'])
-            : `Lock in the exact match: "${rightSummary}"!`,
+        ...(typeof row['memoryHook'] === 'string' && row['memoryHook'].trim()
+          ? { memoryHook: sanitizeText(row['memoryHook']) }
+          : {}),
         visualId: classified.visualId,
         isCustom: true,
       };
@@ -475,7 +473,7 @@ function parseDelimitedImport(
       warnings.push(`Skipped line #${idx + 1}: expected Front and Back columns.`);
       return;
     }
-    const hook = sanitizeText(cols[2] ?? '') || 'Custom flashcard: keep the Spice streak going!';
+    const hook = sanitizeText(cols[2] ?? '');
     const chapterId = cols[3] ? normalizeChapterId(cols[3]) : defaultChapter;
     const subtopicId = DEFAULT_SUBTOPIC_FOR_CHAPTER[chapterId];
     const id = `${idPrefix}-fc-${stableSlugHash(front + back)}`;
@@ -486,7 +484,7 @@ function parseDelimitedImport(
       subtopicId,
       front,
       back,
-      memoryHook: hook,
+      ...(hook ? { memoryHook: hook } : {}),
       isCustom: true,
     };
 

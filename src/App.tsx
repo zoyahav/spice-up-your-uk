@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { AlertTriangle, X } from 'lucide-react';
 import { AppShell, type NavTab } from './components/layout/AppShell';
-import { InstallAppModal, isRunningStandalone } from './components/layout/InstallAppModal';
+import { InstallAppModal } from './components/layout/InstallAppModal';
+import { isRunningStandalone } from './hooks/usePwaInstall';
 import { OnboardingModal } from './components/layout/OnboardingModal';
 import { useAppData } from './hooks/useAppData';
 import { updateAppSettings } from './db/repository';
@@ -17,6 +18,13 @@ export const App: React.FC = () => {
   const data = useAppData();
   const [activeTab, setActiveTab] = useState<NavTab>('home');
   const [showChapterProgressPage, setShowChapterProgressPage] = useState(false);
+  const [installModalDismissedSession, setInstallModalDismissedSession] = useState<boolean>(() => {
+    try {
+      return sessionStorage.getItem('spiceupuk_install_dismissed') === '1';
+    } catch {
+      return false;
+    }
+  });
 
   // Cross-tab quick-launch triggers
   const [flashcardChapterFilter, setFlashcardChapterFilter] = useState<ChapterId | null>(null);
@@ -52,7 +60,7 @@ export const App: React.FC = () => {
 
   const shouldShowInstallPopup =
     data.settings.onboarded &&
-    !data.settings.installGuideDismissed &&
+    !installModalDismissedSession &&
     !isRunningStandalone();
 
   return (
@@ -64,7 +72,12 @@ export const App: React.FC = () => {
       {shouldShowInstallPopup && (
         <InstallAppModal
           onDismiss={() => {
-            void updateAppSettings({ installGuideDismissed: true });
+            try {
+              sessionStorage.setItem('spiceupuk_install_dismissed', '1');
+            } catch {
+              // Ignore storage errors
+            }
+            setInstallModalDismissedSession(true);
           }}
         />
       )}

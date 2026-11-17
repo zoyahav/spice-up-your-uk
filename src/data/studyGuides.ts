@@ -19,7 +19,7 @@ export const STUDY_SECTIONS: readonly StudySection[] = [
       'Extremism, forced marriage, female genital mutilation (FGM), and domestic violence are completely unacceptable and illegal in the UK.',
     ],
     memoryHook:
-      '🌶️ Spice Hook: Think "DR. LIT" for the 5 principles, Democracy, Rule of law, Liberty, Inclusion/Community participation, Tolerance! ("Stop right now" if an exam option says "free healthcare" or "driving a car" is a fundamental constitutional principle, those are services, not the 5 principles!)',
+      'Acronym "DR. LIT" for the 5 principles: Democracy, Rule of law, Liberty, Inclusion (community participation), Tolerance. Exam trap: public services like free healthcare are not one of the 5 fundamental principles.',
   },
   {
     id: 'sg-ch1-citizenship',
@@ -33,7 +33,7 @@ export const STUDY_SECTIONS: readonly StudySection[] = [
       'In the Channel Islands and Isle of Man, the test uses local island-specific questions alongside UK questions.',
     ],
     memoryHook:
-      '🌶️ Spice Hook: "24 hours in a day → 24 questions; 45 RPM vinyl single → 45 minutes; 3 quarters (75% = 18) to pass!" And remember: Oath = Monarch (King Charles III), Pledge = Democracy & Laws!',
+      '24 hours in a day = 24 questions; three-quarters (75% = 18) to pass in 45 minutes. Exam contrast: Oath = allegiance to the Monarch, Pledge = loyalty to democratic values and laws (P for People and Parliament).',
   },
 
   // CHAPTER 2
@@ -51,7 +51,7 @@ export const STUDY_SECTIONS: readonly StudySection[] = [
       'Distance from John O’Groats (north coast of Scotland) to Land’s End (south-west tip of England) is about 870 miles (1,400 km); widest east-to-west is about 300 miles.',
     ],
     memoryHook:
-      '🌶️ Spice Hook: "GB = 3 (England + Scotland + Wales), UK = 4 (+ Northern Ireland)!" John O’Groats to Land’s End = 870 miles ("8-7-0, top to toe!").',
+      'Exam trap: Great Britain = 3 nations on the main island (England, Scotland, Wales); United Kingdom = 4 (adds Northern Ireland). Length top-to-toe is a countdown: 8-7-0 (870 miles).',
   },
   {
     id: 'sg-ch2-symbols',
@@ -66,7 +66,7 @@ export const STUDY_SECTIONS: readonly StudySection[] = [
       'National Flowers: England = Tudor Rose; Scotland = Thistle; Wales = Daffodil (also Leek worn); Northern Ireland = Shamrock.',
     ],
     memoryHook:
-      '🌶️ Spice Hook: Geri’s iconic Union Jack dress has 3 crosses! Saint dates in calendar order = "Wales, Ireland, England, Scotland" → "1 Mar (Daffodils burst!), 17 Mar (Shamrock green!), 23 Apr (Shakespeare & St George!), 30 Nov (Winter Scots Andrew!)".',
+      'Calendar order runs spring to winter: 1 March (St David, Wales), 17 March (St Patrick, NI), 23 April (St George, England, same date as Shakespeare\'s birthday), 30 November (St Andrew, Scotland). Exam trap: only the two northern nations (Scotland and Northern Ireland) have official bank holidays for their patron saint days.',
   },
   {
     id: 'sg-ch2-territories',
@@ -80,7 +80,7 @@ export const STUDY_SECTIONS: readonly StudySection[] = [
       'UK Currency is Pound Sterling (£ = 100p). Coins: 1p, 2p, 5p, 10p, 20p, 50p, £1, £2. Banknotes: £5, £10, £20, £50. Scotland and Northern Ireland have their own banknotes which are valid across the UK (though shops aren’t legally forced to take them).',
     ],
     memoryHook:
-      '🌶️ Spice Hook: "Channel + Man = Crown Dependencies (next door in British waters); Gibraltar + Falklands + St Helena = Overseas Territories (far away)! Both are friends of the Crown, NOT inside the UK!"',
+      'Geographic rule: nearby islands in British waters (Channel Islands, Isle of Man) are Crown Dependencies; distant ones across the ocean (Falklands, Gibraltar, St Helena) are literally "Overseas" Territories. Exam trap: neither group is part of the UK.',
   },
 
   // CHAPTER 3
@@ -99,7 +99,7 @@ export const STUDY_SECTIONS: readonly StudySection[] = [
       'Romans stayed nearly 400 years (left in AD 410), building roads, public buildings, law structure, and introducing new plants/animals; first Christian communities appeared in the 3rd–4th centuries AD.',
     ],
     memoryHook:
-      '🌶️ Spice Hook: "Caesar tried in 55 (BC), Claudius conquered in 43 (AD)!" Think "Claudius Clapped in 43, Romans Ran in 410!" Skara Brae = Scotland’s Orkney village; Stonehenge = Wiltshire stones!',
+      'Prehistory countdown: 10,000 years ago Channel cut Britain off (think No. 10), 6,000 first farmers, 4,000 Bronze Age (4 letters in GOLD ornaments). Roman dates: Caesar failed in 55 BC (double-5); Claudius Conquered in AD 43 (countdown 4-3) and Romans left in AD 410.',
   },
   {
     id: 'sg-ch3-anglo-norman',
@@ -116,7 +116,7 @@ export const STUDY_SECTIONS: readonly StudySection[] = [
       'William ordered the Domesday Book: a complete record of all towns, villages, people, land, and animals in England.',
     ],
     memoryHook:
-      '🌶️ Spice Hook: "Augustine = Archbishop #1 (Canterbury); Columba = Iona Island!" And "10-66, Norman tricks: William conquered Harold, stitched it on the Bayeux Tapestry, and counted every cow in the Domesday Book!"',
+      'Letter and digit anchors: A = St Augustine, first Archbishop of Canterbury (vs Columba on Iona off Scotland); sequential digits 7-8-9 (AD 789) = first Viking raids; 1066 = last successful foreign invasion of England.',
   },
   {
     id: 'sg-ch3-middle-ages',
@@ -133,7 +133,7 @@ export const STUDY_SECTIONS: readonly StudySection[] = [
       'Wars of the Roses (1455–1485): civil war between House of Lancaster (Red Rose) and House of York (White Rose). Ended in 1485 at the Battle of Bosworth Field when Henry Tudor (Lancaster) defeated King Richard III (York), became King Henry VII, and married Elizabeth of York: creating the Tudor Rose (red + white)!',
     ],
     memoryHook:
-      '🌶️ Spice Hook: "Magna Carta at 12:15 lunch (1215) = King John obeys the law!" "Bannockburn 1314 = Bruce Beats Britain!" "Black Death 1348 = 1/3 gone!" "Agincourt 1415 = Henry V (4+1=5)!" "Bosworth 1485 = Red + White = Tudor Rose!"',
+      'Digit and alphabetical anchors: 1215 Magna Carta = signed before 12:15 lunch; 1348 Black Death = starts with "13" and killed 1/3 of the population; 1415 Agincourt = 1+4 gives Henry V (5); Lancaster before York matches Red before White alphabetically.',
   },
   {
     id: 'sg-ch3-tudors-stuarts',
@@ -150,7 +150,7 @@ export const STUDY_SECTIONS: readonly StudySection[] = [
       '1688 Glorious Revolution: Protestant William of Orange (married to James II’s daughter Mary) was invited to invade; Catholic James II fled without fighting! 1689 Bill of Rights confirmed Parliament’s power and banned Catholic monarchs.',
     ],
     memoryHook:
-      '🌶️ Spice Hook: Henry VIII’s 6 wives = "Divorced, Beheaded, Died, Divorced, Beheaded, Survived!" Armada = "1588, Spanish fleet sealed its fate!" Fire of London = "1666, six-six-six blazing bricks (Wren built St Paul’s)!" Glorious Revolution = "1688, William walked straight through the gate (bloodless)!"',
+      'Henry VIII\'s 6 wives: "Divorced, Beheaded, Died, Divorced, Beheaded, Survived." Triple-6 (1666) = Great Fire of London. Double-8 naval pair 100 years apart: 1588 Spanish Armada defeated, 1688 William of Orange invited over in the bloodless Glorious Revolution.',
   },
   {
     id: 'sg-ch3-empire-industry',
@@ -167,7 +167,7 @@ export const STUDY_SECTIONS: readonly StudySection[] = [
       'Literature & Suffrage: Charles Dickens, Robert Louis Stevenson, Thomas Hardy, Rudyard Kipling (born in India: Jungle Book, "If"). Emmeline Pankhurst (born in Manchester, 1858) founded the WSPU in 1903 ("Suffragettes": civil disobedience). Women aged 30+ got the vote in 1918; equal voting age of 21 with men in 1928!',
     ],
     memoryHook:
-      '🌶️ Spice Hook: "1707 = Scotland joins heaven; 1801 = Ireland makes one!" "Walpole = First PM at the pole!" "1805 Nelson’s Dive (Trafalgar), 1815 Wellington’s Win (Waterloo)!" "1807 stop the ships, 1833 set everyone free!" And Ultimate Girl Power: Emmeline Pankhurst → 1918 (30+), 1928 (21 = equal)!',
+      'Walpole = "pole position" (1st PM, 1721-1742). Slavery laws: 1807 ("07" stops the ships), 1833 (rhymes with "free", abolishes slavery across the Empire). Suffrage: 1918 gave women votes at 30+; add 10 years (1928) to match men at 21.',
   },
   {
     id: 'sg-ch3-world-wars',
@@ -183,7 +183,7 @@ export const STUDY_SECTIONS: readonly StudySection[] = [
       '6 June 1944 D-Day: Allied forces landed on Normandy beaches. May 1945 VE Day (defeat of Germany); August 1945 VJ Day after atomic bombs on Hiroshima & Nagasaki (British scientists led by Ernest Rutherford had earlier been first to "split the atom").',
     ],
     memoryHook:
-      '🌶️ Spice Hook: "1 July 1916 Somme = 60,000 casualties on Day 1; 11am 11/11 1918 = silence!" "1928 = Fleming’s Penicillin + Equal Women’s Vote!" "1940 = Churchill + Dunkirk boats + RAF Spitfires/Hurricanes; 6 June 1944 = D-Day Normandy!"',
+      'Number anchors: 1916 Somme (ends in 6) = 60,000 British casualties on Day 1; 11am on 11/11 (1918) = Armistice; 1922 ("22") = Ireland split into 2; 6/6/44 = D-Day. Shared-year anchor: 1928 = both Penicillin (Fleming) and women\'s equal vote at 21.',
   },
   {
     id: 'sg-ch3-modern-britain',
@@ -199,7 +199,7 @@ export const STUDY_SECTIONS: readonly StudySection[] = [
       '2012 London Olympics & Paralympics; June 2016 EU Referendum voted to leave (UK officially left the EU on 31 January 2020). Queen Elizabeth II became Britain’s longest-reigning monarch (1952–2022, Platinum Jubilee 2022), succeeded by His Majesty King Charles III!',
     ],
     memoryHook:
-      '🌶️ Spice Hook: "Beveridge wrote the 1942 blueprint, Attlee won 1945, Nye Bevan birthed the NHS in 1948!" "Thatcher = First female PM (1979)!" "1973 In (EEC), 2016 Vote, Jan 2020 Out (Brexit)!" "1998 Good Friday Peace!"',
+      'Exam traps: distinguish the three 1940s "B" reformers: Beveridge = 1942 welfare report, Butler = 1944 free secondary education, "Nye" Bevan = 1948 NHS. And for Brexit: June 2016 was the referendum vote, 31 January 2020 was the official exit date.',
   },
 
   // CHAPTER 4
@@ -215,7 +215,7 @@ export const STUDY_SECTIONS: readonly StudySection[] = [
       'Traditions: Valentine’s Day (14 Feb), April Fool’s Day (jokes until 12:00 noon on 1 April!), Mothering Sunday (3 weeks before Easter), Father’s Day (3rd Sunday in June), Halloween (31 Oct), Bonfire Night (5 Nov: Guy Fawkes, 1605), Remembrance Day (11 Nov, wearing red poppies, 2-minute silence at 11am at the Cenotaph in Whitehall), Hogmanay (31 Dec Scottish New Year; 2 Jan is also a bank holiday in Scotland!).',
     ],
     memoryHook:
-      '🌶️ Spice Hook: "England = Anglican (King is Governor); Scotland = Presbyterian Kirk (Kirk has NO King as head!); Wales & NI = Free Agents (no state church)!" And April Fool’s jokes STOP at 12 noon sharp ("Stop right now at midday!").',
+      'Exam trap on national churches: England = Anglican (Monarch is Supreme Governor); Scotland = Presbyterian Church of Scotland (governed by General Assembly, Monarch is NOT head); Wales and Northern Ireland = no established state church.',
   },
   {
     id: 'sg-ch4-sports',
@@ -228,7 +228,7 @@ export const STUDY_SECTIONS: readonly StudySection[] = [
       'Must-Know Heroes: Bobby Moore (captained England to 1966 World Cup victory), Sir Roger Bannister (first man to run a mile in under 4 minutes, 1954), Sir Jackie Stewart (Scottish 3x F1 champion), Jayne Torvill & Christopher Dean (1984 Olympic ice-dancing gold to Bolero), Sir Steve Redgrave (5 consecutive Olympic rowing golds), Dame Kelly Holmes (2004 800m & 1500m golds), Baroness Tanni Grey-Thompson (11 Paralympic wheelchair golds), Dame Ellen MacArthur (fastest solo round-the-world yachtswoman, 2004), Sir Chris Hoy (6 Olympic cycling golds), Sir Bradley Wiggins (first Briton to win Tour de France, 2012), Sir Mo Farah (first Briton to win Olympic 5,000m & 10,000m golds), Dame Jessica Ennis-Hill (2012 heptathlon gold), Sir Andy Murray (first British man to win Wimbledon singles since 1936!).',
     ],
     memoryHook:
-      '🌶️ Spice Hook: Sporty Spice Cheat Code, "Bannister broke 4 mins in ’54; Bobby Moore lifted ’66; Redgrave rowed 5 golds; Hoy pedalled 6; Tanni rolled 11 Paralympic golds; Wiggins won the Tour in 2012!"',
+      'Number anchors: Bannister broke the 4-minute mile in 1954 (ends in 4). Gold-medal sum (5 + 6 = 11): Redgrave = 5 rowing golds, Hoy = 6 cycling golds, Tanni Grey-Thompson = 11 Paralympic golds.',
   },
   {
     id: 'sg-ch4-arts-culture',
@@ -243,7 +243,7 @@ export const STUDY_SECTIONS: readonly StudySection[] = [
       'Key British Inventions: Jet engine (Sir Frank Whittle), Radar (Sir Robert Watson-Watt), TV (John Logie Baird, 1920s), Hovercraft (Sir Christopher Cockrell), ATM cash machine (James Goodfellow & John Shepherd-Barron), World Wide Web (Sir Tim Berners-Lee), Turing Machine (Alan Turing), MRI scanner (Sir Peter Mansfield), Structure of DNA (Francis Crick with Watson, Wilkins & Rosalind Franklin), Cloning mammal Dolly the Sheep (Sir Ian Wilmut & Keith Campbell, 1996), IVF "test-tube baby" (Patrick Steptoe & Robert Edwards, 1978), Insulin co-discovery (John Macleod).',
     ],
     memoryHook:
-      '🌶️ Spice Hook: Prize Match = "Booker → Books, Turner → Art, Mercury/BRITs → Music (Spice Girls won 5!), Olivier → West End Theatre, BAFTA → Film!" Inventions = "Whittle Jet, Watson-Watt Radar, Baird TV, Berners-Lee WWW, Wilmut cloned Dolly!"',
+      'Name hooks: Turner was a painter, so the Turner Prize is for Art (Mercury = Music, Olivier = Theatre). Inventor wordplay: "What\'s-on"-Watt = Radar (spots what\'s in the sky); Whittle = whistles like a Jet engine.',
   },
   {
     id: 'sg-ch4-landmarks',
@@ -258,7 +258,7 @@ export const STUDY_SECTIONS: readonly StudySection[] = [
       'Crown Jewels, National Trust & National Trust for Scotland (founded 1895 by 3 volunteers: Octavia Hill, Sir Robert Hunter, Canon Hardwicke Rawnsley, to preserve heritage & countryside).',
     ],
     memoryHook:
-      '🌶️ Spice Hook: "Big Ben is the BELL inside Elizabeth Tower!" "Eden = Cornwall Biomes; Giant’s Causeway = NI Basalt Columns; Lake District = Largest in England (Wastwater view); Snowdonia = North Wales!"',
+      'Classic exam trap: "Big Ben" is strictly the nickname of the great BELL, not the clock tower (the tower is Elizabeth Tower). Alliteration: Lake District = Largest national park in England.',
   },
 
   // CHAPTER 5
@@ -273,8 +273,6 @@ export const STUDY_SECTIONS: readonly StudySection[] = [
       'King Charles III is the Head of State in a constitutional monarchy: he reigns, while the elected government rules. The Monarch appoints the leader of the majority party in the House of Commons as Prime Minister, meets weekly with the PM, opens each new parliamentary session (King’s Speech outlining the government’s laws), and grants Royal Assent to Acts of Parliament.',
       'The National Anthem is "God Save the King"!',
     ],
-    memoryHook:
-      '🌶️ Spice Hook: "UK Constitution = Unwritten (never in 1 binder)!" "King = Head of State (ceremonial Crown); PM = Head of Government (10 Downing Street)!"',
   },
   {
     id: 'sg-ch5-parliament-elections',
@@ -290,7 +288,7 @@ export const STUDY_SECTIONS: readonly StudySection[] = [
       'Who can vote in UK General Elections? UK citizens, qualifying Irish citizens, and qualifying Commonwealth citizens resident in the UK aged 18 or over on the electoral register (updated annually each autumn). Anyone aged 18+ who is a UK/Irish/qualifying Commonwealth citizen can stand as an MP (except armed forces, civil servants, people convicted of certain offences).',
     ],
     memoryHook:
-      '🌶️ Spice Hook: "650 MPs in the Commons (First Past the Post, max 5 years); Speaker sits neutral via secret ballot; Hansard = Parliament’s diary; Chancellor = Cash, Home Sec = Borders & Bobbies!"',
+      'Exam trap: the Speaker is NOT appointed by the PM or Monarch (fellow MPs elect the Speaker by secret ballot). Cabinet initials: Chancellor = Cash/economy; Home Secretary = Home security (police, crime, immigration).',
   },
   {
     id: 'sg-ch5-devolution',
@@ -307,7 +305,7 @@ export const STUDY_SECTIONS: readonly StudySection[] = [
       'International Bodies: The Commonwealth (56 mostly former Empire independent states; King Charles III is symbolic Head; voluntary association promoting democracy & good government: cannot suspend/punish by force, though it can suspend membership). United Nations (founded post-WWII, 190+ countries; UK is one of 5 permanent members of the 15-member UN Security Council). NATO (mutual military defence alliance). Council of Europe (46+ European countries, completely separate from the EU: drafted the European Convention on Human Rights, incorporated into UK law via the Human Rights Act 1998!).',
     ],
     memoryHook:
-      '🌶️ Spice Hook: Devolved numbers = "Wales 60 (Cardiff), NI 90 (Stormont), Scotland 129 (Holyrood): all use Proportional Representation!" And huge exam trap: "Council of Europe ≠ EU (UK is STILL in the Council of Europe, NATO, Commonwealth & UN Security Council Top 5)!"',
+      'Seat ladder (all elected by Proportional Representation, unlike Westminster\'s First Past the Post): Wales = 60, NI = 90 (+30), Scotland = 129. Classic exam trap: Council of Europe is NOT the EU; the UK left the EU but remains in the Council of Europe (human rights convention).',
   },
   {
     id: 'sg-ch5-courts-police-role',
@@ -325,6 +323,6 @@ export const STUDY_SECTIONS: readonly StudySection[] = [
       'Taxes & Community: Income Tax (PAYE) + National Insurance (NI number, apply at DWP/Jobcentre Plus; funds state pension & NHS). Council Tax funds local services (rubbish, libraries, local roads). Citizens on the electoral register aged 18–75 (18–65 in Scotland; 18–70 in NI) can be randomly summoned for Jury Service. Ways to volunteer: school governors/parent councils, blood/organ donation (opt-out in UK), Neighbourhood Watch, National Trust.',
     ],
     memoryHook:
-      '🌶️ Spice Hook: "Jury = 12 in England/Wales/NI, 15 in Scotland (+ Not Proven verdict)!" "Small Claims = £10k E&W, £5k Scot/NI!" "MOT at age 3, Lottery at 18, Voting at 18!"',
+      'Number tricks: Scotland has 3 verdicts (adds "Not Proven") and 12 + 3 = 15 jurors (vs 12 elsewhere); Small Claims is £10k in England and Wales, halved to £5k in Scotland and NI; "MOT" has 3 letters = needed once a car is 3 years old.',
   },
 ];

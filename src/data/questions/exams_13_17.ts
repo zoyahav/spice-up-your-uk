@@ -22,8 +22,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [0],
     explanation:
       'Domestic violence and abuse are serious crimes in the UK. Anyone who is violent towards their spouse or partner: whether they are married or living together, can be prosecuted under criminal law.',
-    memoryHook:
-      '🌶️ Spice Hook: "Stop right now!" A wedding ring is NEVER a legal shield, domestic violence is a crime inside or outside marriage!',
   },
   {
     id: 'q-ex13-02',
@@ -42,8 +40,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [0],
     explanation:
       'Although the Channel Islands and the Isle of Man use the Life in the UK Test framework for settlement and citizenship, applicants there sit a version containing local questions specific to their island alongside core UK material.',
-    memoryHook:
-      '🌶️ Spice Hook: Island life = Island slice! Jersey, Guernsey & Isle of Man swap in local island questions!',
   },
   {
     id: 'q-ex13-03',
@@ -58,7 +54,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     explanation:
       'Although all four nations celebrate their patron saints, only Scotland (St Andrew’s Day on 30 November) and Northern Ireland (St Patrick’s Day on 17 March) have an official bank holiday for the occasion (though not every business closes in Scotland). England (St George’s Day) and Wales (St David’s Day) do not.',
     memoryHook:
-      '🌶️ Spice Hook: Classic exam trap! Only the TWO northern/western neighbours, Scotland (St Andrew) & Northern Ireland (St Patrick): get an official patron saint bank holiday!',
+      'Compass rule: only the two "northern" nations (Scotland in the north and Northern Ireland) get an official patron-saint bank holiday; England and Wales do not.',
     visualId: 'national-emblems',
   },
   {
@@ -79,7 +75,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     explanation:
       'The River Severn (220 miles / 354 km) rises in Wales and flows through western England to the Bristol Channel, making it the UK’s longest river. The River Thames (215 miles) is the longest river entirely within England, but second overall in the UK!',
     memoryHook:
-      '🌶️ Spice Hook: Trap alert! Thames is famous in London, but "Severn = Seven letters of #1 length" (220 miles across Wales + England)!',
+      '"Severn = Several": the Severn flows through several nations (Wales and England) as the UK’s #1 longest river, while the Thames is longest inside England alone.',
     visualId: 'uk-map',
   },
   {
@@ -99,8 +95,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [1],
     explanation:
       'Admiral Horatio Nelson led the Royal Navy victory against the combined French and Spanish fleets at Trafalgar in 1805 and was killed during the battle. Nelson’s Column in Trafalgar Square honours him, and his flagship HMS Victory can still be visited in Portsmouth.',
-    memoryHook:
-      '🌶️ Spice Hook: "1805, Nelson’s Dive!" Nelson won Trafalgar on HMS Victory (Portsmouth) and stands tall in Trafalgar Square!',
     visualId: 'history-timeline',
   },
   {
@@ -121,7 +115,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     explanation:
       'In 1815, the French Wars ended when Emperor Napoleon was defeated by the Duke of Wellington at the Battle of Waterloo. Known as the "Iron Duke", Wellington later served as Prime Minister.',
     memoryHook:
-      '🌶️ Spice Hook: "Water-loo needs Wellingtons (boots)!" 1815 = Duke of Wellington splashed Napoleon at Waterloo!',
+      'You wear Wellington boots in water: the Duke of Wellington won at Waterloo (1815).',
     visualId: 'history-timeline',
   },
   {
@@ -136,8 +130,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [0],
     explanation:
       'During the Victorian era, Britain promoted free trade by abolishing taxes on imported goods. A landmark moment was the repeal of the Corn Laws in 1846, allowing cheaper imported grain and helping factory workers and manufacturers.',
-    memoryHook:
-      '🌶️ Spice Hook: "1846, Corn Laws thrown in the mix!" Repealing them let cheap grain flow into Victorian Britain!',
   },
   {
     id: 'q-ex13-08',
@@ -156,8 +148,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [0],
     explanation:
       'Although rising nationalism, militarism, and rival alliances created deep tension across Europe, the immediate trigger for the First World War in 1914 was the assassination of Archduke Franz Ferdinand of Austria on 28 June 1914.',
-    memoryHook:
-      '🌶️ Spice Hook: "1914 spark = Franz Ferdinand!" (Don’t confuse with Poland, Hitler invading Poland started WWII in 1939!)',
     visualId: 'history-timeline',
   },
   {
@@ -178,7 +168,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     explanation:
       'The British attack on the Somme in July 1916 resulted in about 60,000 British casualties on the first day alone (1 July 1916). Over the whole First World War, there were more than 2 million British casualties (killed or wounded).',
     memoryHook:
-      '🌶️ Spice Hook: "Somme = Sixty thousand on 1 July 1916", both S-sounds remind you of the tragic Day-One toll!',
+      '"Somme = Sixty": around 60,000 British casualties on day one (1 July 1916).',
     visualId: 'history-timeline',
   },
   {
@@ -199,7 +189,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     explanation:
       'Born in Scotland, Alexander Fleming moved to London and discovered penicillin in 1928. Scientists Howard Florey and Ernst Chain later developed it into a mass-produced antibiotic drug, and Fleming won the Nobel Prize in Medicine in 1945.',
     memoryHook:
-      '🌶️ Spice Hook: "1928: Fleming found the mould that healed the cold (bacterial infections)!" Penicillin = Alexander Fleming!',
+      '"Fl-eming" was researching "fl-u" (influenza) in 1928 when he spotted penicillin mould (unlike Lister = antiseptic or Macleod = insulin).',
   },
   {
     id: 'q-ex13-11',
@@ -214,7 +204,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     explanation:
       'Economist William Beveridge’s 1942 report (Social Insurance and Allied Services) recommended that the government fight Five Giant Evils: Want, Disease, Ignorance, Squalor, and Idleness. It became the blueprint for Britain’s post-1945 welfare state.',
     memoryHook:
-      '🌶️ Spice Hook: Beveridge’s 5 Giants = "W-D-I-S-I" (Want, Disease, Ignorance, Squalor, Idleness): Want & Squalor are in, Inflation & Taxation are impostors!',
+      'Mnemonic "SWIID": Squalor, Want, Ignorance, Idleness, Disease (watch the trap: the two I’s are Ignorance and Idleness, never Inflation).',
     visualId: 'history-timeline',
   },
   {
@@ -229,8 +219,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [1],
     explanation:
       'When West Germany, France, Belgium, Italy, Luxembourg, and the Netherlands formed the EEC in 1957, the UK chose not to join at first. The UK eventually joined the EEC in 1973 (alongside Denmark and the Republic of Ireland).',
-    memoryHook:
-      '🌶️ Spice Hook: "57 = Six founders without Britain; 73 = UK finally walked in!"',
   },
   {
     id: 'q-ex13-13',
@@ -250,7 +238,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     explanation:
       'Born in Coventry, RAF officer Sir Frank Whittle (1907–1996) invented and tested the turbojet engine in the 1930s, transforming global aviation.',
     memoryHook:
-      '🌶️ Spice Hook: "Whittle made the jet engine WHISTLE through the sky!"',
+      'Phonetic link: Frank Whittle made the jet engine "whistle" through the sky.',
   },
   {
     id: 'q-ex13-14',
@@ -270,7 +258,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     explanation:
       'Sir Robert Watson-Watt (1892–1973) proposed using radio reflections to detect aircraft and conducted the first successful radar test in 1935, giving Britain a crucial defensive edge in the 1940 Battle of Britain.',
     memoryHook:
-      '🌶️ Spice Hook: "Watson-WATT = Radio-WAVE!" Two W’s scanning the skies with Radar!',
+      'Double surname like a bouncing radar echo: Watson-Watt = radar (don’t confuse with James Watt = steam engine).',
   },
   {
     id: 'q-ex13-15',
@@ -284,8 +272,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [3],
     explanation:
       'John Constable (1776–1837) was one of Britain’s greatest landscape painters, celebrated for scenes of Dedham Vale ("Constable Country") such as The Hay Wain (1821). By contrast, Joseph Turner painted dramatic seascapes/light, Thomas Gainsborough painted portraits in landscapes, and David Allan ("the Scottish Hogarth") painted Scottish domestic scenes.',
-    memoryHook:
-      '🌶️ Spice Hook: "Constable in the Country!" John Constable patrolled Dedham Vale and painted The Hay Wain!',
   },
   {
     id: 'q-ex13-16',
@@ -305,7 +291,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     explanation:
       'George Frideric Handel (1695–1759) settled in Britain, became a British citizen in 1727, and wrote Water Music for King George I, Music for the Royal Fireworks for George II, and the choral masterpiece Messiah. (Gustav Holst wrote The Planets, and Sir Edward Elgar wrote the Pomp and Circumstance Marches.)',
     memoryHook:
-      '🌶️ Spice Hook: "Handel had a handle on Water (Water Music) and Heaven (Messiah)!"',
+      'Handel "handled" the elements and heaven: Water (Water Music), Fire (Music for the Royal Fireworks), and Messiah.',
   },
   {
     id: 'q-ex13-17',
@@ -323,8 +309,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [1],
     explanation:
       'Awarded annually since 1969, the Booker Prize recognises the best fiction novel (past winners include Salman Rushdie, Ian McEwan, and Hilary Mantel). Contemporary art is honoured by the Turner Prize, theatre by the Laurence Olivier Awards, and music by the BRIT Awards and Mercury Prize.',
-    memoryHook:
-      '🌶️ Spice Hook: Easy win, "BOOK-er Prize = BOOKS (fiction novels)!"',
   },
   {
     id: 'q-ex13-18',
@@ -339,7 +323,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     explanation:
       'There are 15 National Parks in England, Wales, and Scotland: protected areas of natural countryside where people live, work, and visit (including the Lake District, Snowdonia in North Wales, and Loch Lomond and the Trossachs in Scotland).',
     memoryHook:
-      '🌶️ Spice Hook: "15 National Parks = same number as a 15-player Rugby Union team or a 15-person Scottish jury!"',
+      'Think of 15 rugby players on green grass: 15 green National Parks across England, Wales, and Scotland.',
     visualId: 'uk-map',
   },
   {
@@ -360,7 +344,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     explanation:
       'In England, Wales, and Northern Ireland, most minor criminal cases are heard in a Magistrates’ Court by unpaid volunteer Justices of the Peace (magistrates) or a paid legally qualified District Judge, without a jury.',
     memoryHook:
-      '🌶️ Spice Hook: "M for Minor = M for Magistrates’ Court!" (Serious crimes go up to the Crown Court!)',
+      '"M for Minor = M for Magistrates’ Court" (serious criminal offences go to the Crown Court).',
     visualId: 'parliament-courts',
   },
   {
@@ -376,7 +360,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     explanation:
       'In Scotland, serious criminal offences tried before a jury (in a Sheriff Court or the High Court of Justiciary) have a jury of 15 members, whereas juries in England, Wales, and Northern Ireland have 12 members.',
     memoryHook:
-      '🌶️ Spice Hook: "12 south & west, 15 in the Scottish nest!" Scotland adds 3 extra jurors (and a 3rd verdict: Not Proven)!',
+      'Scotland’s "Rule of 3": 3 extra jurors (15 instead of 12) and a 3rd verdict ("not proven").',
     visualId: 'parliament-courts',
   },
   {
@@ -392,7 +376,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     explanation:
       'The small claims procedure helps people settle minor civil disputes (such as unpaid money or faulty goods) informally without high legal costs. It applies to claims under £10,000 in England and Wales, and £5,000 in Scotland and Northern Ireland.',
     memoryHook:
-      '🌶️ Spice Hook: "Double in E&W!" £10,000 in England & Wales vs £5,000 in Scotland & Northern Ireland!',
+      'Visual digit anchor: the "S" in Scotland looks like a "5" (£5,000 in Scotland and NI), while England and Wales double it to £10,000.',
     visualId: 'parliament-courts',
   },
   {
@@ -408,7 +392,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     explanation:
       'People under 18 are not allowed to participate in the National Lottery (including Lotto draws and scratchcards); the minimum age was raised from 16 to 18 in 2021.',
     memoryHook:
-      '🌶️ Spice Hook: Updated exam trap! Lottery used to be 16, now it’s 18, "Vote, Booze, Smoke & Lotto all unlock at 18!"',
+      'Exam trap: older study guides still say 16, but the Lottery age is now 18, matching voting, buying alcohol, and buying tobacco.',
   },
   {
     id: 'q-ex13-23',
@@ -427,8 +411,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [1, 2],
     explanation:
       'Under PAYE (Pay As You Earn), employers automatically deduct Income Tax and National Insurance contributions from employees’ pay and send them directly to HM Revenue & Customs (HMRC). Self-employed people pay via Self Assessment.',
-    memoryHook:
-      '🌶️ Spice Hook: "PAYE = Pay Check Pair (Income Tax + National Insurance)!" Council Tax & road tax are paid separately by households/drivers.',
   },
   {
     id: 'q-ex13-24',
@@ -442,8 +424,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [0],
     explanation:
       'Anyone who is on the electoral register (register of electors) and within the eligible age range can be randomly selected to serve on a jury. Unless exempt or excused for good reason, you must attend.',
-    memoryHook:
-      '🌶️ Spice Hook: "Register to vote → Ready for the jury boat!" Random pick straight off the electoral register!',
   },
 
   // ============================================================================
@@ -466,8 +446,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [1, 3],
     explanation:
       'Forced marriage (forcing someone to marry against their will, distinguishable from a consensual arranged marriage) and female genital mutilation (FGM: or taking someone abroad for FGM) are severe criminal offences carrying prison sentences in the UK.',
-    memoryHook:
-      '🌶️ Spice Hook: Consent is Queen! Consensual arranged marriage = legal; Forced marriage & FGM = strictly criminal!',
   },
   {
     id: 'q-ex14-02',
@@ -481,8 +459,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [1],
     explanation:
       'No. Reflecting freedom of religion and belief in the UK, those who do not wish to swear a religious oath ("I swear by Almighty God...") may make a solemn, non-religious affirmation ("I do solemnly, sincerely and truly declare and affirm...") instead.',
-    memoryHook:
-      '🌶️ Spice Hook: "Swear if religious, Affirm if secular!" Nobody is forced onto a holy book!',
   },
   {
     id: 'q-ex14-03',
@@ -496,8 +472,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [1],
     explanation:
       'False! The Channel Islands (such as Jersey and Guernsey) and the Isle of Man are Crown Dependencies: closely linked to the Crown, but NOT part of the UK. They have their own governments and tax systems and do not elect MPs to Westminster.',
-    memoryHook:
-      '🌶️ Spice Hook: #1 Geography Trap! "Crown Dependencies (Channel Islands + Isle of Man) are cousins of the Crown, NOT inside the UK!"',
     visualId: 'uk-map',
   },
   {
@@ -517,8 +491,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [0],
     explanation:
       'Ben Nevis in Scotland (1,345m / 4,413 ft) is the highest mountain in both Scotland and the whole UK. For comparison, Snowdon is highest in Wales, Scafell Pike is highest in England, and Slieve Donard is highest in Northern Ireland.',
-    memoryHook:
-      '🌶️ Spice Hook: "Big Ben Nevis is Boss of Britain’s peaks!" (Ben Nevis = UK/Scotland #1, Snowdon = Wales, Scafell Pike = England, Slieve Donard = NI).',
     visualId: 'uk-map',
   },
   {
@@ -534,7 +506,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     explanation:
       'St Helena (in the South Atlantic), Gibraltar (at the southern tip of Spain), and the Falkland Islands are British Overseas Territories linked to the UK, whereas the Isle of Man and Guernsey (Channel Islands) are Crown Dependencies.',
     memoryHook:
-      '🌶️ Spice Hook: "Far across the sea = Overseas Territory (St Helena, Gibraltar, Falklands); right by Britain = Crown Dependency (Man, Jersey, Guernsey)!"',
+      'Map rule: islands right off Britain’s coast (Isle of Man, Channel Islands) are Crown Dependencies; distant outposts (Gibraltar, St Helena, Falklands) are Overseas Territories.',
     visualId: 'national-emblems',
   },
   {
@@ -554,8 +526,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [3],
     explanation:
       'Organised largely by Prince Albert, the Great Exhibition opened in 1851 in Hyde Park inside the Crystal Palace: a huge building constructed cleanly out of iron and glass.',
-    memoryHook:
-      '🌶️ Spice Hook: "1851 shone bright in the sun, Crystal Palace of glass & iron in Hyde Park!"',
     visualId: 'history-timeline',
   },
   {
@@ -576,7 +546,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     explanation:
       'The Crimean War (1853–56) was the first war extensively documented by newspaper correspondents and photographers, and during it Queen Victoria instituted the Victoria Cross (still Britain’s highest military honour for valour).',
     memoryHook:
-      '🌶️ Spice Hook: Crimea = "Cameras & Crosses!" First media/photo war + Queen Victoria’s Victoria Cross!',
+      'Triple-C link: Crimea = Cameras (first media/photo war) + Crosses (the Victoria Cross).',
   },
   {
     id: 'q-ex14-08',
@@ -590,8 +560,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [0],
     explanation:
       'True! Florence Nightingale (1820–1910) was born in Italy (and named after the city of Florence) to English parents. In 1854 she went to Turkey to improve sanitation at the Scutari hospital, dramatically cutting mortality rates, and in 1860 established the Nightingale Training School for nurses at St Thomas’ Hospital in London.',
-    memoryHook:
-      '🌶️ Spice Hook: Clue is in her first name! "Florence Nightingale was born in Florence, Italy, healed soldiers at Scutari, and trained nurses at St Thomas’!"',
   },
   {
     id: 'q-ex14-09',
@@ -610,8 +578,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [1],
     explanation:
       'The First World War ended with the Armistice at 11.00 am on 11 November 1918 ("the eleventh hour of the eleventh day of the eleventh month") after Allied victory and more than 2 million British casualties.',
-    memoryHook:
-      '🌶️ Spice Hook: Triple Eleven! "11 am, 11th day, 11th month (Nov) 1918", why we hold a 2-minute silence on Remembrance Day!',
     visualId: 'history-timeline',
   },
   {
@@ -631,8 +597,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [1],
     explanation:
       'In April 1916, Irish nationalists staged the Easter Rising in Dublin and proclaimed an Irish Republic. Nationalist leaders were executed, and a guerrilla war against the British army and police followed until the 1921 Peace Treaty.',
-    memoryHook:
-      '🌶️ Spice Hook: "April 1916 in Dublin = Easter Rising" (which led to the 1921 Treaty and 1922 partition of Ireland)!',
   },
   {
     id: 'q-ex14-11',
@@ -652,7 +616,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     explanation:
       'In the crucial aerial battle against the German Luftwaffe in the summer of 1940: the Battle of Britain, the Royal Air Force prevented a German invasion using British-built fighter planes: the Hawker Hurricane and the Supermarine Spitfire.',
     memoryHook:
-      '🌶️ Spice Hook: 1940 RAF Dream Team = "Fire & Wind, Spitfire & Hurricane!" ("Never... was so much owed by so many to so few!")',
+      'Think "Fire and Wind": the Spitfire and the Hurricane won the 1940 Battle of Britain.',
   },
   {
     id: 'q-ex14-12',
@@ -671,8 +635,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [2],
     explanation:
       'Although Winston Churchill led Britain through WWII, voters seeking post-war social reform elected a Labour government in 1945 led by Clement Attlee (who had been Churchill’s wartime Deputy PM). Attlee’s government nationalised major industries and created the NHS and modern social security system.',
-    memoryHook:
-      '🌶️ Spice Hook: Surprise exam twist! "Churchill won the War, Clement Attlee won the 1945 Election!"',
     visualId: 'history-timeline',
   },
   {
@@ -692,8 +654,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [0],
     explanation:
       'Faced with severe labour shortages after WWII, Britain encouraged workers from the West Indies, India, Pakistan, and later Bangladesh to work in transport, the NHS, and textiles. The arrival of HMT Empire Windrush in 1948 became a lasting symbol of the "Windrush generation".',
-    memoryHook:
-      '🌶️ Spice Hook: "1948 = NHS born + Empire Windrush docked!" Many Windrush arrivals helped staff the brand-new NHS & buses!',
   },
   {
     id: 'q-ex14-14',
@@ -713,7 +673,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     explanation:
       'Scottish engineer John Logie Baird (1888–1946) demonstrated the first working television system in the 1920s and in 1932 made the first outdoor broadcast (showing the Derby horse race).',
     memoryHook:
-      '🌶️ Spice Hook: "Baird put Broadcasts on the Box!" John Logie Baird = 1920s TV pioneer!',
+      'Comms-pioneer check: Bell rings (telephone), Marconi sends radio, Baird broadcasts TV, Berners-Lee weaves the Web.',
   },
   {
     id: 'q-ex14-15',
@@ -733,7 +693,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     explanation:
       'Sir Christopher Cockerell (1910–1999) invented the hovercraft in the 1950s, enabling passenger and vehicle craft to glide smoothly on a cushion of air over water and land.',
     memoryHook:
-      '🌶️ Spice Hook: "Cockerell flew low over the Channel!" Cockerell = Cushion-of-air Hovercraft!',
+      'Visual pun: a cockerel (rooster) can’t fly high, it just flaps and hovers above the ground (Cockerell = Hovercraft).',
   },
   {
     id: 'q-ex14-16',
@@ -753,7 +713,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     explanation:
       'Scottish inventor James Goodfellow (who patented PIN-based cash machine technology in 1966) and John Shepherd-Barron (whose first cash dispenser was installed by Barclays Bank in Enfield, north London, in 1967) pioneered the ATM.',
     memoryHook:
-      '🌶️ Spice Hook: Getting cash out makes you a "Good-fellow" with a "Barron’s" wallet, Goodfellow & Shepherd-Barron = ATM!',
+      'Name wordplay: getting cash from an ATM makes you feel like a rich "Baron" and a "Goodfellow" (Shepherd-Barron and Goodfellow).',
   },
   {
     id: 'q-ex14-17',
@@ -773,7 +733,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     explanation:
       'In the 19th century, medieval Gothic style revived ("Gothic Revival"). Architect Sir Charles Barry won the competition to rebuild the Houses of Parliament after the 1834 fire, while Augustus Pugin designed its famous Gothic interiors, wallpaper, furniture, and the Elizabeth Tower clock face. (Wren built St Paul’s; Robert Adam was 18th-century neoclassical.)',
     memoryHook:
-      '🌶️ Spice Hook: "Barry built the Building, Pugin polished the Pointed Gothic insides!" Barry + Pugin = Houses of Parliament!',
+      'Alliteration: Barry built the Building (exterior); Pugin polished the Pointed Gothic interiors.',
   },
   {
     id: 'q-ex14-18',
@@ -787,8 +747,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [0],
     explanation:
       'Covering 885 square miles (2,292 sq km) in north-west England, the Lake District is England’s largest National Park, famous for its lakes and mountains and inspiring poets like William Wordsworth and author Beatrix Potter. In 2007, viewers voted Wastwater in the Lake District Britain’s favourite view.',
-    memoryHook:
-      '🌶️ Spice Hook: "Wastwater = Lake District!" Largest park in England, overflowing with Lakes!',
     visualId: 'uk-map',
   },
   {
@@ -803,8 +761,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [3],
     explanation:
       'Unlike courts in England, Wales, and Northern Ireland (which only have "guilty" and "not guilty"), a 15-person Scottish jury has a third possible verdict: "not proven" (which acquits the accused with the same legal effect as not guilty).',
-    memoryHook:
-      '🌶️ Spice Hook: Scotland’s Rule of 3s, "15 jurors (divisible by 3) & 3 verdicts: Guilty, Not Guilty, NOT PROVEN!"',
     visualId: 'parliament-courts',
   },
   {
@@ -824,8 +780,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [1],
     explanation:
       'In Scotland, minor criminal offences go to a Justice of the Peace Court. Serious cases in Scotland are heard in a Sheriff Court (with either a sheriff alone or a sheriff plus a 15-person jury) or, for the most serious crimes such as murder, the High Court of Justiciary.',
-    memoryHook:
-      '🌶️ Spice Hook: Scottish Criminal Ladder = "JP Court (minor) → Sheriff Court (serious) → High Court (most serious)!" (Crown Court is E/W/NI only!)',
     visualId: 'parliament-courts',
   },
   {
@@ -841,7 +795,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     explanation:
       'You should dial 999 or 112 ONLY in genuine emergencies requiring immediate police, fire, ambulance, or coastguard assistance. For non-emergency police matters across the UK, dial 101 (whereas 111 is for non-emergency NHS medical advice).',
     memoryHook:
-      '🌶️ Spice Hook: "999 / 112 = Blue lights flashing! 101 = Police non-emergency! 111 = NHS tummy ache!"',
+      '101 vs 111 trick: the "0" in 101 looks like a handcuff ring (Police non-emergency), while 111 looks like three thermometers (NHS non-emergency).',
   },
   {
     id: 'q-ex14-22',
@@ -855,8 +809,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [0],
     explanation:
       'Yes! Although it is a criminal offence anywhere in the UK to sell alcohol to anyone under 18, there is one narrow exception: people aged 16 or 17 may drink wine, beer, or cider (not spirits!) with a table meal in a hotel or restaurant when accompanied by an adult who buys it.',
-    memoryHook:
-      '🌶️ Spice Hook: Classic Legal Age Trap! "Under 18 can’t BUY booze, but 16–17s CAN sip wine/beer/cider with a restaurant meal + adult!"',
   },
   {
     id: 'q-ex14-23',
@@ -871,7 +823,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     explanation:
       'If your vehicle is over three years old, you must take it for a Ministry of Transport (MOT) test every year to verify roadworthiness and exhaust emissions. It is an offence to drive without a valid driving licence, motor insurance, road tax, or required MOT certificate.',
     memoryHook:
-      '🌶️ Spice Hook: Count the letters in "M-O-T" = 3 letters → required at 3 years old!',
+      'Letter count: M-O-T has 3 letters, and a car needs an annual MOT once it is 3 years old.',
   },
   {
     id: 'q-ex14-24',
@@ -890,8 +842,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [0],
     explanation:
       'Local authorities are funded by money from central government and by Council Tax, paid by households based on property value (with discounts or exemptions available, such as for single occupants or full-time students). Note: Northern Ireland uses a domestic rates system for the same purpose.',
-    memoryHook:
-      '🌶️ Spice Hook: "Local Council bins & lights = Council Tax!"',
   },
 
   // ============================================================================
@@ -914,8 +864,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [3],
     explanation:
       'UK laws protect citizens and residents from unfair discrimination in work, housing, and public services on grounds including age, disability, sex, pregnancy/maternity, race, religion or belief, marital/civil partnership status, gender reassignment, and sexual orientation.',
-    memoryHook:
-      '🌶️ Spice Hook: Equal Opportunity ≠ identical paychecks, it means fair treatment with ZERO unfair discrimination!',
   },
   {
     id: 'q-ex15-02',
@@ -934,8 +882,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [1, 2],
     explanation:
       'Applicants usually demonstrate English at CEFR level B1 (ESOL Entry Level 3), unless exempt: notably applicants aged 65+ (or with a qualifying long-term physical/mental condition), nationals of majority English-speaking countries, or those holding an approved academic degree taught or researched in English.',
-    memoryHook:
-      '🌶️ Spice Hook: B1 English Pass-Card = "65+ seniors, English-taught degree grads, or majority English-speaking nationals!" (Driving licences don’t count!)',
   },
   {
     id: 'q-ex15-03',
@@ -949,7 +895,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     explanation:
       'No! "Great Britain" refers ONLY to England, Scotland, and Wales (the largest island). The official name of the sovereign country including Northern Ireland is "The United Kingdom of Great Britain and Northern Ireland".',
     memoryHook:
-      '🌶️ Spice Hook: Classic Trap! Notice the official title says "Great Britain AND Northern Ireland": proving NI is NOT inside Great Britain!',
+      'Grammar proof inside the full name: "United Kingdom of Great Britain AND Northern Ireland" uses "and" because Northern Ireland is separate from Great Britain.',
     visualId: 'uk-map',
   },
   {
@@ -965,7 +911,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     explanation:
       'The Isle of Man (a Crown Dependency in the Irish Sea) has its own parliament called Tynwald, which has Norse origins and is the world’s oldest continuous parliamentary body.',
     memoryHook:
-      '🌶️ Spice Hook: "Tynwald = Tin Man = Isle of MAN!" World’s oldest continuous parliament!',
+      'Phonetic link: "Tyn-wald" sounds like the "Tin Man", pointing straight to the Isle of Man.',
   },
   {
     id: 'q-ex15-05',
@@ -985,7 +931,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     explanation:
       'Isambard Kingdom Brunel (1806–1859) engineered tunnels, bridges, ships (such as the iron-hulled SS Great Britain), the Great Western Railway, and the iconic Clifton Suspension Bridge across the Avon Gorge in Bristol.',
     memoryHook:
-      '🌶️ Spice Hook: "Brunel = Bridges, Boats & Broad-gauge Trains!" (Great Western Railway + Clifton Suspension Bridge + SS Great Britain!)',
+      'Geography link "Brunel = Bristol and the West": Great Western Railway, Bristol’s Clifton Suspension Bridge, and Bristol’s SS Great Britain.',
   },
   {
     id: 'q-ex15-06',
@@ -1004,8 +950,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [2],
     explanation:
       'Rudyard Kipling (1865–1936) was born in India and lived in India, the UK, and the USA. Reflecting the idea that the British Empire was a force for good, his works include The Jungle Book, Just So Stories, and the beloved poem If.',
-    memoryHook:
-      '🌶️ Spice Hook: "IF you read The Jungle Book, you’re reading Rudyard Kipling (born in India, 1865)!"',
   },
   {
     id: 'q-ex15-07',
@@ -1025,7 +969,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     explanation:
       'The Boer War (1899–1902) took place in South Africa against settlers originally from the Netherlands known as the Boers. Lasting over three years with heavy casualties from fighting and disease, it sparked public questioning about the future of the Empire.',
     memoryHook:
-      '🌶️ Spice Hook: "1899–1902 Boer War = Dutch-descended Boer farmers in South Africa!"',
+      'Etymology link: "boer" is the Dutch word for farmer, connecting the South African Boers to the Netherlands.',
   },
   {
     id: 'q-ex15-08',
@@ -1045,7 +989,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     explanation:
       'In 1921 a peace treaty was signed and in 1922 Ireland split into two countries: the six northern, mainly Protestant counties remained part of the UK under the name Northern Ireland (with a devolved parliament at Stormont), while the rest became the Irish Free State (which became a republic in 1949).',
     memoryHook:
-      '🌶️ Spice Hook: "1921 Treaty → 1922 Two!" Six northern counties stayed UK (Northern Ireland); the rest became the Irish Free State (Republic in 1949)!',
+      'Digit anchor: 1921 = 1 peace treaty signed; 1922 = Ireland split into 2 (Northern Ireland + the Irish Free State).',
   },
   {
     id: 'q-ex15-09',
@@ -1059,8 +1003,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [0],
     explanation:
       'True! Following the start of radio broadcasts in 1922, the BBC launched the world’s first regular high-definition public television service from Alexandra Palace in London in 1936.',
-    memoryHook:
-      '🌶️ Spice Hook: "1920s Baird invented TV → 1936 BBC broadcast the world’s first regular TV service!"',
   },
   {
     id: 'q-ex15-10',
@@ -1079,8 +1021,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [1],
     explanation:
       'After Nazi Germany occupied Austria and invaded Czechoslovakia, Adolf Hitler invaded Poland on 1 September 1939. Honouring their guarantee to Poland, Britain and France declared war on Germany on 3 September 1939.',
-    memoryHook:
-      '🌶️ Spice Hook: "Sept 1939: Hitler invaded Poland → Britain & France declared WWII!"',
     visualId: 'history-timeline',
   },
   {
@@ -1101,7 +1041,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     explanation:
       'In 1948, Welsh Labour Minister of Health Aneurin ("Nye") Bevan led the creation of the National Health Service (NHS), guaranteeing a minimum standard of healthcare for all, free at the point of use. (Watch the classic trap: Beveridge wrote the 1942 report; Butler passed the 1944 Education Act; Bevan launched the 1948 NHS!)',
     memoryHook:
-      '🌶️ Spice Hook: Triple-B Decoder! "Beveridge = 1942 Blueprint, Butler = 1944 Books (Schools), Nye BEVAN = 1948 Bedside (NHS)!"',
+      'Triple-B trap: Beveridge wrote the 1942 report, Butler reformed schools (1944), and "Nye" Bevan launched the NHS (1948: Nye = NHS).',
   },
   {
     id: 'q-ex15-12',
@@ -1120,8 +1060,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [0],
     explanation:
       'Conservative leader Margaret Thatcher became the UK’s first female Prime Minister in 1979 and served until 1990 (the longest-serving PM of the 20th century). Her government privatised nationalised industries, deregulated London’s financial markets, and sent a taskforce to recover the Falkland Islands after Argentina invaded in 1982.',
-    memoryHook:
-      '🌶️ Spice Hook: "1979 Thatcher = UK’s First Female PM; 1982 = Falklands Taskforce!"',
     visualId: 'history-timeline',
   },
   {
@@ -1141,8 +1079,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [3],
     explanation:
       'British scientist Sir Tim Berners-Lee (born 1955) invented the World Wide Web (HTTP, HTML, and URLs), putting the first webpage live and transferring data via the web on Christmas Day 1990.',
-    memoryHook:
-      '🌶️ Spice Hook: "WWW = World Wide Web = Sir Tim Berners-Lee’s 1990 Christmas gift to the world!"',
   },
   {
     id: 'q-ex15-14',
@@ -1161,8 +1097,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [1],
     explanation:
       'Alan Turing (1912–1954) proposed the "Turing machine": a mathematical model of computation foundational to modern computer science: and worked at Bletchley Park breaking German Enigma ciphers during WWII. His portrait now appears on the Bank of England £50 note.',
-    memoryHook:
-      '🌶️ Spice Hook: "Turing = Turing Machine + Enigma Codebreaker!" Father of modern computer science!',
   },
   {
     id: 'q-ex15-15',
@@ -1182,7 +1116,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     explanation:
       'Henry Moore (1898–1986) gained international fame for monumental abstract bronze and stone sculptures inspired by the human figure and landscape. (David Hockney was a major Pop art figure; John Petts was a Welsh engraver and stained-glass artist.)',
     memoryHook:
-      '🌶️ Spice Hook: "Less solid, MOORE hollow curves!" Henry Moore = giant abstract bronze sculptures!',
+      'Name pun: "Less solid bronze, MOORE hollow space" = Henry Moore’s hollowed-out bronze sculptures.',
   },
   {
     id: 'q-ex15-16',
@@ -1201,8 +1135,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [0],
     explanation:
       'Organised by the BBC since 1927, The Proms ("Promenade Concerts") is an eight-week summer festival of more than 70 concerts held in various venues across the UK, centred on the Royal Albert Hall in London.',
-    memoryHook:
-      '🌶️ Spice Hook: "8 weeks of Proms under the Royal Albert Hall dome!"',
   },
   {
     id: 'q-ex15-17',
@@ -1222,7 +1154,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     explanation:
       'Britain remains a powerhouse in animation and special effects: Nick Park won four Academy Awards for stop-motion animations, including three starring eccentric inventor Wallace and his loyal dog Gromit. (Hitchcock, Lean, and Ridley Scott are celebrated live-action British film directors.)',
     memoryHook:
-      '🌶️ Spice Hook: "Take Gromit for a walk in Nick PARK!" Nick Park = Wallace & Gromit!',
+      'Visual link: you walk a dog like Gromit in the PARK (Nick Park = Wallace and Gromit).',
   },
   {
     id: 'q-ex15-18',
@@ -1236,8 +1168,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [1],
     explanation:
       'The Eden Project is located in Cornwall, in the south-west of England. Its giant rainforest and Mediterranean biomes are also a charity running environmental and social projects internationally.',
-    memoryHook:
-      '🌶️ Spice Hook: "Warm tropical biomes down in sunny south-west CORNWALL = Eden Project!"',
     visualId: 'uk-map',
   },
   {
@@ -1252,8 +1182,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [1],
     explanation:
       'False! Youth Courts hear cases for young people aged 10 to 17 (presided over by up to three specially trained magistrates or a District Judge). Members of the public are NOT allowed in Youth Courts, and the accused young person’s name or photograph cannot normally be published in the media.',
-    memoryHook:
-      '🌶️ Spice Hook: "Youth Court (10–17) = Closed doors & no press photos!" (Most serious crimes by youths can go to Crown Court.)',
     visualId: 'parliament-courts',
   },
   {
@@ -1273,8 +1201,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [2],
     explanation:
       'Instead of Youth Courts (used in England, Wales, and Northern Ireland), Scotland uses a welfare-focused system called the Children’s Hearings System when children or young people commit offences or require protection.',
-    memoryHook:
-      '🌶️ Spice Hook: "E/W/NI = Youth Court; Scotland = Children’s Hearings System!"',
     visualId: 'parliament-courts',
   },
   {
@@ -1289,8 +1215,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [1],
     explanation:
       'No! The police service is operationally independent of government and politicians. Elected Police and Crime Commissioners (PCCs) in England and Wales set local police priorities, agree the local policing budget, and appoint (or dismiss) the Chief Constable, but cannot interfere in individual arrests or investigations.',
-    memoryHook:
-      '🌶️ Spice Hook: "PCCs set Priorities & Purse-strings, NEVER who gets put in handcuffs!"',
   },
   {
     id: 'q-ex15-22',
@@ -1309,8 +1233,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [2, 3],
     explanation:
       'Civil law settles disputes between individuals or groups: including housing law (landlord/tenant disputes), consumer rights, employment law (unfair dismissal), debt, and family law. Carrying weapons and underage sales of tobacco/alcohol are criminal offences prosecuted by the state.',
-    memoryHook:
-      '🌶️ Spice Hook: "Civil = Citizen vs Citizen (housing, debt, jobs, faulty toaster); Criminal = Crime against society!"',
   },
   {
     id: 'q-ex15-23',
@@ -1329,8 +1251,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [0, 1],
     explanation:
       'By law, a household needs a TV Licence (which funds the BBC) to watch or record programmes as they are being shown live on TV or an online TV service on any device (TV, laptop, phone), OR to download/watch any content on BBC iPlayer. Watching without a licence is a criminal offence carrying a fine up to £1,000.',
-    memoryHook:
-      '🌶️ Spice Hook: TV Licence Rule = "ANY live TV broadcast + ANY BBC iPlayer!" (Radio & offline gaming are free!)',
   },
   {
     id: 'q-ex15-24',
@@ -1350,7 +1270,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     explanation:
       'A National Insurance number ensures your tax and NI contributions are properly recorded against your name. Anyone with permission to work in the UK who does not already have an NI number applies for one through the Department for Work and Pensions (DWP) / Jobcentre Plus (or gov.uk). (Note: having an NI number alone does NOT prove the right to work!)',
     memoryHook:
-      '🌶️ Spice Hook: "Need an NI number for Work & Pension? Call the Department for Work and Pensions (DWP)!"',
+      'NI tracks your Work contributions toward your State Pension, so you apply to the Department for Work and Pensions (DWP, not HMRC).',
   },
 
   // ============================================================================
@@ -1368,8 +1288,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [0],
     explanation:
       'True! Alongside obeying the law, respecting others’ rights and opinions, treating others fairly, and looking after yourself and your family, everyone in the UK shares the responsibility to look after their local area and the environment.',
-    memoryHook:
-      '🌶️ Spice Hook: "Spice Up Your Street, don’t litter your feet!" Caring for your neighbourhood & environment is an official UK responsibility!',
   },
   {
     id: 'q-ex16-02',
@@ -1388,8 +1306,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [3],
     explanation:
       'New adult British citizens swear (or affirm) faithful allegiance to His Majesty King Charles III, His Heirs and Successors according to law, followed by a Pledge of loyalty to the United Kingdom and its democratic rights, freedoms, and laws.',
-    memoryHook:
-      '🌶️ Spice Hook: Two-Step Ceremony = "Oath to the Crown (King Charles III), Pledge to the Country (UK Democracy & Laws)!"',
   },
   {
     id: 'q-ex16-03',
@@ -1403,8 +1319,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [1],
     explanation:
       'False! The official Union Flag combines ONLY three crosses (St George for England, St Andrew for Scotland, and St Patrick for Ireland). Because the Principality of Wales was already united with England when the first Union Flag was created in 1606, the Welsh dragon does not appear on it.',
-    memoryHook:
-      '🌶️ Spice Hook: Geri’s Union Jack dress check, NO dragon! Wales was already united with England before 1606!',
     visualId: 'union-jack',
   },
   {
@@ -1420,7 +1334,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     explanation:
       'Slieve Donard (850m / 2,789 ft) in the Mourne Mountains, County Down, is the highest peak in Northern Ireland. (Ben Nevis is highest in Scotland/UK, Snowdon in Wales, and Scafell Pike in England.)',
     memoryHook:
-      '🌶️ Spice Hook: Four-Nation Peak Match, "Ben Nevis (Scot), Snowdon (Wales), Scafell Pike (Eng), Slieve Donard (NI)!"',
+      'Peak word roots: "Slieve" is Irish for mountain (Slieve Donard in County Down = NI), "Ben" is Scottish (Ben Nevis), and "Fell" is English Lake District (Scafell Pike).',
     visualId: 'uk-map',
   },
   {
@@ -1435,8 +1349,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [0],
     explanation:
       'True! Both Northern Ireland and Scotland have their own banknotes (£5, £10, £20, £50, etc.) which are valid currency everywhere in the UK; however, shops and businesses have legal discretion over whether to accept them.',
-    memoryHook:
-      '🌶️ Spice Hook: "Scottish & NI notes are 100% real £ Sterling, valid UK-wide, though picky shops can say no!"',
   },
   {
     id: 'q-ex16-06',
@@ -1455,8 +1367,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [2],
     explanation:
       'Emmeline Pankhurst (1858–1928), born in Manchester, set up the Women’s Franchise League in 1889 and founded the WSPU in 1903. Its members: called "suffragettes", used civil disobedience, chaining themselves to railings, smashing windows, and going on hunger strike for women’s suffrage.',
-    memoryHook:
-      '🌶️ Spice Hook: Original Girl Power Icon! "Manchester 1858 → WSPU 1903 = Emmeline Pankhurst & the Suffragettes!"',
     visualId: 'history-timeline',
   },
   {
@@ -1477,7 +1387,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     explanation:
       'In 1918, in recognition of women’s vital contribution to the First World War effort, women over 30 who were householders (or married to householders) gained the vote and the right to stand for Parliament. In 1928: shortly before Emmeline Pankhurst died, women were given the vote at age 21, equal to men.',
     memoryHook:
-      '🌶️ Spice Hook: Two-Step Suffrage = "1918: 30+ women in the door; 1928: 21 equal score!" (Voting lowered from 21 to 18 later in 1969!)',
+      'Exam trap: equal voting in 1928 meant age 21, not 18 (1918 = women 30+; 1928 = all adults 21+; 1969 = lowered to 18).',
   },
   {
     id: 'q-ex16-08',
@@ -1496,8 +1406,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [3],
     explanation:
       'In 1926, disagreement between coal mine owners and miners over pay and working conditions led the Trades Union Congress (TUC) to call the General Strike, bringing much of British transport and heavy industry to a standstill.',
-    memoryHook:
-      '🌶️ Spice Hook: "1926 = The General Strike!" Millions walked out for the coal miners!',
   },
   {
     id: 'q-ex16-09',
@@ -1516,8 +1424,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [1],
     explanation:
       'When Germany invaded France, Belgium, and the Netherlands in May 1940, Winston Churchill (1874–1965) became Prime Minister of a cross-party wartime coalition. In 2002, he was voted the Greatest Briton of all time by the public.',
-    memoryHook:
-      '🌶️ Spice Hook: "May 1940: Chamberlain out, Churchill in, We shall fight on the beaches!"',
     visualId: 'history-timeline',
   },
   {
@@ -1538,7 +1444,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     explanation:
       'During the Evacuation of Dunkirk in 1940, hundreds of volunteer civilian pleasure boats and fishing vessels crossed the Channel alongside the Royal Navy under heavy fire, rescuing more than 300,000 British and French soldiers and giving rise to the phrase "the Dunkirk spirit".',
     memoryHook:
-      '🌶️ Spice Hook: Number Check! "60k = Somme Day 1 casualties; 300k+ = Dunkirk miracle rescue; 2M+ = Total WWI British casualties!"',
+      'War-number check: 60,000 = Somme day-one casualties; 300,000+ = troops rescued at Dunkirk; 2 million+ = total British WWI casualties.',
   },
   {
     id: 'q-ex16-11',
@@ -1557,8 +1463,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [2],
     explanation:
       'Even before WWII ended, R. A. Butler oversaw the Education Act 1944 ("the Butler Act"), introducing free secondary education for all pupils in England and Wales and establishing a clear division between primary and secondary schooling (usually at age 11).',
-    memoryHook:
-      '🌶️ Spice Hook: "1944 Butler Act served up FREE Secondary School!"',
   },
   {
     id: 'q-ex16-12',
@@ -1572,8 +1476,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [0, 2],
     explanation:
       'Under Clement Attlee’s post-war government, decolonisation accelerated: in 1947 independence was granted to India and Pakistan (with Ceylon, now Sri Lanka: following in 1948), beginning a peaceful transition from Empire to Commonwealth.',
-    memoryHook:
-      '🌶️ Spice Hook: "1947 Partition & Freedom = India & Pakistan!"',
   },
   {
     id: 'q-ex16-13',
@@ -1592,8 +1494,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [0],
     explanation:
       'Elected in 1997, Tony Blair’s government built on the Northern Ireland peace process started by Conservative PM John Major, concluding the Good Friday Agreement (Belfast Agreement) in 1998 and delivering devolved parliaments/assemblies to Scotland, Wales, and Northern Ireland.',
-    memoryHook:
-      '🌶️ Spice Hook: "Major started the talks, Blair sealed the deal, 1998 Good Friday Agreement = Peace in Northern Ireland!"',
     visualId: 'history-timeline',
   },
   {
@@ -1614,7 +1514,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     explanation:
       'Gynaecologist Patrick Steptoe and physiologist Sir Robert Edwards pioneered IVF therapy, leading to the world’s first "test-tube baby" (Louise Brown) in Oldham in 1978. In 1996 at the Roslin Institute in Scotland, Sir Ian Wilmut and Keith Campbell cloned Dolly the sheep, the first mammal cloned from an adult somatic cell.',
     memoryHook:
-      '🌶️ Spice Hook: "1978 Steptoe & Edwards = First IVF Baby; 1996 Wilmut & Campbell = Dolly the Cloned Sheep!"',
+      'Name hooks: "Step-toe" = a baby’s first steps/toes (Steptoe and Edwards = IVF baby, 1978); "Wil-mut" sounds like wool/mutton (Wilmut and Campbell = Dolly the sheep, 1996).',
   },
   {
     id: 'q-ex16-15',
@@ -1634,7 +1534,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     explanation:
       'Physicist Sir Peter Mansfield (1933–2017) of the University of Nottingham co-invented the MRI scanner, earning the 2003 Nobel Prize in Physiology or Medicine for transforming modern medical imaging.',
     memoryHook:
-      '🌶️ Spice Hook: "MRI scans inside a MAN’S-FIELD of organs!" Mansfield = MRI scanner!',
+      'Name link: "M" for Mansfield = "M" for MRI, scanning inside a "Man".',
   },
   {
     id: 'q-ex16-16',
@@ -1653,8 +1553,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [1],
     explanation:
       'Sir Edwin Lutyens (1869–1944) designed New Delhi and after WWI created the Cenotaph in Whitehall, the centrepiece of Britain’s annual Remembrance Day ceremony. (Robert Adam was 18th-century neoclassical; Norman Foster, Richard Rogers, and Zaha Hadid are renowned contemporary British architects.)',
-    memoryHook:
-      '🌶️ Spice Hook: "Lutyens = London’s Cenotaph + Lutyens’ Delhi!"',
   },
   {
     id: 'q-ex16-17',
@@ -1673,8 +1571,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [1, 2],
     explanation:
       'Established in 1984 and named after painter Joseph Turner, the Turner Prize celebrates contemporary art (shortlisted works exhibited at Tate Britain). Named after legendary actor Lord Olivier, the Laurence Olivier Awards honour professional London/West End theatre. (Mercury & BRITs are for music; BAFTAs are for film and TV.)',
-    memoryHook:
-      '🌶️ Spice Hook: "Turner painted → Turner Prize (Art); Olivier acted on stage → Olivier Awards (Theatre)!"',
   },
   {
     id: 'q-ex16-18',
@@ -1688,8 +1584,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [1],
     explanation:
       'False! "Big Ben" is actually the nickname for the great bell of the striking clock (over 150 years old). The clock tower itself: once simply called the Clock Tower, was officially renamed "Elizabeth Tower" in 2012 to mark Queen Elizabeth II’s Diamond Jubilee! Nearby London icons include the 443-foot (135m) London Eye and the Tower of London (where Yeoman Warders, or "Beefeaters", guard the Crown Jewels).',
-    memoryHook:
-      '🌶️ Spice Hook: Classic Landmark Trap! "Big Ben is the BELL that goes BONG; Elizabeth Tower is the tall stone home!"',
   },
   {
     id: 'q-ex16-19',
@@ -1708,8 +1602,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [2],
     explanation:
       'The Supreme Court of the UK sits in Parliament Square, London, and serves as the final court of appeal for all UK civil cases and for criminal cases from England, Wales, and Northern Ireland (Scottish criminal appeals stop at the High Court of Justiciary in Edinburgh except on devolution/human-rights points).',
-    memoryHook:
-      '🌶️ Spice Hook: "Top of the legal pyramid since 2009 = The UK Supreme Court!"',
     visualId: 'parliament-courts',
   },
   {
@@ -1730,7 +1622,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     explanation:
       'In England, Wales, and Northern Ireland, serious ("indictable") criminal cases are tried in a Crown Court with a professional judge and a jury of 12 members of the public chosen randomly from the electoral register.',
     memoryHook:
-      '🌶️ Spice Hook: "Minor = Magistrates (no jury); Major crime = Crown Court (Judge + 12 Jury)!"',
+      'Don’t confuse the two C-courts: Crown Court = serious Crime (prosecuted by the Crown with a jury); County Court = Civil disputes.',
     visualId: 'parliament-courts',
   },
   {
@@ -1750,8 +1642,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [3],
     explanation:
       'Citizens Advice (formerly Citizens Advice Bureau) offers free, impartial practical guidance online and in local offices on consumer, housing, employment, benefits, and legal issues, and can point you toward qualified solicitors (trained lawyers who advise clients, prepare documents, and negotiate settlements).',
-    memoryHook:
-      '🌶️ Spice Hook: "Citizen needs Advice? Go to Citizens Advice, and hire a Solicitor for legal paperwork!"',
   },
   {
     id: 'q-ex16-22',
@@ -1771,7 +1661,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     explanation:
       'To apply for a provisional licence and ride a moped (maximum engine size 50cc, top speed 28 mph / 45 km/h), you must be at least 16. To drive a car, you must be at least 17 (or 16 if receiving the higher/enhanced mobility rate of disability benefit) and pass both a computer theory test and practical driving test.',
     memoryHook:
-      '🌶️ Spice Hook: Stepping-Stone Ages, "16 = Moped (50cc), 17 = Car, 18 = Vote / Alcohol / Tobacco / Lottery!"',
+      '16-17-18 age ladder: 16 = Moped (up to 50cc), 17 = Car, 18 = Adult milestones (voting, alcohol, tobacco, Lottery).',
   },
   {
     id: 'q-ex16-23',
@@ -1790,8 +1680,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [1, 3],
     explanation:
       'Money raised from National Insurance contributions pays for contributory state benefits: notably the State Pension, jobseeker/sickness/maternity support, and helps fund the National Health Service (NHS).',
-    memoryHook:
-      '🌶️ Spice Hook: "National Insurance = NHS + Nest-egg State Pension!"',
   },
   {
     id: 'q-ex16-24',
@@ -1810,8 +1698,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [2, 3],
     explanation:
       'Volunteering in local schools is a vital form of community participation: people aged 18+ can serve as school governors (raising standards, setting strategic direction, holding the headteacher to account) in England, Wales, and Northern Ireland, or join Parent Councils in Scotland.',
-    memoryHook:
-      '🌶️ Spice Hook: "Governors in E/W/NI + Parent Councils in Scotland = Community voices in schools!"',
   },
 
   // ============================================================================
@@ -1834,8 +1720,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [0, 1],
     explanation:
       'The official handbook highlights five core freedoms offered by the UK: freedom of belief and religion, freedom of speech, freedom from unfair discrimination, a right to a fair trial, and a right to join in the election of a government.',
-    memoryHook:
-      '🌶️ Spice Hook: Five UK Freedoms = "Belief, Speech, No unfair discrimination, Fair trial, Vote!"',
   },
   {
     id: 'q-ex17-02',
@@ -1849,8 +1733,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [1],
     explanation:
       'No! Practising FGM in the UK OR taking a girl or woman abroad for FGM is a serious criminal offence under UK law, regardless of local customs abroad.',
-    memoryHook:
-      '🌶️ Spice Hook: Zero loopholes! FGM at home OR taking someone abroad for FGM = 100% criminal offence!',
   },
   {
     id: 'q-ex17-03',
@@ -1870,7 +1752,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     explanation:
       'The longest mainland distance from John O’Groats (north coast of Scotland) to Land’s End (south-west tip of Cornwall, England) is about 870 miles (approximately 1,400 km). Most parts of Britain are no more than 75 miles from the sea, and at its widest Great Britain is about 300 miles across.',
     memoryHook:
-      '🌶️ Spice Hook: "8-7-0 miles top to toe (John O’Groats to Land’s End); 300 miles side to side!"',
+      'Countdown digits "8-7-0": about 870 miles top-to-bottom (don’t pick 300 miles, which is Great Britain’s east-to-west width).',
     visualId: 'uk-map',
   },
   {
@@ -1886,7 +1768,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     explanation:
       'Cardiff, Swansea, and Newport (along with Wrexham, Bangor, St Davids, and St Asaph) are cities in Wales. Aberdeen is in Scotland, and Lisburn is in Northern Ireland.',
     memoryHook:
-      '🌶️ Spice Hook: South Wales Trio along the M4 = "Cardiff, Swansea & Newport!"',
+      'Visual phrase "New Swan’s Card" for the three main South Wales cities: Newport, Swansea, and Cardiff.',
     visualId: 'uk-map',
   },
   {
@@ -1901,8 +1783,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [1],
     explanation:
       'Queen Victoria reigned from 1837 to 1901 (almost 64 years: the Victorian Age). During her reign, the British Empire grew to cover up to 400 million people worldwide, trade boomed, and major social, railway, and public-health reforms transformed Britain.',
-    memoryHook:
-      '🌶️ Spice Hook: Posh Spice’s royal namesake! "1837–1901 = Queen Victoria (almost 64 years of the Victorian Age)!"',
     visualId: 'history-timeline',
   },
   {
@@ -1917,8 +1797,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [0],
     explanation:
       'True! The 1929 global downturn led to the Great Depression of the 1930s: coal, steel, and shipbuilding regions (especially in Scotland, Wales, Northern Ireland, and northern England) suffered severe unemployment, yet falling prices meant those in work had more disposable income, fuelling house-building and new car and aviation industries in the Midlands and South.',
-    memoryHook:
-      '🌶️ Spice Hook: 1930s Two-Speed Britain = "Ships & coal slumped; Cars, planes & suburbs jumped!"',
   },
   {
     id: 'q-ex17-07',
@@ -1932,8 +1810,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [0, 3],
     explanation:
       'After losing the daylight Battle of Britain, the Luftwaffe bombed British cities by night ("the Blitz"). London suffered massive damage (especially the East End Docks), and Coventry was almost totally destroyed in a single devastating raid in November 1940, including its medieval cathedral.',
-    memoryHook:
-      '🌶️ Spice Hook: Blitz Twin Symbols of Resilience = "London (East End / St Paul’s standing) & Coventry (Cathedral bombed)!"',
   },
   {
     id: 'q-ex17-08',
@@ -1953,7 +1829,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     explanation:
       'On 6 June 1944 ("D-Day"), Allied forces landed in Normandy in northern France, winning a decisive foothold and pressing on through France and into Germany until Allied victory in Europe (VE Day) in May 1945.',
     memoryHook:
-      '🌶️ Spice Hook: Don’t swap the French beaches! "1940 Dunkirk = Evacuation OUT; 6 June 1944 Normandy = D-Day Invasion IN!"',
+      'Don’t swap the two French beach operations: Dunkirk (1940) was the evacuation OUT; Normandy (6/6/1944) was the D-Day landing IN.',
     visualId: 'history-timeline',
   },
   {
@@ -1973,8 +1849,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [0],
     explanation:
       'Ernest Rutherford (1871–1937), working in Britain at Manchester and Cambridge universities, led the scientists who first "split the atom" (artificial nuclear reaction): foundational physics later involved in the Manhattan Project.',
-    memoryHook:
-      '🌶️ Spice Hook: "Rutherford ripped the atom apart!" First team in the world to split the atom!',
   },
   {
     id: 'q-ex17-10',
@@ -1993,8 +1867,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [1, 2],
     explanation:
       'The 1960s saw vibrant social and technological change: fashion icons like Mary Quant transformed style, British bands conquered the globe, social laws on divorce and abortion were liberalised, and Britain and France jointly developed Concorde (which first flew in 1969 and entered commercial passenger service in 1976).',
-    memoryHook:
-      '🌶️ Spice Hook: Swinging Sixties Icons = "Beatles tunes + Mary Quant miniskirts + supersonic Concorde!"',
   },
   {
     id: 'q-ex17-11',
@@ -2013,8 +1885,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [2],
     explanation:
       'In the referendum held on 23 June 2016, the UK public voted (51.9% to 48.1%) to leave the European Union. Following parliamentary negotiations, the United Kingdom officially left the EU on 31 January 2020.',
-    memoryHook:
-      '🌶️ Spice Hook: Trap Alert! "23 June 2016 = Referendum VOTE; 31 January 2020 = Official EXIT!"',
     visualId: 'history-timeline',
   },
   {
@@ -2034,8 +1904,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [3],
     explanation:
       'Queen Elizabeth II reigned from 1952 to September 2022, celebrating her Silver (1977, 25 yrs), Golden (2002, 50 yrs), Diamond (2012, 60 yrs), and unprecedented Platinum Jubilee (2022, 70 yrs). Upon her passing in September 2022, her eldest son became King Charles III.',
-    memoryHook:
-      '🌶️ Spice Hook: Jubilee Metals = "25 Silver, 50 Gold, 60 Diamond (2012), 70 PLATINUM (2022) → King Charles III!"',
   },
   {
     id: 'q-ex17-13',
@@ -2054,8 +1922,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [1, 3],
     explanation:
       'In 1953, British biophysicist Francis Crick (working at Cambridge with James Watson, alongside Maurice Wilkins and Rosalind Franklin at King’s College London) discovered the double-helix structure of DNA. Earlier, Scottish physiologist John Macleod (1876–1935) co-discovered insulin, saving millions of lives from diabetes.',
-    memoryHook:
-      '🌶️ Spice Hook: "Crick cracked the DNA helix (1953); Macleod mastered Insulin!"',
   },
   {
     id: 'q-ex17-14',
@@ -2075,7 +1941,7 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     explanation:
       'In the 18th century, Lancelot "Capability" Brown designed natural-looking grass, lake, and woodland estates around country houses (saying grounds had "great capabilities"). Later, Gertrude Jekyll (1843–1932) often collaborated with architect Edwin Lutyens to create iconic colourful country gardens. (Holbein & Van Dyck were royal portraitists; Rossetti & Millais were Pre-Raphaelites; Foster & Rogers are modern architects.)',
     memoryHook:
-      '🌶️ Spice Hook: Garden Royalty = "Capability Brown (sweeping lawns) & Gertrude Jekyll (vibrant flower borders)!"',
+      'Name clue: "Capability" Brown worked with brown earth and estates (18th-century landscapes, paired with garden designer Gertrude Jekyll).',
   },
   {
     id: 'q-ex17-15',
@@ -2094,8 +1960,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [1],
     explanation:
       'Librettist W. S. Gilbert and composer Sir Arthur Sullivan wrote wildly popular Victorian comic ("Savoy") operas including HMS Pinafore, The Pirates of Penzance, and The Mikado. Later, Lord Andrew Lloyd Webber composed global musical theatre hits including Jesus Christ Superstar, Evita, Cats, and The Phantom of the Opera.',
-    memoryHook:
-      '🌶️ Spice Hook: "Gilbert & Sullivan = Victorian Pirates & Pinafores; Lloyd Webber = West End Cats & Phantoms!"',
   },
   {
     id: 'q-ex17-16',
@@ -2114,8 +1978,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [2],
     explanation:
       'The National Eisteddfod of Wales is an annual festival held each August celebrating Welsh music, literature, drama, and poetry in the Welsh language. (Glastonbury in Somerset is a famous contemporary music festival; the Edinburgh Festival Fringe is the world’s largest showcase of theatre and comedy.)',
-    memoryHook:
-      '🌶️ Spice Hook: Festival Trio, "Eisteddfod = Welsh bards & music; Fringe = Edinburgh comedy/theatre; Glastonbury = muddy Somerset rock!"',
   },
   {
     id: 'q-ex17-17',
@@ -2134,8 +1996,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [0],
     explanation:
       'The Giant’s Causeway on the County Antrim coast of Northern Ireland is a dramatic land formation of about 40,000 interlocking hexagonal columns made from volcanic lava roughly 50 million years ago (and steeped in legend of the giant Finn MacCool).',
-    memoryHook:
-      '🌶️ Spice Hook: "Giant’s Causeway = Northern Ireland’s 50-million-year-old volcanic stepping stones!"',
     visualId: 'uk-map',
   },
   {
@@ -2150,8 +2010,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [0],
     explanation:
       'True! Founded in 1895 by Octavia Hill, Sir Robert Hunter, and Canon Hardwicke Rawnsley, the National Trust (alongside the separate National Trust for Scotland, founded in 1931) is a charity supported by millions of members and volunteers keeping historic houses, gardens, and coastlines open for everyone.',
-    memoryHook:
-      '🌶️ Spice Hook: "1895 = 3 volunteers launched the National Trust to save Britain’s castles, coasts & country homes!"',
   },
   {
     id: 'q-ex17-19',
@@ -2165,8 +2023,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [1],
     explanation:
       'False! The judiciary (judges) is strictly independent of the government and Parliament. Judges interpret the law fairly without political interference, and can even rule that a government action is unlawful through judicial review.',
-    memoryHook:
-      '🌶️ Spice Hook: Rule of Law Golden Rule, "Politicians make laws in Parliament, NEVER verdicts in court!"',
     visualId: 'parliament-courts',
   },
   {
@@ -2181,8 +2037,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [0, 2],
     explanation:
       'Both 999 (the traditional UK emergency number) and 112 (the pan-European/international emergency number) work free of charge anywhere in the UK to reach emergency services immediately. (101 is for non-emergency police calls.)',
-    memoryHook:
-      '🌶️ Spice Hook: Emergency Duo = "999 & 112 both bring sirens to the rescue!"',
   },
   {
     id: 'q-ex17-21',
@@ -2201,8 +2055,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [3],
     explanation:
       'Serious complaints against police conduct are handled independently by the Independent Office for Police Conduct (IOPC, successor to the IPCC) in England and Wales, the Police Investigations & Review Commissioner (PIRC) in Scotland, and the Police Ombudsman for Northern Ireland.',
-    memoryHook:
-      '🌶️ Spice Hook: Police Watchdogs = "IOPC (E&W), PIRC (Scotland), Police Ombudsman (NI)!"',
   },
   {
     id: 'q-ex17-22',
@@ -2216,8 +2068,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [2],
     explanation:
       'It is against the law across the UK to sell tobacco products (such as cigarettes, cigars, or rolling tobacco) to anyone under the age of 18, and smoking in enclosed public places, workplaces, and cars carrying under-18s is illegal.',
-    memoryHook:
-      '🌶️ Spice Hook: "No tobacco sales under 18, and no puffing in enclosed pubs, offices, or trains!"',
   },
   {
     id: 'q-ex17-23',
@@ -2231,8 +2081,6 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [0],
     explanation:
       'True! Wales, England, Scotland, and Northern Ireland have all adopted an opt-out organ donation system (though families are still consulted and anyone can register their decision to opt in or opt out on the NHS Organ Donor Register; living volunteers can also register to donate blood).',
-    memoryHook:
-      '🌶️ Spice Hook: Updated Civic Rule! "UK Organ Donation = Opt-Out by default (giving the gift of life unless you opt out)!"',
   },
   {
     id: 'q-ex17-24',
@@ -2251,7 +2099,5 @@ export const QUESTIONS_EXAMS_13_17: readonly PracticeQuestion[] = [
     correctIndices: [1],
     explanation:
       'The National Citizen Service (NCS) is a voluntary personal and social development programme for 16- and 17-year-olds, helping young people gain confidence, outdoor teamwork skills, and hands-on experience helping their local community.',
-    memoryHook:
-      '🌶️ Spice Hook: "16 & 17 teen adventure + community action = National Citizen Service (NCS)!"',
   },
 ];
