@@ -54,16 +54,16 @@ export function createDefaultAppSettings(): AppSettings {
     profiles: {
       partner_a: {
         id: 'partner_a',
-        displayName: 'Partner A',
+        displayName: 'Player 1 (Cuppa)',
         spiceAlias: 'Posh Study',
-        avatarEmoji: '👑',
+        avatarEmoji: '🐰',
         updatedAt: nowIso,
       },
       partner_b: {
         id: 'partner_b',
-        displayName: 'Partner B',
+        displayName: 'Player 2 (Biscuit)',
         spiceAlias: 'Sporty Study',
-        avatarEmoji: '⚡',
+        avatarEmoji: '😎',
         updatedAt: nowIso,
       },
     },

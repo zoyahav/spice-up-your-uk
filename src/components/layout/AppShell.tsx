@@ -79,18 +79,32 @@ export const AppShell: React.FC<AppShellProps> = ({
         style={{ paddingTop: 'var(--safe-top)' }}
       >
         <div className="mx-auto flex max-w-lg items-center justify-between gap-2 px-3.5 py-2.5">
-          {/* Profile Chip */}
-          <button
-            type="button"
-            onClick={() => onSelectTab('us')}
-            className="flex items-center gap-2 rounded-full border border-pink-500/30 bg-pink-500/10 px-2.5 py-1 text-left transition hover:bg-pink-500/20"
-            title="Switch profile or sync settings"
-          >
-            <ProfileAvatar avatar={activeProfile.avatarEmoji} sizeClass="text-base" />
-            <span className="max-w-[92px] truncate text-xs font-extrabold">
-              {activeProfile.displayName}
-            </span>
-          </button>
+          {/* Brand Crest + Profile Chip */}
+          <div className="flex items-center gap-1.5">
+            <button
+              type="button"
+              onClick={() => onSelectTab('home')}
+              className="shrink-0 rounded-xl transition hover:scale-105"
+              title="Spice Up Your UK Home"
+            >
+              <img
+                src="./icons/brand-logo.png"
+                alt="Spice Up Your UK"
+                className="h-8 w-8 rounded-xl ring-1 ring-pink-500/40"
+              />
+            </button>
+            <button
+              type="button"
+              onClick={() => onSelectTab('us')}
+              className="flex items-center gap-1.5 rounded-full border border-pink-500/30 bg-pink-500/10 px-2.5 py-1 text-left transition hover:bg-pink-500/20"
+              title="Switch player or sync settings"
+            >
+              <ProfileAvatar avatar={activeProfile.avatarEmoji} sizeClass="text-base" />
+              <span className="max-w-[78px] truncate text-xs font-extrabold">
+                {activeProfile.displayName}
+              </span>
+            </button>
+          </div>
 
           {/* Streaks & XP */}
           <div className="flex items-center gap-2">

@@ -161,8 +161,8 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
     await navigator.clipboard.writeText(pairUrl);
     const label =
       qrTargetProfile === 'partner_a'
-        ? partnerANameInput || 'Phone A'
-        : partnerBNameInput || 'Phone B';
+        ? partnerANameInput || 'Player 1'
+        : partnerBNameInput || 'Player 2';
     showToast(`Copied private setup link for ${label}!`);
   };
 
@@ -433,7 +433,7 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
 
         <p className="text-xs leading-relaxed text-slate-400">
           Set this up once on your <strong>laptop</strong>, then scan the QR code for{' '}
-          <strong>Phone A</strong> and <strong>Phone B</strong> with your phone cameras: zero
+          <strong>Player 1</strong> and <strong>Player 2</strong> with your phone cameras: zero
           long URLs to type on either device, and zero personal data in GitHub!
         </p>
 
@@ -469,8 +469,8 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
               URL + passcode below on your laptop.
             </li>
             <li>
-              <strong>5.</strong> Click <strong>QR Codes (Phone A &amp; B)</strong> below, then scan{' '}
-              <strong>Phone A QR</strong> on the first phone and <strong>Phone B QR</strong> on the second!
+              <strong>5.</strong> Click <strong>QR Codes (Player 1 &amp; 2)</strong> below, then scan{' '}
+              <strong>Player 1 QR</strong> on the first phone and <strong>Player 2 QR</strong> on the second!
             </li>
           </ol>
         )}
@@ -487,14 +487,14 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
               type="text"
               value={partnerANameInput}
               onChange={(e) => setPartnerANameInput(e.target.value)}
-              placeholder="Partner A nickname"
+              placeholder="Player 1 nickname (e.g. Cuppa)"
               className="rounded-xl border border-slate-700 bg-slate-950 px-3 py-2 text-xs text-white placeholder-slate-500"
             />
             <input
               type="text"
               value={partnerBNameInput}
               onChange={(e) => setPartnerBNameInput(e.target.value)}
-              placeholder="Partner B nickname"
+              placeholder="Player 2 nickname (e.g. Biscuit)"
               className="rounded-xl border border-slate-700 bg-slate-950 px-3 py-2 text-xs text-white placeholder-slate-500"
             />
           </div>
@@ -525,19 +525,19 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
               onClick={() => void renderQrForTarget('partner_a')}
             >
               <QrCode className="h-3.5 w-3.5" />
-              <span>QR Codes (Phone A &amp; B)</span>
+              <span>QR Codes (Player 1 &amp; 2)</span>
             </Button>
           </div>
         </form>
 
         {showQr && qrDataUrl && (
           <div className="rounded-2xl border border-slate-700 bg-white p-4 text-center text-slate-900">
-            {/* Phone A / Phone B Toggle */}
+            {/* Player 1 / Player 2 Toggle */}
             <div className="mb-3 grid grid-cols-2 gap-1.5 rounded-xl bg-slate-100 p-1">
               {(
                 [
-                  ['partner_a', `Phone A (${partnerANameInput || 'Partner A'})`],
-                  ['partner_b', `Phone B (${partnerBNameInput || 'Partner B'})`],
+                  ['partner_a', `Player 1 (${partnerANameInput || 'Cuppa'})`],
+                  ['partner_b', `Player 2 (${partnerBNameInput || 'Biscuit'})`],
                 ] as const
               ).map(([pid, label]) => (
                 <button
@@ -560,8 +560,8 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
               <span>
                 Scan with{' '}
                 {qrTargetProfile === 'partner_a'
-                  ? partnerANameInput || 'Partner A'
-                  : partnerBNameInput || 'Partner B'}
+                  ? partnerANameInput || 'Player 1'
+                  : partnerBNameInput || 'Player 2'}
                 ’s Phone Camera!
               </span>
             </p>

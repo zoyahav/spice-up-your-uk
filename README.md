@@ -22,8 +22,8 @@ You can set up sync once on a laptop and pair both phones by scanning QR codes, 
 4. Click **Deploy -> New deployment -> Web app**:
    - **Execute as**: `Me`
    - **Who has access**: `Anyone` (requests are checked against your `SYNC_PASSCODE`)
-5. Open the hosted app on your laptop, go to the **Us** tab, enter both nicknames, the `/exec` Web App URL, and `SYNC_PASSCODE`, then click **QR Codes (Phone A & B)**.
-6. Scan the **Phone A** QR code with the first phone's camera, switch to **Phone B**, and scan with the second phone's camera. Each browser saves the sync config into local IndexedDB and removes the `#pair=...` hash from the address bar.
+5. Open the hosted app on your laptop, go to the **Us** tab, enter both nicknames, the `/exec` Web App URL, and `SYNC_PASSCODE`, then click **QR Codes (Player 1 & 2)**.
+6. Scan the **Player 1** QR code with the first phone's camera, switch to **Player 2**, and scan with the second phone's camera. Each browser saves the sync config into local IndexedDB and removes the `#pair=...` hash from the address bar.
 7. To install on your home screen, open the browser menu on each phone and select **Add to Home screen** or **Install app**.
 
 ## Importing extra question packs

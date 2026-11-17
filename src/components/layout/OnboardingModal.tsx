@@ -22,7 +22,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) 
     try {
       const otherSlot: ProfileId = mySlot === 'partner_a' ? 'partner_b' : 'partner_a';
       await updateUserProfile(mySlot, {
-        displayName: myName.trim() || (mySlot === 'partner_a' ? 'Posh Partner' : 'Sporty Partner'),
+        displayName: myName.trim() || (mySlot === 'partner_a' ? 'Player 1 (Cuppa)' : 'Player 2 (Biscuit)'),
         avatarEmoji: myAvatar,
       });
       if (partnerName.trim()) {
@@ -46,9 +46,11 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) 
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/90 p-4 backdrop-blur-md">
       <div className="w-full max-w-md rounded-3xl border border-pink-500/30 bg-slate-900 p-6 text-slate-100 shadow-2xl">
         <div className="text-center">
-          <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-pink-600 via-rose-600 to-indigo-600 text-3xl shadow-lg">
-            🌶️
-          </div>
+          <img
+            src="./icons/brand-logo.png"
+            alt="Spice Up Your UK"
+            className="mx-auto mb-3 h-20 w-20 rounded-2xl shadow-lg ring-2 ring-pink-500/40"
+          />
           <h1 className="text-2xl font-black tracking-tight text-white">
             Spice Up Your UK!
           </h1>
@@ -61,13 +63,13 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) 
         <form onSubmit={handleStart} className="mt-5 space-y-4">
           <div>
             <label className="block text-xs font-bold text-slate-300">
-              Which profile is THIS device?
+              Which player is on THIS device?
             </label>
             <div className="mt-1.5 grid grid-cols-2 gap-2">
               {(
                 [
-                  ['partner_a', 'Partner 1 (Phone A)'],
-                  ['partner_b', 'Partner 2 (Phone B)'],
+                  ['partner_a', 'Player 1 (Cuppa 🫖)'],
+                  ['partner_b', 'Player 2 (Biscuit 🍪)'],
                 ] as const
               ).map(([id, label]) => (
                 <button
