@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from '../ui/Button';
-import { AVATAR_CHOICES, ProfileAvatar } from '../ui/ProfileAvatar';
+import { AVATAR_EMOJIS } from '../ui/ProfileAvatar';
 import type { ProfileId } from '../../types/domain';
 import { updateAppSettings, updateUserProfile } from '../../db/repository';
 
@@ -28,7 +28,7 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) 
       if (partnerName.trim()) {
         await updateUserProfile(otherSlot, {
           displayName: partnerName.trim(),
-          avatarEmoji: myAvatar === '🐰' ? 'beanie' : '🐰',
+          avatarEmoji: myAvatar === '🐰' ? '😎' : '🐰',
         });
       }
       await updateAppSettings({
@@ -117,20 +117,19 @@ export const OnboardingModal: React.FC<OnboardingModalProps> = ({ onComplete }) 
 
           <div>
             <label className="block text-xs font-bold text-slate-300">Pick Your Badge</label>
-            <div className="mt-1.5 grid grid-cols-4 gap-2">
-              {AVATAR_CHOICES.map((choice) => (
+            <div className="mt-1.5 grid grid-cols-8 gap-1.5">
+              {AVATAR_EMOJIS.map((emoji) => (
                 <button
-                  key={choice.id}
+                  key={emoji}
                   type="button"
-                  onClick={() => setMyAvatar(choice.id)}
-                  className={`flex flex-col items-center justify-center gap-0.5 rounded-xl border py-2 text-xl transition ${
-                    myAvatar === choice.id
+                  onClick={() => setMyAvatar(emoji)}
+                  className={`flex h-10 items-center justify-center rounded-xl border text-xl transition ${
+                    myAvatar === emoji
                       ? 'border-pink-500 bg-pink-500/25 scale-105'
                       : 'border-slate-700 bg-slate-800/70'
                   }`}
                 >
-                  <ProfileAvatar avatar={choice.id} sizeClass="text-xl" />
-                  <span className="text-[10px] font-bold text-slate-300">{choice.label}</span>
+                  {emoji}
                 </button>
               ))}
             </div>

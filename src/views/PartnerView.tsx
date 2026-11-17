@@ -32,7 +32,7 @@ import {
 } from '../services/reminders';
 import { buildPairingUrl } from '../services/sync';
 import { Button } from '../components/ui/Button';
-import { AVATAR_CHOICES, ProfileAvatar } from '../components/ui/ProfileAvatar';
+import { AVATAR_EMOJIS, ProfileAvatar } from '../components/ui/ProfileAvatar';
 import { ProgressBar } from '../components/ui/ProgressBar';
 import type {
   AppSettings,
@@ -667,21 +667,20 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
         <div>
           <p className="mb-1.5 text-[11px] font-bold text-slate-400">Your Badge:</p>
           <div className="grid grid-cols-8 gap-1.5">
-            {AVATAR_CHOICES.map((ch) => (
+            {AVATAR_EMOJIS.map((emoji) => (
               <button
-                key={ch.id}
+                key={emoji}
                 type="button"
-                title={ch.label}
                 onClick={() =>
-                  void updateUserProfile(activeProfile.id, { avatarEmoji: ch.id })
+                  void updateUserProfile(activeProfile.id, { avatarEmoji: emoji })
                 }
                 className={`flex h-9 items-center justify-center rounded-xl border text-lg transition ${
-                  activeProfile.avatarEmoji === ch.id
+                  activeProfile.avatarEmoji === emoji
                     ? 'border-pink-500 bg-pink-500/20'
                     : 'border-slate-800 bg-slate-950/40'
                 }`}
               >
-                <ProfileAvatar avatar={ch.id} sizeClass="text-lg" />
+                {emoji}
               </button>
             ))}
           </div>
