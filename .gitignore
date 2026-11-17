@@ -1,0 +1,10 @@
+node_modules
+dist
+dist-ssr
+*.local
+.DS_Store
+coverage
+private-packs/
+.env
+.env.*
+!.env.example
