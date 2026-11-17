@@ -6,6 +6,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { createDefaultAppSettings, db } from '../db/schema';
 import {
+  applyPairingPayload,
   cacheLocalStandardPackRecords,
   ensureAppSettings,
   runFullSync,
@@ -101,54 +102,6 @@ export function useAppData() {
     }
   }, []);
 
-  // Initialize default settings & auto-import `#pair=...` link if scanned via phone camera!
-  useEffect(() => {
-    void (async () => {
-      const current = await ensureAppSettings(db);
-      if (typeof window !== 'undefined' && window.location.hash.includes('pair=')) {
-        const payload = extractPairingPayloadFromHash(window.location.hash);
-        // Immediately scrub the secret pairing token from browser URL bar & history
-        window.history.replaceState(
-          null,
-          '',
-          window.location.pathname + window.location.search,
-        );
-        if (payload) {
-          const nowIso = new Date().toISOString();
-          const nextProfiles = { ...current.profiles };
-          if (payload.partnerAName || payload.partnerAAvatar) {
-            nextProfiles.partner_a = {
-              ...nextProfiles.partner_a,
-              ...(payload.partnerAName ? { displayName: payload.partnerAName } : {}),
-              ...(payload.partnerAAvatar ? { avatarEmoji: payload.partnerAAvatar } : {}),
-              updatedAt: nowIso,
-            };
-          }
-          if (payload.partnerBName || payload.partnerBAvatar) {
-            nextProfiles.partner_b = {
-              ...nextProfiles.partner_b,
-              ...(payload.partnerBName ? { displayName: payload.partnerBName } : {}),
-              ...(payload.partnerBAvatar ? { avatarEmoji: payload.partnerBAvatar } : {}),
-              updatedAt: nowIso,
-            };
-          }
-          await updateAppSettings({
-            onboarded: true,
-            scriptUrl: payload.scriptUrl,
-            passcode: payload.passcode,
-            activeProfileId: payload.suggestedProfile ?? 'partner_b',
-            examDate: payload.examDate ?? current.examDate,
-            profiles: nextProfiles,
-          });
-          setPairingNotice('Paired with your shared Google Sheet! Syncing now...');
-        }
-      }
-
-      // Auto-cache the 18 Standard Exams into local IndexedDB on install (or upgrade to sequence-ordered IDs)
-      await hydrateStandardPack();
-    })();
-  }, [hydrateStandardPack]);
-
   const triggerSync = useCallback(async () => {
     if (syncInFlightRef.current) return;
     const cfg = await ensureAppSettings(db);
@@ -168,7 +121,33 @@ export function useAppData() {
     }
   }, []);
 
-  // Online / Offline listeners + auto-sync when emerging from the Tube!
+  const consumePairingHashIfPresent = useCallback(async (): Promise<boolean> => {
+    if (typeof window === 'undefined' || !window.location.hash.includes('pair=')) {
+      return false;
+    }
+    const payload = extractPairingPayloadFromHash(window.location.hash);
+    window.history.replaceState(
+      null,
+      '',
+      window.location.pathname + window.location.search,
+    );
+    if (!payload) return false;
+    await applyPairingPayload(payload, db);
+    setPairingNotice('Paired with your shared Google Sheet! Syncing now...');
+    void triggerSync();
+    return true;
+  }, [triggerSync]);
+
+  // Initialize default settings & auto-import `#pair=...` link if scanned via phone camera!
+  useEffect(() => {
+    void (async () => {
+      await ensureAppSettings(db);
+      await consumePairingHashIfPresent();
+      await hydrateStandardPack();
+    })();
+  }, [consumePairingHashIfPresent, hydrateStandardPack]);
+
+  // Online / Offline / Hashchange listeners (handles installed PWAs resumed via QR intent!)
   useEffect(() => {
     const handleOnline = () => {
       setIsOnline(true);
@@ -176,22 +155,30 @@ export function useAppData() {
       void triggerSync();
     };
     const handleOffline = () => setIsOnline(false);
+    const handleHashChange = () => {
+      void consumePairingHashIfPresent();
+    };
     const handleVisibility = () => {
-      if (document.visibilityState === 'visible' && navigator.onLine) {
-        void hydrateStandardPack();
-        void triggerSync();
+      if (document.visibilityState === 'visible') {
+        void consumePairingHashIfPresent();
+        if (navigator.onLine) {
+          void hydrateStandardPack();
+          void triggerSync();
+        }
       }
     };
 
     window.addEventListener('online', handleOnline);
     window.addEventListener('offline', handleOffline);
+    window.addEventListener('hashchange', handleHashChange);
     document.addEventListener('visibilitychange', handleVisibility);
     return () => {
       window.removeEventListener('online', handleOnline);
       window.removeEventListener('offline', handleOffline);
+      window.removeEventListener('hashchange', handleHashChange);
       document.removeEventListener('visibilitychange', handleVisibility);
     };
-  }, [hydrateStandardPack, triggerSync]);
+  }, [consumePairingHashIfPresent, hydrateStandardPack, triggerSync]);
 
   // Auto-drain outbox shortly after mutations when online & paired
   useEffect(() => {

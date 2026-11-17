@@ -5,6 +5,7 @@ import {
   Bell,
   CalendarPlus,
   CheckCircle2,
+  ClipboardPaste,
   Cloud,
   Copy,
   Download,
@@ -20,6 +21,7 @@ import { usePwaInstall } from '../hooks/usePwaInstall';
 import { SPICE_BADGES } from '../constants/spiceTheme';
 import { CHAPTERS } from '../data/syllabus';
 import {
+  applyPairingPayload,
   exportFullLocalBackupJson,
   resetLocalDeviceData,
   saveImportedCustomRecords,
@@ -35,7 +37,7 @@ import {
   downloadReminderIcsFile,
   requestAndTestBrowserNotification,
 } from '../services/reminders';
-import { buildPairingUrl } from '../services/sync';
+import { buildPairingUrl, extractPairingPayloadFromHash } from '../services/sync';
 import { Button } from '../components/ui/Button';
 import { AVATAR_EMOJIS, ProfileAvatar } from '../components/ui/ProfileAvatar';
 import { ProgressBar } from '../components/ui/ProgressBar';
@@ -91,6 +93,7 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
   const [qrTargetProfile, setQrTargetProfile] = useState<ProfileId>('partner_a');
   const [qrDataUrl, setQrDataUrl] = useState<string | null>(null);
   const [showQr, setShowQr] = useState(false);
+  const [pastePairLinkInput, setPastePairLinkInput] = useState('');
   const [showSetupSteps, setShowSetupSteps] = useState(false);
   const [statusToast, setStatusToast] = useState<string | null>(null);
 
@@ -137,11 +140,14 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
     });
   };
 
-  const buildCurrentPairingUrl = (forProfile: ProfileId): string => {
+  const buildCurrentPairingUrl = (
+    forProfile: ProfileId,
+    overrideCreds?: { scriptUrl: string; passcode: string },
+  ): string => {
     return buildPairingUrl(window.location.href, {
       v: 1,
-      scriptUrl: scriptUrlInput.trim(),
-      passcode: passcodeInput.trim(),
+      scriptUrl: (overrideCreds?.scriptUrl ?? scriptUrlInput).trim(),
+      passcode: (overrideCreds?.passcode ?? passcodeInput).trim(),
       partnerAName: partnerANameInput.trim() || settings.profiles.partner_a.displayName,
       partnerBName: partnerBNameInput.trim() || settings.profiles.partner_b.displayName,
       partnerAAvatar: settings.profiles.partner_a.avatarEmoji,
@@ -151,21 +157,80 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
     });
   };
 
-  const renderQrForTarget = async (target: ProfileId) => {
-    if (!scriptUrlInput.trim() || !passcodeInput.trim()) {
-      showToast('Enter your Apps Script URL & Passcode first!');
+  const renderQrForTarget = async (
+    target: ProfileId,
+    overrideCreds?: { scriptUrl: string; passcode: string },
+  ) => {
+    const effectiveUrl = (overrideCreds?.scriptUrl ?? scriptUrlInput).trim();
+    const effectivePass = (overrideCreds?.passcode ?? passcodeInput).trim();
+    setQrTargetProfile(target);
+    setShowQr(true);
+
+    if (!effectiveUrl || !effectivePass) {
+      setQrDataUrl(null);
       return;
     }
-    await persistSyncInputsLocally();
-    const pairUrl = buildCurrentPairingUrl(target);
-    const url = await QRCode.toDataURL(pairUrl, {
-      margin: 2,
-      width: 240,
-      color: { dark: '#332319', light: '#FBF4EA' },
+
+    if (!overrideCreds) {
+      await persistSyncInputsLocally();
+    }
+    const pairUrl = buildCurrentPairingUrl(target, {
+      scriptUrl: effectiveUrl,
+      passcode: effectivePass,
     });
-    setQrTargetProfile(target);
-    setQrDataUrl(url);
-    setShowQr(true);
+    try {
+      const url = await QRCode.toDataURL(pairUrl, {
+        margin: 2,
+        width: 240,
+        color: { dark: '#332319', light: '#FBF4EA' },
+      });
+      setQrDataUrl(url);
+    } catch (err) {
+      setQrDataUrl(null);
+      showToast(`Could not render QR code: ${(err as Error).message}`);
+    }
+  };
+
+  const handleToggleQrPanel = async () => {
+    if (showQr) {
+      setShowQr(false);
+      return;
+    }
+    await renderQrForTarget(settings.activeProfileId ?? 'partner_a');
+  };
+
+  const handleImportSetupLink = async (rawLink: string) => {
+    const payload = extractPairingPayloadFromHash(rawLink);
+    if (!payload) {
+      showToast('Invalid setup link. Copy the full Setup Link from your browser or laptop first.');
+      return;
+    }
+    await applyPairingPayload(payload);
+    setScriptUrlInput(payload.scriptUrl);
+    setPasscodeInput(payload.passcode);
+    if (payload.partnerAName) setPartnerANameInput(payload.partnerAName);
+    if (payload.partnerBName) setPartnerBNameInput(payload.partnerBName);
+    setPastePairLinkInput('');
+    const target = payload.suggestedProfile ?? 'partner_b';
+    await renderQrForTarget(target, {
+      scriptUrl: payload.scriptUrl,
+      passcode: payload.passcode,
+    });
+    showToast('Paired this installed app! Syncing with your Google Sheet...');
+    await onManualSync();
+  };
+
+  const handlePasteFromClipboardAndPair = async () => {
+    try {
+      const clip = await navigator.clipboard.readText();
+      if (!clip.trim()) {
+        showToast('Clipboard is empty. Copy the Setup Link from your browser or laptop first.');
+        return;
+      }
+      await handleImportSetupLink(clip);
+    } catch {
+      showToast('Paste the Setup Link into the box below and tap Pair App Now.');
+    }
   };
 
   const handleSaveSyncConfig = async (e: React.FormEvent) => {
@@ -173,13 +238,27 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
     await persistSyncInputsLocally();
     showToast('Saved private Google Sheet sync settings locally!');
     if (scriptUrlInput.trim() && passcodeInput.trim()) {
+      if (showQr) {
+        await renderQrForTarget(qrTargetProfile);
+      }
       await onManualSync();
     }
   };
 
   const handleCopyPairingLink = async () => {
     const pairUrl = buildCurrentPairingUrl(qrTargetProfile);
-    await navigator.clipboard.writeText(pairUrl);
+    try {
+      await navigator.clipboard.writeText(pairUrl);
+    } catch {
+      const ta = document.createElement('textarea');
+      ta.value = pairUrl;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+    }
     const label =
       qrTargetProfile === 'partner_a'
         ? partnerANameInput || 'Player 1'
@@ -266,7 +345,10 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
   return (
     <div className="space-y-4">
       {statusToast && (
-        <div className="callout-spice rounded-2xl px-4 py-3 text-xs font-bold">
+        <div
+          role="status"
+          className="callout-spice fixed inset-x-3.5 top-16 z-40 mx-auto max-w-md rounded-2xl px-4 py-3 text-xs font-bold shadow-xl backdrop-blur-md"
+        >
           🌶️ {statusToast}
         </div>
       )}
@@ -556,71 +638,115 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
               type="button"
               variant="secondary"
               size="sm"
-              onClick={() => void renderQrForTarget('partner_a')}
+              onClick={() => void handleToggleQrPanel()}
             >
               <QrCode className="h-3.5 w-3.5" />
-              <span>QR Codes (Player 1 &amp; 2)</span>
+              <span>{showQr ? 'Hide QR Panel' : 'QR Codes (Player 1 & 2)'}</span>
             </Button>
           </div>
         </form>
 
-        {showQr && qrDataUrl && (
-          <div className="rounded-2xl border border-[#D4BEA6] bg-[#FBF4EA] p-4 text-center text-[#332319] shadow-sm">
-            {/* Player 1 / Player 2 Toggle */}
-            <div className="mb-3 grid grid-cols-2 gap-1.5 rounded-xl bg-[#EADACA] p-1">
-              {(
-                [
-                  ['partner_a', `Player 1 (${partnerANameInput || 'Cuppa'})`],
-                  ['partner_b', `Player 2 (${partnerBNameInput || 'Biscuit'})`],
-                ] as const
-              ).map(([pid, label]) => (
-                <button
-                  key={pid}
-                  type="button"
-                  onClick={() => void renderQrForTarget(pid)}
-                  className={`rounded-lg py-1.5 text-xs font-extrabold transition ${
-                    qrTargetProfile === pid
-                      ? 'bg-[#A8522E] text-[#FAF1E6] shadow-sm'
-                      : 'text-[#5C4332] hover:bg-[#DFCCB6]'
-                  }`}
-                >
-                  {label}
-                </button>
-              ))}
-            </div>
+        {showQr && (
+          <div className="space-y-3 rounded-2xl border border-[#D4BEA6] bg-[#FBF4EA] p-4 text-center text-[#332319] shadow-sm">
+            {qrDataUrl ? (
+              <>
+                {/* Player 1 / Player 2 Toggle */}
+                <div className="grid grid-cols-2 gap-1.5 rounded-xl bg-[#EADACA] p-1">
+                  {(
+                    [
+                      ['partner_a', `Player 1 (${partnerANameInput || 'Cuppa'})`],
+                      ['partner_b', `Player 2 (${partnerBNameInput || 'Biscuit'})`],
+                    ] as const
+                  ).map(([pid, label]) => (
+                    <button
+                      key={pid}
+                      type="button"
+                      onClick={() => void renderQrForTarget(pid)}
+                      className={`rounded-lg py-1.5 text-xs font-extrabold transition ${
+                        qrTargetProfile === pid
+                          ? 'bg-[#A8522E] text-[#FAF1E6] shadow-sm'
+                          : 'text-[#5C4332] hover:bg-[#DFCCB6]'
+                      }`}
+                    >
+                      {label}
+                    </button>
+                  ))}
+                </div>
 
-            <p className="mb-2 flex items-center justify-center gap-1 text-xs font-extrabold text-[#332319]">
-              <CheckCircle2 className="h-3.5 w-3.5 text-[#3E5D3A]" />
-              <span>
-                Scan with{' '}
-                {qrTargetProfile === 'partner_a'
-                  ? partnerANameInput || 'Player 1'
-                  : partnerBNameInput || 'Player 2'}
-                ’s Phone Camera!
-              </span>
-            </p>
-            <img
-              src={qrDataUrl}
-              alt="Private Google Sheet Pairing QR Code"
-              className="mx-auto h-48 w-48 rounded-lg border border-[#DECBB5]"
-            />
-            <div className="mt-3 flex justify-center gap-2">
-              <button
-                type="button"
-                onClick={() => void handleCopyPairingLink()}
-                className="inline-flex items-center gap-1.5 rounded-xl border border-[#C8B198] bg-[#EADACA] px-3 py-1.5 text-xs font-bold text-[#332319] hover:bg-[#DFCCB6]"
-              >
-                <Copy className="h-3.5 w-3.5" />
-                <span>Copy Setup Link</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => setShowQr(false)}
-                className="rounded-xl border border-[#D5BFA8] px-3 py-1.5 text-xs font-bold text-[#5C4332] hover:bg-[#EADACA]"
-              >
-                Hide
-              </button>
-            </div>
+                <p className="flex items-center justify-center gap-1 text-xs font-extrabold text-[#332319]">
+                  <CheckCircle2 className="h-3.5 w-3.5 text-[#3E5D3A]" />
+                  <span>
+                    Scan with{' '}
+                    {qrTargetProfile === 'partner_a'
+                      ? partnerANameInput || 'Player 1'
+                      : partnerBNameInput || 'Player 2'}
+                    ’s Phone Camera!
+                  </span>
+                </p>
+                <img
+                  src={qrDataUrl}
+                  alt="Private Google Sheet Pairing QR Code"
+                  className="mx-auto h-48 w-48 rounded-lg border border-[#DECBB5]"
+                />
+                <div className="flex flex-wrap justify-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => void handleCopyPairingLink()}
+                    className="inline-flex items-center gap-1.5 rounded-xl border border-[#C8B198] bg-[#EADACA] px-3 py-1.5 text-xs font-bold text-[#332319] hover:bg-[#DFCCB6]"
+                  >
+                    <Copy className="h-3.5 w-3.5" />
+                    <span>Copy Setup Link</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setShowQr(false)}
+                    className="rounded-xl border border-[#D5BFA8] px-3 py-1.5 text-xs font-bold text-[#5C4332] hover:bg-[#EADACA]"
+                  >
+                    Hide
+                  </button>
+                </div>
+              </>
+            ) : (
+              <div className="space-y-2.5 text-left text-xs">
+                <p className="font-extrabold text-[#632D16]">
+                  No Google Sheet sync link is saved in this app yet
+                </p>
+                <p className="leading-relaxed text-[#4B3627]">
+                  Installed Home Screen apps and browser tabs can keep separate local storage if
+                  a QR code opened in an in-app browser first. Copy the <strong>Setup Link</strong>{' '}
+                  from your browser tab or laptop, then paste it here to pair this app right away
+                  (or fill in the URL &amp; passcode above and tap <strong>Save &amp; Sync</strong>
+                  ):
+                </p>
+
+                <button
+                  type="button"
+                  onClick={() => void handlePasteFromClipboardAndPair()}
+                  className="inline-flex w-full items-center justify-center gap-1.5 rounded-xl bg-[#A8522E] px-3 py-2 text-xs font-extrabold text-[#FAF1E6] shadow-sm hover:bg-[#934525]"
+                >
+                  <ClipboardPaste className="h-3.5 w-3.5" />
+                  <span>Paste Setup Link from Clipboard &amp; Pair</span>
+                </button>
+
+                <div className="flex gap-1.5">
+                  <input
+                    type="text"
+                    value={pastePairLinkInput}
+                    onChange={(e) => setPastePairLinkInput(e.target.value)}
+                    placeholder="Or paste https://.../#pair=... here"
+                    className="min-w-0 flex-1 rounded-xl border border-[#CFB89E] bg-[#F7EDE0] px-3 py-1.5 text-xs text-[#332319] placeholder-[#8E7663]"
+                  />
+                  <button
+                    type="button"
+                    disabled={!pastePairLinkInput.trim()}
+                    onClick={() => void handleImportSetupLink(pastePairLinkInput)}
+                    className="rounded-xl bg-[#4D6F48] px-3 py-1.5 text-xs font-extrabold text-[#FAF1E6] disabled:opacity-45"
+                  >
+                    Pair App
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         )}
       </section>

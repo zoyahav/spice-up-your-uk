@@ -29,6 +29,7 @@ import {
   compactOutboxMutations,
   exchangeWithAppsScript,
   type FetchLike,
+  type PairingPayload,
   shouldAcceptIncomingRecord,
   type SyncRemoteRecord,
 } from '../services/sync';
@@ -49,6 +50,42 @@ export async function updateAppSettings(
   const updated: AppSettings = { ...current, ...patch, id: 'app' };
   await database.appConfig.put(updated);
   return updated;
+}
+
+export async function applyPairingPayload(
+  payload: PairingPayload,
+  database: SpiceUpUkDB = db,
+): Promise<AppSettings> {
+  const current = await ensureAppSettings(database);
+  const nowIso = new Date().toISOString();
+  const nextProfiles = { ...current.profiles };
+  if (payload.partnerAName || payload.partnerAAvatar) {
+    nextProfiles.partner_a = {
+      ...nextProfiles.partner_a,
+      ...(payload.partnerAName ? { displayName: payload.partnerAName } : {}),
+      ...(payload.partnerAAvatar ? { avatarEmoji: payload.partnerAAvatar } : {}),
+      updatedAt: nowIso,
+    };
+  }
+  if (payload.partnerBName || payload.partnerBAvatar) {
+    nextProfiles.partner_b = {
+      ...nextProfiles.partner_b,
+      ...(payload.partnerBName ? { displayName: payload.partnerBName } : {}),
+      ...(payload.partnerBAvatar ? { avatarEmoji: payload.partnerBAvatar } : {}),
+      updatedAt: nowIso,
+    };
+  }
+  return updateAppSettings(
+    {
+      onboarded: true,
+      scriptUrl: payload.scriptUrl,
+      passcode: payload.passcode,
+      activeProfileId: payload.suggestedProfile ?? 'partner_b',
+      examDate: payload.examDate ?? current.examDate,
+      profiles: nextProfiles,
+    },
+    database,
+  );
 }
 
 async function enqueueOutbox(

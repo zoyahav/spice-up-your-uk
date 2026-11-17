@@ -64,13 +64,18 @@ export function buildPairingUrl(baseUrl: string, payload: PairingPayload): strin
   return `${cleanBase}#pair=${encodePairingPayload(payload)}`;
 }
 
-export function extractPairingPayloadFromHash(hash: string): PairingPayload | null {
-  if (!hash || !hash.includes('pair=')) return null;
-  const cleaned = hash.replace(/^#/, '');
-  const params = new URLSearchParams(cleaned);
-  const token = params.get('pair');
-  if (!token) return null;
-  return decodePairingPayload(token);
+export function extractPairingPayloadFromHash(hashOrUrl: string): PairingPayload | null {
+  if (!hashOrUrl) return null;
+  const trimmed = hashOrUrl.trim();
+  const hashIdx = trimmed.indexOf('#');
+  const fragment = hashIdx >= 0 ? trimmed.slice(hashIdx + 1) : trimmed.replace(/^#/, '');
+  if (fragment.includes('pair=')) {
+    const params = new URLSearchParams(fragment);
+    const token = params.get('pair');
+    if (!token) return null;
+    return decodePairingPayload(token.trim());
+  }
+  return decodePairingPayload(fragment);
 }
 
 /**

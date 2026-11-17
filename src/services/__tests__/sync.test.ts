@@ -34,6 +34,8 @@ describe('Offline Outbox, Pairing QR Codec & Google Sheet Sync', () => {
       partnerBName: 'Posh',
       suggestedProfile: 'partner_b',
     });
+    // Also decodes when full setup URL is pasted into an installed standalone app
+    expect(extractPairingPayloadFromHash(url)).toEqual(decoded);
   });
 
   it('compacts repeated offline Tube mutations for the same card down to the latest state', () => {
