@@ -226,6 +226,7 @@ export interface AppSettings {
   readonly theme: ThemePreference;
   readonly reminders: ReminderSettings;
   readonly readGuideIds?: Partial<Record<ProfileId, readonly string[]>>;
+  readonly lastGuideSectionId?: Partial<Record<ProfileId, string>>;
 }
 
 export type SyncTableName =

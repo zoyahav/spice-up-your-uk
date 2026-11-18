@@ -3,9 +3,11 @@ import { describe, expect, it } from 'vitest';
 import { SpiceUpUkDB } from '../schema';
 import {
   cacheLocalStandardPackRecords,
+  markGuideReadAndAdvance,
   recordSmartQuestionReview,
   resetLocalDeviceData,
   saveImportedCustomRecords,
+  setLastStudyGuideSection,
   toggleStudyGuideSectionRead,
   updateAppSettings,
   updateUserProfile,
@@ -27,6 +29,12 @@ describe('Dexie Repository: Standard Pack Hydration & Safe Device Reset', () => 
     );
     await updateUserProfile('partner_b', { displayName: 'BiscuitTester' }, testDb);
     await toggleStudyGuideSectionRead('partner_b', 'sg-ch1-principles', true, testDb);
+    await setLastStudyGuideSection('partner_b', 'sg-ch3-early-roman', testDb);
+    await markGuideReadAndAdvance('partner_b', 'sg-ch1-citizenship', 'sg-ch2-nations', testDb);
+    const guideCfg = await testDb.appConfig.get('app');
+    expect(guideCfg?.lastGuideSectionId?.partner_b).toBe('sg-ch2-nations');
+    expect(guideCfg?.readGuideIds?.partner_b).toContain('sg-ch1-principles');
+    expect(guideCfg?.readGuideIds?.partner_b).toContain('sg-ch1-citizenship');
     await recordSmartQuestionReview(
       'partner_b',
       {

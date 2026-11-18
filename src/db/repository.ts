@@ -46,10 +46,12 @@ export async function updateAppSettings(
   patch: Partial<Omit<AppSettings, 'id'>>,
   database: SpiceUpUkDB = db,
 ): Promise<AppSettings> {
-  const current = await ensureAppSettings(database);
-  const updated: AppSettings = { ...current, ...patch, id: 'app' };
-  await database.appConfig.put(updated);
-  return updated;
+  return database.transaction('rw', database.appConfig, async () => {
+    const current = await ensureAppSettings(database);
+    const updated: AppSettings = { ...current, ...patch, id: 'app' };
+    await database.appConfig.put(updated);
+    return updated;
+  });
 }
 
 export async function applyPairingPayload(
@@ -250,23 +252,69 @@ export async function toggleStudyGuideSectionRead(
   forceRead?: boolean,
   database: SpiceUpUkDB = db,
 ): Promise<void> {
-  const current = await ensureAppSettings(database);
-  const existing = new Set(current.readGuideIds?.[profileId] ?? []);
-  const shouldBeRead = forceRead !== undefined ? forceRead : !existing.has(sectionId);
-  if (shouldBeRead) {
-    existing.add(sectionId);
-  } else {
-    existing.delete(sectionId);
-  }
-  await updateAppSettings(
-    {
+  await database.transaction('rw', database.appConfig, async () => {
+    const current = await ensureAppSettings(database);
+    const existing = new Set(current.readGuideIds?.[profileId] ?? []);
+    const shouldBeRead = forceRead !== undefined ? forceRead : !existing.has(sectionId);
+    if (shouldBeRead) {
+      existing.add(sectionId);
+    } else {
+      existing.delete(sectionId);
+    }
+    await database.appConfig.put({
+      ...current,
       readGuideIds: {
         ...(current.readGuideIds ?? {}),
         [profileId]: Array.from(existing),
       },
-    },
-    database,
-  );
+    });
+  });
+}
+
+export async function setLastStudyGuideSection(
+  profileId: ProfileId,
+  sectionId: string,
+  database: SpiceUpUkDB = db,
+): Promise<void> {
+  await database.transaction('rw', database.appConfig, async () => {
+    const current = await ensureAppSettings(database);
+    if (current.lastGuideSectionId?.[profileId] === sectionId) return;
+    await database.appConfig.put({
+      ...current,
+      lastGuideSectionId: {
+        ...(current.lastGuideSectionId ?? {}),
+        [profileId]: sectionId,
+      },
+    });
+  });
+}
+
+export async function markGuideReadAndAdvance(
+  profileId: ProfileId,
+  readSectionId: string,
+  nextSectionId?: string,
+  database: SpiceUpUkDB = db,
+): Promise<void> {
+  await database.transaction('rw', database.appConfig, async () => {
+    const current = await ensureAppSettings(database);
+    const existing = new Set(current.readGuideIds?.[profileId] ?? []);
+    existing.add(readSectionId);
+    await database.appConfig.put({
+      ...current,
+      readGuideIds: {
+        ...(current.readGuideIds ?? {}),
+        [profileId]: Array.from(existing),
+      },
+      ...(nextSectionId
+        ? {
+            lastGuideSectionId: {
+              ...(current.lastGuideSectionId ?? {}),
+              [profileId]: nextSectionId,
+            },
+          }
+        : {}),
+    });
+  });
 }
 
 /**

@@ -45,6 +45,7 @@ interface HomeViewProps {
   myTotalXp: number;
   examDate: string | null;
   readGuideCount: number;
+  lastGuideSectionId: string | null;
   dueQuestionCount: number;
   missedQuestionCount: number;
   overallMasteryPercent: number;
@@ -69,6 +70,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
   myTotalXp,
   examDate,
   readGuideCount,
+  lastGuideSectionId,
   dueQuestionCount,
   missedQuestionCount,
   overallMasteryPercent,
@@ -120,6 +122,12 @@ export const HomeView: React.FC<HomeViewProps> = ({
     }
     return { nextSuggestedExam: next, passedExamsCount: passedSet.size };
   }, [recentSessions, activeProfile.id]);
+
+  const resumeLessonNum = useMemo(() => {
+    if (!lastGuideSectionId) return null;
+    const idx = STUDY_SECTIONS.findIndex((s) => s.id === lastGuideSectionId);
+    return idx >= 0 ? idx + 1 : null;
+  }, [lastGuideSectionId]);
 
   const dailyPercent = Math.min(
     100,
@@ -246,7 +254,9 @@ export const HomeView: React.FC<HomeViewProps> = ({
             <span>Study Guide</span>
           </div>
           <span className="text-[11px] font-semibold opacity-90">
-            {readGuideCount}/{STUDY_SECTIONS.length} lessons read
+            {resumeLessonNum
+              ? `Resume Lesson ${resumeLessonNum}/${STUDY_SECTIONS.length}`
+              : `${readGuideCount}/${STUDY_SECTIONS.length} lessons read`}
           </span>
         </Button>
 

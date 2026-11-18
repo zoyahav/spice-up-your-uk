@@ -4,6 +4,8 @@ import {
   BookOpen,
   CheckCircle2,
   CheckSquare,
+  ChevronLeft,
+  ChevronRight,
   ExternalLink,
   Eye,
   Layers,
@@ -14,7 +16,9 @@ import { CHAPTERS } from '../data/syllabus';
 import { STUDY_SECTIONS } from '../data/studyGuides';
 import { COMMUNITY_RESOURCES, TEST_DAY_CHECKLIST } from '../data/communityLinks';
 import {
+  markGuideReadAndAdvance,
   recordSmartQuestionReview,
+  setLastStudyGuideSection,
   toggleStudyGuideSectionRead,
 } from '../db/repository';
 import { previewIntervalLabel, selectStudyQueue } from '../services/srs';
@@ -38,6 +42,7 @@ interface StudyViewProps {
   activeProfileId: ProfileId;
   allQuestions: readonly PracticeQuestion[];
   readGuideIds: readonly string[];
+  lastGuideSectionId?: string | null;
   srsMap: ReadonlyMap<string, SrsCardState>;
   chapterMasteries: readonly SubjectMasterySummary[];
   initialChapterFilter?: ChapterId | null;
@@ -70,6 +75,7 @@ export const StudyView: React.FC<StudyViewProps> = ({
   activeProfileId,
   allQuestions,
   readGuideIds,
+  lastGuideSectionId,
   srsMap,
   chapterMasteries,
   initialChapterFilter,
@@ -81,6 +87,15 @@ export const StudyView: React.FC<StudyViewProps> = ({
   const [selectedChapter, setSelectedChapter] = useState<ChapterId | 'all'>(
     initialChapterFilter ?? 'all',
   );
+  const [currentGuideId, setCurrentGuideId] = useState<string>(() => {
+    if (lastGuideSectionId && STUDY_SECTIONS.some((s) => s.id === lastGuideSectionId)) {
+      return lastGuideSectionId;
+    }
+    const firstUnread = STUDY_SECTIONS.find((s) => !readGuideIds.includes(s.id));
+    return (firstUnread ?? STUDY_SECTIONS[0])!.id;
+  });
+  const [showLessonIndex, setShowLessonIndex] = useState(false);
+  const [showLessonVisual, setShowLessonVisual] = useState(false);
   const [deckMode, setDeckMode] = useState<'smart' | 'due-only' | 'cram'>('smart');
 
   // 4-Way Choice Spaced-Repetition Runner State
@@ -95,6 +110,33 @@ export const StudyView: React.FC<StudyViewProps> = ({
   const [requeuedIds, setRequeuedIds] = useState<Set<string>>(new Set());
 
   const readSet = useMemo(() => new Set(readGuideIds), [readGuideIds]);
+
+  const navigateToGuideLesson = (sectionId: string, persist: boolean = true) => {
+    setCurrentGuideId(sectionId);
+    setShowLessonVisual(false);
+    setShowLessonIndex(false);
+    if (persist) {
+      void setLastStudyGuideSection(activeProfileId, sectionId);
+    }
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  useEffect(() => {
+    if (lastGuideSectionId && STUDY_SECTIONS.some((s) => s.id === lastGuideSectionId)) {
+      setCurrentGuideId(lastGuideSectionId);
+    }
+  }, [lastGuideSectionId]);
+
+  const handleSelectChapterFilter = (ch: ChapterId | 'all') => {
+    setSelectedChapter(ch);
+    const nextVisible = STUDY_SECTIONS.filter((s) => ch === 'all' || s.chapterId === ch);
+    if (nextVisible.length > 0 && !nextVisible.some((s) => s.id === currentGuideId)) {
+      const nextUnread = nextVisible.find((s) => !readSet.has(s.id));
+      navigateToGuideLesson((nextUnread ?? nextVisible[0])!.id);
+    }
+  };
 
   const startSmartQuizSession = (params?: {
     chapterId?: ChapterId | 'all';
@@ -140,6 +182,12 @@ export const StudyView: React.FC<StudyViewProps> = ({
     }
     if (initialChapterFilter) {
       setSelectedChapter(initialChapterFilter);
+      const chSections = STUDY_SECTIONS.filter((s) => s.chapterId === initialChapterFilter);
+      if (chSections.length > 0 && !chSections.some((s) => s.id === currentGuideId)) {
+        const chUnread = chSections.find((s) => !readSet.has(s.id));
+        setCurrentGuideId((chUnread ?? chSections[0])!.id);
+        setShowLessonVisual(false);
+      }
     }
     if (autoLaunchDeck) {
       const ch = initialChapterFilter ?? 'all';
@@ -441,6 +489,11 @@ export const StudyView: React.FC<StudyViewProps> = ({
   const visibleSections = STUDY_SECTIONS.filter(
     (sec) => selectedChapter === 'all' || sec.chapterId === selectedChapter,
   );
+  const currentVisibleIdx = Math.max(
+    0,
+    visibleSections.findIndex((sec) => sec.id === currentGuideId),
+  );
+  const activeSection = visibleSections[currentVisibleIdx] ?? visibleSections[0];
   const readCountTotal = STUDY_SECTIONS.filter((s) => readSet.has(s.id)).length;
   const readPct = Math.round((readCountTotal / STUDY_SECTIONS.length) * 100);
 
@@ -477,7 +530,7 @@ export const StudyView: React.FC<StudyViewProps> = ({
         <div className="flex gap-1.5 overflow-x-auto pb-1">
           <button
             type="button"
-            onClick={() => setSelectedChapter('all')}
+            onClick={() => handleSelectChapterFilter('all')}
             className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-bold transition ${
               selectedChapter === 'all'
                 ? 'bg-orange-600 text-[#FAF1E6]'
@@ -490,7 +543,7 @@ export const StudyView: React.FC<StudyViewProps> = ({
             <button
               key={ch.id}
               type="button"
-              onClick={() => setSelectedChapter(ch.id)}
+              onClick={() => handleSelectChapterFilter(ch.id)}
               className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-bold transition ${
                 selectedChapter === ch.id
                   ? 'bg-orange-600 text-[#FAF1E6]'
@@ -503,107 +556,206 @@ export const StudyView: React.FC<StudyViewProps> = ({
         </div>
       )}
 
-      {/* TAB 1 (DEFAULT): BEGINNER-FRIENDLY CHAPTER STUDY GUIDE + INLINE 4-CHOICE QUIZZES */}
-      {subTab === 'guides' && (
-        <div className="space-y-4">
-          <div className="autumn-card space-y-2.5 rounded-3xl p-4">
-            <div className="flex items-center justify-between gap-2">
-              <div>
-                <h2 className="text-base font-black">Step 1: Read the Chapter Study Guide</h2>
-                <p className="autumn-muted text-xs">
-                  New to the material? Read any short lesson below, then tap{' '}
-                  <strong>Practice This Lesson (4-Choice)</strong> to test recognition right away.
-                </p>
-              </div>
-              <span className="callout-emerald shrink-0 rounded-xl px-2.5 py-1 text-xs font-black">
-                {readCountTotal}/{STUDY_SECTIONS.length} read
-              </span>
-            </div>
-            <ProgressBar percent={readPct} heightClass="h-2" />
-          </div>
+      {/* TAB 1 (DEFAULT): STATEFUL PAGINATED CHAPTER STUDY GUIDE (1 LESSON AT A TIME) */}
+      {subTab === 'guides' && activeSection && (() => {
+        const sec = activeSection;
+        const globalLessonNum = STUDY_SECTIONS.findIndex((s) => s.id === sec.id) + 1;
+        const isRead = readSet.has(sec.id);
+        const hasPrev = currentVisibleIdx > 0;
+        const hasNext = currentVisibleIdx < visibleSections.length - 1;
+        const prevSection = hasPrev ? visibleSections[currentVisibleIdx - 1] : undefined;
+        const nextSection = hasNext ? visibleSections[currentVisibleIdx + 1] : undefined;
+        const topicQuestionCount = allQuestions.filter(
+          (q) => q.subtopicId === sec.subtopicId,
+        ).length;
 
-          {visibleSections.map((sec) => {
-            const globalLessonNum = STUDY_SECTIONS.findIndex((s) => s.id === sec.id) + 1;
-            const isRead = readSet.has(sec.id);
-            const topicQuestionCount = allQuestions.filter(
-              (q) => q.subtopicId === sec.subtopicId,
-            ).length;
-
-            return (
-              <article key={sec.id} className="autumn-card space-y-3.5 rounded-3xl p-4">
-                <div className="flex items-center justify-between gap-2">
-                  <span className="callout-spice rounded-md px-2 py-0.5 text-[10px] font-bold uppercase">
-                    Lesson {globalLessonNum} of {STUDY_SECTIONS.length} • {sec.chapterId.toUpperCase()}
+        return (
+          <div className="space-y-3">
+            {/* Compact Stateful Progress + Lesson Stepper */}
+            <div className="autumn-card space-y-2 rounded-2xl p-3">
+              <div className="flex items-center justify-between gap-2 text-xs">
+                <button
+                  type="button"
+                  onClick={() => setShowLessonIndex((v) => !v)}
+                  className="autumn-pill inline-flex items-center gap-1.5 rounded-xl px-2.5 py-1 font-extrabold transition"
+                >
+                  <span>
+                    Lesson {currentVisibleIdx + 1} / {visibleSections.length}
                   </span>
+                  <span className="text-[10px] opacity-75">
+                    {showLessonIndex ? '▲' : '▼'}
+                  </span>
+                </button>
+
+                <span className="callout-emerald rounded-xl px-2.5 py-1 text-[11px] font-black">
+                  {readCountTotal}/{STUDY_SECTIONS.length} read
+                </span>
+              </div>
+
+              <ProgressBar percent={readPct} heightClass="h-1.5" />
+
+              {showLessonIndex && (
+                <div className="autumn-inset grid grid-cols-5 gap-1.5 rounded-xl p-2">
+                  {visibleSections.map((item, idx) => {
+                    const itemRead = readSet.has(item.id);
+                    const isCurrent = item.id === sec.id;
+                    const itemGlobalNum = STUDY_SECTIONS.findIndex((s) => s.id === item.id) + 1;
+                    return (
+                      <button
+                        key={item.id}
+                        type="button"
+                        onClick={() => navigateToGuideLesson(item.id)}
+                        title={item.title}
+                        className={`rounded-lg py-1 text-[11px] font-extrabold transition ${
+                          isCurrent
+                            ? 'bg-orange-600 text-[#FAF1E6] ring-1 ring-orange-400/60'
+                            : itemRead
+                              ? 'callout-emerald'
+                              : 'autumn-pill'
+                        }`}
+                      >
+                        {itemGlobalNum}
+                        {itemRead ? '✓' : idx === currentVisibleIdx ? '' : ''}
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+
+            {/* Single Paginated Lesson Card */}
+            <article className="autumn-card space-y-3 rounded-3xl p-4">
+              <div className="flex items-center justify-between gap-2">
+                <span className="callout-spice rounded-md px-2 py-0.5 text-[10px] font-bold uppercase">
+                  Lesson {globalLessonNum} of {STUDY_SECTIONS.length} • {sec.chapterId.toUpperCase()}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => void toggleStudyGuideSectionRead(activeProfileId, sec.id)}
+                  className={`inline-flex items-center gap-1 rounded-xl px-2.5 py-1 text-[11px] font-bold transition ${
+                    isRead ? 'callout-emerald' : 'autumn-pill'
+                  }`}
+                >
+                  <CheckCircle2 className="h-3.5 w-3.5" />
+                  <span>{isRead ? 'Read ✓' : 'Mark Read'}</span>
+                </button>
+              </div>
+
+              <div>
+                <h2 className="text-base font-black leading-snug">{sec.title}</h2>
+                {sec.summary && (
+                  <p className="autumn-inset autumn-soft mt-2 rounded-2xl p-2.5 text-xs leading-relaxed">
+                    {sec.summary}
+                  </p>
+                )}
+              </div>
+
+              <ul className="autumn-soft space-y-2 text-xs leading-relaxed">
+                {sec.keyFacts.map((fact, idx) => (
+                  <li key={idx} className="flex gap-2">
+                    <span className="accent-spice mt-0.5 shrink-0 font-bold">•</span>
+                    <span>{renderFormattedFact(fact)}</span>
+                  </li>
+                ))}
+              </ul>
+
+              {sec.memoryHook && (
+                <div className="callout-amber rounded-2xl p-2.5 text-xs leading-relaxed">
+                  <span className="font-extrabold">Exam Trap &amp; Memory Tip: </span>
+                  {sec.memoryHook}
+                </div>
+              )}
+
+              {sec.visualId && (
+                <div className="space-y-2">
                   <button
                     type="button"
-                    onClick={() => void toggleStudyGuideSectionRead(activeProfileId, sec.id)}
-                    className={`inline-flex items-center gap-1 rounded-xl px-2.5 py-1 text-[11px] font-bold transition ${
-                      isRead ? 'callout-emerald' : 'autumn-pill'
-                    }`}
+                    onClick={() => setShowLessonVisual((v) => !v)}
+                    className="autumn-pill inline-flex w-full items-center justify-center gap-1.5 rounded-xl py-1.5 text-xs font-bold transition"
                   >
-                    <CheckCircle2 className="h-3.5 w-3.5" />
-                    <span>{isRead ? 'Read ✓' : 'Mark Read'}</span>
+                    <Eye className="h-3.5 w-3.5" />
+                    <span>{showLessonVisual ? 'Hide Visual Diagram' : 'View Visual Diagram'}</span>
                   </button>
-                </div>
-
-                <div>
-                  <h3 className="text-base font-black">{sec.title}</h3>
-                  {sec.summary && (
-                    <p className="autumn-inset autumn-soft mt-2 rounded-2xl p-3 text-xs leading-relaxed">
-                      {sec.summary}
-                    </p>
+                  {showLessonVisual && (
+                    <VisualAidRenderer
+                      visualId={sec.visualId}
+                      compact
+                      highlightSubtopicId={sec.subtopicId}
+                    />
                   )}
                 </div>
+              )}
 
-                <ul className="autumn-soft space-y-2.5 text-xs leading-relaxed">
-                  {sec.keyFacts.map((fact, idx) => (
-                    <li key={idx} className="flex gap-2">
-                      <span className="accent-spice mt-0.5 shrink-0 font-bold">•</span>
-                      <span>{renderFormattedFact(fact)}</span>
-                    </li>
-                  ))}
-                </ul>
+              <div className="space-y-2 pt-1">
+                <Button
+                  variant="primary"
+                  size="sm"
+                  fullWidth
+                  onClick={() =>
+                    startSmartQuizSession({
+                      chapterId: sec.chapterId,
+                      subtopicId: sec.subtopicId,
+                      mode: 'smart',
+                      title: sec.title,
+                      markSectionReadId: sec.id,
+                    })
+                  }
+                >
+                  <span>
+                    Practice This Lesson: 4-Way Choice ({topicQuestionCount} Qs) →
+                  </span>
+                </Button>
 
-                {sec.visualId && (
-                  <VisualAidRenderer
-                    visualId={sec.visualId}
-                    highlightSubtopicId={sec.subtopicId}
-                  />
-                )}
-
-                {sec.memoryHook && (
-                  <div className="callout-amber rounded-2xl p-3 text-xs leading-relaxed">
-                    <span className="font-extrabold">Exam Trap &amp; Memory Tip: </span>
-                    {sec.memoryHook}
-                  </div>
-                )}
-
-                <div className="pt-1">
+                <div className="flex items-center justify-between gap-2">
                   <Button
-                    variant="primary"
+                    type="button"
+                    variant="secondary"
                     size="sm"
-                    fullWidth
-                    onClick={() =>
-                      startSmartQuizSession({
-                        chapterId: sec.chapterId,
-                        subtopicId: sec.subtopicId,
-                        mode: 'smart',
-                        title: sec.title,
-                        markSectionReadId: sec.id,
-                      })
-                    }
+                    disabled={!prevSection}
+                    onClick={() => prevSection && navigateToGuideLesson(prevSection.id)}
+                  >
+                    <ChevronLeft className="h-4 w-4" />
+                    <span>Prev</span>
+                  </Button>
+
+                  <Button
+                    type="button"
+                    variant={isRead ? 'secondary' : 'emerald'}
+                    size="sm"
+                    className="flex-1"
+                    disabled={!nextSection && isRead}
+                    onClick={() => {
+                      if (!isRead) {
+                        void markGuideReadAndAdvance(
+                          activeProfileId,
+                          sec.id,
+                          nextSection?.id,
+                        );
+                        if (nextSection) {
+                          navigateToGuideLesson(nextSection.id, false);
+                        }
+                      } else if (nextSection) {
+                        navigateToGuideLesson(nextSection.id);
+                      }
+                    }}
                   >
                     <span>
-                      Practice This Lesson: 4-Way Choice ({topicQuestionCount} Qs in bank) →
+                      {nextSection
+                        ? isRead
+                          ? 'Next Lesson'
+                          : 'Mark Read & Next'
+                        : isRead
+                          ? 'All Lessons Complete ✓'
+                          : 'Mark Final Lesson Read ✓'}
                     </span>
+                    {nextSection && <ChevronRight className="h-4 w-4" />}
                   </Button>
                 </div>
-              </article>
-            );
-          })}
-        </div>
-      )}
+              </div>
+            </article>
+          </div>
+        );
+      })()}
 
       {/* TAB 2: 4-WAY CHOICE SPACED-REPETITION PRACTICE (ZERO OPEN-ENDED RECALL) */}
       {subTab === 'quiz' && (

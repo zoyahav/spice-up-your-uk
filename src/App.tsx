@@ -41,6 +41,7 @@ export const App: React.FC = () => {
   const isLightMode = data.settings.theme === 'light';
   const isPaired = Boolean(data.settings.scriptUrl && data.settings.passcode);
   const myReadGuideIds = data.settings.readGuideIds?.[data.activeProfileId] ?? [];
+  const myLastGuideSectionId = data.settings.lastGuideSectionId?.[data.activeProfileId] ?? null;
 
   useEffect(() => {
     if (typeof document === 'undefined') return;
@@ -178,6 +179,7 @@ export const App: React.FC = () => {
             myTotalXp={data.myTotalXp}
             examDate={data.settings.examDate}
             readGuideCount={myReadGuideIds.length}
+            lastGuideSectionId={myLastGuideSectionId}
             dueQuestionCount={data.dueFlashcardCount}
             missedQuestionCount={data.missedQuestionIds.length}
             overallMasteryPercent={data.myMastery.overallPercent}
@@ -238,6 +240,7 @@ export const App: React.FC = () => {
             activeProfileId={data.activeProfileId}
             allQuestions={data.allQuestions}
             readGuideIds={myReadGuideIds}
+            lastGuideSectionId={myLastGuideSectionId}
             srsMap={data.srsMap}
             chapterMasteries={data.myMastery.chapters}
             initialChapterFilter={studyChapterFilter}
