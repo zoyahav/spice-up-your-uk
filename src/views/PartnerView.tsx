@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import QRCode from 'qrcode';
 import {
   AlertTriangle,
   Bell,
   CalendarPlus,
   CheckCircle2,
+  Circle,
   ClipboardPaste,
   Cloud,
   Copy,
@@ -37,12 +38,18 @@ import {
   downloadReminderIcsFile,
   requestAndTestBrowserNotification,
 } from '../services/reminders';
+import {
+  formatLocalDateYYYYMMDD,
+  shiftDateDays,
+  type StreakSummary,
+} from '../services/streaks';
 import { buildPairingUrl, extractPairingPayloadFromHash } from '../services/sync';
 import { Button } from '../components/ui/Button';
 import { AVATAR_EMOJIS, ProfileAvatar } from '../components/ui/ProfileAvatar';
 import { ProgressBar } from '../components/ui/ProgressBar';
 import type {
   AppSettings,
+  DailyActivityRecord,
   ProfileId,
   SubjectMasterySummary,
   UserProfile,
@@ -54,9 +61,16 @@ interface PartnerViewProps {
   partnerProfile: UserProfile;
   myMastery: { chapters: SubjectMasterySummary[]; overallPercent: number };
   partnerMastery: { chapters: SubjectMasterySummary[]; overallPercent: number };
+  myStreak: StreakSummary;
+  partnerStreak: StreakSummary;
+  sharedStreak: {
+    currentCoupleStreak: number;
+    longestCoupleStreak: number;
+    bothStudiedToday: boolean;
+  };
+  dailyActivity: readonly DailyActivityRecord[];
   myTotalXp: number;
   partnerTotalXp: number;
-  coupleStreakCount: number;
   unlockedBadgeIds: ReadonlySet<string>;
   outboxCount: number;
   syncError: string | null;
@@ -67,15 +81,27 @@ interface PartnerViewProps {
 
 const DAY_LABELS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'] as const;
 
+function formatLastSynced(iso: string | null): string {
+  if (!iso) return 'Not synced yet';
+  const diffSec = Math.max(0, Math.round((Date.now() - Date.parse(iso)) / 1000));
+  if (diffSec < 45) return 'Just now';
+  if (diffSec < 3600) return `${Math.floor(diffSec / 60)}m ago`;
+  if (diffSec < 86400) return `${Math.floor(diffSec / 3600)}h ago`;
+  return new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+}
+
 export const PartnerView: React.FC<PartnerViewProps> = ({
   settings,
   activeProfile,
   partnerProfile,
   myMastery,
   partnerMastery,
+  myStreak,
+  partnerStreak,
+  sharedStreak,
+  dailyActivity,
   myTotalXp,
   partnerTotalXp,
-  coupleStreakCount,
   unlockedBadgeIds,
   outboxCount,
   syncError,
@@ -108,6 +134,33 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
   const [resetBusy, setResetBusy] = useState(false);
 
   const { canInstall, isStandalone, isMobile, swReady, promptInstall } = usePwaInstall();
+  const isPaired = Boolean(settings.scriptUrl && settings.passcode);
+
+  const last7Days = useMemo(() => {
+    const todayStr = formatLocalDateYYYYMMDD();
+    const xpMap = new Map<string, number>();
+    for (const r of dailyActivity) {
+      if (r.xp > 0) {
+        xpMap.set(`${r.profileId}:${r.date}`, r.xp);
+      }
+    }
+    return Array.from({ length: 7 }, (_, i) => {
+      const dateStr = shiftDateDays(todayStr, -(6 - i));
+      const parts = dateStr.split('-').map(Number);
+      const dt = new Date(parts[0] ?? 2026, (parts[1] ?? 1) - 1, parts[2] ?? 1);
+      const shortDay = dateStr === todayStr ? 'Today' : DAY_LABELS[dt.getDay()]!;
+      const myXp = xpMap.get(`${activeProfile.id}:${dateStr}`) ?? 0;
+      const theirXp = xpMap.get(`${partnerProfile.id}:${dateStr}`) ?? 0;
+      return {
+        dateStr,
+        shortDay,
+        isToday: dateStr === todayStr,
+        myDone: myXp > 0,
+        theirDone: theirXp > 0,
+        bothDone: myXp > 0 && theirXp > 0,
+      };
+    });
+  }, [dailyActivity, activeProfile.id, partnerProfile.id]);
 
   useEffect(() => {
     setScriptUrlInput(settings.scriptUrl);
@@ -229,7 +282,7 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
       }
       await handleImportSetupLink(clip);
     } catch {
-      showToast('Paste the Setup Link into the box below and tap Pair App Now.');
+      showToast('Paste the Setup Link into the box below and tap Pair App.');
     }
   };
 
@@ -353,41 +406,148 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
         </div>
       )}
 
-      {/* 1. YOU VS PARTNER HEAD-TO-HEAD MASTERY */}
-      <section className="autumn-card rounded-3xl p-4">
-        <div className="flex items-center justify-between">
+      {/* 1. STUDY TEAM SCOREBOARD + LIVE DAILY PRACTICE & SHARED STREAK TRACKER */}
+      <section className="autumn-card space-y-3.5 rounded-3xl p-4">
+        <div className="flex items-start justify-between gap-2">
           <div>
-            <h2 className="text-base font-black">💞 2 Become 1: Couple Scoreboard</h2>
-            <p className="autumn-muted text-xs">
-              Shared Streak: <strong>{coupleStreakCount} days</strong>
+            <h2 className="text-base font-black">🤝 Study Team Scoreboard</h2>
+            <p className="autumn-muted text-[11px]">
+              {isPaired
+                ? `Last synced: ${formatLastSynced(settings.lastSyncAt)}`
+                : 'Local mode: pair Google Sheet below to track both phones'}
             </p>
           </div>
-          <span className="callout-spice rounded-full px-3 py-1 text-xs font-black">
-            Team Mode
-          </span>
+          {isPaired ? (
+            <button
+              type="button"
+              onClick={() => void onManualSync()}
+              className="autumn-pill inline-flex items-center gap-1 rounded-xl px-2.5 py-1 text-[11px] font-bold"
+            >
+              <RefreshCw className="h-3 w-3" />
+              <span>Refresh</span>
+            </button>
+          ) : (
+            <span className="callout-amber rounded-full px-2.5 py-0.5 text-[10px] font-bold">
+              Unpaired
+            </span>
+          )}
         </div>
 
-        <div className="mt-3.5 grid grid-cols-2 gap-3">
-          <div className="callout-spice rounded-2xl p-3 text-center">
-            <p className="text-2xl">
-              <ProfileAvatar avatar={activeProfile.avatarEmoji} sizeClass="text-2xl" />
-            </p>
+        {/* Today's Practice Cards for Both Players */}
+        <div className="grid grid-cols-2 gap-2.5">
+          <div className="callout-spice rounded-2xl p-3">
+            <div className="flex items-center justify-between gap-1">
+              <ProfileAvatar avatar={activeProfile.avatarEmoji} sizeClass="text-xl" />
+              <span className="text-[11px] font-extrabold">🔥 {myStreak.currentStreak}d</span>
+            </div>
             <p className="mt-1 truncate text-xs font-black">{activeProfile.displayName} (You)</p>
-            <p className="accent-spice text-lg font-black">{myMastery.overallPercent}%</p>
-            <p className="autumn-muted text-[11px]">{myTotalXp} XP</p>
+            <p className="accent-spice text-base font-black">
+              {myMastery.overallPercent}% <span className="autumn-muted text-[11px] font-semibold">• {myTotalXp} XP</span>
+            </p>
+            <div className="mt-1.5 flex items-center gap-1 text-[11px] font-bold">
+              {myStreak.studiedToday ? (
+                <>
+                  <CheckCircle2 className="accent-emerald h-3.5 w-3.5 shrink-0" />
+                  <span className="accent-emerald">Today: +{myStreak.todayXp} XP</span>
+                </>
+              ) : (
+                <>
+                  <Circle className="autumn-muted h-3.5 w-3.5 shrink-0" />
+                  <span className="autumn-muted">Not practiced today</span>
+                </>
+              )}
+            </div>
           </div>
 
-          <div className="callout-amber rounded-2xl p-3 text-center">
-            <p className="text-2xl">
-              <ProfileAvatar avatar={partnerProfile.avatarEmoji} sizeClass="text-2xl" />
-            </p>
+          <div className="callout-amber rounded-2xl p-3">
+            <div className="flex items-center justify-between gap-1">
+              <ProfileAvatar avatar={partnerProfile.avatarEmoji} sizeClass="text-xl" />
+              {isPaired && (
+                <span className="text-[11px] font-extrabold">
+                  🔥 {partnerStreak.currentStreak}d
+                </span>
+              )}
+            </div>
             <p className="mt-1 truncate text-xs font-black">{partnerProfile.displayName}</p>
-            <p className="accent-amber text-lg font-black">{partnerMastery.overallPercent}%</p>
-            <p className="autumn-muted text-[11px]">{partnerTotalXp} XP</p>
+            <p className="accent-amber text-base font-black">
+              {partnerMastery.overallPercent}%{' '}
+              <span className="autumn-muted text-[11px] font-semibold">• {partnerTotalXp} XP</span>
+            </p>
+            <div className="mt-1.5 flex items-center gap-1 text-[11px] font-bold">
+              {!isPaired ? (
+                <span className="autumn-muted">Pair below to track</span>
+              ) : partnerStreak.studiedToday ? (
+                <>
+                  <CheckCircle2 className="accent-emerald h-3.5 w-3.5 shrink-0" />
+                  <span className="accent-emerald">Today: +{partnerStreak.todayXp} XP</span>
+                </>
+              ) : (
+                <>
+                  <Circle className="autumn-muted h-3.5 w-3.5 shrink-0" />
+                  <span className="autumn-muted">Not practiced today</span>
+                </>
+              )}
+            </div>
           </div>
         </div>
 
-        <div className="mt-4 space-y-2.5">
+        {/* Last 7 Days Practice & Shared Streak Matrix */}
+        <div className="autumn-inset space-y-2.5 rounded-2xl p-3 text-xs">
+          <div className="flex flex-wrap items-center justify-between gap-1">
+            <span className="font-extrabold">
+              🤝 Shared Streak: {sharedStreak.currentCoupleStreak} day
+              {sharedStreak.currentCoupleStreak === 1 ? '' : 's'}
+            </span>
+            <span className="autumn-muted text-[11px]">
+              Best: {sharedStreak.longestCoupleStreak}d • Both players must practice
+            </span>
+          </div>
+
+          <div className="grid grid-cols-[minmax(68px,auto)_repeat(7,1fr)] items-center gap-1 text-center text-[10px]">
+            <span />
+            {last7Days.map((d) => (
+              <span
+                key={d.dateStr}
+                className={`font-bold ${d.isToday ? 'accent-spice' : 'autumn-muted'}`}
+              >
+                {d.shortDay}
+              </span>
+            ))}
+
+            <span className="truncate pr-1 text-left text-[11px] font-bold">
+              {activeProfile.displayName}
+            </span>
+            {last7Days.map((d) => (
+              <span
+                key={`me-${d.dateStr}`}
+                className={`mx-auto flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-black ${
+                  d.myDone ? 'callout-emerald' : 'autumn-pill opacity-45'
+                }`}
+                title={`${activeProfile.displayName} on ${d.dateStr}: ${d.myDone ? 'Practiced' : 'No activity'}`}
+              >
+                {d.myDone ? '✓' : '·'}
+              </span>
+            ))}
+
+            <span className="truncate pr-1 text-left text-[11px] font-bold">
+              {partnerProfile.displayName}
+            </span>
+            {last7Days.map((d) => (
+              <span
+                key={`them-${d.dateStr}`}
+                className={`mx-auto flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-black ${
+                  d.theirDone ? 'callout-emerald' : 'autumn-pill opacity-45'
+                }`}
+                title={`${partnerProfile.displayName} on ${d.dateStr}: ${d.theirDone ? 'Practiced' : 'No activity'}`}
+              >
+                {d.theirDone ? '✓' : '·'}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* Chapter-by-Chapter Head-to-Head Bars */}
+        <div className="space-y-2.5 pt-1">
           {CHAPTERS.map((ch) => {
             const mine = myMastery.chapters.find((c) => c.id === ch.id)?.masteryPercent ?? 0;
             const theirs =
@@ -567,7 +727,7 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
             <li>
               <strong>1.</strong> Create one Google Sheet in Google Drive and{' '}
               <strong className="accent-emerald">
-                Share it with your partner with Editor access
+                Share it with Player 2 with Editor access
               </strong>
               .
             </li>
@@ -939,9 +1099,9 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
                 <div className="space-y-1 leading-relaxed">
                   <p className="font-extrabold">Wipe This Device &amp; Start Setup Again</p>
                   <p className="text-[11px] opacity-90">
-                    Clears your locked profile, Google Sheet sync link, flashcards schedule, XP,
-                    and test history on this device, then re-opens initial setup. (Data already in
-                    your shared Google Sheet is not deleted unless you clear the sheet tabs.)
+                    Clears your locked profile, Google Sheet sync link, spaced-repetition schedule,
+                    XP, and test history on this device, then re-opens initial setup. (Data already
+                    in your shared Google Sheet is not deleted unless you clear the sheet tabs.)
                   </p>
                   <p className="text-[11px] opacity-85">
                     <em>Tip:</em> If you only want to switch to a newly generated QR code, scanning

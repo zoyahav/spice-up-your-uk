@@ -8,7 +8,7 @@ import { useAppData } from './hooks/useAppData';
 import { updateAppSettings } from './db/repository';
 import { HomeView } from './views/HomeView';
 import { ChapterProgressView } from './views/ChapterProgressView';
-import { StudyView } from './views/StudyView';
+import { StudyView, type StudySubTab } from './views/StudyView';
 import { TestsView } from './views/TestsView';
 import { ArcadeView } from './views/ArcadeView';
 import { PartnerView } from './views/PartnerView';
@@ -27,7 +27,8 @@ export const App: React.FC = () => {
   });
 
   // Cross-tab quick-launch triggers
-  const [flashcardChapterFilter, setFlashcardChapterFilter] = useState<ChapterId | null>(null);
+  const [studyChapterFilter, setStudyChapterFilter] = useState<ChapterId | null>(null);
+  const [studyInitialSubTab, setStudyInitialSubTab] = useState<StudySubTab | null>(null);
   const [autoLaunchDeck, setAutoLaunchDeck] = useState(false);
   const [autoStartExamNumber, setAutoStartExamNumber] = useState<number | null>(null);
   const [autoStartMistakes, setAutoStartMistakes] = useState(false);
@@ -38,6 +39,8 @@ export const App: React.FC = () => {
   } | null>(null);
 
   const isLightMode = data.settings.theme === 'light';
+  const isPaired = Boolean(data.settings.scriptUrl && data.settings.passcode);
+  const myReadGuideIds = data.settings.readGuideIds?.[data.activeProfileId] ?? [];
 
   useEffect(() => {
     if (typeof document === 'undefined') return;
@@ -98,7 +101,10 @@ export const App: React.FC = () => {
         onSelectTab={handleSelectTab}
         activeProfile={data.activeProfile}
         streakCount={data.myStreak.currentStreak}
-        coupleStreakCount={data.coupleStreak.currentCoupleStreak}
+        myStudiedToday={data.myStreak.studiedToday}
+        sharedStreakCount={data.coupleStreak.currentCoupleStreak}
+        bothStudiedToday={data.coupleStreak.bothStudiedToday}
+        isPaired={isPaired}
         totalXp={data.myTotalXp}
         outboxCount={data.outboxCount}
         syncBadge={data.syncBadge}
@@ -132,7 +138,7 @@ export const App: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => void data.triggerSync()}
-                      className="rounded-lg bg-rose-700 px-2.5 py-1 text-[11px] font-bold text-white hover:bg-rose-600"
+                      className="autumn-btn-cranberry rounded-lg px-2.5 py-1 text-[11px] font-bold"
                     >
                       Retry Sync
                     </button>
@@ -165,20 +171,29 @@ export const App: React.FC = () => {
             activeProfile={data.activeProfile}
             partnerProfile={data.partnerProfile}
             myStreak={data.myStreak}
+            partnerStreak={data.partnerStreak}
             coupleStreak={data.coupleStreak}
+            isPaired={isPaired}
             dailyGoalXp={data.settings.dailyGoalXp}
             myTotalXp={data.myTotalXp}
-            partnerTotalXp={data.partnerTotalXp}
             examDate={data.settings.examDate}
-            dueFlashcardCount={data.dueFlashcardCount}
+            readGuideCount={myReadGuideIds.length}
+            dueQuestionCount={data.dueFlashcardCount}
             missedQuestionCount={data.missedQuestionIds.length}
             overallMasteryPercent={data.myMastery.overallPercent}
             recentSessions={data.testSessions}
             isLightMode={isLightMode}
             onNavigate={handleSelectTab}
+            onOpenStudyGuide={() => {
+              setStudyChapterFilter(null);
+              setStudyInitialSubTab('guides');
+              setAutoLaunchDeck(false);
+              handleSelectTab('study');
+            }}
             onOpenChapterProgress={() => setShowChapterProgressPage(true)}
-            onQuickStartFlashcards={(chapterId) => {
-              setFlashcardChapterFilter(chapterId ?? null);
+            onQuickStartSmartQuiz={(chapterId) => {
+              setStudyChapterFilter(chapterId ?? null);
+              setStudyInitialSubTab('quiz');
               setAutoLaunchDeck(true);
               handleSelectTab('study');
             }}
@@ -202,9 +217,16 @@ export const App: React.FC = () => {
             recentSessions={data.testSessions}
             isLightMode={isLightMode}
             onBack={() => setShowChapterProgressPage(false)}
-            onStartChapterFlashcards={(chapterId) => {
-              setFlashcardChapterFilter(chapterId);
+            onStartChapterPractice={(chapterId) => {
+              setStudyChapterFilter(chapterId);
+              setStudyInitialSubTab('quiz');
               setAutoLaunchDeck(true);
+              handleSelectTab('study');
+            }}
+            onOpenChapterGuide={(chapterId) => {
+              setStudyChapterFilter(chapterId);
+              setStudyInitialSubTab('guides');
+              setAutoLaunchDeck(false);
               handleSelectTab('study');
             }}
             onOpenExamsHistory={() => handleSelectTab('tests')}
@@ -214,13 +236,17 @@ export const App: React.FC = () => {
         {activeTab === 'study' && (
           <StudyView
             activeProfileId={data.activeProfileId}
-            allFlashcards={data.allFlashcards}
+            allQuestions={data.allQuestions}
+            readGuideIds={myReadGuideIds}
             srsMap={data.srsMap}
             chapterMasteries={data.myMastery.chapters}
-            initialChapterFilter={flashcardChapterFilter}
+            initialChapterFilter={studyChapterFilter}
+            initialSubTab={studyInitialSubTab}
             autoLaunchDeck={autoLaunchDeck}
-            onConsumeAutoLaunch={() => setAutoLaunchDeck(false)}
-            isLightMode={isLightMode}
+            onConsumeAutoLaunch={() => {
+              setAutoLaunchDeck(false);
+              setStudyInitialSubTab(null);
+            }}
           />
         )}
 
@@ -228,7 +254,6 @@ export const App: React.FC = () => {
           <TestsView
             activeProfileId={data.activeProfileId}
             allQuestions={data.allQuestions}
-            allFlashcards={data.allFlashcards}
             missedQuestionIds={data.missedQuestionIds}
             testSessions={data.testSessions}
             hydratingStandardPack={data.hydratingStandardPack}
@@ -268,9 +293,12 @@ export const App: React.FC = () => {
             partnerProfile={data.partnerProfile}
             myMastery={data.myMastery}
             partnerMastery={data.partnerMastery}
+            myStreak={data.myStreak}
+            partnerStreak={data.partnerStreak}
+            sharedStreak={data.coupleStreak}
+            dailyActivity={data.dailyActivity}
             myTotalXp={data.myTotalXp}
             partnerTotalXp={data.partnerTotalXp}
-            coupleStreakCount={data.coupleStreak.currentCoupleStreak}
             unlockedBadgeIds={data.myUnlockedBadges}
             outboxCount={data.outboxCount}
             syncError={data.syncError}
@@ -278,7 +306,8 @@ export const App: React.FC = () => {
             onDeviceReset={() => {
               data.clearSyncError();
               data.clearPairingNotice();
-              setFlashcardChapterFilter(null);
+              setStudyChapterFilter(null);
+              setStudyInitialSubTab(null);
               setAutoLaunchDeck(false);
               setAutoStartExamNumber(null);
               setAutoStartMistakes(false);

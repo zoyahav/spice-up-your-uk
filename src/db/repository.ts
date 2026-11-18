@@ -193,6 +193,83 @@ export async function recordFlashcardReview(
 }
 
 /**
+ * Records a 4-way choice SM-2 review, updating both SM-2 spaced repetition and question accuracy stats.
+ */
+export async function recordSmartQuestionReview(
+  profileId: ProfileId,
+  question: PracticeQuestion,
+  rating: SrsRating,
+  isCorrect: boolean,
+  database: SpiceUpUkDB = db,
+  now: Date = new Date(),
+): Promise<SrsCardState> {
+  const nowIso = now.toISOString();
+  const srsKey = makeProfileEntityKey(profileId, question.id);
+  const statKey = makeProfileEntityKey(profileId, question.id);
+  const xpEarned = isCorrect ? (rating === 'hard' ? 4 : 6) : 2;
+
+  return database.transaction(
+    'rw',
+    [database.srsProgress, database.questionStats, database.dailyActivity, database.syncOutbox],
+    async () => {
+      const prevSrs = await database.srsProgress.get(srsKey);
+      const nextSrs = scheduleNextSrsReview(prevSrs, profileId, question.id, rating, now);
+      await database.srsProgress.put(nextSrs);
+      await enqueueOutbox(database, 'srsProgress', srsKey, nextSrs, nextSrs.updatedAt);
+
+      const prevStat = await database.questionStats.get(statKey);
+      const nextStat: QuestionStatRecord = {
+        key: statKey,
+        profileId,
+        questionId: question.id,
+        chapterId: question.chapterId,
+        subtopicId: question.subtopicId,
+        attempts: (prevStat?.attempts ?? 0) + 1,
+        correct: (prevStat?.correct ?? 0) + (isCorrect ? 1 : 0),
+        lastWrong: !isCorrect,
+        lastAttemptAt: nowIso,
+        updatedAt: nowIso,
+      };
+      await database.questionStats.put(nextStat);
+      await enqueueOutbox(database, 'questionStats', statKey, nextStat, nowIso);
+
+      await addDailyXpAndCounts(
+        database,
+        profileId,
+        { xp: xpEarned, cardsReviewed: 1, questionsAnswered: 1 },
+        now,
+      );
+      return nextSrs;
+    },
+  );
+}
+
+export async function toggleStudyGuideSectionRead(
+  profileId: ProfileId,
+  sectionId: string,
+  forceRead?: boolean,
+  database: SpiceUpUkDB = db,
+): Promise<void> {
+  const current = await ensureAppSettings(database);
+  const existing = new Set(current.readGuideIds?.[profileId] ?? []);
+  const shouldBeRead = forceRead !== undefined ? forceRead : !existing.has(sectionId);
+  if (shouldBeRead) {
+    existing.add(sectionId);
+  } else {
+    existing.delete(sectionId);
+  }
+  await updateAppSettings(
+    {
+      readGuideIds: {
+        ...(current.readGuideIds ?? {}),
+        [profileId]: Array.from(existing),
+      },
+    },
+    database,
+  );
+}
+
+/**
  * Boosts a card into the immediate review queue (e.g. from "Boost in Flashcards" on a missed exam question).
  */
 export async function boostConceptCardInSrs(

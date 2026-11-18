@@ -23,7 +23,7 @@ export default defineConfig({
         name: 'Spice Up Your UK: Life in the UK Prep',
         short_name: 'SpiceUpUK',
         description:
-          'Offline-ready Life in the UK study companion with SM-2 flashcards, 18 standard practice exams, 17 bonus mock exams, visual aids, streaks, and couple sync.',
+          'Offline-ready Life in the UK study companion with chapter study guides, 4-choice spaced repetition, 18 standard practice exams, 17 bonus mock exams, visual aids, streaks, and two-player sync.',
         theme_color: '#251B16',
         background_color: '#1E1612',
         display: 'standalone',

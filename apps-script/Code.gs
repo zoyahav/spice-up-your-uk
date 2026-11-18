@@ -169,9 +169,9 @@ function jsonResponse(obj) {
 }
 
 /**
- * OPTIONAL DAILY COUPLE STREAK RESCUE TRIGGER:
- * In Apps Script -> Triggers (alarm clock icon), add a Time-driven Day timer (e.g. 8pm–9pm)
- * running `sendDailyStreakNudge`. Put each partner's email in Column D (`reminderEmail`) of the `Profiles` tab!
+ * OPTIONAL DAILY SHARED STREAK RESCUE TRIGGER:
+ * In Apps Script -> Triggers (alarm clock icon), add a Time-driven Day timer (e.g. 8pm-9pm)
+ * running `sendDailyStreakNudge`. Put each player's email in Column D (`reminderEmail`) of the `Profiles` tab!
  */
 function sendDailyStreakNudge() {
   var ss = SpreadsheetApp.getActiveSpreadsheet();

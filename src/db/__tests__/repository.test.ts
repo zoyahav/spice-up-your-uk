@@ -3,9 +3,10 @@ import { describe, expect, it } from 'vitest';
 import { SpiceUpUkDB } from '../schema';
 import {
   cacheLocalStandardPackRecords,
-  recordFlashcardReview,
+  recordSmartQuestionReview,
   resetLocalDeviceData,
   saveImportedCustomRecords,
+  toggleStudyGuideSectionRead,
   updateAppSettings,
   updateUserProfile,
 } from '../repository';
@@ -25,7 +26,23 @@ describe('Dexie Repository: Standard Pack Hydration & Safe Device Reset', () => 
       testDb,
     );
     await updateUserProfile('partner_b', { displayName: 'BiscuitTester' }, testDb);
-    await recordFlashcardReview('partner_b', 'fc-ch1-01', 'good', testDb);
+    await toggleStudyGuideSectionRead('partner_b', 'sg-ch1-principles', true, testDb);
+    await recordSmartQuestionReview(
+      'partner_b',
+      {
+        id: 'q-ex01-02',
+        chapterId: 'ch1',
+        subtopicId: 'ch1-citizenship',
+        type: 'single',
+        prompt: 'How many questions are in the test?',
+        options: ['18', '20', '24', '30'],
+        correctIndices: [2],
+        explanation: '24 questions.',
+      },
+      'good',
+      true,
+      testDb,
+    );
 
     // Legacy un-numbered std18 record + user custom card
     await testDb.customContent.put({

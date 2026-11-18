@@ -145,8 +145,10 @@ export function previewIntervalLabel(
 /**
  * Selects due + boosted + unseen flashcards for a study session.
  */
-export function selectStudyQueue(
-  allCards: readonly Flashcard[],
+export function selectStudyQueue<
+  T extends { readonly id: string; readonly chapterId: ChapterId; readonly subtopicId: SubtopicId },
+>(
+  allCards: readonly T[],
   srsMap: ReadonlyMap<string, SrsCardState>,
   profileId: ProfileId,
   options: {
@@ -157,7 +159,7 @@ export function selectStudyQueue(
     limit?: number;
   },
   now: Date = new Date(),
-): Flashcard[] {
+): T[] {
   const maxNew = options.maxNewCards ?? 15;
   const limit = options.limit ?? 30;
   const nowMs = now.getTime();
@@ -172,9 +174,9 @@ export function selectStudyQueue(
     return [...filtered].slice(0, limit);
   }
 
-  const boosted: Flashcard[] = [];
-  const due: { card: Flashcard; dueMs: number }[] = [];
-  const unseen: Flashcard[] = [];
+  const boosted: T[] = [];
+  const due: { card: T; dueMs: number }[] = [];
+  const unseen: T[] = [];
 
   for (const card of filtered) {
     const state = srsMap.get(makeProfileEntityKey(profileId, card.id));
@@ -223,14 +225,21 @@ export function computeSubjectMastery(params: {
 }): SubjectMasterySummary {
   const { id, title, cards, questions, srsMap, questionStatsMap, profileId } = params;
 
+  const hasLegacyCardSrs = cards.some((c) => srsMap.has(makeProfileEntityKey(profileId, c.id)));
+  const srsPool: readonly { readonly id: string }[] = hasLegacyCardSrs
+    ? cards
+    : questions.length > 0
+      ? questions
+      : cards;
+
   let cardsSeen = 0;
   let cardMaturitySum = 0;
 
-  for (const card of cards) {
-    const st = srsMap.get(makeProfileEntityKey(profileId, card.id));
+  for (const item of srsPool) {
+    const st = srsMap.get(makeProfileEntityKey(profileId, item.id));
     if (st) {
       cardsSeen += 1;
-      // Score each card 0..1 based on repetitions & interval
+      // Score each item 0..1 based on repetitions & interval
       if (st.repetitions === 0) {
         cardMaturitySum += 0.2;
       } else if (st.intervalDays >= 7) {
@@ -244,7 +253,7 @@ export function computeSubjectMastery(params: {
   }
 
   const cardRetentionPercent =
-    cards.length > 0 ? Math.round((cardMaturitySum / cards.length) * 100) : 0;
+    srsPool.length > 0 ? Math.round((cardMaturitySum / srsPool.length) * 100) : 0;
 
   let questionsAttempted = 0;
   let totalCorrectRatioSum = 0;
@@ -271,7 +280,7 @@ export function computeSubjectMastery(params: {
   const weightedQuestionScore = questionAccuracyPercent * (0.4 + 0.6 * questionCoverage);
 
   let masteryPercent = 0;
-  if (cards.length > 0 && questions.length > 0) {
+  if (srsPool.length > 0 && questions.length > 0) {
     masteryPercent = Math.round(cardRetentionPercent * 0.4 + weightedQuestionScore * 0.6);
   } else if (questions.length > 0) {
     masteryPercent = Math.round(weightedQuestionScore);
@@ -287,7 +296,7 @@ export function computeSubjectMastery(params: {
     masteryPercent,
     tier: masteryTierFromPercent(masteryPercent),
     cardsSeen,
-    totalCards: cards.length,
+    totalCards: srsPool.length,
     cardRetentionPercent,
     questionsAttempted,
     totalQuestions: questions.length,

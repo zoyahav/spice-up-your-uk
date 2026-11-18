@@ -638,11 +638,11 @@ export const ArcadeView: React.FC<ArcadeViewProps> = ({
         })}
       </section>
 
-      {/* Head-to-Head Async Couple Challenges */}
+      {/* Head-to-Head Async Showdowns */}
       <section className="autumn-card rounded-3xl p-4">
         <div className="flex items-center gap-2">
           <Swords className="accent-spice h-5 w-5" />
-          <h2 className="text-base font-black">2 Become 1: Partner Showdowns</h2>
+          <h2 className="text-base font-black">Head-to-Head Showdowns</h2>
         </div>
         <p className="autumn-muted mt-1 text-xs">
           Generate an identical question seed synced through your Google Sheet so you both play on your

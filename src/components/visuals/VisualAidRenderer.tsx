@@ -1,5 +1,5 @@
 import React from 'react';
-import type { VisualAidId } from '../../types/domain';
+import type { SubtopicId, VisualAidId } from '../../types/domain';
 import { UnionJackDiagram } from './UnionJackDiagram';
 import { UkNationsMap } from './UkNationsMap';
 import { NationalEmblemsGrid } from './NationalEmblemsGrid';
@@ -9,7 +9,8 @@ import { HistoryTimelineDiagram } from './HistoryTimelineDiagram';
 export const VisualAidRenderer: React.FC<{
   visualId: VisualAidId;
   compact?: boolean;
-}> = ({ visualId, compact = false }) => {
+  highlightSubtopicId?: SubtopicId;
+}> = ({ visualId, compact = false, highlightSubtopicId }) => {
   switch (visualId) {
     case 'union-jack':
       return <UnionJackDiagram compact={compact} />;
@@ -20,6 +21,11 @@ export const VisualAidRenderer: React.FC<{
     case 'parliament-courts':
       return <ParliamentCourtsDiagram compact={compact} />;
     case 'history-timeline':
-      return <HistoryTimelineDiagram />;
+      return (
+        <HistoryTimelineDiagram
+          compact={compact}
+          highlightSubtopicId={highlightSubtopicId}
+        />
+      );
   }
 };

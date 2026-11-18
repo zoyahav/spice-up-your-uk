@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowLeft, ShieldCheck, Trophy } from 'lucide-react';
+import { ArrowLeft, BookOpen, ShieldCheck, Trophy } from 'lucide-react';
 import { CHAPTERS } from '../data/syllabus';
 import { ProgressBar } from '../components/ui/ProgressBar';
 import type {
@@ -17,7 +17,8 @@ interface ChapterProgressViewProps {
   recentSessions: readonly TestSessionRecord[];
   isLightMode: boolean;
   onBack: () => void;
-  onStartChapterFlashcards: (chapterId: ChapterId) => void;
+  onStartChapterPractice: (chapterId: ChapterId) => void;
+  onOpenChapterGuide: (chapterId: ChapterId) => void;
   onOpenExamsHistory: () => void;
 }
 
@@ -28,7 +29,8 @@ export const ChapterProgressView: React.FC<ChapterProgressViewProps> = ({
   overallMasteryPercent,
   recentSessions,
   onBack,
-  onStartChapterFlashcards,
+  onStartChapterPractice,
+  onOpenChapterGuide,
   onOpenExamsHistory,
 }) => {
   return (
@@ -51,7 +53,7 @@ export const ChapterProgressView: React.FC<ChapterProgressViewProps> = ({
       <section className="autumn-card rounded-3xl p-4">
         <h1 className="text-base font-black">Chapter Progress &amp; Mastery</h1>
         <p className="autumn-muted mt-0.5 text-xs">
-          Tap any chapter below to launch a focused SM-2 flashcard session.
+          Read each chapter’s study guide first, or jump straight into 4-way choice practice.
         </p>
 
         <div className="mt-3.5 space-y-3">
@@ -59,13 +61,11 @@ export const ChapterProgressView: React.FC<ChapterProgressViewProps> = ({
             const m = chapterMasteries.find((cm) => cm.id === ch.id);
             const pct = m?.masteryPercent ?? 0;
             return (
-              <button
+              <div
                 key={ch.id}
-                type="button"
-                onClick={() => onStartChapterFlashcards(ch.id)}
-                className="autumn-inset block w-full rounded-2xl p-3 text-left transition hover:border-orange-500/45"
+                className="autumn-inset space-y-2 rounded-2xl p-3"
               >
-                <div className="mb-1.5 flex items-center justify-between gap-2">
+                <div className="flex items-center justify-between gap-2">
                   <span className="text-xs font-extrabold">
                     Ch {ch.number}: {ch.shortTitle}
                   </span>
@@ -77,15 +77,30 @@ export const ChapterProgressView: React.FC<ChapterProgressViewProps> = ({
                   </div>
                 </div>
                 <ProgressBar percent={pct} heightClass="h-2" />
-                <div className="autumn-muted mt-1.5 flex items-center justify-between text-[11px]">
+                <div className="autumn-muted flex items-center justify-between text-[11px]">
                   <span>
-                    🃏 {m?.cardsSeen ?? 0}/{m?.totalCards ?? 0} cards seen
+                    📝 {m?.questionsAttempted ?? 0}/{m?.totalQuestions ?? 0} questions practised
                   </span>
-                  <span>
-                    📝 {m?.questionAccuracyPercent ?? 0}% quiz acc ({m?.questionsAttempted ?? 0} Qs)
-                  </span>
+                  <span>{m?.questionAccuracyPercent ?? 0}% accuracy</span>
                 </div>
-              </button>
+                <div className="flex gap-2 pt-0.5">
+                  <button
+                    type="button"
+                    onClick={() => onOpenChapterGuide(ch.id)}
+                    className="autumn-pill inline-flex flex-1 items-center justify-center gap-1 rounded-xl py-1.5 text-xs font-bold transition"
+                  >
+                    <BookOpen className="h-3.5 w-3.5" />
+                    <span>Read Guide</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => onStartChapterPractice(ch.id)}
+                    className="autumn-btn-primary flex-1 rounded-xl py-1.5 text-xs font-bold transition"
+                  >
+                    4-Choice Practice →
+                  </button>
+                </div>
+              </div>
             );
           })}
         </div>
@@ -123,7 +138,7 @@ export const ChapterProgressView: React.FC<ChapterProgressViewProps> = ({
                         : s.mode === 'mistakes'
                           ? 'Mistakes Drill'
                           : s.mode === 'challenge'
-                            ? 'Couple Challenge'
+                            ? 'Head-to-Head Duel'
                             : 'Topic Quiz'}
                     </p>
                     <p className="autumn-muted text-[11px]">

@@ -20,7 +20,6 @@ import { SPICE_PASS_QUOTES, SPICE_RETRY_QUOTES } from '../constants/spiceTheme';
 import {
   boostConceptCardInSrs,
   recordCompletedTestSession,
-  saveImportedCustomRecords,
 } from '../db/repository';
 import { Button } from '../components/ui/Button';
 import { ProgressBar } from '../components/ui/ProgressBar';
@@ -28,7 +27,6 @@ import { VisualAidRenderer } from '../components/visuals/VisualAidRenderer';
 import type {
   AnsweredQuestionRecord,
   ChapterId,
-  Flashcard,
   PracticeQuestion,
   ProfileId,
   TestSessionMode,
@@ -40,7 +38,6 @@ type TestsSubTab = 'official18' | 'spice17' | 'drills' | 'history';
 interface TestsViewProps {
   activeProfileId: ProfileId;
   allQuestions: readonly PracticeQuestion[];
-  allFlashcards: readonly Flashcard[];
   missedQuestionIds: readonly string[];
   testSessions: readonly TestSessionRecord[];
   hydratingStandardPack?: boolean;
@@ -69,7 +66,6 @@ function formatExamLabel(examNumber?: number): string {
 export const TestsView: React.FC<TestsViewProps> = ({
   activeProfileId,
   allQuestions,
-  allFlashcards,
   missedQuestionIds,
   testSessions,
   hydratingStandardPack = false,
@@ -272,37 +268,7 @@ export const TestsView: React.FC<TestsViewProps> = ({
   };
 
   const handleBoostQuestionToFlashcards = async (q: PracticeQuestion) => {
-    const existingCard = allFlashcards.find(
-      (c) => c.subtopicId === q.subtopicId && c.front.toLowerCase() === q.prompt.toLowerCase(),
-    );
-    if (existingCard) {
-      await boostConceptCardInSrs(activeProfileId, existingCard.id);
-    } else {
-      const cardId = `boost-fc-${q.id}`;
-      const rightText = q.correctIndices.map((idx) => q.options[idx]).join(' • ');
-      const card: Flashcard = {
-        id: cardId,
-        chapterId: q.chapterId,
-        subtopicId: q.subtopicId,
-        front: q.prompt,
-        back: `${rightText}: ${q.explanation}`,
-        memoryHook: q.memoryHook,
-        visualId: q.visualId,
-        isCustom: true,
-      };
-      await saveImportedCustomRecords([
-        {
-          itemId: cardId,
-          kind: 'flashcard',
-          chapterId: q.chapterId,
-          subtopicId: q.subtopicId,
-          payloadJson: JSON.stringify(card),
-          active: true,
-          updatedAt: new Date().toISOString(),
-        },
-      ]);
-      await boostConceptCardInSrs(activeProfileId, cardId);
-    }
+    await boostConceptCardInSrs(activeProfileId, q.id);
     setBoostedIds((prev) => new Set(prev).add(q.id));
   };
 
@@ -444,7 +410,7 @@ export const TestsView: React.FC<TestsViewProps> = ({
                     </div>
                   )}
 
-                  {q.visualId && <VisualAidRenderer visualId={q.visualId} compact />}
+                  {q.visualId && <VisualAidRenderer visualId={q.visualId} compact highlightSubtopicId={q.subtopicId} />}
 
                   <div className="pt-1">
                     <Button
@@ -455,7 +421,7 @@ export const TestsView: React.FC<TestsViewProps> = ({
                     >
                       <Bookmark className="h-3.5 w-3.5" />
                       <span>
-                        {isBoosted ? 'Added to Priority Flashcards ✓' : 'Boost in Flashcards'}
+                        {isBoosted ? 'Added to Priority 4-Choice Review ✓' : 'Boost in 4-Choice Review'}
                       </span>
                     </Button>
                   </div>
@@ -615,7 +581,7 @@ export const TestsView: React.FC<TestsViewProps> = ({
                   <strong>Memory Tip:</strong> {q.memoryHook}
                 </div>
               )}
-              {q.visualId && <VisualAidRenderer visualId={q.visualId} compact />}
+              {q.visualId && <VisualAidRenderer visualId={q.visualId} compact highlightSubtopicId={q.subtopicId} />}
             </div>
           )}
         </div>
@@ -1037,7 +1003,7 @@ export const TestsView: React.FC<TestsViewProps> = ({
                           : s.mode === 'mistakes'
                             ? 'Mistakes Drill'
                             : s.mode === 'challenge'
-                              ? 'Couple Challenge'
+                              ? 'Head-to-Head Duel'
                               : `Chapter Drill (${s.chapterId?.toUpperCase() ?? ''})`}
                       </p>
                       <p className="autumn-muted text-[11px]">

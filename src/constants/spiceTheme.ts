@@ -85,8 +85,8 @@ export const SPICE_BADGES: readonly AchievementBadge[] = [
   {
     id: 'two-become-one',
     title: '2 Become 1 Streak',
-    description: 'Build a 3-day shared Couple Streak together.',
-    emoji: '💞',
+    description: 'Build a 3-day shared Team Streak together.',
+    emoji: '🤝',
   },
   {
     id: 'viva-forever',
@@ -109,7 +109,7 @@ export const SPICE_BADGES: readonly AchievementBadge[] = [
   {
     id: 'deck-dynamo',
     title: 'Stop Right Now!',
-    description: 'Review 50+ flashcards in your Spaced Repetition deck.',
+    description: 'Complete 50+ smart 4-choice spaced-repetition reviews.',
     emoji: '🃏',
   },
 ];
@@ -117,11 +117,11 @@ export const SPICE_BADGES: readonly AchievementBadge[] = [
 export const SPICE_PEP_TALKS: readonly string[] = [
   "So tell me what you want, what you really, really want: 24 out of 24! 🎤",
   "Colours of the world, Spice Up Your UK! Ready for a quick Tube round? 🇬🇧",
-  "2 Become 1... British citizenship study team! Check how your partner is doing. 💞",
-  "Stop right now, thank you very much: time for 5 quick flashcards! ✨",
+  "2 Become 1... British citizenship study team! Check how your teammate is doing. 🤝",
+  "Stop right now, thank you very much: time for 5 quick 4-choice questions! ✨",
   "Say you'll be there... at the test centre with your eVisa share code ready! 📋",
   "Who do you think you are? Soon-to-be Life in the UK exam royalty! 👑",
-  "Viva Forever: every flashcard you rate 'Good' locks dates into long-term memory. 🧠",
+  "Viva Forever: spaced repetition locks tricky dates into long-term recognition. 🧠",
 ];
 
 export const SPICE_PASS_QUOTES: readonly string[] = [
@@ -132,8 +132,8 @@ export const SPICE_PASS_QUOTES: readonly string[] = [
 ];
 
 export const SPICE_RETRY_QUOTES: readonly string[] = [
-  "Never give up on the good times! Check the Memory Hooks below and go again! 💪",
-  "Too Much tricky Tudor trivia? Boost missed questions to Flashcards! 🃏",
+  "Never give up on the good times! Check the Memory Tips below and go again! 💪",
+  "Too Much tricky Tudor trivia? Boost missed questions into 4-Choice Review! 🎯",
   "Step to the left, shake it to the right: every mistake now is one less on test day! 🌟",
 ];
 

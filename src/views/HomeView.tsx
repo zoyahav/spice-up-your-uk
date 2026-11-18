@@ -4,17 +4,22 @@ import {
   BarChart3,
   BookOpen,
   CalendarClock,
+  CheckCircle2,
   ChevronRight,
+  Circle,
   ClipboardCheck,
   Download,
   Gamepad2,
-  HeartHandshake,
+  Layers,
   Sparkles,
+  Users,
   X,
 } from 'lucide-react';
 import { getRankForXp } from '../constants/spiceTheme';
+import { STUDY_SECTIONS } from '../data/studyGuides';
 import type { NavTab } from '../components/layout/AppShell';
 import { Button } from '../components/ui/Button';
+import { ProfileAvatar } from '../components/ui/ProfileAvatar';
 import { usePwaInstall } from '../hooks/usePwaInstall';
 import type { StreakSummary } from '../services/streaks';
 import type {
@@ -27,6 +32,7 @@ interface HomeViewProps {
   activeProfile: UserProfile;
   partnerProfile: UserProfile;
   myStreak: StreakSummary;
+  partnerStreak: StreakSummary;
   coupleStreak: {
     currentCoupleStreak: number;
     longestCoupleStreak: number;
@@ -34,18 +40,20 @@ interface HomeViewProps {
     partnerAStudiedToday: boolean;
     partnerBStudiedToday: boolean;
   };
+  isPaired: boolean;
   dailyGoalXp: number;
   myTotalXp: number;
-  partnerTotalXp: number;
   examDate: string | null;
-  dueFlashcardCount: number;
+  readGuideCount: number;
+  dueQuestionCount: number;
   missedQuestionCount: number;
   overallMasteryPercent: number;
   recentSessions: readonly TestSessionRecord[];
   isLightMode: boolean;
   onNavigate: (tab: NavTab) => void;
+  onOpenStudyGuide: () => void;
   onOpenChapterProgress: () => void;
-  onQuickStartFlashcards: (chapterId?: ChapterId) => void;
+  onQuickStartSmartQuiz: (chapterId?: ChapterId) => void;
   onQuickStartMockExam: (examNumber?: number) => void;
   onQuickStartMistakes: () => void;
 }
@@ -54,19 +62,22 @@ export const HomeView: React.FC<HomeViewProps> = ({
   activeProfile,
   partnerProfile,
   myStreak,
+  partnerStreak,
   coupleStreak,
+  isPaired,
   dailyGoalXp,
   myTotalXp,
-  partnerTotalXp,
   examDate,
-  dueFlashcardCount,
+  readGuideCount,
+  dueQuestionCount,
   missedQuestionCount,
   overallMasteryPercent,
   recentSessions,
   isLightMode,
   onNavigate,
+  onOpenStudyGuide,
   onOpenChapterProgress,
-  onQuickStartFlashcards,
+  onQuickStartSmartQuiz,
   onQuickStartMockExam,
   onQuickStartMistakes,
 }) => {
@@ -114,6 +125,16 @@ export const HomeView: React.FC<HomeViewProps> = ({
     100,
     Math.round((myStreak.todayXp / Math.max(1, dailyGoalXp)) * 100),
   );
+
+  const sharedStreakMessage = !isPaired
+    ? 'Pair your shared Google Sheet in Us so both phones track daily practice.'
+    : coupleStreak.bothStudiedToday
+      ? `Locked in for today! Both of you practiced (${coupleStreak.currentCoupleStreak}d shared streak).`
+      : myStreak.studiedToday
+        ? `You practiced today! Shared streak (${coupleStreak.currentCoupleStreak}d) grows once ${partnerProfile.displayName} practices.`
+        : partnerStreak.studiedToday
+          ? `${partnerProfile.displayName} already practiced today! Do 1 quick round to extend your ${coupleStreak.currentCoupleStreak}d shared streak.`
+          : `Shared streak: ${coupleStreak.currentCoupleStreak}d (grows on days when BOTH of you practice).`;
 
   return (
     <div className="space-y-4">
@@ -211,23 +232,21 @@ export const HomeView: React.FC<HomeViewProps> = ({
         </section>
       )}
 
-      {/* 2. Primary Action Buttons */}
+      {/* 2. Primary Action Buttons: Learn First (Study Guide) + Take Mock Exam */}
       <section className="grid grid-cols-2 gap-2.5">
         <Button
           variant="primary"
           size="lg"
           fullWidth
-          onClick={() => onQuickStartFlashcards()}
+          onClick={onOpenStudyGuide}
           className="flex-col py-4 text-center"
         >
           <div className="flex items-center gap-1.5">
             <BookOpen className="h-4 w-4" />
-            <span>Flashcards</span>
+            <span>Study Guide</span>
           </div>
           <span className="text-[11px] font-semibold opacity-90">
-            {dueFlashcardCount > 0
-              ? `${dueFlashcardCount} due right now`
-              : 'Smart SM-2 deck'}
+            {readGuideCount}/{STUDY_SECTIONS.length} lessons read
           </span>
         </Button>
 
@@ -248,8 +267,115 @@ export const HomeView: React.FC<HomeViewProps> = ({
         </Button>
       </section>
 
-      {/* 3. Clean Page Links to Dedicated Sub-Pages & Tabs */}
+      {/* 3. Live Today's Practice & Streak Tracker (Clear Status for Both Players) */}
+      <button
+        type="button"
+        onClick={() => onNavigate('us')}
+        className="autumn-card block w-full space-y-2.5 rounded-2xl p-3.5 text-left transition hover:border-orange-500/50"
+      >
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center gap-1.5 text-xs font-extrabold">
+            <Users className="accent-spice h-4 w-4" />
+            <span>Today’s Practice &amp; Streaks</span>
+          </div>
+          <span className="autumn-muted inline-flex items-center gap-0.5 text-[11px] font-semibold">
+            <span>Details</span>
+            <ChevronRight className="h-3.5 w-3.5" />
+          </span>
+        </div>
+
+        <div className="grid grid-cols-2 gap-2">
+          {/* Your Today Status */}
+          <div
+            className={`rounded-xl p-2.5 text-xs ${
+              myStreak.studiedToday ? 'callout-emerald' : 'autumn-inset'
+            }`}
+          >
+            <div className="flex items-center justify-between gap-1">
+              <span className="inline-flex min-w-0 items-center gap-1.5 font-extrabold">
+                <ProfileAvatar avatar={activeProfile.avatarEmoji} sizeClass="text-sm" />
+                <span className="truncate">{activeProfile.displayName}</span>
+              </span>
+              <span className="shrink-0 text-[11px] font-bold">🔥 {myStreak.currentStreak}d</span>
+            </div>
+            <p className="mt-1 flex items-center gap-1 text-[11px] font-semibold">
+              {myStreak.studiedToday ? (
+                <>
+                  <CheckCircle2 className="accent-emerald h-3.5 w-3.5 shrink-0" />
+                  <span>Done today (+{myStreak.todayXp} XP)</span>
+                </>
+              ) : (
+                <>
+                  <Circle className="autumn-muted h-3.5 w-3.5 shrink-0" />
+                  <span className="autumn-muted">Not practiced today</span>
+                </>
+              )}
+            </p>
+          </div>
+
+          {/* Teammate Today Status */}
+          <div
+            className={`rounded-xl p-2.5 text-xs ${
+              isPaired && partnerStreak.studiedToday ? 'callout-emerald' : 'autumn-inset'
+            }`}
+          >
+            <div className="flex items-center justify-between gap-1">
+              <span className="inline-flex min-w-0 items-center gap-1.5 font-extrabold">
+                <ProfileAvatar avatar={partnerProfile.avatarEmoji} sizeClass="text-sm" />
+                <span className="truncate">{partnerProfile.displayName}</span>
+              </span>
+              {isPaired && (
+                <span className="shrink-0 text-[11px] font-bold">
+                  🔥 {partnerStreak.currentStreak}d
+                </span>
+              )}
+            </div>
+            <p className="mt-1 flex items-center gap-1 text-[11px] font-semibold">
+              {!isPaired ? (
+                <span className="autumn-muted">Sync not paired yet</span>
+              ) : partnerStreak.studiedToday ? (
+                <>
+                  <CheckCircle2 className="accent-emerald h-3.5 w-3.5 shrink-0" />
+                  <span>Done today (+{partnerStreak.todayXp} XP)</span>
+                </>
+              ) : (
+                <>
+                  <Circle className="autumn-muted h-3.5 w-3.5 shrink-0" />
+                  <span className="autumn-muted">Not practiced today</span>
+                </>
+              )}
+            </p>
+          </div>
+        </div>
+
+        <p className="autumn-muted text-[11px] leading-snug">
+          🤝 {sharedStreakMessage}
+        </p>
+      </button>
+
+      {/* 4. Clean Page Links to 4-Choice Practice, Progress & Arcade */}
       <section className="space-y-2.5">
+        <button
+          type="button"
+          onClick={() => onQuickStartSmartQuiz()}
+          className="autumn-card flex w-full items-center justify-between gap-3 rounded-2xl p-3.5 text-left transition hover:border-orange-500/50"
+        >
+          <div className="flex items-center gap-3">
+            <div className="callout-spice flex h-10 w-10 shrink-0 items-center justify-center rounded-xl">
+              <Layers className="accent-spice h-5 w-5" />
+            </div>
+            <div>
+              <p className="text-sm font-extrabold">4-Choice Smart Practice</p>
+              <p className="autumn-muted text-xs">
+                {dueQuestionCount > 0
+                  ? `${dueQuestionCount} due for review • 4-way choice spaced repetition`
+                  : 'Spaced-repetition 4-way choice questions'}
+              </p>
+            </div>
+          </div>
+          <ChevronRight className="autumn-muted h-4 w-4 shrink-0" />
+        </button>
+
         <button
           type="button"
           onClick={onOpenChapterProgress}
@@ -302,27 +428,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
             <div>
               <p className="text-sm font-extrabold">Tube Arcade</p>
               <p className="autumn-muted text-xs">
-                60s Blitz, Timeline Sort, Fact Match &amp; Duels
-              </p>
-            </div>
-          </div>
-          <ChevronRight className="autumn-muted h-4 w-4 shrink-0" />
-        </button>
-
-        <button
-          type="button"
-          onClick={() => onNavigate('us')}
-          className="autumn-card flex w-full items-center justify-between gap-3 rounded-2xl p-3.5 text-left transition hover:border-orange-500/50"
-        >
-          <div className="flex items-center gap-3">
-            <div className="callout-spice flex h-10 w-10 shrink-0 items-center justify-center rounded-xl">
-              <HeartHandshake className="accent-spice h-5 w-5" />
-            </div>
-            <div>
-              <p className="text-sm font-extrabold">Streaks, Team &amp; Sync</p>
-              <p className="autumn-muted text-xs">
-                🔥 {myStreak.currentStreak}d streak • 💞 {coupleStreak.currentCoupleStreak}d shared •{' '}
-                {partnerProfile.displayName}: {partnerTotalXp} XP
+                60s Blitz, Timeline Drag-Sort, Fact Match &amp; Duels
               </p>
             </div>
           </div>

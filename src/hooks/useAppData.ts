@@ -308,14 +308,14 @@ export function useAppData() {
   const dueFlashcardCount = useMemo(() => {
     const nowMs = Date.now();
     let due = 0;
-    for (const card of allFlashcards) {
-      const st = srsMap.get(makeProfileEntityKey(activeProfileId, card.id));
+    for (const q of allQuestions) {
+      const st = srsMap.get(makeProfileEntityKey(activeProfileId, q.id));
       if (st && (st.boosted || Date.parse(st.dueAt) <= nowMs)) {
         due += 1;
       }
     }
     return due;
-  }, [allFlashcards, srsMap, activeProfileId]);
+  }, [allQuestions, srsMap, activeProfileId]);
 
   const missedQuestionIds = useMemo(() => {
     return allQuestions

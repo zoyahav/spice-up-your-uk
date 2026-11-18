@@ -67,6 +67,7 @@ export interface StudySection {
   readonly chapterId: ChapterId;
   readonly subtopicId: SubtopicId;
   readonly title: string;
+  readonly summary?: string;
   readonly keyFacts: readonly string[];
   readonly memoryHook?: string;
   readonly visualId?: VisualAidId;
@@ -224,6 +225,7 @@ export interface AppSettings {
   readonly examDate: string | null;
   readonly theme: ThemePreference;
   readonly reminders: ReminderSettings;
+  readonly readGuideIds?: Partial<Record<ProfileId, readonly string[]>>;
 }
 
 export type SyncTableName =

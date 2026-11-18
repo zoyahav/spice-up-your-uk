@@ -77,9 +77,9 @@ export const COMMUNITY_RESOURCES: readonly CommunityResource[] = [
     url: 'https://www.reddit.com/r/SkilledWorkerVisaUK/search/?q=life+in+the+uk&restrict_sr=1',
     badge: 'Community',
     summary:
-      'Timeline advice for Skilled Worker → ILR applicants preparing alongside partner/dependant applications.',
+      'Timeline advice for Skilled Worker → ILR applicants preparing alongside dependant applications.',
     spiceTip:
-      'Both main applicant and dependant partner need their own pass reference number for ILR, hence our 2 Become 1 mode!',
+      'Every adult applicant needs their own Life in the UK pass reference number for ILR, hence our shared 2-player mode!',
   },
   {
     id: 'reddit-ilruk',

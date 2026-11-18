@@ -6,11 +6,11 @@ import {
   CloudOff,
   Flame,
   Gamepad2,
-  HeartHandshake,
   Home,
   RefreshCw,
   Sun,
   Moon,
+  Users,
   WifiOff,
 } from 'lucide-react';
 import type { SyncBadgeState } from '../../hooks/useAppData';
@@ -24,7 +24,10 @@ interface AppShellProps {
   onSelectTab: (tab: NavTab) => void;
   activeProfile: UserProfile;
   streakCount: number;
-  coupleStreakCount: number;
+  myStudiedToday: boolean;
+  sharedStreakCount: number;
+  bothStudiedToday: boolean;
+  isPaired: boolean;
   totalXp: number;
   outboxCount: number;
   syncBadge: SyncBadgeState;
@@ -40,7 +43,10 @@ export const AppShell: React.FC<AppShellProps> = ({
   onSelectTab,
   activeProfile,
   streakCount,
-  coupleStreakCount,
+  myStudiedToday,
+  sharedStreakCount,
+  bothStudiedToday,
+  isPaired,
   totalXp,
   outboxCount,
   syncBadge,
@@ -60,7 +66,7 @@ export const AppShell: React.FC<AppShellProps> = ({
     },
     { id: 'tests', label: 'Exams', icon: <ClipboardCheck className="h-5 w-5" /> },
     { id: 'arcade', label: 'Arcade', icon: <Gamepad2 className="h-5 w-5" /> },
-    { id: 'us', label: 'Us', icon: <HeartHandshake className="h-5 w-5" /> },
+    { id: 'us', label: 'Us', icon: <Users className="h-5 w-5" /> },
   ];
 
   return (
@@ -102,7 +108,7 @@ export const AppShell: React.FC<AppShellProps> = ({
               title="Team scoreboard & sync settings"
             >
               <ProfileAvatar avatar={activeProfile.avatarEmoji} sizeClass="text-base" />
-              <span className="max-w-[78px] truncate text-xs font-extrabold">
+              <span className="max-w-[76px] truncate text-xs font-extrabold">
                 {activeProfile.displayName}
               </span>
             </button>
@@ -110,25 +116,41 @@ export const AppShell: React.FC<AppShellProps> = ({
 
           {/* Streaks & XP */}
           <div className="flex items-center gap-1.5">
-            <div
-              className="callout-amber flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-extrabold"
-              title="Your Daily Streak"
+            <button
+              type="button"
+              onClick={() => onSelectTab('us')}
+              className={`flex items-center gap-1 rounded-full px-2 py-1 text-xs font-extrabold transition ${
+                myStudiedToday ? 'callout-emerald' : 'callout-amber'
+              }`}
+              title={
+                myStudiedToday
+                  ? `Personal streak: ${streakCount}d (practiced today ✓)`
+                  : `Personal streak: ${streakCount}d (not practiced today yet)`
+              }
             >
               <Flame className="accent-amber h-3.5 w-3.5 fill-current" />
               <span>{streakCount}</span>
-            </div>
+            </button>
 
-            {coupleStreakCount > 0 && (
-              <div
-                className="callout-spice flex items-center gap-1 rounded-full px-2 py-1 text-xs font-extrabold"
-                title="2 Become 1 Couple Streak"
+            {(isPaired || sharedStreakCount > 0) && (
+              <button
+                type="button"
+                onClick={() => onSelectTab('us')}
+                className={`flex items-center gap-1 rounded-full px-2 py-1 text-xs font-extrabold transition ${
+                  bothStudiedToday ? 'callout-emerald' : 'callout-spice'
+                }`}
+                title={
+                  bothStudiedToday
+                    ? `Shared streak: ${sharedStreakCount}d (both practiced today ✓)`
+                    : `Shared streak: ${sharedStreakCount}d (tap Us to see today's status)`
+                }
               >
-                <span>💞</span>
-                <span>{coupleStreakCount}</span>
-              </div>
+                <span>🤝</span>
+                <span>{sharedStreakCount}</span>
+              </button>
             )}
 
-            <div className="callout-amber rounded-full px-2.5 py-1 text-xs font-extrabold">
+            <div className="callout-amber rounded-full px-2 py-1 text-xs font-extrabold">
               {totalXp} XP
             </div>
           </div>
@@ -193,7 +215,7 @@ export const AppShell: React.FC<AppShellProps> = ({
               onClick={onToggleTheme}
               className="autumn-back-btn rounded-full p-1.5 transition"
               aria-label="Toggle theme"
-              title={isLightMode ? 'Switch to Warm Espresso Dark Mode' : 'Switch to Warm Autumn Light Mode'}
+              title={isLightMode ? 'Switch to Cozy Dark Mode' : 'Switch to Cozy Light Mode'}
             >
               {isLightMode ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
             </button>
@@ -230,7 +252,7 @@ export const AppShell: React.FC<AppShellProps> = ({
                 <div className="relative">
                   {item.icon}
                   {item.badge !== undefined && (
-                    <span className="absolute -top-1.5 -right-2.5 rounded-full bg-orange-600 px-1.5 text-[10px] leading-4 font-extrabold text-white">
+                    <span className="absolute -top-1.5 -right-2.5 rounded-full bg-orange-600 px-1.5 text-[10px] leading-4 font-extrabold text-[#FAF1E6]">
                       {item.badge > 99 ? '99+' : item.badge}
                     </span>
                   )}
