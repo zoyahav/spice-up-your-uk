@@ -1070,28 +1070,61 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
           />
         </div>
 
-        <div className="autumn-inset flex items-center justify-between gap-3 rounded-2xl p-3 text-xs">
-          <div className="min-w-0 flex-1">
-            <p className="flex items-center gap-1.5 font-extrabold">
-              <BionicReadingIcon className="accent-spice h-4 w-4 shrink-0" />
-              <span>Bionic Reading Mode</span>
-            </p>
-            <p className="autumn-muted mt-0.5 text-[11px] leading-relaxed">
-              <BionicText text="Highlights the start of each word so your eyes glide faster through study guides, questions, and explanations." />
-            </p>
+        <div className="autumn-inset space-y-2.5 rounded-2xl p-3 text-xs">
+          <div className="flex items-center justify-between gap-3">
+            <div className="min-w-0 flex-1">
+              <p className="flex items-center gap-1.5 font-extrabold">
+                <BionicReadingIcon className="accent-spice h-4 w-4 shrink-0" />
+                <span>Bionic Reading Mode</span>
+              </p>
+              <p className="autumn-muted mt-0.5 text-[11px] leading-relaxed">
+                <BionicText text="Highlights the start of each word so your eyes glide faster through study guides, questions, and explanations." />
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => void updateAppSettings({ bionicReading: !settings.bionicReading })}
+              aria-pressed={Boolean(settings.bionicReading)}
+              className={`shrink-0 rounded-xl px-3 py-1.5 text-xs font-extrabold transition ${
+                settings.bionicReading
+                  ? 'callout-spice ring-1 ring-orange-500/60'
+                  : 'autumn-pill'
+              }`}
+            >
+              {settings.bionicReading ? 'On' : 'Off'}
+            </button>
           </div>
-          <button
-            type="button"
-            onClick={() => void updateAppSettings({ bionicReading: !settings.bionicReading })}
-            aria-pressed={Boolean(settings.bionicReading)}
-            className={`shrink-0 rounded-xl px-3 py-1.5 text-xs font-extrabold transition ${
-              settings.bionicReading
-                ? 'callout-spice ring-1 ring-orange-500/60'
-                : 'autumn-pill'
-            }`}
-          >
-            {settings.bionicReading ? 'On' : 'Off'}
-          </button>
+
+          <div className="flex items-center justify-between gap-2 border-t border-amber-900/15 pt-2">
+            <span className="autumn-muted text-[11px] font-bold">Highlight style:</span>
+            <div className="flex items-center gap-1.5">
+              {(
+                [
+                  ['two-letters', 'First 2 letters'],
+                  ['adaptive', 'Adaptive'],
+                ] as const
+              ).map(([styleId, label]) => {
+                const active = (settings.bionicStyle ?? 'adaptive') === styleId;
+                return (
+                  <button
+                    key={styleId}
+                    type="button"
+                    onClick={() =>
+                      void updateAppSettings({
+                        bionicStyle: styleId,
+                        bionicReading: true,
+                      })
+                    }
+                    className={`rounded-lg px-2.5 py-1 text-[11px] font-bold transition ${
+                      active ? 'callout-spice ring-1 ring-orange-500/55' : 'autumn-pill'
+                    }`}
+                  >
+                    {label}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
         </div>
 
         <Button variant="ghost" size="sm" fullWidth onClick={() => void handleExportBackup()}>

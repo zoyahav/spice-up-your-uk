@@ -41,6 +41,7 @@ export const App: React.FC = () => {
 
   const isLightMode = data.settings.theme === 'light';
   const isBionicReading = Boolean(data.settings.bionicReading);
+  const bionicStyle = data.settings.bionicStyle ?? 'adaptive';
   const isPaired = Boolean(data.settings.scriptUrl && data.settings.passcode);
   const myReadGuideIds = data.settings.readGuideIds?.[data.activeProfileId] ?? [];
   const myLastGuideSectionId = data.settings.lastGuideSectionId?.[data.activeProfileId] ?? null;
@@ -88,7 +89,11 @@ export const App: React.FC = () => {
     !isRunningStandalone();
 
   return (
-    <BionicReadingProvider enabled={isBionicReading} onToggle={handleToggleBionicReading}>
+    <BionicReadingProvider
+      enabled={isBionicReading}
+      style={bionicStyle}
+      onToggle={handleToggleBionicReading}
+    >
       {!data.settings.onboarded && (
         <OnboardingModal onComplete={(targetTab) => handleSelectTab(targetTab)} />
       )}

@@ -1,30 +1,35 @@
 import React, { createContext, useContext, useMemo } from 'react';
 import { tokenizeBionicText } from '../../services/bionicReading';
+import type { BionicFixationStyle } from '../../types/domain';
 
 interface BionicReadingContextValue {
   readonly enabled: boolean;
+  readonly style: BionicFixationStyle;
   readonly toggle: () => void;
 }
 
 const BionicReadingContext = createContext<BionicReadingContextValue>({
   enabled: false,
+  style: 'adaptive',
   toggle: () => {},
 });
 
 interface BionicReadingProviderProps {
   enabled: boolean;
+  style?: BionicFixationStyle;
   onToggle: () => void;
   children: React.ReactNode;
 }
 
 export const BionicReadingProvider: React.FC<BionicReadingProviderProps> = ({
   enabled,
+  style = 'adaptive',
   onToggle,
   children,
 }) => {
   const value = useMemo(
-    () => ({ enabled, toggle: onToggle }),
-    [enabled, onToggle],
+    () => ({ enabled, style, toggle: onToggle }),
+    [enabled, style, onToggle],
   );
   return (
     <BionicReadingContext.Provider value={value}>
@@ -40,15 +45,21 @@ export function useBionicReading(): BionicReadingContextValue {
 interface BionicTextProps {
   text: string;
   enabledOverride?: boolean;
+  styleOverride?: BionicFixationStyle;
 }
 
-export const BionicText: React.FC<BionicTextProps> = ({ text, enabledOverride }) => {
-  const { enabled: contextEnabled } = useBionicReading();
+export const BionicText: React.FC<BionicTextProps> = ({
+  text,
+  enabledOverride,
+  styleOverride,
+}) => {
+  const { enabled: contextEnabled, style: contextStyle } = useBionicReading();
   const isEnabled = enabledOverride ?? contextEnabled;
+  const activeStyle = styleOverride ?? contextStyle;
 
   const segments = useMemo(
-    () => (isEnabled ? tokenizeBionicText(text) : null),
-    [isEnabled, text],
+    () => (isEnabled ? tokenizeBionicText(text, activeStyle) : null),
+    [isEnabled, text, activeStyle],
   );
 
   if (!isEnabled || !segments) {

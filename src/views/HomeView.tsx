@@ -389,7 +389,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
             <div>
               <p className="text-sm font-extrabold">Chapter Progress</p>
               <p className="autumn-muted text-xs">
-                {overallMasteryPercent}% overall readiness across 5 chapters
+                {overallMasteryPercent}% bank coverage across 5 chapters
               </p>
             </div>
           </div>

@@ -46,7 +46,7 @@ export const ChapterProgressView: React.FC<ChapterProgressViewProps> = ({
         </button>
         <div className="callout-emerald flex items-center gap-1.5 rounded-xl px-3 py-1">
           <ShieldCheck className="accent-emerald h-4 w-4" />
-          <span className="text-xs font-black">Readiness: {overallMasteryPercent}%</span>
+          <span className="text-xs font-black">Bank Coverage: {overallMasteryPercent}%</span>
         </div>
       </div>
 

@@ -10,6 +10,7 @@ import {
   History,
   Layers,
   RefreshCw,
+  ShieldCheck,
   Sparkles,
   Star,
   XCircle,
@@ -21,7 +22,11 @@ import {
   boostConceptCardInSrs,
   recordCompletedTestSession,
 } from '../db/repository';
-import { buildMockExamStatsByNumber, summarizeExamSet } from '../services/examStats';
+import {
+  buildMockExamStatsByNumber,
+  computeExamReadiness,
+  summarizeExamSet,
+} from '../services/examStats';
 import { Button } from '../components/ui/Button';
 import { BionicText } from '../components/ui/BionicText';
 import { ProgressBar } from '../components/ui/ProgressBar';
@@ -665,6 +670,7 @@ export const TestsView: React.FC<TestsViewProps> = ({
   const standardSummary = summarizeExamSet(standardExamNumbers, myMockStatsByExam);
   const spiceExamIds = Array.from({ length: TOTAL_MOCK_EXAMS }, (_, idx) => 101 + idx);
   const spiceSummary = summarizeExamSet(spiceExamIds, myMockStatsByExam);
+  const examReadiness = computeExamReadiness(testSessions, activeProfileId);
 
   const openSessionReview = (session: TestSessionRecord) => {
     const qMap = new Map(allQuestions.map((q) => [q.id, q]));
@@ -676,6 +682,15 @@ export const TestsView: React.FC<TestsViewProps> = ({
       setReviewSession({ session, questions: sessionQs });
     }
   };
+
+  const readinessBadgeClass =
+    examReadiness.tier === 'ready'
+      ? 'callout-emerald'
+      : examReadiness.tier === 'on-track'
+        ? 'callout-amber'
+        : examReadiness.tier === 'building'
+          ? 'callout-spice'
+          : 'autumn-pill';
 
   return (
     <div className="space-y-4">
@@ -702,6 +717,50 @@ export const TestsView: React.FC<TestsViewProps> = ({
           </button>
         ))}
       </div>
+
+      {/* Calm Mock-Only Exam Readiness (3-exam warmup + rolling last 5 mocks) */}
+      {(subTab === 'official18' || subTab === 'spice17' || subTab === 'history') && (
+        <section className="autumn-card space-y-2 rounded-2xl p-3.5">
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-1.5 text-xs font-extrabold">
+              <ShieldCheck
+                className={`h-4 w-4 ${
+                  examReadiness.tier === 'ready' ? 'accent-emerald' : 'accent-spice'
+                }`}
+              />
+              <span>Exam Readiness</span>
+            </div>
+            <span
+              className={`rounded-full px-2.5 py-0.5 text-[10px] font-black ${readinessBadgeClass}`}
+            >
+              {examReadiness.tierLabel}
+            </span>
+          </div>
+
+          <div className="space-y-0.5">
+            <p className="text-xs font-bold">{examReadiness.headline}</p>
+            <p className="autumn-muted text-[11px] leading-snug">{examReadiness.detail}</p>
+          </div>
+
+          {examReadiness.recentChips.length > 0 && (
+            <div className="flex flex-wrap items-center gap-1.5 pt-0.5">
+              <span className="autumn-muted text-[10px] font-bold">
+                Last {examReadiness.recentChips.length}:
+              </span>
+              {examReadiness.recentChips.map((chip) => (
+                <span
+                  key={chip.sessionId}
+                  className={`rounded-md px-1.5 py-0.5 text-[10px] font-extrabold tabular-nums ${
+                    chip.passed ? 'callout-emerald' : 'callout-rose'
+                  }`}
+                >
+                  {chip.label} {chip.score}/{chip.total}
+                </span>
+              ))}
+            </div>
+          )}
+        </section>
+      )}
 
       {/* TAB 1: Auto-Loaded Standard 18 Practice Exams (435 Qs, cached offline automatically on install) */}
       {subTab === 'official18' && (

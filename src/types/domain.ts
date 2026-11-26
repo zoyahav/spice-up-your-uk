@@ -211,6 +211,8 @@ export interface ReminderSettings {
 
 export type ThemePreference = 'dark' | 'light' | 'system';
 
+export type BionicFixationStyle = 'adaptive' | 'two-letters';
+
 export interface AppSettings {
   readonly id: 'app';
   readonly onboarded: boolean;
@@ -225,6 +227,7 @@ export interface AppSettings {
   readonly examDate: string | null;
   readonly theme: ThemePreference;
   readonly bionicReading?: boolean;
+  readonly bionicStyle?: BionicFixationStyle;
   readonly reminders: ReminderSettings;
   readonly readGuideIds?: Partial<Record<ProfileId, readonly string[]>>;
   readonly lastGuideSectionId?: Partial<Record<ProfileId, string>>;

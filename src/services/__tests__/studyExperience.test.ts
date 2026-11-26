@@ -1,7 +1,11 @@
 import { describe, expect, it } from 'vitest';
 import { STUDY_SECTIONS } from '../../data/studyGuides';
 import { buildLessonPages } from '../studyGuidePages';
-import { buildMockExamStatsByNumber, summarizeExamSet } from '../examStats';
+import {
+  buildMockExamStatsByNumber,
+  computeExamReadiness,
+  summarizeExamSet,
+} from '../examStats';
 import { getFixationLength, tokenizeBionicText } from '../bionicReading';
 import type { TestSessionRecord } from '../../types/domain';
 
@@ -33,17 +37,18 @@ describe('Study Guide Bite-Sized Pagination', () => {
   });
 });
 
-describe('Mock Exam Latest & Best Stats', () => {
+describe('Mock Exam Latest, Best & Calm Exam Readiness', () => {
   const makeSession = (
     id: string,
     examNumber: number,
     score: number,
     completedAt: string,
     profileId: 'partner_a' | 'partner_b' = 'partner_a',
+    mode: TestSessionRecord['mode'] = 'mock',
   ): TestSessionRecord => ({
     sessionId: id,
     profileId,
-    mode: 'mock',
+    mode,
     examNumber,
     score,
     total: 24,
@@ -78,29 +83,96 @@ describe('Mock Exam Latest & Best Stats', () => {
     expect(summary.passedLatestCount).toBe(1); // Exam 2 latest passed; Exam 1 latest failed
     expect(summary.nextSuggestedExam).toBe(1);
   });
+
+  it('uses a 3-exam warmup and rolling last-5 mock average across calm readiness tiers', () => {
+    // 2 mocks + 1 topic drill -> still warming up (ignores non-mock drills)
+    const warmup = computeExamReadiness(
+      [
+        makeSession('m1', 1, 14, '2026-11-20T10:00:00.000Z'),
+        makeSession('m2', 2, 16, '2026-11-21T10:00:00.000Z'),
+        makeSession('d1', 3, 24, '2026-11-22T10:00:00.000Z', 'partner_a', 'topic'),
+      ],
+      'partner_a',
+    );
+    expect(warmup.tier).toBe('warming-up');
+    expect(warmup.totalMocksTaken).toBe(2);
+
+    // 3 mocks below 75% -> building
+    const building = computeExamReadiness(
+      [
+        makeSession('m1', 1, 14, '2026-11-20T10:00:00.000Z'),
+        makeSession('m2', 2, 16, '2026-11-21T10:00:00.000Z'),
+        makeSession('m3', 3, 17, '2026-11-22T10:00:00.000Z'),
+      ],
+      'partner_a',
+    );
+    expect(building.tier).toBe('building');
+    expect(building.recentPassedCount).toBe(0);
+
+    // Passing around 75-80% -> on-track
+    const onTrack = computeExamReadiness(
+      [
+        makeSession('m1', 1, 18, '2026-11-20T10:00:00.000Z'),
+        makeSession('m2', 2, 19, '2026-11-21T10:00:00.000Z'),
+        makeSession('m3', 3, 19, '2026-11-22T10:00:00.000Z'),
+      ],
+      'partner_a',
+    );
+    expect(onTrack.tier).toBe('on-track');
+
+    // Old low scores fall off rolling last-5 window once recent 5 are strong -> ready
+    const ready = computeExamReadiness(
+      [
+        makeSession('old1', 1, 10, '2026-11-10T10:00:00.000Z'),
+        makeSession('old2', 2, 12, '2026-11-11T10:00:00.000Z'),
+        makeSession('r1', 3, 21, '2026-11-20T10:00:00.000Z'),
+        makeSession('r2', 4, 22, '2026-11-21T10:00:00.000Z'),
+        makeSession('r3', 5, 20, '2026-11-22T10:00:00.000Z'),
+        makeSession('r4', 6, 21, '2026-11-23T10:00:00.000Z'),
+        makeSession('r5', 7, 22, '2026-11-24T10:00:00.000Z'),
+      ],
+      'partner_a',
+    );
+    expect(ready.tier).toBe('ready');
+    expect(ready.recentCount).toBe(5);
+    expect(ready.recentPassedCount).toBe(5);
+    expect(ready.recentAvgPercent).toBeGreaterThanOrEqual(83);
+    expect(ready.recentChips.map((c) => c.label)).toEqual(['#3', '#4', '#5', '#6', '#7']);
+  });
 });
 
 describe('Bionic Reading Tokenizer', () => {
-  it('reconstructs exact source strings while applying fixation lengths and preserving acronyms & contractions', () => {
-    const sample = "In 1066, William's victory reshaped the UK and BBC history.";
-    const segments = tokenizeBionicText(sample);
-    const rebuilt = segments.map((s) => `${s.bold}${s.rest}`).join('');
-    expect(rebuilt).toBe(sample);
+  it('supports both gentle adaptive fixation and strict first-2-letters mode while preserving acronyms and contractions', () => {
+    const sample = "In 1066, William's responsibilities reshaped the UK and BBC history.";
 
-    // Contraction / possessive keeps apostrophe tail unbolded
-    const williams = segments.find((s) => `${s.bold}${s.rest}` === "William's");
-    expect(williams).toEqual({ bold: 'Will', rest: "iam's" });
+    const adaptiveSegs = tokenizeBionicText(sample, 'adaptive');
+    expect(adaptiveSegs.map((s) => `${s.bold}${s.rest}`).join('')).toBe(sample);
+    expect(adaptiveSegs.find((s) => `${s.bold}${s.rest}` === "William's")).toEqual({
+      bold: 'Wil',
+      rest: "liam's",
+    });
+    expect(adaptiveSegs.find((s) => `${s.bold}${s.rest}` === 'responsibilities')).toEqual({
+      bold: 'respo',
+      rest: 'nsibilities',
+    });
+    expect(adaptiveSegs.find((s) => s.rest === 'UK')).toEqual({ bold: '', rest: 'UK' });
+    expect(adaptiveSegs.find((s) => s.rest === 'BBC')).toEqual({ bold: '', rest: 'BBC' });
 
-    // Short all-caps acronyms stay intact
-    const ukSeg = segments.find((s) => s.rest === 'UK');
-    expect(ukSeg).toEqual({ bold: '', rest: 'UK' });
+    const twoLetterSegs = tokenizeBionicText(sample, 'two-letters');
+    expect(twoLetterSegs.map((s) => `${s.bold}${s.rest}`).join('')).toBe(sample);
+    expect(twoLetterSegs.find((s) => `${s.bold}${s.rest}` === 'responsibilities')).toEqual({
+      bold: 're',
+      rest: 'sponsibilities',
+    });
+    expect(twoLetterSegs.find((s) => `${s.bold}${s.rest}` === "William's")).toEqual({
+      bold: 'Wi',
+      rest: "lliam's",
+    });
 
-    const bbcSeg = segments.find((s) => s.rest === 'BBC');
-    expect(bbcSeg).toEqual({ bold: '', rest: 'BBC' });
-
-    expect(getFixationLength('a')).toBe(1);
-    expect(getFixationLength('of')).toBe(1);
-    expect(getFixationLength('the')).toBe(2);
-    expect(getFixationLength('Parliament')).toBe(5);
+    expect(getFixationLength('a', 'adaptive')).toBe(1);
+    expect(getFixationLength('the', 'adaptive')).toBe(1);
+    expect(getFixationLength('the', 'two-letters')).toBe(2);
+    expect(getFixationLength('Parliament', 'adaptive')).toBe(4);
+    expect(getFixationLength('Parliament', 'two-letters')).toBe(2);
   });
 });

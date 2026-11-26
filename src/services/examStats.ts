@@ -1,6 +1,6 @@
 /**
- * Aggregates per-exam mock test statistics so UI views consistently display
- * completion status, latest score, attempt counts, and best score.
+ * Aggregates per-exam mock test statistics and calm mock-only Exam Readiness
+ * from recent mock exam performance.
  */
 
 import type { ProfileId, TestSessionRecord } from '../types/domain';
@@ -12,6 +12,33 @@ export interface MockExamStats {
   readonly attempts: number;
 }
 
+export type ExamReadinessTier = 'warming-up' | 'building' | 'on-track' | 'ready';
+
+export interface RecentMockChip {
+  readonly sessionId: string;
+  readonly label: string;
+  readonly score: number;
+  readonly total: number;
+  readonly passed: boolean;
+}
+
+export interface ExamReadinessSummary {
+  readonly tier: ExamReadinessTier;
+  readonly tierLabel: string;
+  readonly headline: string;
+  readonly detail: string;
+  readonly totalMocksTaken: number;
+  readonly warmupTarget: number;
+  readonly recentCount: number;
+  readonly recentPassedCount: number;
+  readonly recentAvgPercent: number;
+  readonly recentAvgOutOf24: number;
+  readonly recentChips: readonly RecentMockChip[];
+}
+
+const WARMUP_MOCKS_REQUIRED = 3;
+const ROLLING_WINDOW_SIZE = 5;
+
 function toEpochMs(iso: string): number {
   const parsed = Date.parse(iso);
   return Number.isNaN(parsed) ? 0 : parsed;
@@ -19,6 +46,17 @@ function toEpochMs(iso: string): number {
 
 function scoreRatio(session: TestSessionRecord): number {
   return session.total > 0 ? session.score / session.total : 0;
+}
+
+function shortMockLabel(examNumber?: number): string {
+  if (!examNumber) return 'Rand';
+  if (examNumber > 100) return `S#${examNumber - 100}`;
+  return `#${examNumber}`;
+}
+
+function formatOutOf24(val: number): string {
+  const rounded = Math.round(val * 10) / 10;
+  return Number.isInteger(rounded) ? `${rounded}` : rounded.toFixed(1);
 }
 
 export function buildMockExamStatsByNumber(
@@ -103,5 +141,114 @@ export function summarizeExamSet(
     attemptedCount,
     passedLatestCount,
     nextSuggestedExam: firstUnpassed ?? examNumbers[0] ?? 1,
+  };
+}
+
+/**
+ * Computes a calm, low-stress Exam Readiness tier purely from completed mock exams.
+ * Uses a 3-exam warmup before evaluating a rolling window of the most recent 5 mock exams.
+ */
+export function computeExamReadiness(
+  sessions: readonly TestSessionRecord[],
+  profileId: ProfileId,
+): ExamReadinessSummary {
+  const mockSessions = sessions
+    .filter((s) => s.profileId === profileId && s.mode === 'mock' && s.total > 0)
+    .sort((a, b) => toEpochMs(b.completedAt) - toEpochMs(a.completedAt));
+
+  const totalMocksTaken = mockSessions.length;
+  const recentNewestFirst = mockSessions.slice(0, ROLLING_WINDOW_SIZE);
+  const recentCount = recentNewestFirst.length;
+  const recentPassedCount = recentNewestFirst.filter((s) => s.passed).length;
+
+  const avgRatio =
+    recentCount > 0
+      ? recentNewestFirst.reduce((sum, s) => sum + scoreRatio(s), 0) / recentCount
+      : 0;
+  const recentAvgPercent = Math.round(avgRatio * 100);
+  const recentAvgOutOf24 = Math.round(avgRatio * 24 * 10) / 10;
+
+  // Chronological order (oldest -> newest) so the chips read left-to-right like a trend
+  const recentChips: RecentMockChip[] = [...recentNewestFirst]
+    .reverse()
+    .map((s) => ({
+      sessionId: s.sessionId,
+      label: shortMockLabel(s.examNumber),
+      score: s.score,
+      total: s.total,
+      passed: s.passed,
+    }));
+
+  if (totalMocksTaken < WARMUP_MOCKS_REQUIRED) {
+    const remaining = WARMUP_MOCKS_REQUIRED - totalMocksTaken;
+    return {
+      tier: 'warming-up',
+      tierLabel: 'Warming Up',
+      headline:
+        totalMocksTaken === 0
+          ? 'Take 3 mock exams to unlock Exam Readiness'
+          : `${totalMocksTaken}/${WARMUP_MOCKS_REQUIRED} warmup mocks done`,
+      detail:
+        totalMocksTaken === 0
+          ? 'Based purely on your last 5 mock exam scores once you have tried 3 full exams.'
+          : `Finish ${remaining} more mock exam${remaining === 1 ? '' : 's'} to see your readiness tier (no pressure while learning).`,
+      totalMocksTaken,
+      warmupTarget: WARMUP_MOCKS_REQUIRED,
+      recentCount,
+      recentPassedCount,
+      recentAvgPercent,
+      recentAvgOutOf24,
+      recentChips,
+    };
+  }
+
+  const avgLabel = formatOutOf24(recentAvgOutOf24);
+  const minPassesForReady = recentCount >= 5 ? 4 : 3;
+
+  if (recentPassedCount >= minPassesForReady && recentAvgPercent >= 83) {
+    return {
+      tier: 'ready',
+      tierLabel: 'Test-Day Ready',
+      headline: `Averaging ${avgLabel}/24 (${recentAvgPercent}%) across your last ${recentCount} mocks`,
+      detail: `${recentPassedCount} of your last ${recentCount} passed, comfortably above the 18/24 (75%) pass mark.`,
+      totalMocksTaken,
+      warmupTarget: WARMUP_MOCKS_REQUIRED,
+      recentCount,
+      recentPassedCount,
+      recentAvgPercent,
+      recentAvgOutOf24,
+      recentChips,
+    };
+  }
+
+  if (recentAvgPercent >= 75 || recentPassedCount >= Math.ceil(recentCount * 0.6)) {
+    return {
+      tier: 'on-track',
+      tierLabel: 'On Track',
+      headline: `Averaging ${avgLabel}/24 (${recentAvgPercent}%) across your last ${recentCount} mocks`,
+      detail: `${recentPassedCount}/${recentCount} passed. Aim for 20+/24 consistently for a comfortable test-day cushion.`,
+      totalMocksTaken,
+      warmupTarget: WARMUP_MOCKS_REQUIRED,
+      recentCount,
+      recentPassedCount,
+      recentAvgPercent,
+      recentAvgOutOf24,
+      recentChips,
+    };
+  }
+
+  const gap = Math.max(1, Math.ceil(18 - recentAvgOutOf24));
+  return {
+    tier: 'building',
+    tierLabel: 'Building Momentum',
+    headline: `Averaging ${avgLabel}/24 (${recentAvgPercent}%) across your last ${recentCount} mocks`,
+    detail: `Just ${gap} more right answer${gap === 1 ? '' : 's'} per exam reaches the 18/24 (75%) pass mark.`,
+    totalMocksTaken,
+    warmupTarget: WARMUP_MOCKS_REQUIRED,
+    recentCount,
+    recentPassedCount,
+    recentAvgPercent,
+    recentAvgOutOf24,
+    recentChips,
   };
 }

@@ -790,6 +790,7 @@ export async function resetLocalDeviceData(database: SpiceUpUkDB = db): Promise<
         ...freshDefaults,
         theme: prevSettings?.theme ?? freshDefaults.theme,
         bionicReading: prevSettings?.bionicReading ?? false,
+        bionicStyle: prevSettings?.bionicStyle ?? 'adaptive',
         onboarded: false,
         standardPackHydrated: remainingStdCount > 0,
       });
