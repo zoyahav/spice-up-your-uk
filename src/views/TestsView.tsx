@@ -21,7 +21,9 @@ import {
   boostConceptCardInSrs,
   recordCompletedTestSession,
 } from '../db/repository';
+import { buildMockExamStatsByNumber, summarizeExamSet } from '../services/examStats';
 import { Button } from '../components/ui/Button';
+import { BionicText } from '../components/ui/BionicText';
 import { ProgressBar } from '../components/ui/ProgressBar';
 import { VisualAidRenderer } from '../components/visuals/VisualAidRenderer';
 import type {
@@ -383,21 +385,23 @@ export const TestsView: React.FC<TestsViewProps> = ({
                     )}
                   </div>
 
-                  <p className="text-sm leading-snug font-extrabold">{q.prompt}</p>
+                  <p className="text-sm leading-snug font-extrabold">
+                    <BionicText text={q.prompt} />
+                  </p>
 
                   {!isCorrect && (
                     <div className="callout-rose rounded-xl px-3 py-2 text-xs">
-                      <strong>Your pick:</strong> {chosenLabels}
+                      <strong>Your pick:</strong> <BionicText text={chosenLabels} />
                     </div>
                   )}
 
                   <div className="callout-emerald rounded-xl px-3 py-2 text-xs">
-                    <strong>Right answer:</strong> {rightLabels}
+                    <strong>Right answer:</strong> <BionicText text={rightLabels} />
                   </div>
 
                   <div className="autumn-soft text-xs leading-relaxed">
                     <strong>Why: </strong>
-                    {q.explanation}
+                    <BionicText text={q.explanation} />
                   </div>
 
                   {q.memoryHook && (
@@ -406,7 +410,9 @@ export const TestsView: React.FC<TestsViewProps> = ({
                         <Sparkles className="mr-1 inline h-3.5 w-3.5" />
                         Memory Tip:
                       </p>
-                      <p>{q.memoryHook}</p>
+                      <p>
+                        <BionicText text={q.memoryHook} />
+                      </p>
                     </div>
                   )}
 
@@ -505,7 +511,9 @@ export const TestsView: React.FC<TestsViewProps> = ({
           </div>
 
           <div>
-            <p className="text-base leading-snug font-extrabold">{q.prompt}</p>
+            <p className="text-base leading-snug font-extrabold">
+              <BionicText text={q.prompt} />
+            </p>
             {q.type === 'multiple' && (
               <p className="accent-amber mt-1 text-xs font-bold">
                 Select {q.correctIndices.length} answers ({selectedForCurrent.length}/
@@ -546,7 +554,9 @@ export const TestsView: React.FC<TestsViewProps> = ({
                   >
                     {String.fromCharCode(65 + idx)}
                   </span>
-                  <span className="flex-1 leading-snug">{opt}</span>
+                  <span className="flex-1 leading-snug">
+                    <BionicText text={opt} />
+                  </span>
                 </button>
               );
             })}
@@ -575,10 +585,12 @@ export const TestsView: React.FC<TestsViewProps> = ({
                   ? '✓ Spot on!'
                   : `✗ Right answer: ${q.correctIndices.map((i) => q.options[i]).join(' • ')}`}
               </p>
-              <p className="autumn-soft leading-relaxed">{q.explanation}</p>
+              <p className="autumn-soft leading-relaxed">
+                <BionicText text={q.explanation} />
+              </p>
               {q.memoryHook && (
                 <div className="callout-spice rounded-xl p-2.5">
-                  <strong>Memory Tip:</strong> {q.memoryHook}
+                  <strong>Memory Tip:</strong> <BionicText text={q.memoryHook} />
                 </div>
               )}
               {q.visualId && <VisualAidRenderer visualId={q.visualId} compact highlightSubtopicId={q.subtopicId} />}
@@ -649,15 +661,21 @@ export const TestsView: React.FC<TestsViewProps> = ({
   }
 
   // 3. EXAMS & DRILLS HUB
-  const myMockBestByExam = new Map<number, TestSessionRecord>();
-  for (const s of testSessions) {
-    if (s.profileId === activeProfileId && s.mode === 'mock' && s.examNumber) {
-      const prev = myMockBestByExam.get(s.examNumber);
-      if (!prev || s.score > prev.score) {
-        myMockBestByExam.set(s.examNumber, s);
-      }
+  const myMockStatsByExam = buildMockExamStatsByNumber(testSessions, activeProfileId);
+  const standardSummary = summarizeExamSet(standardExamNumbers, myMockStatsByExam);
+  const spiceExamIds = Array.from({ length: TOTAL_MOCK_EXAMS }, (_, idx) => 101 + idx);
+  const spiceSummary = summarizeExamSet(spiceExamIds, myMockStatsByExam);
+
+  const openSessionReview = (session: TestSessionRecord) => {
+    const qMap = new Map(allQuestions.map((q) => [q.id, q]));
+    const sessionQs = session.answers
+      .map((a) => qMap.get(a.questionId))
+      .filter((q): q is PracticeQuestion => Boolean(q));
+    if (sessionQs.length > 0) {
+      setReviewFilter(session.score < session.total ? 'wrong' : 'all');
+      setReviewSession({ session, questions: sessionQs });
     }
-  }
+  };
 
   return (
     <div className="space-y-4">
@@ -693,7 +711,9 @@ export const TestsView: React.FC<TestsViewProps> = ({
               <div>
                 <h2 className="text-base font-black">Standard Practice Exams (1-18)</h2>
                 <p className="autumn-muted text-xs">
-                  Auto-cached offline on install • 45 mins • 75% to pass
+                  {standardSummary.attemptedCount > 0
+                    ? `${standardSummary.attemptedCount}/${standardExamNumbers.length || 18} completed • ${standardSummary.passedLatestCount} passed (latest score shown)`
+                    : 'Auto-cached offline on install • 45 mins • 75% to pass'}
                 </p>
               </div>
               {standard18Questions.length > 0 && (
@@ -741,41 +761,98 @@ export const TestsView: React.FC<TestsViewProps> = ({
             <div className="grid grid-cols-2 gap-2.5">
               {standardExamNumbers.map((examNum) => {
                 const qs = standard18Questions.filter((q) => q.examNumber === examNum);
-                const best = myMockBestByExam.get(examNum);
+                const stat = myMockStatsByExam.get(examNum);
+                if (!stat) {
+                  return (
+                    <button
+                      key={examNum}
+                      type="button"
+                      onClick={() =>
+                        startRunner({
+                          questions: qs,
+                          mode: 'mock',
+                          examNumber: examNum,
+                          title: `Exam #${examNum}`,
+                        })
+                      }
+                      className="autumn-card flex flex-col justify-between rounded-2xl p-3.5 text-left transition hover:border-orange-500/50"
+                    >
+                      <div className="flex items-center justify-between gap-1">
+                        <span className="text-sm font-black">Exam #{examNum}</span>
+                      </div>
+                      <p className="autumn-muted mt-2 text-[11px]">
+                        {qs.length} questions ready
+                      </p>
+                    </button>
+                  );
+                }
+
+                const latest = stat.latest;
+                const latestPct = Math.round(
+                  (latest.score / Math.max(1, latest.total)) * 100,
+                );
+                const shortDate = new Date(latest.completedAt).toLocaleDateString('en-GB', {
+                  day: 'numeric',
+                  month: 'short',
+                });
+
                 return (
-                  <button
+                  <div
                     key={examNum}
-                    type="button"
-                    onClick={() =>
-                      startRunner({
-                        questions: qs,
-                        mode: 'mock',
-                        examNumber: examNum,
-                        title: `Exam #${examNum}`,
-                      })
-                    }
-                    className="autumn-card flex flex-col justify-between rounded-2xl p-3.5 text-left transition hover:border-orange-500/50"
+                    className={`autumn-card flex flex-col justify-between gap-2 rounded-2xl p-3 text-left ring-1 ${
+                      latest.passed ? 'ring-emerald-600/35' : 'ring-rose-500/35'
+                    }`}
                   >
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm font-black">Exam #{examNum}</span>
-                      {best && (
+                    <div>
+                      <div className="flex items-center justify-between gap-1">
+                        <span className="text-sm font-black">Exam #{examNum}</span>
                         <span
-                          className={`rounded-md px-1.5 py-0.5 text-[10px] font-black ${
-                            best.passed ? 'callout-emerald' : 'callout-rose'
+                          className={`shrink-0 rounded-md px-1.5 py-0.5 text-[10px] font-black tabular-nums ${
+                            latest.passed ? 'callout-emerald' : 'callout-rose'
                           }`}
                         >
-                          {best.score}/{best.total}
+                          {latest.score}/{latest.total}
                         </span>
-                      )}
+                      </div>
+                      <p
+                        className={`mt-1 text-[11px] font-bold ${
+                          latest.passed ? 'accent-emerald' : 'accent-rose'
+                        }`}
+                      >
+                        Latest: {latest.passed ? '✓ Passed' : 'Retry'} ({latestPct}%)
+                      </p>
+                      <p className="autumn-muted text-[10px]">
+                        {stat.attempts > 1 && stat.best.score !== latest.score
+                          ? `${stat.attempts} tries • Best ${stat.best.score}/${stat.best.total}`
+                          : stat.attempts > 1
+                            ? `${stat.attempts} tries • ${shortDate}`
+                            : `Done ${shortDate}`}
+                      </p>
                     </div>
-                    <p className="autumn-muted mt-2 text-[11px]">
-                      {best
-                        ? best.passed
-                          ? '✓ Passed (tap to beat score)'
-                          : 'Retry to hit 75%'
-                        : `${qs.length} questions ready`}
-                    </p>
-                  </button>
+                    <div className="flex items-center gap-1.5">
+                      <button
+                        type="button"
+                        onClick={() =>
+                          startRunner({
+                            questions: qs,
+                            mode: 'mock',
+                            examNumber: examNum,
+                            title: `Exam #${examNum}`,
+                          })
+                        }
+                        className="autumn-pill flex-1 rounded-lg py-1 text-center text-[11px] font-extrabold transition hover:border-orange-500/50"
+                      >
+                        Retake
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => openSessionReview(latest)}
+                        className="autumn-inset rounded-lg px-2 py-1 text-[11px] font-bold transition hover:border-orange-500/50"
+                      >
+                        Review
+                      </button>
+                    </div>
+                  </div>
                 );
               })}
             </div>
@@ -817,7 +894,9 @@ export const TestsView: React.FC<TestsViewProps> = ({
               <div>
                 <h2 className="text-base font-black">Spice Bonus Mock Exams (1-17)</h2>
                 <p className="autumn-muted text-xs">
-                  408 extra original questions with Spice Girls mnemonics
+                  {spiceSummary.attemptedCount > 0
+                    ? `${spiceSummary.attemptedCount}/${TOTAL_MOCK_EXAMS} completed • ${spiceSummary.passedLatestCount} passed (latest score shown)`
+                    : '408 extra original questions with Spice Girls mnemonics'}
                 </p>
               </div>
               <Button
@@ -843,42 +922,100 @@ export const TestsView: React.FC<TestsViewProps> = ({
             {Array.from({ length: TOTAL_MOCK_EXAMS }, (_, idx) => idx + 1).map((examNum) => {
               const qs = spice17Questions.filter((q) => q.examNumber === examNum);
               const sessionExamId = 100 + examNum;
-              const best = myMockBestByExam.get(sessionExamId);
+              const stat = myMockStatsByExam.get(sessionExamId);
+              if (!stat) {
+                return (
+                  <button
+                    key={examNum}
+                    type="button"
+                    disabled={qs.length === 0}
+                    onClick={() =>
+                      startRunner({
+                        questions: qs,
+                        mode: 'mock',
+                        examNumber: sessionExamId,
+                        title: `Spice Exam #${examNum}`,
+                      })
+                    }
+                    className="autumn-card flex flex-col justify-between rounded-2xl p-3.5 text-left transition hover:border-orange-500/50"
+                  >
+                    <div className="flex items-center justify-between gap-1">
+                      <span className="text-sm font-black">Spice #{examNum}</span>
+                    </div>
+                    <p className="autumn-muted mt-2 text-[11px]">
+                      {qs.length} questions ready
+                    </p>
+                  </button>
+                );
+              }
+
+              const latest = stat.latest;
+              const latestPct = Math.round(
+                (latest.score / Math.max(1, latest.total)) * 100,
+              );
+              const shortDate = new Date(latest.completedAt).toLocaleDateString('en-GB', {
+                day: 'numeric',
+                month: 'short',
+              });
+
               return (
-                <button
+                <div
                   key={examNum}
-                  type="button"
-                  disabled={qs.length === 0}
-                  onClick={() =>
-                    startRunner({
-                      questions: qs,
-                      mode: 'mock',
-                      examNumber: sessionExamId,
-                      title: `Spice Exam #${examNum}`,
-                    })
-                  }
-                  className="autumn-card flex flex-col justify-between rounded-2xl p-3.5 text-left transition hover:border-orange-500/50"
+                  className={`autumn-card flex flex-col justify-between gap-2 rounded-2xl p-3 text-left ring-1 ${
+                    latest.passed ? 'ring-emerald-600/35' : 'ring-rose-500/35'
+                  }`}
                 >
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-black">Spice #{examNum}</span>
-                    {best && (
+                  <div>
+                    <div className="flex items-center justify-between gap-1">
+                      <span className="text-sm font-black">Spice #{examNum}</span>
                       <span
-                        className={`rounded-md px-1.5 py-0.5 text-[10px] font-black ${
-                          best.passed ? 'callout-emerald' : 'callout-rose'
+                        className={`shrink-0 rounded-md px-1.5 py-0.5 text-[10px] font-black tabular-nums ${
+                          latest.passed ? 'callout-emerald' : 'callout-rose'
                         }`}
                       >
-                        {best.score}/{best.total}
+                        {latest.score}/{latest.total}
                       </span>
-                    )}
+                    </div>
+                    <p
+                      className={`mt-1 text-[11px] font-bold ${
+                        latest.passed ? 'accent-emerald' : 'accent-rose'
+                      }`}
+                    >
+                      Latest: {latest.passed ? '✓ Passed' : 'Retry'} ({latestPct}%)
+                    </p>
+                    <p className="autumn-muted text-[10px]">
+                      {stat.attempts > 1 && stat.best.score !== latest.score
+                        ? `${stat.attempts} tries • Best ${stat.best.score}/${stat.best.total}`
+                        : stat.attempts > 1
+                          ? `${stat.attempts} tries • ${shortDate}`
+                          : `Done ${shortDate}`}
+                    </p>
                   </div>
-                  <p className="autumn-muted mt-2 text-[11px]">
-                    {best
-                      ? best.passed
-                        ? '✓ Passed (tap to beat score)'
-                        : 'Retry to hit 18/24'
-                      : `${qs.length} questions ready`}
-                  </p>
-                </button>
+                  <div className="flex items-center gap-1.5">
+                    <button
+                      type="button"
+                      disabled={qs.length === 0}
+                      onClick={() =>
+                        startRunner({
+                          questions: qs,
+                          mode: 'mock',
+                          examNumber: sessionExamId,
+                          title: `Spice Exam #${examNum}`,
+                        })
+                      }
+                      className="autumn-pill flex-1 rounded-lg py-1 text-center text-[11px] font-extrabold transition hover:border-orange-500/50"
+                    >
+                      Retake
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => openSessionReview(latest)}
+                      className="autumn-inset rounded-lg px-2 py-1 text-[11px] font-bold transition hover:border-orange-500/50"
+                    >
+                      Review
+                    </button>
+                  </div>
+                </div>
               );
             })}
           </div>

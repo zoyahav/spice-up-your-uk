@@ -1,0 +1,57 @@
+/**
+ * Pure Bionic Reading tokenizer.
+ * Highlights the opening fixation prefix of each word so readers can scan
+ * study notes, questions, and explanations more comfortably.
+ */
+
+export interface BionicSegment {
+  readonly bold: string;
+  readonly rest: string;
+}
+
+const WORD_TOKEN_RE = /[A-Za-zÀ-ÖØ-öø-ÿ]+(?:['’][A-Za-zÀ-ÖØ-öø-ÿ]+)*/g;
+const SHORT_ACRONYM_RE = /^[A-Z]{2,3}$/;
+
+export function getFixationLength(word: string): number {
+  const len = word.length;
+  if (len <= 1) return len;
+  if (len === 2) return 1;
+  if (len === 3) return 2;
+  return Math.ceil(len * 0.45);
+}
+
+export function tokenizeBionicText(text: string): readonly BionicSegment[] {
+  if (!text) return [];
+
+  const segments: BionicSegment[] = [];
+  let lastIndex = 0;
+
+  for (const match of text.matchAll(WORD_TOKEN_RE)) {
+    const start = match.index ?? 0;
+    const word = match[0];
+
+    if (start > lastIndex) {
+      segments.push({ bold: '', rest: text.slice(lastIndex, start) });
+    }
+
+    if (SHORT_ACRONYM_RE.test(word)) {
+      segments.push({ bold: '', rest: word });
+    } else {
+      const apostropheIdx = word.search(/['’]/);
+      const stem = apostropheIdx >= 2 ? word.slice(0, apostropheIdx) : word;
+      const fixLen = getFixationLength(stem);
+      segments.push({
+        bold: word.slice(0, fixLen),
+        rest: word.slice(fixLen),
+      });
+    }
+
+    lastIndex = start + word.length;
+  }
+
+  if (lastIndex < text.length) {
+    segments.push({ bold: '', rest: text.slice(lastIndex) });
+  }
+
+  return segments;
+}

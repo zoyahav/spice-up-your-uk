@@ -224,9 +224,11 @@ export interface AppSettings {
   readonly dailyGoalXp: number;
   readonly examDate: string | null;
   readonly theme: ThemePreference;
+  readonly bionicReading?: boolean;
   readonly reminders: ReminderSettings;
   readonly readGuideIds?: Partial<Record<ProfileId, readonly string[]>>;
   readonly lastGuideSectionId?: Partial<Record<ProfileId, string>>;
+  readonly lastGuidePageIndex?: Partial<Record<ProfileId, number>>;
 }
 
 export type SyncTableName =

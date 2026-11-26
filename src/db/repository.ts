@@ -274,16 +274,27 @@ export async function toggleStudyGuideSectionRead(
 export async function setLastStudyGuideSection(
   profileId: ProfileId,
   sectionId: string,
+  pageIndex: number = 0,
   database: SpiceUpUkDB = db,
 ): Promise<void> {
+  const safePageIndex = Math.max(0, Math.floor(pageIndex));
   await database.transaction('rw', database.appConfig, async () => {
     const current = await ensureAppSettings(database);
-    if (current.lastGuideSectionId?.[profileId] === sectionId) return;
+    if (
+      current.lastGuideSectionId?.[profileId] === sectionId &&
+      (current.lastGuidePageIndex?.[profileId] ?? 0) === safePageIndex
+    ) {
+      return;
+    }
     await database.appConfig.put({
       ...current,
       lastGuideSectionId: {
         ...(current.lastGuideSectionId ?? {}),
         [profileId]: sectionId,
+      },
+      lastGuidePageIndex: {
+        ...(current.lastGuidePageIndex ?? {}),
+        [profileId]: safePageIndex,
       },
     });
   });
@@ -310,6 +321,10 @@ export async function markGuideReadAndAdvance(
             lastGuideSectionId: {
               ...(current.lastGuideSectionId ?? {}),
               [profileId]: nextSectionId,
+            },
+            lastGuidePageIndex: {
+              ...(current.lastGuidePageIndex ?? {}),
+              [profileId]: 0,
             },
           }
         : {}),
@@ -774,6 +789,7 @@ export async function resetLocalDeviceData(database: SpiceUpUkDB = db): Promise<
       await database.appConfig.put({
         ...freshDefaults,
         theme: prevSettings?.theme ?? freshDefaults.theme,
+        bionicReading: prevSettings?.bionicReading ?? false,
         onboarded: false,
         standardPackHydrated: remainingStdCount > 0,
       });

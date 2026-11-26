@@ -4,6 +4,7 @@ import { AppShell, type NavTab } from './components/layout/AppShell';
 import { InstallAppModal } from './components/layout/InstallAppModal';
 import { isMobileDevice, isRunningStandalone } from './hooks/usePwaInstall';
 import { OnboardingModal } from './components/layout/OnboardingModal';
+import { BionicReadingProvider } from './components/ui/BionicText';
 import { useAppData } from './hooks/useAppData';
 import { updateAppSettings } from './db/repository';
 import { HomeView } from './views/HomeView';
@@ -39,9 +40,11 @@ export const App: React.FC = () => {
   } | null>(null);
 
   const isLightMode = data.settings.theme === 'light';
+  const isBionicReading = Boolean(data.settings.bionicReading);
   const isPaired = Boolean(data.settings.scriptUrl && data.settings.passcode);
   const myReadGuideIds = data.settings.readGuideIds?.[data.activeProfileId] ?? [];
   const myLastGuideSectionId = data.settings.lastGuideSectionId?.[data.activeProfileId] ?? null;
+  const myLastGuidePageIndex = data.settings.lastGuidePageIndex?.[data.activeProfileId] ?? 0;
 
   useEffect(() => {
     if (typeof document === 'undefined') return;
@@ -67,6 +70,12 @@ export const App: React.FC = () => {
     });
   };
 
+  const handleToggleBionicReading = () => {
+    void updateAppSettings({
+      bionicReading: !isBionicReading,
+    });
+  };
+
   const handleSelectTab = (tab: NavTab) => {
     setShowChapterProgressPage(false);
     setActiveTab(tab);
@@ -79,7 +88,7 @@ export const App: React.FC = () => {
     !isRunningStandalone();
 
   return (
-    <>
+    <BionicReadingProvider enabled={isBionicReading} onToggle={handleToggleBionicReading}>
       {!data.settings.onboarded && (
         <OnboardingModal onComplete={(targetTab) => handleSelectTab(targetTab)} />
       )}
@@ -112,7 +121,8 @@ export const App: React.FC = () => {
         onManualSync={() => void data.triggerSync()}
         isLightMode={isLightMode}
         onToggleTheme={handleToggleTheme}
-        dueCardsBadge={data.dueFlashcardCount}
+        bionicReading={isBionicReading}
+        onToggleBionicReading={handleToggleBionicReading}
       >
         {data.pairingNotice && (
           <div className="callout-emerald mb-3 flex items-center justify-between rounded-2xl px-3.5 py-2.5 text-xs font-bold">
@@ -241,6 +251,8 @@ export const App: React.FC = () => {
             allQuestions={data.allQuestions}
             readGuideIds={myReadGuideIds}
             lastGuideSectionId={myLastGuideSectionId}
+            lastGuidePageIndex={myLastGuidePageIndex}
+            dueQuestionCount={data.dueFlashcardCount}
             srsMap={data.srsMap}
             chapterMasteries={data.myMastery.chapters}
             initialChapterFilter={studyChapterFilter}
@@ -323,7 +335,7 @@ export const App: React.FC = () => {
           />
         )}
       </AppShell>
-    </>
+    </BionicReadingProvider>
   );
 };
 export default App;

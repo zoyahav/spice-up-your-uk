@@ -21,6 +21,7 @@ import type { NavTab } from '../components/layout/AppShell';
 import { Button } from '../components/ui/Button';
 import { ProfileAvatar } from '../components/ui/ProfileAvatar';
 import { usePwaInstall } from '../hooks/usePwaInstall';
+import { buildMockExamStatsByNumber, summarizeExamSet } from '../services/examStats';
 import type { StreakSummary } from '../services/streaks';
 import type {
   ChapterId,
@@ -100,27 +101,15 @@ export const HomeView: React.FC<HomeViewProps> = ({
     return diff >= 0 ? diff : null;
   }, [examDate]);
 
-  const { nextSuggestedExam, passedExamsCount } = useMemo(() => {
-    const passedSet = new Set(
-      recentSessions
-        .filter(
-          (s) =>
-            s.profileId === activeProfile.id &&
-            s.mode === 'mock' &&
-            s.passed &&
-            s.examNumber &&
-            s.examNumber <= 18,
-        )
-        .map((s) => s.examNumber!),
-    );
-    let next = 1;
-    for (let i = 1; i <= 18; i++) {
-      if (!passedSet.has(i)) {
-        next = i;
-        break;
-      }
-    }
-    return { nextSuggestedExam: next, passedExamsCount: passedSet.size };
+  const { nextSuggestedExam, passedExamsCount, attemptedExamsCount } = useMemo(() => {
+    const stats = buildMockExamStatsByNumber(recentSessions, activeProfile.id);
+    const examNums = Array.from({ length: 18 }, (_, i) => i + 1);
+    const summary = summarizeExamSet(examNums, stats);
+    return {
+      nextSuggestedExam: summary.nextSuggestedExam,
+      passedExamsCount: summary.passedLatestCount,
+      attemptedExamsCount: summary.attemptedCount,
+    };
   }, [recentSessions, activeProfile.id]);
 
   const resumeLessonNum = useMemo(() => {
@@ -272,7 +261,9 @@ export const HomeView: React.FC<HomeViewProps> = ({
             <span>Mock Exam #{nextSuggestedExam}</span>
           </div>
           <span className="text-[11px] font-semibold opacity-90">
-            {passedExamsCount}/18 passed
+            {attemptedExamsCount > 0
+              ? `${passedExamsCount}/18 passed (${attemptedExamsCount} done)`
+              : '0/18 passed'}
           </span>
         </Button>
       </section>
@@ -378,7 +369,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
               <p className="text-sm font-extrabold">4-Choice Smart Practice</p>
               <p className="autumn-muted text-xs">
                 {dueQuestionCount > 0
-                  ? `${dueQuestionCount} due for review • 4-way choice spaced repetition`
+                  ? `${dueQuestionCount} earlier questions ready to refresh today`
                   : 'Spaced-repetition 4-way choice questions'}
               </p>
             </div>

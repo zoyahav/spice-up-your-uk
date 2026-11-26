@@ -22,7 +22,9 @@ import {
   toggleStudyGuideSectionRead,
 } from '../db/repository';
 import { previewIntervalLabel, selectStudyQueue } from '../services/srs';
+import { buildLessonPages } from '../services/studyGuidePages';
 import { Button } from '../components/ui/Button';
+import { BionicText, useBionicReading } from '../components/ui/BionicText';
 import { ProgressBar } from '../components/ui/ProgressBar';
 import { VisualAidRenderer } from '../components/visuals/VisualAidRenderer';
 import type {
@@ -43,6 +45,8 @@ interface StudyViewProps {
   allQuestions: readonly PracticeQuestion[];
   readGuideIds: readonly string[];
   lastGuideSectionId?: string | null;
+  lastGuidePageIndex?: number;
+  dueQuestionCount?: number;
   srsMap: ReadonlyMap<string, SrsCardState>;
   chapterMasteries: readonly SubjectMasterySummary[];
   initialChapterFilter?: ChapterId | null;
@@ -58,17 +62,29 @@ function sameNumberSet(a: readonly number[], b: readonly number[]): boolean {
   return sa.every((v, idx) => v === sb[idx]);
 }
 
-function renderFormattedFact(fact: string): React.ReactNode {
+function renderFormattedFact(fact: string, bionicEnabled: boolean): React.ReactNode {
   const colonIdx = fact.indexOf(':');
   if (colonIdx > 0 && colonIdx < 58) {
+    const prefix = fact.slice(0, colonIdx + 1);
+    const rest = fact.slice(colonIdx + 1);
+    if (bionicEnabled) {
+      return (
+        <>
+          <span className="accent-spice">
+            <BionicText text={prefix} />
+          </span>
+          <BionicText text={rest} />
+        </>
+      );
+    }
     return (
       <>
-        <strong className="font-extrabold">{fact.slice(0, colonIdx + 1)}</strong>
-        {fact.slice(colonIdx + 1)}
+        <strong className="font-extrabold">{prefix}</strong>
+        {rest}
       </>
     );
   }
-  return fact;
+  return <BionicText text={fact} />;
 }
 
 export const StudyView: React.FC<StudyViewProps> = ({
@@ -76,6 +92,8 @@ export const StudyView: React.FC<StudyViewProps> = ({
   allQuestions,
   readGuideIds,
   lastGuideSectionId,
+  lastGuidePageIndex = 0,
+  dueQuestionCount = 0,
   srsMap,
   chapterMasteries,
   initialChapterFilter,
@@ -83,6 +101,7 @@ export const StudyView: React.FC<StudyViewProps> = ({
   autoLaunchDeck,
   onConsumeAutoLaunch,
 }) => {
+  const { enabled: bionicReading } = useBionicReading();
   const [subTab, setSubTab] = useState<StudySubTab>(initialSubTab ?? 'guides');
   const [selectedChapter, setSelectedChapter] = useState<ChapterId | 'all'>(
     initialChapterFilter ?? 'all',
@@ -94,6 +113,9 @@ export const StudyView: React.FC<StudyViewProps> = ({
     const firstUnread = STUDY_SECTIONS.find((s) => !readGuideIds.includes(s.id));
     return (firstUnread ?? STUDY_SECTIONS[0])!.id;
   });
+  const [currentPageIdx, setCurrentPageIdx] = useState<number>(() =>
+    lastGuideSectionId ? Math.max(0, lastGuidePageIndex) : 0,
+  );
   const [showLessonIndex, setShowLessonIndex] = useState(false);
   const [showLessonVisual, setShowLessonVisual] = useState(false);
   const [deckMode, setDeckMode] = useState<'smart' | 'due-only' | 'cram'>('smart');
@@ -111,12 +133,18 @@ export const StudyView: React.FC<StudyViewProps> = ({
 
   const readSet = useMemo(() => new Set(readGuideIds), [readGuideIds]);
 
-  const navigateToGuideLesson = (sectionId: string, persist: boolean = true) => {
+  const navigateToGuidePosition = (
+    sectionId: string,
+    pageIndex: number = 0,
+    persist: boolean = true,
+  ) => {
+    const safeIdx = Math.max(0, pageIndex);
     setCurrentGuideId(sectionId);
+    setCurrentPageIdx(safeIdx);
     setShowLessonVisual(false);
     setShowLessonIndex(false);
     if (persist) {
-      void setLastStudyGuideSection(activeProfileId, sectionId);
+      void setLastStudyGuideSection(activeProfileId, sectionId, safeIdx);
     }
     if (typeof window !== 'undefined') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -126,15 +154,16 @@ export const StudyView: React.FC<StudyViewProps> = ({
   useEffect(() => {
     if (lastGuideSectionId && STUDY_SECTIONS.some((s) => s.id === lastGuideSectionId)) {
       setCurrentGuideId(lastGuideSectionId);
+      setCurrentPageIdx(Math.max(0, lastGuidePageIndex));
     }
-  }, [lastGuideSectionId]);
+  }, [lastGuideSectionId, lastGuidePageIndex]);
 
   const handleSelectChapterFilter = (ch: ChapterId | 'all') => {
     setSelectedChapter(ch);
     const nextVisible = STUDY_SECTIONS.filter((s) => ch === 'all' || s.chapterId === ch);
     if (nextVisible.length > 0 && !nextVisible.some((s) => s.id === currentGuideId)) {
       const nextUnread = nextVisible.find((s) => !readSet.has(s.id));
-      navigateToGuideLesson((nextUnread ?? nextVisible[0])!.id);
+      navigateToGuidePosition((nextUnread ?? nextVisible[0])!.id, 0);
     }
   };
 
@@ -186,6 +215,7 @@ export const StudyView: React.FC<StudyViewProps> = ({
       if (chSections.length > 0 && !chSections.some((s) => s.id === currentGuideId)) {
         const chUnread = chSections.find((s) => !readSet.has(s.id));
         setCurrentGuideId((chUnread ?? chSections[0])!.id);
+        setCurrentPageIdx(0);
         setShowLessonVisual(false);
       }
     }
@@ -340,7 +370,9 @@ export const StudyView: React.FC<StudyViewProps> = ({
           </div>
 
           <div>
-            <p className="text-base leading-snug font-extrabold">{currentQuestion.prompt}</p>
+            <p className="text-base leading-snug font-extrabold">
+              <BionicText text={currentQuestion.prompt} />
+            </p>
             {currentQuestion.type === 'multiple' && (
               <p className="accent-amber mt-1 text-xs font-bold">
                 Select {currentQuestion.correctIndices.length} answers ({pickedIndices.length}/
@@ -354,7 +386,7 @@ export const StudyView: React.FC<StudyViewProps> = ({
               {showHint ? (
                 <div className="callout-amber rounded-2xl p-3 text-xs">
                   <span className="font-extrabold">Memory Tip: </span>
-                  {currentQuestion.memoryHook}
+                  <BionicText text={currentQuestion.memoryHook} />
                 </div>
               ) : (
                 <button
@@ -403,7 +435,9 @@ export const StudyView: React.FC<StudyViewProps> = ({
                   >
                     {String.fromCharCode(65 + idx)}
                   </span>
-                  <span className="flex-1 leading-snug">{opt}</span>
+                  <span className="flex-1 leading-snug">
+                    <BionicText text={opt} />
+                  </span>
                 </button>
               );
             })}
@@ -427,7 +461,9 @@ export const StudyView: React.FC<StudyViewProps> = ({
                       .join(' • ')}`}
               </p>
 
-              <p className="autumn-soft leading-relaxed">{currentQuestion.explanation}</p>
+              <p className="autumn-soft leading-relaxed">
+                <BionicText text={currentQuestion.explanation} />
+              </p>
 
               {currentQuestion.memoryHook && (
                 <div className="callout-spice rounded-xl p-2.5 leading-relaxed">
@@ -435,7 +471,9 @@ export const StudyView: React.FC<StudyViewProps> = ({
                     <Sparkles className="mr-1 inline h-3.5 w-3.5" />
                     Memory Tip:
                   </p>
-                  <p>{currentQuestion.memoryHook}</p>
+                  <p>
+                    <BionicText text={currentQuestion.memoryHook} />
+                  </p>
                 </div>
               )}
 
@@ -498,7 +536,7 @@ export const StudyView: React.FC<StudyViewProps> = ({
   const readPct = Math.round((readCountTotal / STUDY_SECTIONS.length) * 100);
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3.5">
       {/* Sub-navigation Pills: Study Guide FIRST, 4-Choice Practice SECOND */}
       <div className="autumn-tabs grid grid-cols-4 gap-1.5 rounded-2xl p-1">
         {(
@@ -527,11 +565,11 @@ export const StudyView: React.FC<StudyViewProps> = ({
 
       {/* Chapter Filter Strip (for Study Guide & 4-Choice Practice) */}
       {(subTab === 'guides' || subTab === 'quiz') && (
-        <div className="flex gap-1.5 overflow-x-auto pb-1">
+        <div className="flex gap-1.5 overflow-x-auto pb-0.5">
           <button
             type="button"
             onClick={() => handleSelectChapterFilter('all')}
-            className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-bold transition ${
+            className={`shrink-0 rounded-full px-3 py-1 text-xs font-bold transition ${
               selectedChapter === 'all'
                 ? 'bg-orange-600 text-[#FAF1E6]'
                 : 'autumn-pill'
@@ -544,7 +582,7 @@ export const StudyView: React.FC<StudyViewProps> = ({
               key={ch.id}
               type="button"
               onClick={() => handleSelectChapterFilter(ch.id)}
-              className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-bold transition ${
+              className={`shrink-0 rounded-full px-3 py-1 text-xs font-bold transition ${
                 selectedChapter === ch.id
                   ? 'bg-orange-600 text-[#FAF1E6]'
                   : 'autumn-pill'
@@ -556,23 +594,52 @@ export const StudyView: React.FC<StudyViewProps> = ({
         </div>
       )}
 
-      {/* TAB 1 (DEFAULT): STATEFUL PAGINATED CHAPTER STUDY GUIDE (1 LESSON AT A TIME) */}
+      {/* TAB 1 (DEFAULT): STATEFUL BITE-SIZED PAGINATED STUDY GUIDE */}
       {subTab === 'guides' && activeSection && (() => {
         const sec = activeSection;
         const globalLessonNum = STUDY_SECTIONS.findIndex((s) => s.id === sec.id) + 1;
+        const lessonPages = buildLessonPages(sec);
+        const safePageIdx = Math.min(Math.max(0, currentPageIdx), lessonPages.length - 1);
+        const activePage = lessonPages[safePageIdx]!;
         const isRead = readSet.has(sec.id);
-        const hasPrev = currentVisibleIdx > 0;
-        const hasNext = currentVisibleIdx < visibleSections.length - 1;
-        const prevSection = hasPrev ? visibleSections[currentVisibleIdx - 1] : undefined;
-        const nextSection = hasNext ? visibleSections[currentVisibleIdx + 1] : undefined;
+        const prevSection = currentVisibleIdx > 0 ? visibleSections[currentVisibleIdx - 1] : undefined;
+        const nextSection =
+          currentVisibleIdx < visibleSections.length - 1
+            ? visibleSections[currentVisibleIdx + 1]
+            : undefined;
+        const canGoBack = safePageIdx > 0 || Boolean(prevSection);
         const topicQuestionCount = allQuestions.filter(
           (q) => q.subtopicId === sec.subtopicId,
         ).length;
 
+        const handlePrevClick = () => {
+          if (safePageIdx > 0) {
+            navigateToGuidePosition(sec.id, safePageIdx - 1);
+          } else if (prevSection) {
+            const prevPages = buildLessonPages(prevSection);
+            navigateToGuidePosition(prevSection.id, prevPages.length - 1);
+          }
+        };
+
+        const handleNextClick = () => {
+          if (!activePage.isFinal) {
+            navigateToGuidePosition(sec.id, safePageIdx + 1);
+            return;
+          }
+          if (!isRead) {
+            void markGuideReadAndAdvance(activeProfileId, sec.id, nextSection?.id);
+            if (nextSection) {
+              navigateToGuidePosition(nextSection.id, 0, false);
+            }
+          } else if (nextSection) {
+            navigateToGuidePosition(nextSection.id, 0);
+          }
+        };
+
         return (
           <div className="space-y-3">
             {/* Compact Stateful Progress + Lesson Stepper */}
-            <div className="autumn-card space-y-2 rounded-2xl p-3">
+            <div className="autumn-card space-y-2 rounded-2xl p-2.5">
               <div className="flex items-center justify-between gap-2 text-xs">
                 <button
                   type="button"
@@ -596,7 +663,7 @@ export const StudyView: React.FC<StudyViewProps> = ({
 
               {showLessonIndex && (
                 <div className="autumn-inset grid grid-cols-5 gap-1.5 rounded-xl p-2">
-                  {visibleSections.map((item, idx) => {
+                  {visibleSections.map((item) => {
                     const itemRead = readSet.has(item.id);
                     const isCurrent = item.id === sec.id;
                     const itemGlobalNum = STUDY_SECTIONS.findIndex((s) => s.id === item.id) + 1;
@@ -604,7 +671,7 @@ export const StudyView: React.FC<StudyViewProps> = ({
                       <button
                         key={item.id}
                         type="button"
-                        onClick={() => navigateToGuideLesson(item.id)}
+                        onClick={() => navigateToGuidePosition(item.id, 0)}
                         title={item.title}
                         className={`rounded-lg py-1 text-[11px] font-extrabold transition ${
                           isCurrent
@@ -615,7 +682,7 @@ export const StudyView: React.FC<StudyViewProps> = ({
                         }`}
                       >
                         {itemGlobalNum}
-                        {itemRead ? '✓' : idx === currentVisibleIdx ? '' : ''}
+                        {itemRead ? '✓' : ''}
                       </button>
                     );
                   })}
@@ -623,16 +690,16 @@ export const StudyView: React.FC<StudyViewProps> = ({
               )}
             </div>
 
-            {/* Single Paginated Lesson Card */}
+            {/* Bite-Sized Paginated Lesson Card */}
             <article className="autumn-card space-y-3 rounded-3xl p-4">
               <div className="flex items-center justify-between gap-2">
                 <span className="callout-spice rounded-md px-2 py-0.5 text-[10px] font-bold uppercase">
-                  Lesson {globalLessonNum} of {STUDY_SECTIONS.length} • {sec.chapterId.toUpperCase()}
+                  Lesson {globalLessonNum} • {sec.chapterId.toUpperCase()} • Card {safePageIdx + 1}/{lessonPages.length}
                 </span>
                 <button
                   type="button"
                   onClick={() => void toggleStudyGuideSectionRead(activeProfileId, sec.id)}
-                  className={`inline-flex items-center gap-1 rounded-xl px-2.5 py-1 text-[11px] font-bold transition ${
+                  className={`inline-flex items-center gap-1 rounded-xl px-2 py-0.5 text-[11px] font-bold transition ${
                     isRead ? 'callout-emerald' : 'autumn-pill'
                   }`}
                 >
@@ -641,28 +708,49 @@ export const StudyView: React.FC<StudyViewProps> = ({
                 </button>
               </div>
 
-              <div>
-                <h2 className="text-base font-black leading-snug">{sec.title}</h2>
-                {sec.summary && (
-                  <p className="autumn-inset autumn-soft mt-2 rounded-2xl p-2.5 text-xs leading-relaxed">
-                    {sec.summary}
-                  </p>
-                )}
+              {/* Tappable Intra-Lesson Page Bars */}
+              <div className="flex items-center gap-1.5" aria-label="Lesson page progress">
+                {lessonPages.map((pg, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => navigateToGuidePosition(sec.id, idx)}
+                    aria-label={`Card ${idx + 1} of ${lessonPages.length}: ${pg.label}`}
+                    className={`h-1.5 flex-1 rounded-full transition ${
+                      idx <= safePageIdx ? 'bg-orange-600' : 'bg-orange-500/20'
+                    }`}
+                  />
+                ))}
               </div>
 
-              <ul className="autumn-soft space-y-2 text-xs leading-relaxed">
-                {sec.keyFacts.map((fact, idx) => (
-                  <li key={idx} className="flex gap-2">
-                    <span className="accent-spice mt-0.5 shrink-0 font-bold">•</span>
-                    <span>{renderFormattedFact(fact)}</span>
-                  </li>
-                ))}
-              </ul>
+              <div>
+                <p className="accent-spice text-[11px] font-extrabold tracking-wide uppercase">
+                  {activePage.label}
+                </p>
+                <h2 className="mt-0.5 text-base leading-snug font-black">{sec.title}</h2>
+              </div>
 
-              {sec.memoryHook && (
-                <div className="callout-amber rounded-2xl p-2.5 text-xs leading-relaxed">
+              {activePage.summary && (
+                <p className="autumn-inset autumn-soft rounded-2xl p-3 text-[13px] leading-relaxed">
+                  <BionicText text={activePage.summary} />
+                </p>
+              )}
+
+              {activePage.facts.length > 0 && (
+                <ul className="autumn-soft space-y-2.5 text-[13px] leading-relaxed">
+                  {activePage.facts.map((fact, idx) => (
+                    <li key={idx} className="autumn-inset flex gap-2 rounded-2xl p-3">
+                      <span className="accent-spice mt-0.5 shrink-0 font-bold">•</span>
+                      <span>{renderFormattedFact(fact, bionicReading)}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+
+              {activePage.memoryHook && (
+                <div className="callout-amber rounded-2xl p-3 text-[13px] leading-relaxed">
                   <span className="font-extrabold">Exam Trap &amp; Memory Tip: </span>
-                  {sec.memoryHook}
+                  <BionicText text={activePage.memoryHook} />
                 </div>
               )}
 
@@ -687,32 +775,34 @@ export const StudyView: React.FC<StudyViewProps> = ({
               )}
 
               <div className="space-y-2 pt-1">
-                <Button
-                  variant="primary"
-                  size="sm"
-                  fullWidth
-                  onClick={() =>
-                    startSmartQuizSession({
-                      chapterId: sec.chapterId,
-                      subtopicId: sec.subtopicId,
-                      mode: 'smart',
-                      title: sec.title,
-                      markSectionReadId: sec.id,
-                    })
-                  }
-                >
-                  <span>
-                    Practice This Lesson: 4-Way Choice ({topicQuestionCount} Qs) →
-                  </span>
-                </Button>
+                {activePage.isFinal && (
+                  <Button
+                    variant="primary"
+                    size="sm"
+                    fullWidth
+                    onClick={() =>
+                      startSmartQuizSession({
+                        chapterId: sec.chapterId,
+                        subtopicId: sec.subtopicId,
+                        mode: 'smart',
+                        title: sec.title,
+                        markSectionReadId: sec.id,
+                      })
+                    }
+                  >
+                    <span>
+                      Practice This Lesson: 4-Way Choice ({topicQuestionCount} Qs) →
+                    </span>
+                  </Button>
+                )}
 
                 <div className="flex items-center justify-between gap-2">
                   <Button
                     type="button"
                     variant="secondary"
                     size="sm"
-                    disabled={!prevSection}
-                    onClick={() => prevSection && navigateToGuideLesson(prevSection.id)}
+                    disabled={!canGoBack}
+                    onClick={handlePrevClick}
                   >
                     <ChevronLeft className="h-4 w-4" />
                     <span>Prev</span>
@@ -720,35 +810,30 @@ export const StudyView: React.FC<StudyViewProps> = ({
 
                   <Button
                     type="button"
-                    variant={isRead ? 'secondary' : 'emerald'}
+                    variant={
+                      !activePage.isFinal
+                        ? 'primary'
+                        : isRead
+                          ? 'secondary'
+                          : 'emerald'
+                    }
                     size="sm"
                     className="flex-1"
-                    disabled={!nextSection && isRead}
-                    onClick={() => {
-                      if (!isRead) {
-                        void markGuideReadAndAdvance(
-                          activeProfileId,
-                          sec.id,
-                          nextSection?.id,
-                        );
-                        if (nextSection) {
-                          navigateToGuideLesson(nextSection.id, false);
-                        }
-                      } else if (nextSection) {
-                        navigateToGuideLesson(nextSection.id);
-                      }
-                    }}
+                    disabled={activePage.isFinal && !nextSection && isRead}
+                    onClick={handleNextClick}
                   >
                     <span>
-                      {nextSection
-                        ? isRead
-                          ? 'Next Lesson'
-                          : 'Mark Read & Next'
-                        : isRead
-                          ? 'All Lessons Complete ✓'
-                          : 'Mark Final Lesson Read ✓'}
+                      {!activePage.isFinal
+                        ? `Next Card (${safePageIdx + 2}/${lessonPages.length})`
+                        : nextSection
+                          ? isRead
+                            ? 'Next Lesson'
+                            : 'Mark Read & Next Lesson'
+                          : isRead
+                            ? 'All Lessons Complete ✓'
+                            : 'Mark Final Lesson Read ✓'}
                     </span>
-                    {nextSection && <ChevronRight className="h-4 w-4" />}
+                    {(!activePage.isFinal || nextSection) && <ChevronRight className="h-4 w-4" />}
                   </Button>
                 </div>
               </div>
@@ -768,11 +853,29 @@ export const StudyView: React.FC<StudyViewProps> = ({
               you forget them.
             </p>
 
+            {dueQuestionCount > 0 && (
+              <div className="callout-amber mt-3 rounded-2xl p-3 text-xs leading-relaxed">
+                <p className="font-extrabold">
+                  {dueQuestionCount} earlier question{dueQuestionCount === 1 ? '' : 's'} ready for
+                  spaced review
+                </p>
+                <p className="mt-0.5 opacity-90">
+                  These are 4-choice questions you already practiced (or boosted from exam mistakes)
+                  whose review timer is ready for a quick refresh. Each session gives you a short
+                  batch, so you do not need to clear all of them at once.
+                </p>
+              </div>
+            )}
+
             <div className="mt-3 grid grid-cols-3 gap-2">
               {(
                 [
                   ['smart', 'Smart Mix', 'Due + New'],
-                  ['due-only', 'Due Only', 'Scheduled'],
+                  [
+                    'due-only',
+                    'Due Only',
+                    dueQuestionCount > 0 ? `${dueQuestionCount} ready` : 'All caught up',
+                  ],
                   ['cram', 'Any 24', 'Extra practice'],
                 ] as const
               ).map(([m, title, sub]) => (
@@ -866,7 +969,9 @@ export const StudyView: React.FC<StudyViewProps> = ({
               {TEST_DAY_CHECKLIST.map((item, i) => (
                 <li key={i} className="flex gap-2">
                   <span className="accent-emerald font-bold">✓</span>
-                  <span>{item}</span>
+                  <span>
+                    <BionicText text={item} />
+                  </span>
                 </li>
               ))}
             </ul>
@@ -892,9 +997,11 @@ export const StudyView: React.FC<StudyViewProps> = ({
                     <ExternalLink className="accent-spice h-4 w-4" />
                   </a>
                 </div>
-                <p className="autumn-muted mt-1.5 text-xs leading-relaxed">{res.summary}</p>
+                <p className="autumn-muted mt-1.5 text-xs leading-relaxed">
+                  <BionicText text={res.summary} />
+                </p>
                 <p className="callout-spice mt-2 rounded-xl px-2.5 py-1.5 text-[11px]">
-                  🌶️ <strong>Tip:</strong> {res.spiceTip}
+                  🌶️ <strong>Tip:</strong> <BionicText text={res.spiceTip} />
                 </p>
               </div>
             ))}

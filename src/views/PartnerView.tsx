@@ -45,6 +45,7 @@ import {
 } from '../services/streaks';
 import { buildPairingUrl, extractPairingPayloadFromHash } from '../services/sync';
 import { Button } from '../components/ui/Button';
+import { BionicReadingIcon, BionicText } from '../components/ui/BionicText';
 import { AVATAR_EMOJIS, ProfileAvatar } from '../components/ui/ProfileAvatar';
 import { ProgressBar } from '../components/ui/ProgressBar';
 import type {
@@ -1067,6 +1068,30 @@ export const PartnerView: React.FC<PartnerViewProps> = ({
             onChange={(e) => void updateAppSettings({ examDate: e.target.value || null })}
             className="autumn-input rounded-xl px-3 py-2 text-xs"
           />
+        </div>
+
+        <div className="autumn-inset flex items-center justify-between gap-3 rounded-2xl p-3 text-xs">
+          <div className="min-w-0 flex-1">
+            <p className="flex items-center gap-1.5 font-extrabold">
+              <BionicReadingIcon className="accent-spice h-4 w-4 shrink-0" />
+              <span>Bionic Reading Mode</span>
+            </p>
+            <p className="autumn-muted mt-0.5 text-[11px] leading-relaxed">
+              <BionicText text="Highlights the start of each word so your eyes glide faster through study guides, questions, and explanations." />
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={() => void updateAppSettings({ bionicReading: !settings.bionicReading })}
+            aria-pressed={Boolean(settings.bionicReading)}
+            className={`shrink-0 rounded-xl px-3 py-1.5 text-xs font-extrabold transition ${
+              settings.bionicReading
+                ? 'callout-spice ring-1 ring-orange-500/60'
+                : 'autumn-pill'
+            }`}
+          >
+            {settings.bionicReading ? 'On' : 'Off'}
+          </button>
         </div>
 
         <Button variant="ghost" size="sm" fullWidth onClick={() => void handleExportBackup()}>

@@ -21,6 +21,7 @@ describe('Dexie Repository: Standard Pack Hydration & Safe Device Reset', () => 
       {
         onboarded: true,
         theme: 'light',
+        bionicReading: true,
         scriptUrl: 'https://script.google.com/macros/s/example/exec',
         passcode: 'secret-pass',
         activeProfileId: 'partner_b',
@@ -29,10 +30,15 @@ describe('Dexie Repository: Standard Pack Hydration & Safe Device Reset', () => 
     );
     await updateUserProfile('partner_b', { displayName: 'BiscuitTester' }, testDb);
     await toggleStudyGuideSectionRead('partner_b', 'sg-ch1-principles', true, testDb);
-    await setLastStudyGuideSection('partner_b', 'sg-ch3-early-roman', testDb);
+    await setLastStudyGuideSection('partner_b', 'sg-ch3-early-roman', 2, testDb);
+    const midGuideCfg = await testDb.appConfig.get('app');
+    expect(midGuideCfg?.lastGuideSectionId?.partner_b).toBe('sg-ch3-early-roman');
+    expect(midGuideCfg?.lastGuidePageIndex?.partner_b).toBe(2);
+
     await markGuideReadAndAdvance('partner_b', 'sg-ch1-citizenship', 'sg-ch2-nations', testDb);
     const guideCfg = await testDb.appConfig.get('app');
     expect(guideCfg?.lastGuideSectionId?.partner_b).toBe('sg-ch2-nations');
+    expect(guideCfg?.lastGuidePageIndex?.partner_b).toBe(0);
     expect(guideCfg?.readGuideIds?.partner_b).toContain('sg-ch1-principles');
     expect(guideCfg?.readGuideIds?.partner_b).toContain('sg-ch1-citizenship');
     await recordSmartQuestionReview(
@@ -106,6 +112,7 @@ describe('Dexie Repository: Standard Pack Hydration & Safe Device Reset', () => 
     expect(cfgAfter?.scriptUrl).toBe('');
     expect(cfgAfter?.passcode).toBe('');
     expect(cfgAfter?.theme).toBe('light');
+    expect(cfgAfter?.bionicReading).toBe(true);
     expect(cfgAfter?.standardPackHydrated).toBe(true);
     expect(await testDb.srsProgress.count()).toBe(0);
     expect(await testDb.dailyActivity.count()).toBe(0);
